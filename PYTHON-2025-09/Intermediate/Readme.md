@@ -22,7 +22,7 @@
 
 📊 **설문조사** 
  - **9월 28일**까지 해야되는 설문조사가 있습니다. (공지사항 확인)
- - 수업 후 설문조사: 없음 (현재 수업시간이 아닙니다.)
+ - 수업 후 설문조사: https://docs.google.com/forms/d/e/1FAIpQLSdU6IuUH5s0WbtE2m5rUxv2KBrwc5oTtAFuIZtI61BOSRtp_g/viewform?usp=dialog (현재 수업시간이 아닙니다.)
 
 ---
 
