@@ -15,7 +15,7 @@
 </p>
 
 ---
-# 📢 Notice
+# 📢 공지사항
 📝 [**공지사항** (클릭시 이동)](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Basic/Class-A/Notice)
  - 1주차 내용 정리본을 업로드 하였습니다.
  - 개인 이메일 주소 상태 재확인.
@@ -39,7 +39,7 @@
 
 ---
 
-## 📔 Lecture Notes (Class A)
+## 📔 강의 노트 (Class A)
 ### 기초 프로그래밍
 - 2025.09.19.
   - [Week 00](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Basic/Lecture/Week-01/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95%5D%20Week%2000_OT.pptx)
