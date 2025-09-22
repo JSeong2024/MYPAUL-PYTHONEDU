@@ -19,10 +19,11 @@
 # 📢 Notice
 📝 [**공지사항** (클릭시 이동)](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Intermediate/Notice)
  - 개인 이메일 주소 상태 재확인.
+ - 앞으로의 수업 방향
 
 📊 **설문조사** 
  - **9월 28일**까지 해야되는 설문조사가 있습니다. (공지사항 확인)
- - 수업 후 설문조사: https://docs.google.com/forms/d/e/1FAIpQLSdU6IuUH5s0WbtE2m5rUxv2KBrwc5oTtAFuIZtI61BOSRtp_g/viewform?usp=dialog (현재 수업시간이 아닙니다.)
+ - 수업 후 설문조사: (현재 수업시간이 아닙니다.)
 
 ---
 
