@@ -26,19 +26,6 @@
 
 ---
 
-## Textbook
-- 강의 교재
-<P align='center'>
-    <a href="https://www.hanbit.co.kr/store/books/look.php?p_code=B7132069963">
-        <img width="200" height="273" alt="image" src="https://github.com/user-attachments/assets/e827753a-6715-400b-bdca-574b1f18146d"/>
-    </a>
-</P>
-
-## Example Source Code
-- [예제 소스 코드](https://www.hanbit.co.kr/support/supplement_survey.html?pcode=B7132069963)
-
----
-
 ## 📔 강의 노트 (Class B)
 ### 기초 프로그래밍
 - 2025.09.20.
@@ -60,3 +47,16 @@
 - 2025.12.03. - Week 10
 - **2025.12.05.** - Week 11
 - 2025.12.10. - Week 12
+
+---
+
+## Textbook
+- 강의 교재
+<P align='center'>
+    <a href="https://www.hanbit.co.kr/store/books/look.php?p_code=B7132069963">
+        <img width="200" height="273" alt="image" src="https://github.com/user-attachments/assets/e827753a-6715-400b-bdca-574b1f18146d"/>
+    </a>
+</P>
+
+## Example Source Code
+- [예제 소스 코드](https://www.hanbit.co.kr/support/supplement_survey.html?pcode=B7132069963)
