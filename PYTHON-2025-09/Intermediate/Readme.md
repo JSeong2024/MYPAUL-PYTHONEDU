@@ -30,20 +30,8 @@
 
 ---
 
-## Textbook
-- 강의 교재
-<P align='center'>
-    <a href="https://www.hanbit.co.kr/store/books/look.php?p_code=B4608455176">
-        <img width="222" height="304" alt="image" src="https://github.com/user-attachments/assets/5544cbd0-36c8-41e6-bdee-cf69ef27bbf7" />
-    </a>
-</P>
-
-## Example Source Code
-- [예제 소스 코드](https://www.hanbit.co.kr/src/41001)
-
----
-
-## [📔](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Intermediate/Lecture) [Lecture Notes](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Intermediate/Lecture)
+## [📔](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Intermediate/Lecture) [강의 노트](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Intermediate/Lecture)
+### [추가 학습 자료](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Intermediate/MoreStudy)
 ### 파이썬 기초
 - 2025.09.22.
   - [Week 00](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Intermediate/Lecture/Week-01/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95%5D%20Week%2000_OT.pptx)
@@ -74,3 +62,17 @@
 
 ### **텀 프로젝트 최종 발표**
 - 2025.12.15. - Week 12
+
+---
+
+## Textbook
+- 강의 교재
+<P align='center'>
+    <a href="https://www.hanbit.co.kr/store/books/look.php?p_code=B4608455176">
+        <img width="222" height="304" alt="image" src="https://github.com/user-attachments/assets/5544cbd0-36c8-41e6-bdee-cf69ef27bbf7" />
+    </a>
+</P>
+
+## Example Source Code
+- [예제 소스 코드](https://www.hanbit.co.kr/src/41001)
+
