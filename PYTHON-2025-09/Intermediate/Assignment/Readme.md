@@ -26,4 +26,5 @@
 - 6번: dictionary(딕셔너리) 자료구조
   - [관련 링크](https://easyitwanner.tistory.com/270)
 - 8번: 객체 지향 프로그래밍의 4대 특성
-  - 관련 링크 
+  - [관련 링크1](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Intermediate/MoreStudy/%EA%B0%9D%EC%B2%B4%20%EC%A7%80%ED%96%A5%20%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D%EC%9D%98%204%EB%8C%80%20%ED%8A%B9%EC%84%B1.pdf)
+  - [관련 링크2](https://jja2han.tistory.com/330)
