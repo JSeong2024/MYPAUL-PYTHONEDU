@@ -24,6 +24,9 @@
  - **9월 25일**까지 해야되는 설문조사가 있습니다. (공지사항 확인)
  - 수업 후 설문조사: 없음(현재 수업시간이 아닙니다.)
 
+🎁 [**과제**](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Basic/Class-B/Assignment)
+ - .
+ 
 ---
 
 ## 📔 강의 노트 (Class B)
