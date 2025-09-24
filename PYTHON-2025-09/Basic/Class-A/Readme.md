@@ -35,7 +35,7 @@
   - [Week 00](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Basic/Lecture/Week-01/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95%5D%20Week%2000_OT.pptx)
   - [Week 01_1](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Basic/Lecture/Week-01/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95%5D%20Week%2001_1_%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EB%B9%84%EA%B8%B4%EC%A6%88.pptx)
   - [Week 01_2](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Basic/Lecture/Week-01/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95%5D%20Week%2001_2_%EB%B3%80%EC%88%98.pptx)
-- 2025.10.10. - Week 02
+- 2025.09.26. - Week 02
 - 2025.10.17. - Week 03
 - 2025.10.24. - Week 04
 - 2025.11.07. - Week 05
