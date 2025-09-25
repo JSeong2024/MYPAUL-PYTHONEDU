@@ -31,7 +31,7 @@
 ---
 
 ## [📔](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Intermediate/Lecture) [강의 노트](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Intermediate/Lecture)
-### [추가 학습 자료](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Intermediate/MoreStudy)
+### [추가 학습 자료](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/MoreStudy)
 ### 파이썬 기초
 - 2025.09.22.
   - [Week 00](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Intermediate/Lecture/Week-01/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95%5D%20Week%2000_OT.pptx)
