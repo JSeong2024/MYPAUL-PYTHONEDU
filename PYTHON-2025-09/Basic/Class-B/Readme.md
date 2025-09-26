@@ -17,7 +17,7 @@
 ---
 # 📢 공지사항
 📝 [**공지사항** (클릭시 이동)](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Basic/Class-B/Notice)
- - 1주차 내용 정리본을 업로드 하였습니다.
+ - 2주차 내용 정리본을 업로드 하였습니다.
  - 개인 이메일 주소 상태 재확인.
 
 📊 **설문조사**
@@ -36,7 +36,9 @@
   - [Week 00](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Basic/Lecture/Week-01/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95%5D%20Week%2000_OT.pptx)
   - [Week 01_1](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Basic/Lecture/Week-01/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95%5D%20Week%2001_1_%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EB%B9%84%EA%B8%B4%EC%A6%88.pptx)
   - [Week 01_2](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Basic/Lecture/Week-01/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95%5D%20Week%2001_2_%EB%B3%80%EC%88%98.pptx)
-- 2025.09.27. - Week 02
+- 2025.09.27.
+  - [Week 02_1](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Basic/Lecture/Week-02/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95%5D%20Week%2002_1_%EC%9D%B4%EC%A0%84%20%EB%82%B4%EC%9A%A9%20%EB%B3%B5%EC%8A%B5.pptx)
+  - [Week 02_2](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Basic/Lecture/Week-02/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95%5D%20Week%2002_2_%EC%97%B0%EC%82%B0%EC%9E%90.pptx)
 - 2025.10.18. - Week 03
 - 2025.10.25. - Week 04
 - 2025.11.08. - Week 05
