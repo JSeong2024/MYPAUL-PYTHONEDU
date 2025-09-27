@@ -23,5 +23,5 @@
 
   - 다음은 예시입니다. 챕터2의 경우 1 ~ 9번 문제는 객관식이고, 10번 문제는 코딩 문제입니다. 1 ~ 9번은 정답 번호만 적으면 되고, 10번에는 코드를 적거나 실행 결과가 같이 보이도록 캡쳐해서 업로드해도 좋습니다.
 <P align='center'>
-  <img width="500" height="660" alt="image" src="https://github.com/user-attachments/assets/cfdad1db-0117-49af-8166-04da3cde1bc5" />
+  <img width="458" height="645" alt="image" src="https://github.com/user-attachments/assets/50fca6dd-530c-4337-9efa-52dbc6329be5" />
 </P>
