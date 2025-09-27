@@ -7,6 +7,9 @@
 
 ---
 
+## 2025.09.26. 금요일
+- [2주차 내용 정리본을 업로드 하였습니다.](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Basic/Lecture/Week-02/Week%2002_Summary_Basic.pdf)
+
 ## 2025.09.21. 일요일
 - [1주차 내용 정리본을 업로드 하였습니다.](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Basic/Lecture/Week-01/Week%2001_Summary_Basic.pdf)
 
