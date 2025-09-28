@@ -1,3 +1,8 @@
+<p align='center'>
+  <img src="https://capsule-render.vercel.app/api?type=soft&color=auto&section=header&text=ROBOTICS&fontSize=40&animation=twinkling"/>
+</p>
+
+---
 ⭐ **로봇 공학** 관련 진로를 희망하는 학생이 해당 글을 읽고 도움이 되기를
 
 # 🔧 ROS2 개발 보드
