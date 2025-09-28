@@ -7,6 +7,9 @@
 
 ---
 
+## 2025.09.28. 일요일
+- [2주차 과제](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Basic/Class-B/Assignment) 내용을 잘 확인하고 제출 바랍니다.
+
 ## 2025.09.26. 금요일
 - [2주차 내용 정리본을 업로드 하였습니다.](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Basic/Lecture/Week-02/Week%2002_Summary_Basic.pdf)
 
