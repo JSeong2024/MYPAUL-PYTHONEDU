@@ -11,7 +11,7 @@
 ---
 
 # NOTES
-- Python Basic Guide. click here
-
+- Python Basic Guide. [click here](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/MoreStudy/PythonGuide/Python_Basic_Guide.pdf)
+- Last update: 2025.09.28.
 
 # SUMMARY
