@@ -20,12 +20,13 @@
 📝 [**공지사항** (클릭시 이동)](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Intermediate/Notice)
  - 개인 이메일 주소 상태 재확인.
  - 파이썬 기초 가이드북 업로드
+ - 텀프로젝트 팀 결성 및 주제 선정
 
 📊 **설문조사** 
  - 수업 후 설문조사: 수업시간이 아닙니다.
 
 🎁 [**과제**](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Intermediate/Assignment)
- - 1주차 과제 업로드
+ - 2주차 과제 업로드
 
 ---
 
