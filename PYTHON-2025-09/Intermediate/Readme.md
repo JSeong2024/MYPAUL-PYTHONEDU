@@ -22,7 +22,7 @@
  - 파이썬 기초 가이드북 업로드
 
 📊 **설문조사** 
- - 수업 후 설문조사: [click here](https://docs.google.com/forms/d/e/1FAIpQLSe2oqvEUZtueN4RhoDH5N7CJyacge7hN_eofy-u4zWM_6m6fw/viewform?usp=header)
+ - 수업 후 설문조사: 수업시간이 아닙니다.
 
 🎁 [**과제**](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Intermediate/Assignment)
  - 1주차 과제 업로드
