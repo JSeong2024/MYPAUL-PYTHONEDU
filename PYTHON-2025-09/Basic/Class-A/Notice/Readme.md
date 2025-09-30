@@ -13,7 +13,7 @@
 ## 2025.09.26. 금요일
 - 개인 코딩 시간이 있도록 하겠습니다. (오늘은 1주차 내용을 복습하는데 시간을 많이 써서 각자 코딩 연습할 시간이 없었지만, 3주차부터는 반드시 있도록 하겠습니다.)
 - 수업 시간에 반드시 한명 한명 피드백이 이루어지도록 할 예정입니다.
-- [2주차 과제가 업로드 되었습니다.](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/edit/main/PYTHON-2025-09/Basic/Class-A/Assignment/Readme.md)
+- [2주차 과제가 업로드 되었습니다.](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Basic/Class-A/Assignment)
 - [2주차 내용 정리본을 업로드 하였습니다.](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Basic/Lecture/Week-02/Week%2002_Summary_Basic.pdf)
 
 ## 2025.09.24. 수요일
