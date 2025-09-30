@@ -1,3 +1,3 @@
 - [파이썬 기초과정] Week 02_1_이전 내용 복습
 - [파이썬 기초과정] Week 02_2_연산자
-- 2주차 내용 정리
+- 2주차 내용 정리. [click here](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Basic/Lecture/Week-02/Week%2002_Summary_Basic.pdf)
