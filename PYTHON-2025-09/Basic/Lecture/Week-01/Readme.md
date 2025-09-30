@@ -1,1 +1,4 @@
-# [📄 1주차 요약 및 연습문제 (클릭하면 이동됩니다)](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Basic/Lecture/Week-01/Week%2001_Summary_Basic.pdf)
+- [파이썬 기초과정] Week 00_OT
+- [파이썬 기초과정] Week 01_1_파이썬 비긴즈
+- [파이썬 기초과정] Week 01_2_변수
+- 1주차 내용 정리. [click here](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Basic/Lecture/Week-01/Week%2001_Summary_Basic.pdf)
