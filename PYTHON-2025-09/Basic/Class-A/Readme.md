@@ -18,11 +18,9 @@
 # 📢 공지사항
 📝 [**공지사항** (클릭시 이동)](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Basic/Class-A/Notice)
  - 2주차 내용 정리본을 업로드 하였습니다.
- - 개인 이메일 주소 상태 재확인.
 
 📊 **설문조사** 
- - **10월 8일**까지 해야되는 설문조사가 있습니다. (2주차 수업에서 진행하지 않은 학생은 참여하기 바랍니다. 공지사항 확인)
- - 수업 후 설문조사: 현재 수업시간이 아닙니다.
+ - 수업 후 설문조사: [하러가기](https://docs.google.com/forms/d/e/1FAIpQLSfkQDruXus4adgx4uu0asQwOXt9fQShfeHEeb5Oo99RHPI4wA/viewform?usp=header)
 
 🎁 [**과제**](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Basic/Class-A/Assignment)
  - 2주차 과제가 업로드 되었습니다.
