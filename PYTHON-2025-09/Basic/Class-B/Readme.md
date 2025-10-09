@@ -21,7 +21,7 @@
  - 개인 이메일 주소 상태 재확인.
 
 📊 **설문조사**
- - 수업 후 설문조사: 현재 수업시간이 아닙니다.
+ - 수업 후 설문조사: [하러가기](https://docs.google.com/forms/d/e/1FAIpQLScDDEzZmb-TfqkjcT8_c_wOszrzHIIIsFlxkc9GvDLz4bpuOw/viewform?usp=header)
 
 🎁 [**과제**](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Basic/Class-B/Assignment)
  - 2주차 과제가 업로드 되었습니다.
