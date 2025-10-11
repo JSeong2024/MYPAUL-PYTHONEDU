@@ -8,7 +8,7 @@
 ---
 ## 2025.09.30. 화요일
 **2주차 과제** 안내
-1. 2주차 시험에 사용된 개념을 공부해오기 바랍니다. (7~9번문제 List, Dictionary 관련 자료 업로드 예정)
+1. 2주차 시험에 사용된 개념을 공부해오기 바랍니다. ([7~9번문제 List, Dictionary 관련 자료](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/MoreStudy/PythonGuide/List%26Dictionary.md))
 2. 교재 챕터2~3 복습, 챕터4 개념 공부
 3. 교재 챕터2 연습문제 p.87 ~ 91 (**1 ~ 11번 문제**)
 4. 교재 챕터2 프로그래밍문제 p.92 ~ 93 (**1 ~ 4번 문제**)
