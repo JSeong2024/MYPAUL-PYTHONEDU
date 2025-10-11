@@ -23,7 +23,7 @@
  - 텀프로젝트 팀 결성 및 주제 선정
 
 📊 **설문조사** 
- - 수업 후 설문조사: 수업시간이 아닙니다.
+ - 수업 후 설문조사: [바로가기](https://docs.google.com/forms/d/e/1FAIpQLSf2fEVhMDkc4TIYFgWzT0mZfL2q0JzSJPIOECNyrvMEQ7D6qQ/viewform?usp=header)
 
 🎁 [**과제**](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Intermediate/Assignment)
  - 2주차 과제 업로드
@@ -39,7 +39,7 @@
   - [Week 01-2](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Intermediate/Lecture/Week-01/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95%5D%20Week%2001_2_%EB%B3%80%EC%88%98%EC%99%80%20%EC%97%B0%EC%82%B0%EC%9E%90.pptx)
 - 2025.09.29.
   - [Week 02](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Intermediate/Lecture/Week-02/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95%5D%20Week%2002_%EC%84%A0%ED%83%9D%EA%B5%AC%EC%A1%B0.pptx)
-- 025.10.13.
+- 2025.10.13.
   - Week 03-1
   - Week 03-2
   - **텀 프로젝트 주제 선정** 
