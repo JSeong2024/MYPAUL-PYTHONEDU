@@ -23,7 +23,6 @@
  - 수업 후 설문조사: [하러가기](https://docs.google.com/forms/d/e/1FAIpQLScDDEzZmb-TfqkjcT8_c_wOszrzHIIIsFlxkc9GvDLz4bpuOw/viewform?usp=header)
 
 🎁 [**과제**](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Basic/Class-B/Assignment)
- - 2주차 과제가 업로드 되었습니다.
  - 3주차 과제가 업로드 되었습니다.
  
 ---
