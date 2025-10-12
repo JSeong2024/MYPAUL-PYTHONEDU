@@ -15,7 +15,7 @@
 4. 코딩 문제 [Problem 4.1](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Basic/Class-B/Assignment/Problem%204.1.md)
 
 - 1번 과제를 한 학생은 추가제출 하지 않아도 됩니다.
-- 2025년 **10월 16일 목요일 오후 11시 59분**까지 eins2017@naver.com으로 제출 바랍니다.
+- 2025년 **10월 21일 화요일 오후 11시 59분**까지 eins2017@naver.com으로 제출 바랍니다.
 
 ## 2025.09.27. 토요일
 **2주차 과제** 안내
