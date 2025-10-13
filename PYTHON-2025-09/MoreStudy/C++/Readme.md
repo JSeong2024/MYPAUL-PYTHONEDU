@@ -14,6 +14,29 @@
 - 표준 라이브러리: https://chaoyue.tistory.com/38
 
 ---
+# Colab에서 C++ 실행하기
+C나 C++은 전용 컴파일러로 실행하는 것을 추천하지만, Colab에서 테스트하고 싶다면 다음의 방법을 사용하면 됨.
+
+1. GNU C++ 컴파일러 설치
+```
+# G++ Complier 설치
+!apt-get install g++
+```
+
+2. `%%writefile test1.cpp`를 적어야 그 아래에 C++ 코드를 작성할 수 있음.
+```
+%%writefile (파일 이름).cpp
+(C++ 코드 작성)
+```
+
+3. 코드 컴파일 및 실행
+```
+!g++ (실행할 파일 이름).cpp -o (컴파일 후 저장될 파일 이름)
+!./(컴파일된 파일 이름)
+```
+
+---
+
 # 1. cout, cin, endl, string
 - [Links](https://y-min.tistory.com/8)
 
