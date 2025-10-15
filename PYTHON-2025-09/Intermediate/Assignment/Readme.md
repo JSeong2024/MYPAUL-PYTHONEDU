@@ -6,6 +6,17 @@
 </p>
 
 ---
+## 2025.10.15. 수요일
+**3주차 과제** 안내
+1. 3주차 시험에 사용된 개념을 공부해오기 바랍니다. (1~5번문제)
+2. 교재 챕터2~4 복습, 챕터5 개념 공부
+3. 교재 챕터3 연습문제 p.139 ~ 143 (**1 ~ 11번 문제**)
+4. 코딩 문제 [Problem 3.4.2.](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Intermediate/Assignment/Problem%203.4.2.md)
+
+- 2025년 **10월 19일 일요일 오후 11시 59분**까지 eins2017@naver.com으로 제출 바랍니다.
+- 실질적으로 제출해야되는 과제는 **3, 4** 입니다.
+
+
 ## 2025.09.30. 화요일
 **2주차 과제** 안내
 1. 2주차 시험에 사용된 개념을 공부해오기 바랍니다. ([7~9번문제 List, Dictionary 관련 자료](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/MoreStudy/PythonGuide/List%26Dictionary.md))
@@ -13,7 +24,6 @@
 3. 교재 챕터2 연습문제 p.87 ~ 91 (**1 ~ 11번 문제**)
 4. 교재 챕터2 프로그래밍문제 p.92 ~ 93 (**1 ~ 4번 문제**)
 5. 코딩 문제 [Problem 3.2.1.](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Intermediate/Assignment/Problem%203.2.1.md)
-
 
 - 2025년 **10월 12일 일요일 오후 11시 59분**까지 eins2017@naver.com으로 제출 바랍니다.
 - 실질적으로 제출해야되는 과제는 **3, 4, 5** 입니다.
