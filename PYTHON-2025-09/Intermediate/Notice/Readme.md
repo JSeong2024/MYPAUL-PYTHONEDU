@@ -7,6 +7,10 @@
 
 ---
 
+## 2025.10.15. 수요일
+- 3주차 과제가 업로드 되었습니다. [click here](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Intermediate/Assignment)
+- 텀 프로젝트 계획서 작성해서 2025년 10월 19일 일요일 밤 11시 59분까지 eins2017@naver.com으로 제출 바랍니다.
+
 ## 2025.09.30. 화요일
 - 2주차 과제가 업로드 되었습니다. [click here](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Intermediate/Assignment)
 - [텀 프로젝트 계획서](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Intermediate/Notice/%ED%85%80%20%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EA%B3%84%ED%9A%8D%EC%84%9C.hwp)를 작성하여 2025년 10월 12일 일요일 밤 11시 59분까지 eins2017@naver.com으로 제출 바랍니다.
