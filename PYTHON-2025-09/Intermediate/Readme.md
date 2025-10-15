@@ -26,7 +26,7 @@
  - 수업 후 설문조사: [바로가기](https://docs.google.com/forms/d/e/1FAIpQLSf2fEVhMDkc4TIYFgWzT0mZfL2q0JzSJPIOECNyrvMEQ7D6qQ/viewform?usp=header)
 
 🎁 [**과제**](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Intermediate/Assignment)
- - 2주차 과제 업로드
+ - 3주차 과제 업로드
 
 ---
 
