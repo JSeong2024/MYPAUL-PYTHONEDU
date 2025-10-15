@@ -19,7 +19,7 @@
 📝 [**공지사항** (클릭시 이동)](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Basic/Class-A/Notice)
 
 📊 **설문조사** 
- - 수업 후 설문조사: [하러가기](https://docs.google.com/forms/d/e/1FAIpQLSfkQDruXus4adgx4uu0asQwOXt9fQShfeHEeb5Oo99RHPI4wA/viewform?usp=header)
+ - 수업 후 설문조사: [하러가기](https://docs.google.com/forms/d/e/1FAIpQLScHuXThgfxV1y5f6e92r0rKBJa1f0_sKjxLAJSa422zrq3suA/viewform?usp=header)
 
 🎁 [**과제**](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Basic/Class-A/Assignment)
  - 3주차 과제가 업로드 되었습니다.
