@@ -9,6 +9,8 @@
 </p>
 
 ---
+# NOTES
+- Last update: 2025.10.17.
 
 # Links
 - 표준 라이브러리: https://chaoyue.tistory.com/38
