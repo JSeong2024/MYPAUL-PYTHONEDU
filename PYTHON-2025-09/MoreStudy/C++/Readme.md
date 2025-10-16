@@ -43,7 +43,7 @@ C나 C++은 전용 컴파일러로 실행하는 것을 추천하지만, Colab에
 ```
 #include <iostream>
 
-int main() {
+int main(void) {
     std::cout << "C++ Code!!" << std::endl;
     return 0;
 }
@@ -55,7 +55,7 @@ int main() {
 
 using namespace std;
 
-int main() {
+int main(void) {
     cout << "C++ Code!!" << endl;
     return 0;
 }
