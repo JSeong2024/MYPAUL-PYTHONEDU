@@ -40,6 +40,10 @@ C나 C++은 전용 컴파일러로 실행하는 것을 추천하지만, Colab에
 # 1. cout, cin, endl, string
 - [Links](https://y-min.tistory.com/8)
 
+- `cin`: 데이터를 입력 받는다. (`>>` 기호를 사용함)
+- `cout`: 화면에 데이터를 출력한다. (`<<` 기호를 사용함)
+- `endl`: 줄 바꿈을 의미 (C언어 및 Python의 '\n'과 동일)
+
 ```
 #include <iostream>
 
@@ -62,23 +66,21 @@ int main(void) {
 ```
 `C++ Code!!`
 
-- `cin`: 데이터를 입력 받는다. (`>>` 기호를 사용함)
-- `cout`: 화면에 데이터를 출력한다. (`<<` 기호를 사용함)
-- `endl`: 줄 바꿈을 의미 (C언어 및 Python의 '\n'과 동일)
-
+- using namespace std 를 추가하여 `std::`를 생략할 수 있다. [Links](https://developak.tistory.com/entry/C-C-using-namespace-std) (하지만 **권장하지는 않음**)
+- [namespace의 장단점](https://99bugs.tistory.com/113#google_vignette)
+- namespace의 장점: 코드 간결화
+- namespace의 단점: namespace 충돌 가능성, 가독성 저하, 컴파일러 성능 저하
 
 string 출력을 위해 헤더파일 `#include <string>`을 추가한다.
 ```
 #include <iostream>
 #include <string>
 
-using namespace std;
-
 int main(void) {
   string name;
-  cout << "이름을 입력하세요 : ";
-  cin >> name;
-  cout << name + "님 환영합니다." << endl;
+  std::cout << "이름을 입력하세요 : ";
+  std::cin >> name;
+  std::cout << name + "님 환영합니다." << std::endl;
   return 0;
 }
 ```
@@ -88,19 +90,17 @@ int main(void) {
 ```
 #include <iostream>
 
-using namespace std;
-
 int main(void) {
   int start_num=0, end_num=0, result=0;
-  cout << "시작 수를 입력하세요: ";
-  cin >> start_num;
-  cout << "끝 수를 입력하세요: ";
-  cin >> end_num;
+  std::cout << "시작 수를 입력하세요: ";
+  std::cin >> start_num;
+  std::cout << "끝 수를 입력하세요: ";
+  std::cin >> end_num;
 
   for (int i=start_num; i<=end_num; i++) {
     result +=i;
   }
-  cout << "결과:" << result << endl;
+  std::cout << "결과:" << result << std::endl;
   return 0;
 }
 ```
@@ -108,16 +108,14 @@ int main(void) {
 ```
 #include <iostream>
 
-using namespace std;
-
 int main(void) {
     double num[5], max_val=0;
 
-    cout << "실수 5개를 입력하세요." << endl;
+    std::cout << "실수 5개를 입력하세요." << std::endl;
 
     for (int i = 0; i < 5; i++) {
-        cout << i + 1 << "번째 숫자를 입력하세요: ";
-        cin >> num[i];
+        std::cout << i + 1 << "번째 숫자를 입력하세요: ";
+        std::cin >> num[i];
     }
 
     max_val = num[0];
@@ -127,7 +125,7 @@ int main(void) {
         }
     }
 
-    cout << "결과: " << max_val << endl;
+    std::cout << "결과: " << max_val << std::endl;
     return 0;
 }
 ```
