@@ -66,4 +66,68 @@ int main() {
 - `cout`: 화면에 데이터를 출력한다. (`<<` 기호를 사용함)
 - `endl`: 줄 바꿈을 의미 (C언어 및 Python의 '\n'과 동일)
 
-- 
+
+string 출력을 위해 헤더파일 `#include <string>`을 추가한다.
+```
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main(void) {
+  string name;
+  cout << "이름을 입력하세요 : ";
+  cin >> name;
+  cout << name + "님 환영합니다." << endl;
+  return 0;
+}
+```
+
+## 연습문제
+### 1.1. 1 ~ n 까지 정수의 합 구하기
+```
+#include <iostream>
+
+using namespace std;
+
+int main(void) {
+  int start_num=0, end_num=0, result=0;
+  cout << "시작 수를 입력하세요: ";
+  cin >> start_num;
+  cout << "끝 수를 입력하세요: ";
+  cin >> end_num;
+
+  for (int i=start_num; i<=end_num; i++) {
+    result +=i;
+  }
+  cout << "결과:" << result << endl;
+  return 0;
+}
+```
+### 1.2. 실수 5개를 입력 받아 가장 큰 수를 출력하기
+```
+#include <iostream>
+
+using namespace std;
+
+int main(void) {
+    double num[5], max_val=0;
+
+    cout << "실수 5개를 입력하세요." << endl;
+
+    for (int i = 0; i < 5; i++) {
+        cout << i + 1 << "번째 숫자를 입력하세요: ";
+        cin >> num[i];
+    }
+
+    max_val = num[0];
+    for (int i = 1; i < 5; i++) {
+        if (num[i] > max_val) {
+            max_val = num[i];
+        }
+    }
+
+    cout << "결과: " << max_val << endl;
+    return 0;
+}
+```
