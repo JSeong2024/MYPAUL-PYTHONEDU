@@ -6,6 +6,12 @@
 </p>
 
 ---
+## 2025.10.17. 금요일
+**4주차 과제** 안내
+1. 교재 챕터4 연습문제 p.161 ~ 163 (**2 ~ 7번 문제**)
+2. 코딩 문제 [Problem 5.1](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Basic/Class-B/Assignment/Problem%205.1.md)
+- 2025년 **10월 23일 목요일 오후 11시 59분**까지 eins2017@naver.com으로 제출 바랍니다.
+
 
 ## 2025.10.11. 토요일
 **3주차 과제** 안내
