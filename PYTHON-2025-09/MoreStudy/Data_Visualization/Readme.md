@@ -109,6 +109,7 @@ print(arr)
 ```
 <br />
 
+
 ```
 # 3.14로 채운 2x3 배열
 arr=np.full((2, 3), 3.14)
@@ -141,14 +142,12 @@ print(arr)
 
 난수(random)을 통한 배열 생성
 - np.random을 이용한 배열 생성으로 random, normal, randint, randn, rand 등이 있다.
-- np.random.seed(임의의 숫자)를 이용하면 같은 값의 난수 입력을 받을 수 있어 비교하기가 편하다. ([Click Here](https://antilibrary.org/2481#google_vignette))
+
 ```
 # 0과 1사이의 난수
 arr = np.random.random((3, 3))
 print(arr)
 ```
-<br />
-
 ```
 [[0.39699144 0.38750686 0.10889586]
  [0.96605901 0.30149444 0.35351286]
@@ -161,8 +160,6 @@ print(arr)
 arr = np.random.normal(0, 1, (3, 3))
 print(arr)
 ```
-<br />
-
 ```
 [[ 1.2782701   1.15385092 -0.12188603]
  [ 2.58624244 -0.73396409  0.83996935]
@@ -175,12 +172,12 @@ print(arr)
 arr = np.random.randint(0, 10, (3, 3))
 print(arr)
 ```
-<br />
-
 ```
 [[0 8 7]
  [1 9 7]
  [4 3 2]]
 ```
-<br />
+<br/>
 
+- np.random.seed(임의의 숫자)를 이용하면 **같은 값**의 난수 입력을 받을 수 있어 비교하기가 편하다. ([Click Here](https://antilibrary.org/2481#google_vignette))
+- 
