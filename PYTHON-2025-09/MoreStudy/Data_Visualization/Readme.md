@@ -88,6 +88,7 @@ print(arr) # [1. 2. 3.]
 # 0으로 채운 길이 5의 정수 배열
 np.zeros(5, dtype="int") # array([0, 0, 0, 0, 0])
 print(np.zeros(5, dtype="int")) # [0 0 0 0 0]
+#dtype을 정의하지 않을 경우 기본 float64로 설정됨
 np.zeros(5) # array([0., 0., 0., 0., 0.])
 print(np.zeros(5)) # [0. 0. 0. 0. 0.]
 ```
@@ -141,6 +142,7 @@ print(arr)
 <br/>
 
 난수(random)을 통한 배열 생성
+- 참고 링
 - np.random을 이용한 배열 생성으로 random, normal, randint, randn, rand 등이 있다.
 
 ```
@@ -179,5 +181,17 @@ print(arr)
 ```
 <br/>
 
-- np.random.seed(임의의 숫자)를 이용하면 **같은 값**의 난수 입력을 받을 수 있어 비교하기가 편하다. ([Click Here](https://antilibrary.org/2481#google_vignette))
-- 
+- np.random.seed()를 이용하면 **같은 값**의 난수 입력을 받을 수 있어 비교하기가 편하다. ([Click Here](https://antilibrary.org/2481#google_vignette))
+
+  `np.random.seed(임의의 숫자)`와 같이 사용할 수 있음.
+```
+np.random.seed(0); print(np.random.rand(3))
+np.random.seed(0); print(np.random.rand(3))
+np.random.seed(0); print(np.random.rand(3))
+```
+```
+[0.5488135  0.71518937 0.60276338]
+[0.5488135  0.71518937 0.60276338]
+[0.5488135  0.71518937 0.60276338]
+```
+
