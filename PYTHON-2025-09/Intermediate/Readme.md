@@ -46,9 +46,12 @@
 
 
 ### 파이썬 심화
-- 2025.10.20. - Week 04
-- 2025.10.27. - Week 05
-- 2025.11.03. - Week 06
+- 2025.10.20.
+  - [Week 04](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Intermediate/Lecture/Week-04/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95%5D%20Week%2004_1_%EB%B3%B5%EC%8A%B5%20%EB%B0%8F%20%EC%BD%94%EB%94%A9.pptx)
+- 2025.10.27.
+  - Week 05
+- 2025.11.03.
+  - Week 06
 - 2025.11.10.
   - Week 07
   - **텀 프로젝트 중간 발표**
