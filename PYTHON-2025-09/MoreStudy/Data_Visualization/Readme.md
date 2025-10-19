@@ -142,7 +142,7 @@ print(arr)
 <br/>
 
 난수(random)을 통한 배열 생성
-- 참고 링
+- 참고 링크 : https://nittaku.tistory.com/443
 - np.random을 이용한 배열 생성으로 random, normal, randint, randn, rand 등이 있다.
 
 ```
