@@ -182,7 +182,7 @@ print(arr)
 <br/>
 
 - np.random.seed()를 이용하면 **같은 값**의 난수 입력을 받을 수 있어 비교하기가 편하다. ([Click Here](https://antilibrary.org/2481#google_vignette))
-
+- seed값이 같다면 동일한 난수가 생성된다.
   `np.random.seed(임의의 숫자)`와 같이 사용할 수 있음.
 ```
 np.random.seed(0); print(np.random.rand(3))
