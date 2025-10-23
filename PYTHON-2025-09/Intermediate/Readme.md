@@ -23,10 +23,10 @@
  - 텀프로젝트 팀 결성 및 주제 선정
 
 📊 **설문조사** 
- - 수업 후 설문조사: [바로가기](https://docs.google.com/forms/d/e/1FAIpQLSf21mSr5bLzrXxPsIMpHxBMtYfOfy1rKs3uq9wAz2Ezb-rmoQ/viewform?usp=header)
+ - 수업 후 설문조사: [바로가기](https://docs.google.com/forms/d/e/1FAIpQLSeU_JMeC0dE8stGiEA1XfwHt4QOhs1ZULFgjFzMZyJNQf91Og/viewform?usp=publish-editor)
 
 🎁 [**과제**](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Intermediate/Assignment)
- - 3주차 과제 업로드
+ - 4주차 과제는 없습니다
 
 ---
 
