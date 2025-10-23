@@ -20,7 +20,7 @@
  - 2주차 내용 정리본을 업로드 하였습니다.
 
 📊 **설문조사**
- - 수업 후 설문조사: [하러가기](https://docs.google.com/forms/d/e/1FAIpQLSffBYA31STIx36u0iVjAEOoLLxOFnRzXdHPZCSTVMwBwl9ESA/viewform?usp=header)
+ - 수업 후 설문조사: [하러가기](https://docs.google.com/forms/d/e/1FAIpQLSeCXu_UAGBUI-ZEhM5eCacOfLAlSDsKFxkqBAxiCEoHA9AUaQ/viewform?usp=dialog)
 
 🎁 [**과제**](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Basic/Class-B/Assignment)
  - 3주차 과제가 업로드 되었습니다.
@@ -43,7 +43,8 @@
   - [Week 03_2](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Basic/Lecture/Week-03/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95%5D%20Week%2003_2_%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EA%B3%BC%20%EB%AC%B8%EC%9E%90%EC%97%B4.pptx)
 - 2025.10.18.
   - [Week 04](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Basic/Lecture/Week-04/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95%5D%20Week%2004_2_%EC%A1%B0%EA%B1%B4%EB%AC%B8.pptx)
-- 2025.11.08. - Week 05
+- 2025.11.08.
+  - [Week 05](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Basic/Lecture/Week-05/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95%5D%20Week%2005_1_%EC%BD%94%EB%94%A9%20%EC%8B%A4%EC%8A%B5.pptx)
 
 ### 고급 프로그래밍
 - 2025.11.15. - Week 06
