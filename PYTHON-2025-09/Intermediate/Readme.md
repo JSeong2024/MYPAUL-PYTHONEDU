@@ -18,15 +18,13 @@
 
 # 📢 Notice
 📝 [**공지사항** (클릭시 이동)](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Intermediate/Notice)
- - 개인 이메일 주소 상태 재확인.
- - 파이썬 기초 가이드북 업로드
- - 텀프로젝트 팀 결성 및 주제 선정
+ - 5주차 예제 문제 및 코드 업로드(Problem 5.2.1., 5.3.1., 5.3.2., 5.3.3.) 
 
 📊 **설문조사** 
- - 수업 후 설문조사: [바로가기](https://docs.google.com/forms/d/e/1FAIpQLSeU_JMeC0dE8stGiEA1XfwHt4QOhs1ZULFgjFzMZyJNQf91Og/viewform?usp=publish-editor)
+ - 수업 후 설문조사: [바로가기](https://docs.google.com/forms/d/e/1FAIpQLSeFTw3Z_6Cuz7t8358CkbBLcexsQhXrHiJ_DEKebTdTAsV1xg/viewform?usp=publish-editor)
 
 🎁 [**과제**](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Intermediate/Assignment)
- - 4주차 과제는 없습니다
+ - 5주차 과제 업로드
 
 ---
 
