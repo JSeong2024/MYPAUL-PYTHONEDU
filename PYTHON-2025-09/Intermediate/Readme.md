@@ -23,7 +23,7 @@
 📊 **설문조사** 
  - 수업 후 설문조사: [바로가기](https://docs.google.com/forms/d/e/1FAIpQLSeFTw3Z_6Cuz7t8358CkbBLcexsQhXrHiJ_DEKebTdTAsV1xg/viewform?usp=publish-editor)
 
-🎁 [**과제**](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Intermediate/Assignment)
+🎁 [**과제**](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Intermediate/Assignment#-%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95-%EA%B3%BC%EC%A0%9C-%EA%B2%8C%EC%8B%9C%ED%8C%90)
  - 5주차 과제 업로드
 
 ---
@@ -41,21 +41,21 @@
   - [Week 03_1](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Intermediate/Lecture/Week-03/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95%5D%20Week%2003_1_%ED%95%A8%EC%88%98.pptx)
   - [Week 03_2](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Intermediate/Lecture/Week-03/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95%5D%20Week%2003_2_%EB%B0%98%EB%B3%B5%EA%B5%AC%EC%A1%B0.pptx)
   - **텀 프로젝트 주제 선정** 
-
-
-### 파이썬 심화
 - 2025.10.20.
   - [Week 04](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Intermediate/Lecture/Week-04/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95%5D%20Week%2004_1_%EB%B3%B5%EC%8A%B5%20%EB%B0%8F%20%EC%BD%94%EB%94%A9.pptx)
+
+### 파이썬 심화
 - 2025.10.27.
   - [Week 05](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Intermediate/Lecture/Week-05/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95%5D%20Week%2005_1_%EB%A6%AC%EC%8A%A4%ED%8A%B8.pptx)
 - 2025.11.03.
   - Week 06
 - 2025.11.10.
   - Week 07
+- 2025.11.17.
+  - Week 08
   - **텀 프로젝트 중간 발표**
 
 ### 파이썬 데이터 분석
-- 2025.11.17. - Week 08
 - 2025.11.24. - Week 09
 - 2025.12.01. - Week 10
 - 2025.12.08. - Week 11
