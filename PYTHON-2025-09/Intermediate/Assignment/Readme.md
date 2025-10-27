@@ -6,6 +6,13 @@
 </p>
 
 ---
+## 2025.10.28. 화요일
+**5주차 과제** 안내
+1. 코딩 문제 [Problem 5.3.4.](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Intermediate/Assignment/Problem%205.3.4.md)
+
+- 2025년 **11월 2일 일요일 오후 11시 59분**까지 eins2017@naver.com으로 제출 바랍니다.
+
+
 ## 2025.10.15. 수요일
 **3주차 과제** 안내
 1. 3주차 시험에 사용된 개념을 공부해오기 바랍니다. (1~5번문제)
