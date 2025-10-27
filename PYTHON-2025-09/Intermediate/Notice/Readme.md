@@ -8,7 +8,7 @@
 ---
 ## 2025.10.28. 화요일
 - 5주차 과제가 업로드 되었습니다. [click here](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Intermediate/Assignment)
-- 5주차 예제 문제 및 코드가 업로드 되었습니다. (Problem [5.2.1.](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Intermediate/Assignment/Problem%205.2.1.md), 5.3.1., 5.3.2., 5.3.3.)
+- 5주차 예제 문제 및 코드가 업로드 되었습니다. (Problem [5.2.1.](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Intermediate/Assignment/Problem%205.2.1.md), [5.3.1.](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Intermediate/Assignment/Problem%205.3.1.md), [5.3.2.](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Intermediate/Assignment/Problem%205.3.2.md), [5.3.3.](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Intermediate/Assignment/Problem%205.3.3.md))
 
 
 ## 2025.10.15. 수요일
