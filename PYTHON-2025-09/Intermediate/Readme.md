@@ -48,7 +48,7 @@
 - 2025.10.27.
   - [Week 05](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Intermediate/Lecture/Week-05/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95%5D%20Week%2005_1_%EB%A6%AC%EC%8A%A4%ED%8A%B8.pptx)
 - 2025.11.03.
-  - Week 06
+  - [Week 06](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Intermediate/Lecture/Week-06/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95%5D%20Week%2006_1_%EB%AC%B8%EC%9E%90%EC%97%B4.pptx)
 - 2025.11.10.
   - Week 07
 - 2025.11.17.
