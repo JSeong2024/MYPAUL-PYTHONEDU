@@ -47,7 +47,8 @@
   - [Week 05](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Basic/Lecture/Week-05/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95%5D%20Week%2005_1_%EC%BD%94%EB%94%A9%20%EC%8B%A4%EC%8A%B5.pptx)
 
 ### 고급 프로그래밍
-- 2025.11.15. - Week 06
+- 2025.11.15.
+  - [Week 06](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Basic/Lecture/Week-06/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95%5D%20Week%2006_2_%EB%B0%98%EB%B3%B5%EB%AC%B8.pptx)
 - 2025.11.29. - Week 07
 - 2025.12.06. - Week 08
 - 2025.12.20. - Week 09
