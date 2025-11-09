@@ -21,10 +21,10 @@
  - 5주차 예제 문제 및 코드 업로드(Problem 5.2.1., 5.3.1., 5.3.2., 5.3.3.) 
 
 📊 **설문조사** 
- - 수업 후 설문조사: [바로가기](https://docs.google.com/forms/d/e/1FAIpQLSeFTw3Z_6Cuz7t8358CkbBLcexsQhXrHiJ_DEKebTdTAsV1xg/viewform?usp=publish-editor)
+ - 수업 후 설문조사: x
 
 🎁 [**과제**](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Intermediate/Assignment#-%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95-%EA%B3%BC%EC%A0%9C-%EA%B2%8C%EC%8B%9C%ED%8C%90)
- - 5주차 과제 업로드
+ - x
 
 ---
 
@@ -50,7 +50,7 @@
 - 2025.11.03.
   - [Week 06](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Intermediate/Lecture/Week-06/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95%5D%20Week%2006_1_%EB%AC%B8%EC%9E%90%EC%97%B4.pptx)
 - 2025.11.10.
-  - Week 07
+  - [Week 07](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Intermediate/Lecture/Week-07/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95%5D%20Week%2007_1_%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC.pptx)
 - 2025.11.17.
   - Week 08
   - **텀 프로젝트 중간 발표**
