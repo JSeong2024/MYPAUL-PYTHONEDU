@@ -50,7 +50,8 @@
 - 2025.11.03.
   - [Week 06](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Intermediate/Lecture/Week-06/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95%5D%20Week%2006_1_%EB%AC%B8%EC%9E%90%EC%97%B4.pptx)
 - 2025.11.10.
-  - [Week 07](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Intermediate/Lecture/Week-07/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95%5D%20Week%2007_1_%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC.pptx)
+  - [Week 07-1](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Intermediate/Lecture/Week-07/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95%5D%20Week%2007_1_%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC.pptx)
+  - [Week 07-2](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Intermediate/Lecture/Week-07/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95%5D%20Week%2007_2_%EC%BD%94%EB%94%A9%20%EC%8B%A4%EC%8A%B5.pptx)
 - 2025.11.17.
   - Week 08
   - **텀 프로젝트 중간 발표**
