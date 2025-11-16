@@ -24,6 +24,15 @@ borrow_status = {
     '데이터 과학': 'user101',
     '맛있는 피자': None
 }
+
+def display_status():
+    print("\n--- 현재 도서관 대출 상태 ---")
+    print(f"{'제목':<23} | {'저자':<10} | {'대출자 ID (None:가능)':<25}")
+    print("-" * 60)
+    for title, author in books.items():
+        borrower = borrow_status.get(title, "상태불명")
+        print(f"{title:<20} | {author:<10} | {borrower}")
+    print("-" * 60)
 ```
 
 ## Problem 8.4. 재고 관리 및 주문 시스템 시뮬레이션
