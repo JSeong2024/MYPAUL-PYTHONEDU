@@ -27,7 +27,7 @@ borrow_status = {
 
 def display_status():
     print("\n--- 현재 도서관 대출 상태 ---")
-    print(f"{'제목':<23} | {'저자':<10} | {'대출자 ID (None:가능)':<25}")
+    print(f"{'제목':<23} | {'저자':<11} | {'대출자 ID (None:가능)':<25}")
     print("-" * 60)
     for title, author in books.items():
         borrower = borrow_status.get(title, "상태불명")
