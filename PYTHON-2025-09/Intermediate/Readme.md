@@ -54,6 +54,7 @@
   - [Week 07-2](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Intermediate/Lecture/Week-07/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95%5D%20Week%2007_2_%EC%BD%94%EB%94%A9%20%EC%8B%A4%EC%8A%B5.pptx)
 - 2025.11.17.
   - [Week 08-1](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Intermediate/Lecture/Week-08/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95%5D%20Week%2008_1_%EB%B3%B5%EC%8A%B5%20%EB%B0%8F%20%EC%BD%94%EB%94%A9%20%EC%8B%A4%EC%8A%B5.pptx)
+  - [Week 08-2](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Intermediate/Lecture/Week-08/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95%5D%20Week%2008_2_%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%8B%9C%EA%B0%81%ED%99%94.pptx)
 
 ### 파이썬 데이터 분석
 - 2025.11.24. - Week 09
