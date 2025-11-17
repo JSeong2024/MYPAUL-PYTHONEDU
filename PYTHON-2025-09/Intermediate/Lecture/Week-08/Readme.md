@@ -1,3 +1,9 @@
+# Guide
+- [Week 8-1.](#week-8-1-coding-practice)
+- [Week 8-2.](#week-8-2-data-visualization)
+
+# Week 8-1 Coding Practice
+
 ## Problem 8.1. 쇼핑 리스트 관리 및 합계 계산
 ```
 shopping_list = {'사과': 1200, '바나나': 2500, '귤': 800, '수박': 15000}
@@ -69,4 +75,29 @@ print(return_book('데이터 과학', 'user303'))
 print(return_book('맛있는 피자', 'user101'))
 
 display_status()
+```
+
+# Week 8-2 Data Visualization
+```
+year = [2014,2015,2016,2017,2018,2019,2020,2021,2022]
+gdp = [3079.9,3250.1,3398.8,3574,3678.2,3721.8,3744,4003.6,4165.5]
+
+plt.plot(year, gdp)  # 그래프 입력
+plt.show()           # 그래프 출력(보여주기)
+```
+
+```
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(0, 6, 7)
+y = x**2
+
+#plt.figure(figsize=(8, 6))
+plt.plot(x, y, marker='o', color='blue')
+#plt.plot(x, y, label='$y = x^2$', marker='o', color='blue')
+#plt.legend()
+
+plt.show()
+
 ```
