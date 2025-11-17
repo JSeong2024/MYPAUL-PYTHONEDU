@@ -1,6 +1,7 @@
 # Guide
-- [Week 8-1.](#week-8-1-coding-practice)
-- [Week 8-2.](#week-8-2-data-visualization)
+:mag_right: [Week 8-1.](#week-8-1-coding-practice)
+
+:mag_right: [Week 8-2.](#week-8-2-data-visualization)
 
 # Week 8-1. Coding Practice
 
