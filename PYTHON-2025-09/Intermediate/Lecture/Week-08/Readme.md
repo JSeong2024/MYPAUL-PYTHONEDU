@@ -78,6 +78,7 @@ display_status()
 ```
 
 # Week 8-2. Data Visualization
+## 8.1.2. 선 그래프
 ```
 year = [2014,2015,2016,2017,2018,2019,2020,2021,2022]
 gdp = [3079.9,3250.1,3398.8,3574,3678.2,3721.8,3744,4003.6,4165.5]
@@ -118,5 +119,52 @@ plt.legend() # 범례 표시
 #plt.grid(True) # 그리드 표시
 
 # 5. 그래프를 화면에 출력
+plt.show()
+```
+
+## 8.1.3. 막대 그래프
+```
+season = ['spring', 'summer', 'autumn', 'winter']
+precipitation = [330.5, 612.8, 256.4, 13.3]
+```
+
+```
+preci_dict = {'spring': 330.5, 'summer': 612.8, 'autumn': 256.4, 'winter': 13.3}
+```
+
+## 8.1.4. 산점도
+```
+year = [2000, 2005, 2010, 2015, 2020]
+single_person = [15.5, 20.0, 23.9, 27.2, 31.7]
+baby_born = [640089, 438707, 470171, 438420, 272337]
+```
+
+```
+import matplotlib.pyplot as plt
+
+year = [2000, 2005, 2010, 2015, 2020]
+single_person = [15.5, 20.0, 23.9, 27.2, 31.7]
+baby_born = [640089, 438707, 470171, 438420, 272337]
+
+# 산점도 생성
+plt.scatter(single_person, baby_born, color='red', marker='o')
+
+# 각 점에 연도(year) 주석(annotation) 추가
+for i, txt in enumerate(year):
+  # 각 데이터 포인트 (x[i], y[i]) 옆에 텍스트 txt를 표시
+  # xytext와 textcoords를 사용하여 주석 위치를 미세 조정
+  plt.annotate(txt, 
+              (single_person[i], baby_born[i]), 
+              xytext=(5, 5), 
+              textcoords='offset points', 
+              fontsize=10, 
+              color='blue')
+
+# 그래프 제목과 축 라벨 설정
+plt.title('Scatter Plot')
+plt.xlabel('Single-Person Household Ratio (%)')
+plt.ylabel('Number of Babies Born')
+
+# 그래프 출력
 plt.show()
 ```
