@@ -93,11 +93,30 @@ import matplotlib.pyplot as plt
 x = np.linspace(0, 6, 7)
 y = x**2
 
-#plt.figure(figsize=(8, 6))
 plt.plot(x, y, marker='o', color='blue')
-#plt.plot(x, y, label='$y = x^2$', marker='o', color='blue')
-#plt.legend()
-
 plt.show()
+```
 
+```
+import numpy as np
+import matplotlib.pyplot as plt
+
+# 1. x 값의 범위를 설정
+# 0부터 6까지 촘촘한 간격으로 7개의 점을 생성(기본값=50개)
+x = np.linspace(0, 6, 7)
+
+# 2. y 값을 계산 (y = 2 * x^2)
+y = x**2
+
+# 3. 그래프 그리기
+plt.figure(figsize=(8, 6)) # 그래프 크기 설정 (선택 사항)
+plt.plot(x, y, label='$y = x^2$', marker='o', color='blue') # 선 그래프 그리기
+
+# 4. 그래프에 레이블과 제목, 그리드를 추가
+#plt.title('Graph of y = x^2')
+plt.legend() # 범례 표시
+#plt.grid(True) # 그리드 표시
+
+# 5. 그래프를 화면에 출력
+plt.show()
 ```
