@@ -11,6 +11,7 @@
 ---
 # NOTES
 - Last update: 2025.11.21.
+- Assignment: [Click Here](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/MoreStudy/Data_Visualization/Assignment)
 
 # Links
 - Numpy 01. https://myvelop.tistory.com/144
