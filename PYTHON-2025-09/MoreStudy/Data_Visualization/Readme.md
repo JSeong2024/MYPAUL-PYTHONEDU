@@ -18,7 +18,7 @@
 # GUIDE
 🔗를 클릭하면 이동됩니다.
 - CH 01. 자료구조(리스트, 세트, 튜플, 딕셔너리) [🔗 Click Here](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/MoreStudy/Data_Visualization/Data%20Visualization_CH01.pdf)
-- CH 02. Numpy [🔗](#2.-numpy)
+- CH 02. Numpy [🔗](#2-numpy)
 - CH 03. Pandas
 - CH 04. Matplotlib
 
