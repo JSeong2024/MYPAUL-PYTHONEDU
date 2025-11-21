@@ -10,7 +10,7 @@
 
 ---
 # NOTES
-- Last update: 2025.10.17.
+- Last update: 2025.11.21.
 
 # Links
 - Numpy 01. https://myvelop.tistory.com/144
@@ -19,7 +19,7 @@
 🔗를 클릭하면 이동됩니다.
 - CH 01. 자료구조(리스트, 세트, 튜플, 딕셔너리) [🔗 Click Here](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/MoreStudy/Data_Visualization/Data%20Visualization_CH01.pdf)
 - CH 02. Numpy [🔗](#2-numpy)
-- CH 03. Pandas
+- CH 03. Pandas [🔗](#3-pandas)
 - CH 04. Matplotlib
 
 ---
@@ -195,3 +195,6 @@ np.random.seed(0); print(np.random.rand(3))
 [0.5488135  0.71518937 0.60276338]
 ```
 
+# 3. Pandas
+## 3.1. Pandas 란?
+- Pandas란
