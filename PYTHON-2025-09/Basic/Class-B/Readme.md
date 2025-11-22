@@ -43,22 +43,27 @@
   - [Week 03_2](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Basic/Lecture/Week-03/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95%5D%20Week%2003_2_%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EA%B3%BC%20%EB%AC%B8%EC%9E%90%EC%97%B4.pptx)
 - 2025.10.18.
   - [Week 04](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Basic/Lecture/Week-04/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95%5D%20Week%2004_2_%EC%A1%B0%EA%B1%B4%EB%AC%B8.pptx)
-- 2025.11.08.
+- 2025.10.25.
   - [Week 05](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Basic/Lecture/Week-05/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95%5D%20Week%2005_1_%EC%BD%94%EB%94%A9%20%EC%8B%A4%EC%8A%B5.pptx)
 
 ### 고급 프로그래밍
-- 2025.11.15.
+- 2025.11.08.
   - [Week 06_1](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Basic/Lecture/Week-06/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95%5D%20Week%2006_1_%EC%BD%94%EB%94%A9%20%EC%8B%A4%EC%8A%B5.pptx)
   - [Week 06_2](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Basic/Lecture/Week-06/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95%5D%20Week%2006_2_%EB%B0%98%EB%B3%B5%EB%AC%B8.pptx)
-- 2025.11.29.
+- 2025.11.15.
   - [Week 07](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Basic/Lecture/Week-07/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95%5D%20Week%2007_2_%EB%A6%AC%EC%8A%A4%ED%8A%B8%2C%20%ED%8A%9C%ED%94%8C%2C%20%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC.pptx)
-- 2025.12.06. - Week 08
-- 2025.12.20. - Week 09
+- 2025.11.29.
+  - Week 08
+- 2025.12.06.
+   - Week 09
 
 ### 실전 프로그래밍
-- 2026.01.03. - Week 10
-- **2026.01.05.** - Week 11
-- **2026.01.09.** - Week 12
+- 2025.12.20.
+   - Week 10
+- **2026.01.03.**
+   - Week 11
+- **2026.01.09.**
+   - Week 12
 
 ---
 
