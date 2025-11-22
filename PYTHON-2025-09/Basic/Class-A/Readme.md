@@ -22,7 +22,7 @@
  - 수업 후 설문조사: [하러가기]
 
 🎁 [**과제**](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Basic/Class-A/Assignment)
- - 아직 없음
+ - x
 
 ---
 
@@ -50,13 +50,18 @@
   - [Week 06_2](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Basic/Lecture/Week-06/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95%5D%20Week%2006_2_%EB%B0%98%EB%B3%B5%EB%AC%B8.pptx)
 - 2025.11.14.
   - [Week 07](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Basic/Lecture/Week-07/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95%5D%20Week%2007_2_%EB%A6%AC%EC%8A%A4%ED%8A%B8%2C%20%ED%8A%9C%ED%94%8C%2C%20%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC.pptx)
-- 2025.11.28. - Week 08
-- 2025.12.05. - Week 09
+- 2025.11.28.
+  - Week 08
+- 2025.12.05.
+  - Week 09
 
 ### 실전 프로그래밍
-- 2025.12.19. - Week 10
-- **2026.01.22.** - Week 11
-- 2026.01.02. - Week 12
+- 2025.12.19.
+  - Week 10
+- **2025.12.22.**
+  - Week 11
+- **2026.01.02.**
+  - Week 12
 
 ---
 
