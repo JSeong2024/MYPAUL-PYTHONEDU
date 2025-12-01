@@ -57,13 +57,17 @@
   - [Week 08-2](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Intermediate/Lecture/Week-08/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95%5D%20Week%2008_2_%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%8B%9C%EA%B0%81%ED%99%94.pptx)
 - 2025.11.24.
   - [Week 09-1](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Intermediate/Lecture/Week-09/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95%5D%20Week%2009_1_%EC%BD%94%EB%94%A9%20%EC%8B%A4%EC%8A%B5.pptx)
+  - [Week 09-2](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Intermediate/Lecture/Week-09/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95%5D%20Week%2009_2_%EB%B0%B0%EC%97%B4.pptx)
     
 ### 파이썬 데이터 분석
-- 2025.12.01. - Week 10
-- 2025.12.08. - Week 11
+- 2025.12.01.
+  - Week 10-1
+- 2025.12.08.
+  - Week 11-1
 
 ### **텀 프로젝트 최종 발표**
-- 2025.12.15. - Week 12
+- 2025.12.15.
+  - Week 12
 
 ---
 
