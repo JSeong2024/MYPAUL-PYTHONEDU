@@ -17,10 +17,10 @@
 ---
 # 📢 공지사항
 📝 [**공지사항** (클릭시 이동)](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Basic/Class-B/Notice)
- - 2주차 내용 정리본을 업로드 하였습니다.
+ - x
 
 📊 **설문조사**
- - 수업 후 설문조사: [하러가기](https://docs.google.com/forms/d/e/1FAIpQLSeCXu_UAGBUI-ZEhM5eCacOfLAlSDsKFxkqBAxiCEoHA9AUaQ/viewform?usp=dialog)
+ - 수업 후 설문조사: x
 
 🎁 [**과제**](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Basic/Class-B/Assignment)
  - x
@@ -54,7 +54,7 @@
 - 2025.11.29.
   - [Week 08](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Basic/Lecture/Week-08/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95%5D%20Week%2008_2_%ED%95%A8%EC%88%98.pptx)
 - 2025.12.06.
-   - Week 09
+   - [Week 09](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Basic/Lecture/Week-09/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95%5D%20Week%2009_1_%EC%BD%94%EB%94%A9%20%EC%8B%A4%EC%8A%B5.pptx)
 
 ### 실전 프로그래밍
 - 2025.12.20.
