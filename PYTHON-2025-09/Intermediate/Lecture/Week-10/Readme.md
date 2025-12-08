@@ -12,3 +12,24 @@ data = {
 
 df = pd.DataFrame(data)
 ```
+
+```
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(5,3))
+plt.bar(df['name'], df['sum'])
+plt.ylabel('score')
+plt.show()
+```
+
+```
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(5,3))
+plt.bar(df['name'], df['exam'], label='exam')
+plt.bar(df ['name'], df['assign1'], bottom=df['exam'], label='assign1')
+plt.bar(df ['name'], df['assign2'], bottom=df['exam']+df ['assign1'], label='assign2')
+plt.legend()
+plt.ylabel('score')
+plt.show()
+```
