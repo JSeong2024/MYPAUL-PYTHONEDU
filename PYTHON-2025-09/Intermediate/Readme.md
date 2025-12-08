@@ -61,9 +61,9 @@
     
 ### 파이썬 데이터 분석
 - 2025.12.01.
-  - Week 10-1
+  - [Week 10-2](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/Intermediate/Lecture/Week-10/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95%5D%20Week%2010_2_Data%20Analysis.pptx)
 - 2025.12.08.
-  - Week 11-1
+  - Week 11-2
 
 ### **텀 프로젝트 최종 발표**
 - 2025.12.15.
