@@ -1,3 +1,11 @@
+## LAB 10.4.
+```
+with open('lab 10.4.txt', 'r', encoding='utf-8') as f:
+  lines = f.readlines()
+  for line in lines:
+    print(line.strip())
+```
+
 ## LAB 10.9.
 ```
 fileName = "Python Basic.pdf"
