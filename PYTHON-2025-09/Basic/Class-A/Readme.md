@@ -58,9 +58,9 @@
 ### 실전 프로그래밍
 - 2025.12.19.
   - [Week 10](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Basic/Lecture/Week-10)
-- **2025.12.22.**
+- 2026.01.09.
   - [Week 11](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Basic/Lecture/Week-11)
-- **2026.01.02.**
+- 2026.01.16.
   - [Week 12](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Basic/Lecture/Week-12)
 
 ---
