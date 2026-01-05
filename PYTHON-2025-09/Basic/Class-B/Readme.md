@@ -57,11 +57,11 @@
    - [Week 09](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Basic/Lecture/Week-09)
 
 ### 실전 프로그래밍
-- 2025.12.20.
+- 2026.01.05.
    - [Week 10](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Basic/Lecture/Week-10)
-- **2026.01.03.**
+- 2026.01.10.
    - [Week 11](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Basic/Lecture/Week-11)
-- **2026.01.09.**
+- 2026.01.12.
    - [Week 12](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Basic/Lecture/Week-12)
 
 ---
