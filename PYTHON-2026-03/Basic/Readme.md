@@ -6,11 +6,8 @@
   <a href="https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main">
     <img src="https://img.shields.io/badge/Go%20To%20Back-F3EC69?&style=for-the-badge&&logoColor=white"/>
   </a>
-  <a href="https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Intermediate">
+  <a href="https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2026-03/Intermediate">
     <img src="https://img.shields.io/badge/Intermediate-A676E6?&style=for-the-badge&&logoColor=white"/>
-  </a>
-  <a href="https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Basic/Class-B">
-    <img src="https://img.shields.io/badge/Class-B-0099FF?&style=for-the-badge&&logoColor=white"/>
   </a>
 </p>
 
