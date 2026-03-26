@@ -66,7 +66,7 @@
   - [Week 11](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Intermediate/Lecture/Week-11)
 
 ### **텀 프로젝트 최종 발표**
-- 2025.07.10.
+- 2026.07.10.
   - [Week 12](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/Intermediate/Lecture/Week-12)
 
 ---
