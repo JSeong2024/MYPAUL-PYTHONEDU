@@ -21,7 +21,7 @@
  - 
 
 📊 **설문조사** 
- - 수업 후 설문조사: x
+ - 수업 후 설문조사: [링크](https://docs.google.com/forms/d/e/1FAIpQLSc50CkvHKbJdFMDirWNvOz4OeEwldYdzEUYKmvZFr8sQy9Owg/viewform?usp=publish-editor)
 
 🎁 [**과제**](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2026-03/Intermediate/Assignment#-%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95-%EA%B3%BC%EC%A0%9C-%EA%B2%8C%EC%8B%9C%ED%8C%90)
  - x
