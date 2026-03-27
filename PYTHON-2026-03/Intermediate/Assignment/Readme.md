@@ -8,8 +8,8 @@
 ---
 ## 2026.03.28. 토요일
 **1주차 과제** 안내
-1. 코딩 문제 Problem 1.1.
-2. 코딩 문제 Problem 1.2.
-3. 코딩 문제 Problem 1.3.
+1. 코딩 문제 [Problem 1.1.](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2026-03/Intermediate/Assignment/Problem/Problem%201.1.md)
+2. 코딩 문제 [Problem 1.2.](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2026-03/Intermediate/Assignment/Problem/Problem%201.2.md)
+3. 코딩 문제 [Problem 1.3.](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2026-03/Intermediate/Assignment/Problem/Problem%201.3.md)
 
 - 2026년 **4월 2일 목요일 오후 11시 59분**까지 eins2017@naver.com으로 제출 바랍니다.
