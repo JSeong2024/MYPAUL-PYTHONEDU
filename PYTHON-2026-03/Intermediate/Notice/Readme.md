@@ -7,7 +7,7 @@
 
 ---
 
-## 2026.03.27. 일요일
+## 2026.03.27. 금요일
 - **4월2일 목요일**까지 **설문조사**를 진행해주시기 바랍니다.
   - 링크: https://docs.google.com/forms/d/e/1FAIpQLSfU_MhVHNRp639l_G24VhncfHB11mW_G7yWUFLMTBH0G7HBUw/viewform?usp=publish-editor
   - 중급과정을 신청한 이유, 앞으로의 진로 계획 등을 알고자합니다.
