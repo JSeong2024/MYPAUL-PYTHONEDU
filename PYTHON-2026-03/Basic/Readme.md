@@ -23,7 +23,7 @@
 
 ---
 
-## 📔 강의 노트 (Class A)
+## [📔](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2026-03/Basic/Lecture) [강의 노트](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2026-03/Basic/Lecture)
 ### [추가 학습 자료](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/MoreStudy)
 ### 기초 프로그래밍
 - 2026.03.28.
@@ -32,7 +32,7 @@
   - [Week 01_2](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2026-03/Basic/Lecture/Week-01/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95%5D%20Week%2001_2_%EB%B3%80%EC%88%98.pptx)
 - 2026.04.04.
   - Week 02_1
-  - Week 02_2
+  - [Week 02_2](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2026-03/Basic/Lecture/Week-02/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95%5D%20Week%2002_2_%EC%97%B0%EC%82%B0%EC%9E%90.pptx)
 - 2026.04.18.
   - Week 03_1
   - Week 03_2
