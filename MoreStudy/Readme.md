@@ -12,12 +12,12 @@
 
 ---
 
-# [파이썬 기초 정리](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/MoreStudy/PythonGuide)
+# [파이썬 기초 정리](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/MoreStudy/PythonGuide)
 🔵 업로드 **진행중**
 
 ---
 
-# [로봇 공학](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/MoreStudy/Robotics)
+# [로봇 공학](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/MoreStudy/Robotics)
 🔵 업로드 **진행중**
 
 ---
@@ -25,7 +25,7 @@
 # 데이터 처리
 ⚪️ 업로드 예정
 
-# [데이터 시각화](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/MoreStudy/Data_Visualization)
+# [데이터 시각화](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/MoreStudy/Data_Visualization)
 🔵 업로드 **진행중**
 
 # 객체 탐지
@@ -38,5 +38,5 @@
 
 ---
 
-# [C++](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/MoreStudy/C++)
+# [C++](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/MoreStudy/C++)
 🔵 업로드 **진행중**
