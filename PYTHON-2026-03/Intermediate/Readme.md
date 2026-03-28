@@ -3,10 +3,10 @@
 </p>
 
 <p align='center'>
-  <a href="https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main">
+  <a href="https://github.com/JSeong2024/MYPAUL-PYTHONEDU/tree/main">
     <img src="https://img.shields.io/badge/Go%20To%20Back-F3EC69?&style=for-the-badge&&logoColor=white"/>
   </a>
-  <a href="https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2026-03/Basic">
+  <a href="https://github.com/JSeong2024/MYPAUL-PYTHONEDU/tree/main/PYTHON-2026-03/Basic">
     <img src="https://img.shields.io/badge/Basic-81DAD6?&style=for-the-badge&&logoColor=white"/>
   </a>
   <a href="https://www.contestkorea.com/">
@@ -17,24 +17,24 @@
 ---
 
 # 📢 Notice
-📝 [**공지사항** (클릭시 이동)](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2026-03/Intermediate/Notice)
+📝 [**공지사항** (클릭시 이동)](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/tree/main/PYTHON-2026-03/Intermediate/Notice)
  - 
 
 📊 **설문조사** 
  - 수업 후 설문조사: [링크](https://docs.google.com/forms/d/e/1FAIpQLSc50CkvHKbJdFMDirWNvOz4OeEwldYdzEUYKmvZFr8sQy9Owg/viewform?usp=publish-editor)
 
-🎁 [**과제**](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2026-03/Intermediate/Assignment#-%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95-%EA%B3%BC%EC%A0%9C-%EA%B2%8C%EC%8B%9C%ED%8C%90)
+🎁 [**과제**](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/tree/main/PYTHON-2026-03/Intermediate/Assignment#-%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95-%EA%B3%BC%EC%A0%9C-%EA%B2%8C%EC%8B%9C%ED%8C%90)
  - x
 
 ---
 
-## [📔](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2026-03/Intermediate/Lecture) [강의 노트](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2026-03/Intermediate/Lecture)
-### [추가 학습 자료](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/MoreStudy)
+## [📔](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/tree/main/PYTHON-2026-03/Intermediate/Lecture) [강의 노트](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/tree/main/PYTHON-2026-03/Intermediate/Lecture)
+### [추가 학습 자료](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/tree/main/MoreStudy)
 ### 파이썬 기초
 - 2026.03.27.
-  - [Week 00](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2026-03/Intermediate/Lecture/Week-01/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95%5D%20Week%2000_OT.pptx)
-  - [Week 01_1](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2026-03/Intermediate/Lecture/Week-01/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95%5D%20Week%2001_1_%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D%EA%B3%BC%20%ED%8C%8C%EC%9D%B4%EC%8D%AC.pptx)
-  - [Week 01_2](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/blob/main/PYTHON-2026-03/Intermediate/Lecture/Week-01/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95%5D%20Week%2001_2_%EB%B3%80%EC%88%98%EC%99%80%20%EC%97%B0%EC%82%B0%EC%9E%90.pptx)
+  - [Week 00](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/blob/main/PYTHON-2026-03/Intermediate/Lecture/Week-01/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95%5D%20Week%2000_OT.pptx)
+  - [Week 01_1](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/blob/main/PYTHON-2026-03/Intermediate/Lecture/Week-01/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95%5D%20Week%2001_1_%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D%EA%B3%BC%20%ED%8C%8C%EC%9D%B4%EC%8D%AC.pptx)
+  - [Week 01_2](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/blob/main/PYTHON-2026-03/Intermediate/Lecture/Week-01/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95%5D%20Week%2001_2_%EB%B3%80%EC%88%98%EC%99%80%20%EC%97%B0%EC%82%B0%EC%9E%90.pptx)
 - 2026.04.03.
   - Week 02
 - 2026.04.17.
