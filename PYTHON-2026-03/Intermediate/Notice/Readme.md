@@ -1,13 +1,13 @@
 # 📄 중급과정 공지사항
 <p align='center'>
-  <a href="https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2026-03/Intermediate">
+  <a href="https://github.com/JSeong2024/MYPAUL-PYTHONEDU/tree/main/PYTHON-2026-03/Intermediate">
     <img src="https://img.shields.io/badge/강의실으로%20돌아가기-F3EC69?&style=for-the-badge&&logoColor=white"/>
   </a>
 </p>
 
 ---
 ## 2026.03.28. 토요일
-- **1주차 과제**가 업로드 되었습니다. [click here](https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main/PYTHON-2026-03/Intermediate/Assignment)
+- **1주차 과제**가 업로드 되었습니다. [click here](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/tree/main/PYTHON-2026-03/Intermediate/Assignment)
   
 ## 2026.03.27. 금요일
 - **4월2일 목요일**까지 **설문조사**를 진행해주시기 바랍니다.
