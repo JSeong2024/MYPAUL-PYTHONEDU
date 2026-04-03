@@ -6,6 +6,9 @@
 </p>
 
 ---
+## 2026.04.04. 일요일
+- **2주차 과제**가 업로드 되었습니다. [click here](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/tree/main/PYTHON-2026-03/Intermediate/Assignment)
+
 ## 2026.03.28. 토요일
 - **1주차 과제**가 업로드 되었습니다. [click here](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/tree/main/PYTHON-2026-03/Intermediate/Assignment)
   
