@@ -6,7 +6,7 @@
 </p>
 
 ---
-## 2026.04.04. 일요일
+## 2026.04.04. 토요일
 **2주차 과제** 안내
 1. 코딩 문제 [Problem 2.1.](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/blob/main/PYTHON-2026-03/Intermediate/Assignment/Problem/Problem%202.1.md)
 2. 코딩 문제 [Problem 2.2.](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/blob/main/PYTHON-2026-03/Intermediate/Assignment/Problem/Problem%202.2.md)
