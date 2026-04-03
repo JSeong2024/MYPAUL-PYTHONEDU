@@ -19,7 +19,7 @@
  - 수업 후 설문조사: [하러가기]
 
 🎁 [**과제**](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/tree/main/PYTHON-2026-03/Basic/Assignment)
- - x
+ - 1주차 과제(교재 연습문제)
 
 ---
 
