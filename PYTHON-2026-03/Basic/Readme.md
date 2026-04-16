@@ -16,7 +16,7 @@
 📝 [**공지사항** (클릭시 이동)](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/tree/main/PYTHON-2026-03/Basic/Notice)
 
 📊 **설문조사** 
- - 수업 후 설문조사: [하러가기](https://docs.google.com/forms/d/e/1FAIpQLSe_jS5keX_D1OPfALNVAmsIFP8aIDm2INDMhfKh0XRp-eHgGg/viewform?usp=publish-editor)
+ - 수업 후 설문조사: [하러가기](https://docs.google.com/forms/d/e/1FAIpQLScNc9xEUty9VpqEKqtHotutYeYjjOWcM_41deE2KYNMlobFPA/viewform?usp=publish-editor)
 
 🎁 [**과제**](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/tree/main/PYTHON-2026-03/Basic/Assignment)
  - 2주차 과제(교재 연습문제)
