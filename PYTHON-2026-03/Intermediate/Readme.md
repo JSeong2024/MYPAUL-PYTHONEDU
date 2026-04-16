@@ -21,7 +21,7 @@
  - 
 
 📊 **설문조사** 
- - 수업 후 설문조사: [링크](https://docs.google.com/forms/d/e/1FAIpQLSc_A1-BKpTibh0lo8XPjVuS0EQm7D_lEV9ULvabEQmh0v9CLw/viewform?usp=publish-editor)
+ - 수업 후 설문조사: [링크](https://docs.google.com/forms/d/e/1FAIpQLSdZg2a5ULN0bbkmsanXTW5xAO_Ey7D5_-5AG4jXKdR7c_dhCg/viewform?usp=publish-editor)
 
 🎁 [**과제**](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/tree/main/PYTHON-2026-03/Intermediate/Assignment#-%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95-%EA%B3%BC%EC%A0%9C-%EA%B2%8C%EC%8B%9C%ED%8C%90)
  - 2주차 과제
@@ -38,8 +38,8 @@
 - 2026.04.03.
   - [Week 02](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/blob/main/PYTHON-2026-03/Intermediate/Lecture/Week-02/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95%5D%20Week%2002_%EC%84%A0%ED%83%9D%EA%B5%AC%EC%A1%B0.pptx)
 - 2026.04.17.
-  - Week 03_1
-  - Week 03_2
+  - [Week 03_1](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/blob/main/PYTHON-2026-03/Intermediate/Lecture/Week-03/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95%5D%20Week%2003_1_%ED%95%A8%EC%88%98.pptx)
+  - [Week 03_2](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/blob/main/PYTHON-2026-03/Intermediate/Lecture/Week-03/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95%5D%20Week%2003_2_%EB%B0%98%EB%B3%B5%EA%B5%AC%EC%A1%B0.pptx)
 - 2026.04.20.
   - Week 04
 
