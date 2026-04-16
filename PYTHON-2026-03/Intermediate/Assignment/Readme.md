@@ -6,6 +6,12 @@
 </p>
 
 ---
+## 2026.04.17. 금요일
+**3주차 과제** 안내
+1. 코딩 문제 [Problem 3.1.](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/blob/main/PYTHON-2026-03/Intermediate/Assignment/Problem/Problem%203.1.md)
+
+- 2026년 **4월 19일 일요일 오후 11시 59분**까지 eins2017@naver.com으로 제출 바랍니다.
+
 ## 2026.04.04. 토요일
 **2주차 과제** 안내
 1. 코딩 문제 [Problem 2.1.](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/blob/main/PYTHON-2026-03/Intermediate/Assignment/Problem/Problem%202.1.md)
