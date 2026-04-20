@@ -41,7 +41,7 @@
   - [Week 03_1](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/blob/main/PYTHON-2026-03/Intermediate/Lecture/Week-03/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95%5D%20Week%2003_1_%ED%95%A8%EC%88%98.pptx)
   - [Week 03_2](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/blob/main/PYTHON-2026-03/Intermediate/Lecture/Week-03/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95%5D%20Week%2003_2_%EB%B0%98%EB%B3%B5%EA%B5%AC%EC%A1%B0.pptx)
 - 2026.04.20.
-  - Week 04
+  - [Week 04](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/blob/main/PYTHON-2026-03/Intermediate/Lecture/Week-04/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95%5D%20Week%2004_1_%EB%A6%AC%EC%8A%A4%ED%8A%B8.pptx)
 
 ### 파이썬 심화
 - 2026.04.24.
