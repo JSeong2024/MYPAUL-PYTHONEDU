@@ -16,10 +16,10 @@
 📝 [**공지사항** (클릭시 이동)](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/tree/main/PYTHON-2026-03/Basic/Notice)
 
 📊 **설문조사** 
- - 수업 후 설문조사: [하러가기](https://docs.google.com/forms/d/e/1FAIpQLScNc9xEUty9VpqEKqtHotutYeYjjOWcM_41deE2KYNMlobFPA/viewform?usp=publish-editor)
+ - 수업 후 설문조사: x
 
 🎁 [**과제**](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/tree/main/PYTHON-2026-03/Basic/Assignment)
- - 3주차 과제(교재 연습문제)
+ - 4주차 과제(교재 연습문제)
 
 ---
 
@@ -37,7 +37,7 @@
   - [Week 03_1](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/blob/main/PYTHON-2026-03/Basic/Lecture/Week-03/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95%5D%20Week%2003_1_%EC%9D%B4%EC%A0%84%20%EB%82%B4%EC%9A%A9%20%EB%B3%B5%EC%8A%B5.pptx)
   - [Week 03_2](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/blob/main/PYTHON-2026-03/Basic/Lecture/Week-03/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95%5D%20Week%2003_2_%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EA%B3%BC%20%EB%AC%B8%EC%9E%90%EC%97%B4.pptx)
 - 2026.04.25.
-  - Week 04
+  - [Week 04](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/blob/main/PYTHON-2026-03/Basic/Lecture/Week-04/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95%5D%20Week%2004_%EC%A1%B0%EA%B1%B4%EB%AC%B8.pptx)
 - 2026.04.27.
   - Week 05
 
