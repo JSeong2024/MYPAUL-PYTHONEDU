@@ -21,7 +21,7 @@
  - 
 
 📊 **설문조사** 
- - 수업 후 설문조사: [링크](https://docs.google.com/forms/d/e/1FAIpQLSdZg2a5ULN0bbkmsanXTW5xAO_Ey7D5_-5AG4jXKdR7c_dhCg/viewform?usp=publish-editor)
+ - 수업 후 설문조사: 링크
 
 🎁 [**과제**](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/tree/main/PYTHON-2026-03/Intermediate/Assignment#-%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95-%EA%B3%BC%EC%A0%9C-%EA%B2%8C%EC%8B%9C%ED%8C%90)
  - 3주차 과제
@@ -45,7 +45,7 @@
 
 ### 파이썬 심화
 - 2026.04.24.
-  - Week 05
+  - [Week 05](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/blob/main/PYTHON-2026-03/Intermediate/Lecture/Week-05/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95%5D%20Week%2005_1_%EB%AC%B8%EC%9E%90%EC%97%B4.pptx)
 - 2026.05.15.
   - Week 06
 - 2026.05.22.
