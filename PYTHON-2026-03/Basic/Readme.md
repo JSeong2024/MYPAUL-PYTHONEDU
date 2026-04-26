@@ -19,7 +19,7 @@
  - 수업 후 설문조사: x
 
 🎁 [**과제**](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/tree/main/PYTHON-2026-03/Basic/Assignment)
- - 4주차 과제(교재 연습문제)
+ - 5주차 과제(교재 연습문제)
 
 ---
 
@@ -40,7 +40,8 @@
   - [Week 04_1](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/blob/main/PYTHON-2026-03/Basic/Lecture/Week-04/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95%5D%20Week%2004_1_%EC%A1%B0%EA%B1%B4%EB%AC%B8.pptx)
   - [Week 04_2](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/blob/main/PYTHON-2026-03/Basic/Lecture/Week-04/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95%5D%20Week%2004_2_%EC%BD%94%EB%94%A9%20%EC%8B%A4%EC%8A%B5.pptx)
 - 2026.04.27.
-  - Week 05
+  - [Week 05_1](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/blob/main/PYTHON-2026-03/Basic/Lecture/Week-05/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95%5D%20Week%2005_1_%EB%B0%98%EB%B3%B5%EB%AC%B8.pptx)
+  - [Week 05_2](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/blob/main/PYTHON-2026-03/Basic/Lecture/Week-05/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95%5D%20Week%2005_2_%EC%BD%94%EB%94%A9%20%EC%8B%A4%EC%8A%B5.pptx)
 
 ### 고급 프로그래밍
 - 2026.05.16.
