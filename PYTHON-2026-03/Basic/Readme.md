@@ -45,7 +45,7 @@
 
 ### 고급 프로그래밍
 - 2026.05.16.
-  - Week 06_1
+  - [Week 06_1](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/blob/main/PYTHON-2026-03/Basic/Lecture/Week-06/%5B%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95%5D%20Week%2006_1_%EB%A6%AC%EC%8A%A4%ED%8A%B8%2C%20%ED%8A%9C%ED%94%8C%2C%20%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC.pptx)
   - Week 06_2
 - 2026.05.23.
   - Week 07
