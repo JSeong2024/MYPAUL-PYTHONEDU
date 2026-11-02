@@ -70,13 +70,8 @@
 ---
 
 ## Textbook
-- 강의 교재
-<P align='center'>
-    <a href="https://www.hanbit.co.kr/store/books/look.php?p_code=B4608455176">
-        <img width="222" height="304" alt="image" src="https://github.com/user-attachments/assets/5544cbd0-36c8-41e6-bdee-cf69ef27bbf7" />
-    </a>
-</P>
+- 강의 교재 (준비중)
 
 ## Example Source Code
-- [예제 소스 코드](https://www.hanbit.co.kr/src/41001)
+- 예제 소스 코드
 
