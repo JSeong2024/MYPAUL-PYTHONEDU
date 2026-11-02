@@ -1,4 +1,8 @@
-<img width="2172" height="724" alt="image" src="https://github.com/user-attachments/assets/56dc1d99-3cdb-4d6e-b5ea-787bacae4aba" />
+<p>
+  <a href="https://github.com/JSeong2024/MYPAUL-PYTHONEDU/tree/main/PYTHON-2026-09/Intermediate">
+    <img width="2172" height="724" alt="image" src="https://github.com/user-attachments/assets/56dc1d99-3cdb-4d6e-b5ea-787bacae4aba" />
+  </a>
+</p>
 
 <p align='center'>
   <a href="https://github.com/JSeong2024/MYPAUL-PYTHONEDU/tree/main">
