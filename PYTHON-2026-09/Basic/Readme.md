@@ -1,4 +1,8 @@
-<img width="2172" height="724" alt="image" src="https://github.com/user-attachments/assets/3291ad46-ffc8-4b91-ad71-de0c14c19a3b" />
+<p>
+  <a href="https://github.com/JSeong2024/MYPAUL-PYTHONEDU/tree/main/PYTHON-2026-09/Basic">
+    <img width="2172" height="724" alt="image" src="https://github.com/user-attachments/assets/3291ad46-ffc8-4b91-ad71-de0c14c19a3b" />
+  </a>
+</p>
 
 <p align='center'>
   <a href="https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main">
