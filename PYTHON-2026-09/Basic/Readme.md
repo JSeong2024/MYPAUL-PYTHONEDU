@@ -1,6 +1,4 @@
-<p align='center'>
-    <img src="https://capsule-render.vercel.app/api?type=waving&color=auto&height=300&section=header&text=Basic&fontSize=90&animation=fadeIn&fontAlignY=38&desc=15:30%20~%2017:20%20on%20Saturdays&descAlignY=51&descAlign=51"/>
-</p>
+<img width="2172" height="724" alt="image" src="https://github.com/user-attachments/assets/3291ad46-ffc8-4b91-ad71-de0c14c19a3b" />
 
 <p align='center'>
   <a href="https://github.com/JSeong2024/2025-MYPAUL-PYTHONEDU/tree/main">
@@ -13,13 +11,14 @@
 
 ---
 # 📢 공지사항
-📝 **공지사항** (클릭시 이동)
+📝 **공지사항**
 
 📊 **설문조사** 
- - 설문조사
 
 🎁 **과제**
- - x
+
+⏰ **수업 시간**
+- **토요일** **9:10 ~ 10:30**
 
 ---
 
