@@ -26,7 +26,7 @@
 🎁 **과제**
 
 ⏰ **수업 시간**
-- **토요일** **9:10 ~ 10:30**
+- **토요일** **10:40 ~ 12:00**
 ---
 
 ## [📔](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/tree/main/PYTHON-2026-09/Intermediate/Lecture) [강의 노트](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/tree/main/PYTHON-2026-09/Intermediate/Lecture)
