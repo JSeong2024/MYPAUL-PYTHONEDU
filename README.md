@@ -1,38 +1,52 @@
-<p align='center'>
-    <img src="https://capsule-render.vercel.app/api?type=waving&color=auto&height=300&section=header&text=PYTHON-EDU%20&fontSize=90&animation=fadeIn&fontAlignY=38&desc=2025%2009.19~&descAlignY=51&descAlign=70&"/>
+<p align="center">
+  <img src="./.github/assets/readme_hero.svg" alt="MYPAUL Python Education" width="100%" />
 </p>
 
-<p align='center'>
-   <a href="https://www.python.org/downloads/">
-      <img src="https://img.shields.io/badge/Python-3776AB?&style=flat&logo=Python&logoColor=white" alt="This is Python Download Link"/>
-   </a>
-   <a href="https://www.anaconda.com/download/">
-    <img src="https://img.shields.io/badge/Anaconda-44A833?&style=flat&logo=anaconda&logoColor=white" alt="This is Anaconda Download Link"/>
-   </a>
-   <a href="https://jupyter.org/">
-    <img src="https://img.shields.io/badge/jupyter-F37626?&style=flat&logo=jupyter&logoColor=white" alt="This is jupyter Link"/>
-   </a>
-   <a href="https://colab.google/">
-    <img src="https://img.shields.io/badge/Google%20Colab-F9AB00?&style=flat&logo=googlecolab&logoColor=white" alt="This is Google Colab Link"/>
-   </a>
+<p align="center">
+  <strong>개념을 이해하고, 코드로 구현하며, 실행 결과로 검증하는 프로그래밍 교육</strong>
 </p>
 
-# 📄 강의 계획서
-☑️  **기초 과정**
-   - [**`Plan_Basic.pdf`**](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/blob/main/PYTHON-2026-03/%5B%EA%B0%95%EC%9D%98%20%EA%B3%84%ED%9A%8D%EC%84%9C%5D%EB%A7%88%EC%9D%B4%ED%8F%B4_%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95_2026_1.pdf)
-
-☑️  **중급 과정**
-   - [**`Plan_Intermediate.pdf`**](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/blob/main/PYTHON-2026-03/%5B%EA%B0%95%EC%9D%98%20%EA%B3%84%ED%9A%8D%EC%84%9C%5D%EB%A7%88%EC%9D%B4%ED%8F%B4_%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95_2026_1.pdf)
-
-# 🚀 Go to Class
-
-
-<p align='center'>
-   <a href="https://github.com/JSeong2024/MYPAUL-PYTHONEDU/tree/main/PYTHON-2026-03/Basic">
-      <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&text=%20%20기초과정%20%20&fontAlign=30&fontSize=30&textBg=true&desc=Python%20%27Basic%27%20Class&descAlign=60&descAlignY=50"/>
-   </a>
-   
-   <a href="https://github.com/JSeong2024/MYPAUL-PYTHONEDU/tree/main/PYTHON-2026-03/Intermediate">
-      <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&text=%20%20중급과정%20%20&fontAlign=30&fontSize=30&textBg=true&desc=Python%20%27Intermediate%27%20Class&descAlign=60&descAlignY=50"/>
-   </a>
+<p align="center">
+  <a href="./PYTHON-2026-09/Basic">Python Basic</a> ·
+  <a href="./PYTHON-2026-09/Intermediate">Python Intermediate</a> ·
+  <a href="./MoreStudy">추가 학습 자료</a> ·
+  <a href="./ABOUT.md">교육 안내</a>
 </p>
+
+---
+
+## 📖 소개
+
+**MYPAUL-PYTHONEDU**는 Python 기초·중급 과정의 강의 노트, 예제 코드, 과제 및 보충 자료를 정리한 교육용 저장소입니다. 이론과 실습을 연결하고, 학기별 자료를 체계적으로 보관합니다.
+
+## 🎓 현재 강의 · 2026-09
+
+| 과정 | 주요 내용 | 강의실 |
+| :--- | :--- | :--- |
+| **Python Basic** | 기초 문법, 자료형, 제어 구조, 문제 해결 | [기초과정](./PYTHON-2026-09/Basic) |
+| **Python Intermediate** | 자료구조, 알고리즘, 응용 프로그래밍 | [중급과정](./PYTHON-2026-09/Intermediate) |
+
+## 🧩 학습 방식
+
+```mermaid
+flowchart LR
+    A[개념 이해] --> B[코드 구현]
+    B --> C[실행 및 검증]
+    C --> D[개선과 응용]
+```
+
+학습한 개념을 직접 구현하고, 실행 결과를 분석하며 해결 방법을 개선하는 과정을 중시합니다.
+
+## 🔬 학습 자료
+
+[Python 기초 정리](./MoreStudy/PythonGuide) · [데이터 시각화](./MoreStudy/Data_Visualization) · [로봇 공학](./MoreStudy/Robotics) · [C++](./MoreStudy/C%2B%2B)
+
+## 🗂️ 강의 아카이브
+
+- [2026-03](./PYTHON-2026-03) · [2025-09](./PYTHON-2025-09)
+- 이전 학기 강의 계획서: [기초과정](./PYTHON-2026-03/%5B%EA%B0%95%EC%9D%98%20%EA%B3%84%ED%9A%8D%EC%84%9C%5D%EB%A7%88%EC%9D%B4%ED%8F%B4_%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95_2026_1.pdf) · [중급과정](./PYTHON-2026-03/%5B%EA%B0%95%EC%9D%98%20%EA%B3%84%ED%9A%8D%EC%84%9C%5D%EB%A7%88%EC%9D%B4%ED%8F%B4_%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95_2026_1.pdf)
+
+---
+
+교육 방향과 자료 이용 안내는 **[ABOUT.md](./ABOUT.md)**에서 확인할 수 있습니다.  
+라이선스: [LICENSE](./LICENSE) · [저작권 및 자료 이용](./ABOUT.md#저작권-및-자료-이용)
