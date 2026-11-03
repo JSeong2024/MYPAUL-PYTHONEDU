@@ -1,0 +1,116 @@
+{
+  "semester": "PYTHON-2026-09",
+  "events": [
+    {
+      "id": "sample-class-01",
+      "date": "2026-11-03",
+      "course": "Basic",
+      "start": "19:10",
+      "end": "19:30",
+      "title": "변수와 자료형",
+      "description": "기초 문법과 자료형 이해",
+      "topics": [
+        "변수와 자료형",
+        "형변환",
+        "연산자"
+      ],
+      "prepare": [
+        "Python 실행 환경"
+      ],
+      "materials": [
+        {
+          "title": "기초과정 안내",
+          "path": "Classroom/PYTHON-2026-09/Basic/Readme.md",
+          "kind": "file"
+        }
+      ],
+      "noticeIds": [
+        "sample-notice-01"
+      ]
+    },
+    {
+      "id": "sample-class-02",
+      "date": "2026-11-07",
+      "course": "Intermediate",
+      "start": "10:40",
+      "end": "12:00",
+      "title": "그래프 탐색",
+      "description": "DFS와 BFS의 동작 비교",
+      "topics": [
+        "Graph",
+        "DFS",
+        "BFS"
+      ],
+      "prepare": [
+        "Python 실행 환경"
+      ],
+      "materials": [
+        {
+          "title": "중급과정 강의 폴더",
+          "path": "Classroom/PYTHON-2026-09/Intermediate/Lecture",
+          "kind": "folder"
+        }
+      ],
+      "noticeIds": [
+        "sample-notice-01"
+      ]
+    },
+    {
+      "id": "sample-class-03",
+      "date": "2026-11-07",
+      "course": "Basic",
+      "start": "13:00",
+      "end": "14:20",
+      "title": "코딩 실습",
+      "description": "조건문과 반복문 실습",
+      "topics": [
+        "조건문",
+        "반복문"
+      ],
+      "materials": [
+        {
+          "title": "추가 학습 자료",
+          "path": "MoreStudy/PythonGuide",
+          "kind": "folder"
+        }
+      ]
+    },
+    {
+      "id": "sample-class-04",
+      "date": "2026-11-14",
+      "course": "Intermediate",
+      "start": "10:40",
+      "end": "12:00",
+      "title": "문자열과 자료구조",
+      "topics": [
+        "문자열",
+        "리스트"
+      ],
+      "materials": []
+    },
+    {
+      "id": "sample-task-01",
+      "date": "2026-11-18",
+      "type": "task",
+      "start": "23:59",
+      "title": "과제 제출 마감",
+      "description": "예제 일정"
+    },
+    {
+      "id": "sample-class-05",
+      "date": "2026-11-21",
+      "course": "Basic",
+      "start": "09:10",
+      "end": "10:30",
+      "title": "함수 기초"
+    },
+    {
+      "id": "sample-class-06",
+      "date": "2026-11-21",
+      "course": "Intermediate",
+      "start": "10:40",
+      "end": "12:00",
+      "title": "탐색 알고리즘 응용"
+    }
+  ]
+}
