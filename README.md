@@ -11,6 +11,7 @@
   <a href="./Classroom/PYTHON-2026-09/Intermediate">Python Intermediate</a> ·
   <a href="./Classroom">강의 아카이브</a> ·
   <a href="./MoreStudy">추가 학습 자료</a> ·
+  <a href="https://github.com/JSeong2024/MYPAUL-PYTHONEDU/releases/latest">Classroom 런처</a> ·
   <a href="./ABOUT.md">교육 안내</a>
 </p>
 
@@ -19,6 +20,28 @@
 ## 📖 소개
 
 **MYPAUL-PYTHONEDU**는 Python 기초·중급 과정의 강의 노트, 예제 코드, 과제 및 보충 자료를 정리한 교육용 저장소입니다. 수업 자료는 `Classroom/`에서 학기별로 관리하고, 보충 학습 자료는 `MoreStudy/`에 모아두었습니다.
+
+## 💻 MYPAUL Classroom
+
+**MYPAUL Classroom**은 GitHub에 공개된 강의 자료와 수업 일정, 공지사항을 확인할 수 있는 Windows용 학습 런처입니다. 과정별 강의실과 주차별 자료 조회, 통합 검색 및 파일 다운로드 기능을 제공합니다.
+
+| 항목 | 내용 |
+| :--- | :--- |
+| 최신 공개 버전 | [v0.4.6](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/releases/tag/v0.4.6) |
+| 지원 환경 | Windows |
+| 배포 파일 | [`MYPAUL_Classroom.exe` 다운로드](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/releases/download/v0.4.6/MYPAUL_Classroom.exe) |
+| 설치 | 불필요 (포터블 실행 파일) |
+| 업데이트 | 새 버전 확인 후 수동 다운로드 |
+
+**실행 방법**
+
+1. 위 링크에서 `MYPAUL_Classroom.exe`를 다운로드합니다.
+2. 다운로드한 파일을 실행합니다.
+3. 강의실을 선택하여 수업 일정과 학습 자료를 확인합니다.
+
+런처는 공개 GitHub 자료의 **조회 및 다운로드 전용**으로 동작하며, GitHub 로그인이나 Python 설치가 필요하지 않습니다. 실행 환경에 따라 Microsoft Edge WebView2 Runtime이 필요할 수 있습니다.
+
+[전체 릴리스 및 이전 버전](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/releases) · [최신 릴리스 확인](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/releases/latest)
 
 ## 🎓 현재 강의 · 2026-09
 
