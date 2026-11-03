@@ -7,8 +7,9 @@
 </p>
 
 <p align="center">
-  <a href="./PYTHON-2026-09/Basic">Python Basic</a> ·
-  <a href="./PYTHON-2026-09/Intermediate">Python Intermediate</a> ·
+  <a href="./Classroom/PYTHON-2026-09/Basic">Python Basic</a> ·
+  <a href="./Classroom/PYTHON-2026-09/Intermediate">Python Intermediate</a> ·
+  <a href="./Classroom">강의 아카이브</a> ·
   <a href="./MoreStudy">추가 학습 자료</a> ·
   <a href="./ABOUT.md">교육 안내</a>
 </p>
@@ -17,14 +18,14 @@
 
 ## 📖 소개
 
-**MYPAUL-PYTHONEDU**는 Python 기초·중급 과정의 강의 노트, 예제 코드, 과제 및 보충 자료를 정리한 교육용 저장소입니다. 이론과 실습을 연결하고, 학기별 자료를 체계적으로 보관합니다.
+**MYPAUL-PYTHONEDU**는 Python 기초·중급 과정의 강의 노트, 예제 코드, 과제 및 보충 자료를 정리한 교육용 저장소입니다. 수업 자료는 `Classroom/`에서 학기별로 관리하고, 보충 학습 자료는 `MoreStudy/`에 모아두었습니다.
 
 ## 🎓 현재 강의 · 2026-09
 
 | 과정 | 주요 내용 | 강의실 |
 | :--- | :--- | :--- |
-| **Python Basic** | 기초 문법, 자료형, 제어 구조, 문제 해결 | [기초과정](./PYTHON-2026-09/Basic) |
-| **Python Intermediate** | 자료구조, 알고리즘, 응용 프로그래밍 | [중급과정](./PYTHON-2026-09/Intermediate) |
+| **Python Basic** | 기초 문법, 자료형, 제어 구조, 문제 해결 | [기초과정](./Classroom/PYTHON-2026-09/Basic) |
+| **Python Intermediate** | 자료구조, 알고리즘, 응용 프로그래밍 | [중급과정](./Classroom/PYTHON-2026-09/Intermediate) |
 
 ## 🧩 학습 방식
 
@@ -43,8 +44,8 @@ flowchart LR
 
 ## 🗂️ 강의 아카이브
 
-- [2026-03](./PYTHON-2026-03) · [2025-09](./PYTHON-2025-09)
-- 이전 학기 강의 계획서: [기초과정](./PYTHON-2026-03/%5B%EA%B0%95%EC%9D%98%20%EA%B3%84%ED%9A%8D%EC%84%9C%5D%EB%A7%88%EC%9D%B4%ED%8F%B4_%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95_2026_1.pdf) · [중급과정](./PYTHON-2026-03/%5B%EA%B0%95%EC%9D%98%20%EA%B3%84%ED%9A%8D%EC%84%9C%5D%EB%A7%88%EC%9D%B4%ED%8F%B4_%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95_2026_1.pdf)
+- [전체 강의 아카이브](./Classroom) · [2026-03](./Classroom/PYTHON-2026-03) · [2025-09](./Classroom/PYTHON-2025-09)
+- 이전 학기 강의 계획서: [기초과정](./Classroom/PYTHON-2026-03/%5B%EA%B0%95%EC%9D%98%20%EA%B3%84%ED%9A%8D%EC%84%9C%5D%EB%A7%88%EC%9D%B4%ED%8F%B4_%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95_2026_1.pdf) · [중급과정](./Classroom/PYTHON-2026-03/%5B%EA%B0%95%EC%9D%98%20%EA%B3%84%ED%9A%8D%EC%84%9C%5D%EB%A7%88%EC%9D%B4%ED%8F%B4_%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95_2026_1.pdf)
 
 ---
 
