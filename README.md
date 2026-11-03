@@ -48,5 +48,12 @@ flowchart LR
 
 ---
 
-교육 방향과 자료 이용 안내는 **[ABOUT.md](./ABOUT.md)**에서 확인할 수 있습니다.  
-라이선스: [LICENSE](./LICENSE) · [저작권 및 자료 이용](./ABOUT.md#저작권-및-자료-이용)
+## ⚖️ License & Copyright
+
+Copyright © 2025–2026 Choi Jae-Seong.
+
+- **Software & Source Code:** [MIT License](./LICENSE)
+- **Educational Content:** [CC BY-NC 4.0](./LICENSE-CONTENT.md)
+- **Third-Party Materials:** 각 원저작자의 이용 조건 적용
+
+자세한 내용은 [ABOUT.md](./ABOUT.md)를 참고하세요.
