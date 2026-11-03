@@ -53,7 +53,7 @@ flowchart LR
 Copyright © 2025–2026 Choi Jae-Seong.
 
 - **Software & Source Code:** [MIT License](./LICENSE)
-- **Educational Content:** [CC BY-NC 4.0](./LICENSE-CONTENT.md)
+- **Original Educational Content:** [CC BY-NC 4.0](./LICENSE-CONTENT.md)
 - **Third-Party Materials:** 각 원저작자의 이용 조건 적용
 
-자세한 내용은 [ABOUT.md](./ABOUT.md)를 참고하세요.
+라이선스의 적용 범위와 자료 이용 안내는 [ABOUT.md](./ABOUT.md)를 참고하세요.
