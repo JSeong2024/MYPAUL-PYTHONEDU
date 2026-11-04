@@ -1,0 +1,252 @@
+{
+  "semester": "PYTHON-2026-09",
+  "events": [
+    {
+      "id": "basic-2026-09-week-01",
+      "date": "2026-09-19",
+      "course": "Basic",
+      "week": 1,
+      "start": "09:10",
+      "end": "10:30",
+      "title": "1주차"
+    },
+    {
+      "id": "intermediate-2026-09-week-01",
+      "date": "2026-09-19",
+      "course": "Intermediate",
+      "week": 1,
+      "start": "10:40",
+      "end": "12:30",
+      "title": "1주차"
+    },
+    {
+      "id": "basic-2026-09-week-02",
+      "date": "2026-10-03",
+      "course": "Basic",
+      "week": 2,
+      "start": "09:10",
+      "end": "10:30",
+      "title": "2주차"
+    },
+    {
+      "id": "intermediate-2026-09-week-02",
+      "date": "2026-10-03",
+      "course": "Intermediate",
+      "week": 2,
+      "start": "10:40",
+      "end": "12:30",
+      "title": "2주차",
+      "description": "Chapter 02. Pythonic Code",
+      "topics": [
+        "2.1. Pythonic Code",
+        "2.2. Unpacking & Comprehension",
+        "2.3. Data Inspection & Aggregation",
+        "2.4. Sorting & Data Processing"
+      ]
+    },
+    {
+      "id": "basic-2026-09-week-03",
+      "date": "2026-10-10",
+      "course": "Basic",
+      "week": 3,
+      "start": "09:10",
+      "end": "10:30",
+      "title": "3주차"
+    },
+    {
+      "id": "intermediate-2026-09-week-03",
+      "date": "2026-10-10",
+      "course": "Intermediate",
+      "week": 3,
+      "start": "10:40",
+      "end": "12:30",
+      "title": "3주차",
+      "description": "Chapter 03. File IO & Data Handling",
+      "topics": [
+        "3.1. File & Path",
+        "3.2. DataFrame & CSV",
+        "3.3. Data Cleaning"
+      ]
+    },
+    {
+      "id": "basic-2026-09-week-04",
+      "date": "2026-10-24",
+      "course": "Basic",
+      "week": 4,
+      "start": "09:10",
+      "end": "10:30",
+      "title": "4주차"
+    },
+    {
+      "id": "intermediate-2026-09-week-04",
+      "date": "2026-10-24",
+      "course": "Intermediate",
+      "week": 4,
+      "start": "10:40",
+      "end": "12:30",
+      "title": "4주차",
+      "description": "Chapter 04. Data Structures & Search Algorithms",
+      "topics": [
+        "4.1. Data Structures",
+        "4.2. Graph Modeling",
+        "4.3. DFS & BFS"
+      ]
+    },
+    {
+      "id": "basic-2026-09-week-05",
+      "date": "2026-10-31",
+      "course": "Basic",
+      "week": 5,
+      "start": "09:10",
+      "end": "10:30",
+      "title": "5주차"
+    },
+    {
+      "id": "intermediate-2026-09-week-05",
+      "date": "2026-10-31",
+      "course": "Intermediate",
+      "week": 5,
+      "start": "10:40",
+      "end": "12:30",
+      "title": "5주차",
+      "description": "Chapter 04. Data Structures & Search Algorithms",
+      "topics": [
+        "4.4. Dijkstra",
+        "4.5. A* & Advanced Search",
+        "4.6. Real-World Applications"
+      ]
+    },
+    {
+      "id": "basic-2026-09-week-06",
+      "date": "2026-11-14",
+      "course": "Basic",
+      "week": 6,
+      "start": "09:10",
+      "end": "10:30",
+      "title": "6주차"
+    },
+    {
+      "id": "intermediate-2026-09-week-06",
+      "date": "2026-11-14",
+      "course": "Intermediate",
+      "week": 6,
+      "start": "10:40",
+      "end": "12:30",
+      "title": "6주차",
+      "description": "Chapter 05. Web & Network Security",
+      "topics": [
+        "5.1. Introduction to Cybersecurity & CTF",
+        "5.2. Web Security & CTF",
+        "5.3. Network Security & Packet Analysis"
+      ]
+    },
+    {
+      "id": "basic-2026-09-week-07",
+      "date": "2026-11-14",
+      "course": "Basic",
+      "week": 7,
+      "start": "15:30",
+      "end": "17:20",
+      "title": "7주차"
+    },
+    {
+      "id": "basic-2026-09-week-08",
+      "date": "2026-11-21",
+      "course": "Basic",
+      "week": 8,
+      "start": "09:10",
+      "end": "10:30",
+      "title": "8주차"
+    },
+    {
+      "id": "intermediate-2026-09-week-07",
+      "date": "2026-11-21",
+      "course": "Intermediate",
+      "week": 7,
+      "start": "10:40",
+      "end": "12:30",
+      "title": "7주차"
+    },
+    {
+      "id": "intermediate-2026-09-week-08",
+      "date": "2026-11-21",
+      "course": "Intermediate",
+      "week": 8,
+      "start": "15:30",
+      "end": "17:20",
+      "title": "8주차"
+    },
+    {
+      "id": "basic-2026-09-week-09",
+      "date": "2026-12-05",
+      "course": "Basic",
+      "week": 9,
+      "start": "09:10",
+      "end": "10:30",
+      "title": "9주차"
+    },
+    {
+      "id": "intermediate-2026-09-week-09",
+      "date": "2026-12-05",
+      "course": "Intermediate",
+      "week": 9,
+      "start": "10:40",
+      "end": "12:30",
+      "title": "9주차"
+    },
+    {
+      "id": "basic-2026-09-week-10",
+      "date": "2026-12-12",
+      "course": "Basic",
+      "week": 10,
+      "start": "09:10",
+      "end": "10:30",
+      "title": "10주차"
+    },
+    {
+      "id": "intermediate-2026-09-week-10",
+      "date": "2026-12-12",
+      "course": "Intermediate",
+      "week": 10,
+      "start": "10:40",
+      "end": "12:30",
+      "title": "10주차"
+    },
+    {
+      "id": "basic-2026-09-week-11",
+      "date": "2026-12-19",
+      "course": "Basic",
+      "week": 11,
+      "start": "09:10",
+      "end": "10:30",
+      "title": "11주차"
+    },
+    {
+      "id": "intermediate-2026-09-week-11",
+      "date": "2026-12-19",
+      "course": "Intermediate",
+      "week": 11,
+      "start": "10:40",
+      "end": "12:30",
+      "title": "11주차"
+    },
+    {
+      "id": "basic-2026-09-week-12",
+      "date": "2027-01-09",
+      "course": "Basic",
+      "week": 12,
+      "start": "09:10",
+      "end": "10:30",
+      "title": "12주차"
+    },
+    {
+      "id": "intermediate-2026-09-week-12",
+      "date": "2027-01-09",
+      "course": "Intermediate",
+      "week": 12,
+      "start": "10:40",
+      "end": "12:30",
+      "title": "12주차"
+    }
+  ]
+}
