@@ -1,0 +1,658 @@
+{
+  "schema_version": 2,
+  "semester": "PYTHON-2026-09",
+  "course_definitions": {
+    "Intermediate": "중급",
+    "Basic": "기초"
+  },
+  "nodes": [
+    {
+      "id": "python-core",
+      "title": "Python Core",
+      "group": "Foundations",
+      "courses": [
+        "Intermediate"
+      ],
+      "weeks": [
+        1
+      ],
+      "description": "변수·연산자 등 기초 문법을 묶는 출발 개념. 1주차는 기초 점검 수업.",
+      "kind": "concept",
+      "parents": [],
+      "connections": [
+        {
+          "id": "pythonic-code",
+          "type": "learning",
+          "reason": "기초 문법과 연산을 이해한 뒤 파이썬다운 표현 방식을 학습하는 흐름이다. Pythonic Code가 Python Core의 하위 종류라는 뜻은 아니다."
+        }
+      ],
+      "anchor": [
+        160,
+        135
+      ]
+    },
+    {
+      "id": "variables-operators",
+      "title": "Variables & Operators",
+      "group": "Foundations",
+      "courses": [
+        "Intermediate"
+      ],
+      "weeks": [
+        1
+      ],
+      "description": "변수, 값 할당과 연산자. 1주차 Chapter 01의 직접 학습 내용.",
+      "kind": "concept",
+      "parents": [
+        {
+          "id": "python-core",
+          "reason": "변수와 연산자는 Python 기초 문법을 구성하는 구체적인 요소다."
+        }
+      ],
+      "connections": [],
+      "offset": [
+        -10,
+        115
+      ]
+    },
+    {
+      "id": "pythonic-code",
+      "title": "Pythonic Code",
+      "group": "Pythonic",
+      "courses": [
+        "Intermediate"
+      ],
+      "weeks": [
+        2
+      ],
+      "description": "파이썬의 표현 방식과 관용적 코드 작성. 2주차 2.1.",
+      "kind": "concept",
+      "parents": [],
+      "connections": [
+        {
+          "id": "data-processing",
+          "type": "related",
+          "reason": "컴프리헨션·정렬 등은 데이터 처리에도 활용되지만, Pythonic Code와 Data Processing은 서로 다른 분류 기준이다."
+        }
+      ],
+      "anchor": [
+        435,
+        135
+      ]
+    },
+    {
+      "id": "unpacking",
+      "title": "Unpacking",
+      "group": "Pythonic",
+      "courses": [
+        "Intermediate"
+      ],
+      "weeks": [
+        2
+      ],
+      "description": "시퀀스 및 매핑의 원소를 분해해 할당하는 문법. 2주차 2.2.",
+      "kind": "concept",
+      "parents": [
+        {
+          "id": "pythonic-code",
+          "reason": "언패킹은 Pythonic Code 수업에서 다루는 개별 문법 기법이다."
+        }
+      ],
+      "connections": [],
+      "offset": [
+        -105,
+        120
+      ]
+    },
+    {
+      "id": "comprehension",
+      "title": "Comprehension",
+      "group": "Pythonic",
+      "courses": [
+        "Intermediate"
+      ],
+      "weeks": [
+        2
+      ],
+      "description": "리스트·집합·딕셔너리 등을 간결하게 생성하는 표현식. 2주차 2.2.",
+      "kind": "concept",
+      "parents": [
+        {
+          "id": "pythonic-code",
+          "reason": "컴프리헨션은 파이썬다운 컬렉션 생성 기법으로, 언패킹과 별개 개념이다."
+        }
+      ],
+      "connections": [],
+      "offset": [
+        90,
+        120
+      ]
+    },
+    {
+      "id": "data-processing",
+      "title": "Data Processing",
+      "group": "Data",
+      "courses": [
+        "Intermediate"
+      ],
+      "weeks": [
+        2,
+        3
+      ],
+      "description": "검사·집계·정렬·정제 등 데이터 처리 주제를 모으는 탐색용 상위 노드.",
+      "kind": "category",
+      "parents": [],
+      "connections": [],
+      "anchor": [
+        755,
+        135
+      ]
+    },
+    {
+      "id": "data-inspection",
+      "title": "Data Inspection",
+      "group": "Data",
+      "courses": [
+        "Intermediate"
+      ],
+      "weeks": [
+        2
+      ],
+      "description": "데이터 구조·값·분포의 상태를 살펴보는 작업. 2주차 2.3.",
+      "kind": "concept",
+      "parents": [
+        {
+          "id": "data-processing",
+          "reason": "데이터 상태를 확인하는 과정은 데이터 처리 활동의 한 종류다."
+        }
+      ],
+      "connections": [
+        {
+          "id": "aggregation",
+          "type": "related",
+          "reason": "데이터 점검과 집계는 서로 다른 작업이지만, 탐색적 분석에서 함께 쓰일 수 있다."
+        }
+      ],
+      "offset": [
+        -95,
+        145
+      ]
+    },
+    {
+      "id": "aggregation",
+      "title": "Aggregation",
+      "group": "Data",
+      "courses": [
+        "Intermediate"
+      ],
+      "weeks": [
+        2
+      ],
+      "description": "합계·평균·개수 등의 요약값을 계산하는 작업. 2주차 2.3.",
+      "kind": "concept",
+      "parents": [
+        {
+          "id": "data-processing",
+          "reason": "집계는 데이터를 요약하는 구체적인 처리 작업이다."
+        }
+      ],
+      "connections": [],
+      "offset": [
+        70,
+        140
+      ]
+    },
+    {
+      "id": "sorting",
+      "title": "Sorting",
+      "group": "Data",
+      "courses": [
+        "Intermediate"
+      ],
+      "weeks": [
+        2
+      ],
+      "description": "정렬 기준에 따라 데이터의 순서를 바꾸는 연산. 2주차 2.4.",
+      "kind": "concept",
+      "parents": [
+        {
+          "id": "data-processing",
+          "reason": "정렬은 구체적인 데이터 처리 작업으로, Data Processing과 동일한 수준의 개념이 아니다."
+        }
+      ],
+      "connections": [
+        {
+          "id": "data-structures",
+          "type": "related",
+          "reason": "리스트·튜플 등의 원소를 정렬하므로 자료구조의 특성과 연관된다. 정렬이 자료구조의 하위 개념이라는 뜻은 아니다."
+        }
+      ],
+      "offset": [
+        235,
+        140
+      ]
+    },
+    {
+      "id": "file-handling",
+      "title": "File Handling",
+      "group": "Data",
+      "courses": [
+        "Intermediate"
+      ],
+      "weeks": [
+        3
+      ],
+      "description": "파일 읽기·쓰기·경로 사용 등 파일 처리. 3주차 3.1 File & Path.",
+      "kind": "concept",
+      "parents": [],
+      "connections": [
+        {
+          "id": "dataframe",
+          "type": "related",
+          "reason": "CSV 같은 파일에서 데이터를 불러와 DataFrame으로 구성할 수 있다. 파일 처리와 DataFrame은 포함 관계가 아니다."
+        }
+      ],
+      "anchor": [
+        1070,
+        135
+      ]
+    },
+    {
+      "id": "dataframe",
+      "title": "DataFrame",
+      "group": "Data",
+      "courses": [
+        "Intermediate"
+      ],
+      "weeks": [
+        3
+      ],
+      "description": "행과 열을 가진 표 형식 데이터 구조. 3주차 3.2 DataFrame & CSV.",
+      "kind": "concept",
+      "parents": [],
+      "connections": [
+        {
+          "id": "data-cleaning",
+          "type": "related",
+          "reason": "결측값·중복값 정제 등을 DataFrame에서 자주 수행하지만, 데이터 정제 자체가 DataFrame의 하위 종류는 아니다."
+        }
+      ],
+      "anchor": [
+        1080,
+        420
+      ]
+    },
+    {
+      "id": "data-cleaning",
+      "title": "Data Cleaning",
+      "group": "Data",
+      "courses": [
+        "Intermediate"
+      ],
+      "weeks": [
+        3
+      ],
+      "description": "결측값·중복값·형식 오류 등을 처리하는 데이터 정제 과정. 3주차 3.3.",
+      "kind": "concept",
+      "parents": [
+        {
+          "id": "data-processing",
+          "reason": "데이터 정제는 데이터 처리의 구체적인 작업이다."
+        }
+      ],
+      "connections": [],
+      "offset": [
+        -25,
+        255
+      ]
+    },
+    {
+      "id": "data-structures",
+      "title": "Data Structures",
+      "group": "Algorithms",
+      "courses": [
+        "Intermediate"
+      ],
+      "weeks": [
+        4
+      ],
+      "description": "데이터를 저장·탐색하기 위한 구조와 특성. 4주차 4.1.",
+      "kind": "concept",
+      "parents": [],
+      "connections": [
+        {
+          "id": "graph-modeling",
+          "type": "learning",
+          "reason": "자료구조를 익힌 다음 그래프의 인접 리스트·인접 행렬 등 표현 방식으로 확장되는 학습 흐름이다."
+        }
+      ],
+      "anchor": [
+        160,
+        455
+      ]
+    },
+    {
+      "id": "graph-modeling",
+      "title": "Graph Modeling",
+      "group": "Algorithms",
+      "courses": [
+        "Intermediate"
+      ],
+      "weeks": [
+        4
+      ],
+      "description": "문제를 정점·간선·가중치 등으로 모델링하는 방법. 4주차 4.2.",
+      "kind": "concept",
+      "parents": [],
+      "connections": [
+        {
+          "id": "graph-search",
+          "type": "learning",
+          "reason": "DFS·BFS 및 경로 탐색 전에 정점과 간선으로 탐색 공간을 표현해야 한다."
+        }
+      ],
+      "anchor": [
+        445,
+        465
+      ]
+    },
+    {
+      "id": "graph-search",
+      "title": "Graph Search",
+      "group": "Algorithms",
+      "courses": [
+        "Intermediate"
+      ],
+      "weeks": [
+        4,
+        5
+      ],
+      "description": "그래프에서 정점·경로를 탐색하는 공통 개념. 4주차 DFS·BFS, 5주차 최단 경로 탐색에 연결.",
+      "kind": "concept",
+      "parents": [],
+      "connections": [],
+      "anchor": [
+        795,
+        485
+      ]
+    },
+    {
+      "id": "dijkstra",
+      "title": "Dijkstra",
+      "group": "Algorithms",
+      "courses": [
+        "Intermediate"
+      ],
+      "weeks": [
+        5
+      ],
+      "description": "음이 아닌 간선 가중치에서 최단 경로를 구하는 알고리즘. 5주차 4.4.",
+      "kind": "concept",
+      "parents": [
+        {
+          "id": "graph-search",
+          "reason": "다익스트라는 가중치 그래프의 최단 경로를 탐색하는 구체적인 알고리즘이다."
+        }
+      ],
+      "connections": [
+        {
+          "id": "a-star",
+          "type": "related",
+          "reason": "둘 다 최단 경로 탐색에 쓰이며, A*는 휴리스틱을 이용해 목표 방향을 우선 탐색한다. 둘을 엄격한 선행 관계로 두지는 않는다."
+        }
+      ],
+      "offset": [
+        -125,
+        130
+      ]
+    },
+    {
+      "id": "a-star",
+      "title": "A* Search",
+      "group": "Algorithms",
+      "courses": [
+        "Intermediate"
+      ],
+      "weeks": [
+        5
+      ],
+      "description": "목표까지의 휴리스틱 추정 비용을 활용하는 탐색 알고리즘. 5주차 4.5.",
+      "kind": "concept",
+      "parents": [
+        {
+          "id": "graph-search",
+          "reason": "A*는 그래프에서 경로를 탐색하는 구체적인 알고리즘이다."
+        }
+      ],
+      "connections": [],
+      "offset": [
+        132,
+        125
+      ]
+    },
+    {
+      "id": "cybersecurity",
+      "title": "Cybersecurity",
+      "group": "Security",
+      "courses": [
+        "Intermediate"
+      ],
+      "weeks": [
+        6
+      ],
+      "description": "디지털 시스템·서비스·네트워크의 보안을 다루는 상위 분야. 6주차 5.1.",
+      "kind": "concept",
+      "parents": [],
+      "connections": [
+        {
+          "id": "ctf",
+          "type": "related",
+          "reason": "CTF는 보안 문제를 해결하는 실습·경쟁 형식이지 웹·네트워크 보안과 같은 기술 하위 분야가 아니다."
+        }
+      ],
+      "anchor": [
+        325,
+        795
+      ]
+    },
+    {
+      "id": "web-security",
+      "title": "Web Security",
+      "group": "Security",
+      "courses": [
+        "Intermediate"
+      ],
+      "weeks": [
+        6
+      ],
+      "description": "웹 애플리케이션의 취약점과 방어 개념. 6주차 5.2.",
+      "kind": "concept",
+      "parents": [
+        {
+          "id": "cybersecurity",
+          "reason": "웹 애플리케이션 보안은 사이버보안의 세부 영역이다."
+        }
+      ],
+      "connections": [],
+      "offset": [
+        -100,
+        -120
+      ]
+    },
+    {
+      "id": "network-security",
+      "title": "Network Security",
+      "group": "Security",
+      "courses": [
+        "Intermediate"
+      ],
+      "weeks": [
+        6
+      ],
+      "description": "네트워크 통신 보안 및 패킷 분석. 6주차 5.3.",
+      "kind": "concept",
+      "parents": [
+        {
+          "id": "cybersecurity",
+          "reason": "네트워크 보안은 사이버보안의 세부 영역이다."
+        }
+      ],
+      "connections": [],
+      "offset": [
+        125,
+        -120
+      ]
+    },
+    {
+      "id": "ctf",
+      "title": "CTF",
+      "group": "Security",
+      "courses": [
+        "Intermediate"
+      ],
+      "weeks": [
+        6
+      ],
+      "description": "Capture The Flag. 문제 해결과 플래그 획득을 중심으로 하는 보안 실습 형식. 6주차 5.1·5.4.",
+      "kind": "concept",
+      "parents": [],
+      "connections": [],
+      "anchor": [
+        900,
+        795
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "id": "intermediate-2026-09-week-01",
+      "course": "Intermediate",
+      "week": 1,
+      "title": "Week 01 · Python Fundamentals Review",
+      "chapter": "Chapter 01. Variables and Operators",
+      "sections": [
+        "Variables",
+        "Operators"
+      ],
+      "status": "available",
+      "path": "Classroom/PYTHON-2026-09/Intermediate/Lecture/Week-01/Week-01_Python_Concept_Review.pptx",
+      "nodes": [
+        "python-core",
+        "variables-operators"
+      ]
+    },
+    {
+      "id": "intermediate-2026-09-week-02",
+      "course": "Intermediate",
+      "week": 2,
+      "title": "Week 02 · Pythonic Code",
+      "chapter": "Chapter 02. Pythonic Code",
+      "sections": [
+        "2.1. Pythonic Code",
+        "2.2. Unpacking & Comprehension",
+        "2.3. Data Inspection & Aggregation",
+        "2.4. Sorting & Data Processing",
+        "2.5. Mini Project"
+      ],
+      "status": "available",
+      "path": "Classroom/PYTHON-2026-09/Intermediate/Lecture/Week-02/Week-02_Pythonic_Code.pptx",
+      "nodes": [
+        "pythonic-code",
+        "unpacking",
+        "comprehension",
+        "data-processing",
+        "data-inspection",
+        "aggregation",
+        "sorting"
+      ]
+    },
+    {
+      "id": "intermediate-2026-09-week-03",
+      "course": "Intermediate",
+      "week": 3,
+      "title": "Week 03 · File IO & Data Handling",
+      "chapter": "Chapter 03. File IO & Data Handling",
+      "sections": [
+        "3.1. File & Path",
+        "3.2. DataFrame & CSV",
+        "3.3. Data Cleaning"
+      ],
+      "status": "available",
+      "path": "Classroom/PYTHON-2026-09/Intermediate/Lecture/Week-03/Week-03_File_IO_and_Data_Handling.pptx",
+      "nodes": [
+        "file-handling",
+        "dataframe",
+        "data-processing",
+        "data-cleaning"
+      ]
+    },
+    {
+      "id": "intermediate-2026-09-week-04",
+      "course": "Intermediate",
+      "week": 4,
+      "title": "Week 04 · Data Structures & Search Algorithms (I)",
+      "chapter": "Chapter 04. Data Structures & Search Algorithms",
+      "sections": [
+        "4.1. Data Structures",
+        "4.2. Graph Modeling",
+        "4.3. DFS & BFS"
+      ],
+      "status": "available",
+      "path": "Classroom/PYTHON-2026-09/Intermediate/Lecture/Week-04/Week-04_Data_Structures_and_Search_Algorithms_1.pptx",
+      "nodes": [
+        "data-structures",
+        "graph-modeling",
+        "graph-search"
+      ]
+    },
+    {
+      "id": "intermediate-2026-09-week-05",
+      "course": "Intermediate",
+      "week": 5,
+      "title": "Week 05 · Data Structures & Search Algorithms (II)",
+      "chapter": "Chapter 04. Data Structures & Search Algorithms",
+      "sections": [
+        "4.4. Dijkstra",
+        "4.5. A* & Advanced Search",
+        "4.6. Real-World Applications",
+        "4.7. Mini Project"
+      ],
+      "status": "available",
+      "path": "Classroom/PYTHON-2026-09/Intermediate/Lecture/Week-05/Week-05_Data_Structures_and_Search_Algorithms_2.pptx",
+      "nodes": [
+        "graph-search",
+        "dijkstra",
+        "a-star"
+      ],
+      "tags": [
+        "application",
+        "project"
+      ]
+    },
+    {
+      "id": "intermediate-2026-09-week-06",
+      "course": "Intermediate",
+      "week": 6,
+      "title": "Week 06 · Web & Network Security",
+      "chapter": "Chapter 05. Web & Network Security",
+      "sections": [
+        "5.1. Introduction to Cybersecurity & CTF",
+        "5.2. Web Security & CTF",
+        "5.3. Network Security & Packet Analysis",
+        "5.4. Mini Project: Capture The Flag"
+      ],
+      "status": "planned",
+      "path": null,
+      "nodes": [
+        "cybersecurity",
+        "web-security",
+        "network-security",
+        "ctf"
+      ],
+      "tags": [
+        "ctf",
+        "project"
+      ]
+    }
+  ]
+}
