@@ -1,0 +1,270 @@
+{
+  "schema_version": 1,
+  "semester": "PYTHON-2026-09",
+  "nodes": [
+    {
+      "id": "python-core",
+      "title": "Python Core",
+      "group": "Foundations",
+      "connections": [
+        "variables-operators",
+        "pythonic-code"
+      ]
+    },
+    {
+      "id": "variables-operators",
+      "title": "Variables & Operators",
+      "group": "Foundations",
+      "connections": []
+    },
+    {
+      "id": "pythonic-code",
+      "title": "Pythonic Code",
+      "group": "Pythonic",
+      "connections": [
+        "unpacking-comprehension",
+        "data-inspection-aggregation",
+        "sorting-data-processing",
+        "file-path"
+      ]
+    },
+    {
+      "id": "unpacking-comprehension",
+      "title": "Unpacking & Comprehension",
+      "group": "Pythonic",
+      "connections": [
+        "data-structures"
+      ]
+    },
+    {
+      "id": "data-inspection-aggregation",
+      "title": "Data Inspection & Aggregation",
+      "group": "Pythonic",
+      "connections": [
+        "dataframe-csv"
+      ]
+    },
+    {
+      "id": "sorting-data-processing",
+      "title": "Sorting & Data Processing",
+      "group": "Pythonic",
+      "connections": [
+        "data-structures"
+      ]
+    },
+    {
+      "id": "file-path",
+      "title": "File & Path",
+      "group": "Data",
+      "connections": [
+        "dataframe-csv"
+      ]
+    },
+    {
+      "id": "dataframe-csv",
+      "title": "DataFrame & CSV",
+      "group": "Data",
+      "connections": [
+        "data-cleaning"
+      ]
+    },
+    {
+      "id": "data-cleaning",
+      "title": "Data Cleaning",
+      "group": "Data",
+      "connections": []
+    },
+    {
+      "id": "data-structures",
+      "title": "Data Structures",
+      "group": "Algorithms",
+      "connections": [
+        "graph-modeling"
+      ]
+    },
+    {
+      "id": "graph-modeling",
+      "title": "Graph Modeling",
+      "group": "Algorithms",
+      "connections": [
+        "graph-search"
+      ]
+    },
+    {
+      "id": "graph-search",
+      "title": "Graph Search (DFS & BFS)",
+      "group": "Algorithms",
+      "connections": [
+        "dijkstra",
+        "a-star"
+      ]
+    },
+    {
+      "id": "dijkstra",
+      "title": "Dijkstra",
+      "group": "Algorithms",
+      "connections": [
+        "a-star",
+        "real-world-applications"
+      ]
+    },
+    {
+      "id": "a-star",
+      "title": "A* & Advanced Search",
+      "group": "Algorithms",
+      "connections": [
+        "real-world-applications"
+      ]
+    },
+    {
+      "id": "real-world-applications",
+      "title": "Real-World Applications",
+      "group": "Algorithms",
+      "connections": []
+    },
+    {
+      "id": "cybersecurity-ctf",
+      "title": "Cybersecurity & CTF",
+      "group": "Security",
+      "connections": [
+        "web-security",
+        "network-security"
+      ]
+    },
+    {
+      "id": "web-security",
+      "title": "Web Security",
+      "group": "Security",
+      "connections": [
+        "network-security"
+      ]
+    },
+    {
+      "id": "network-security",
+      "title": "Network Security & Packet Analysis",
+      "group": "Security",
+      "connections": []
+    }
+  ],
+  "materials": [
+    {
+      "id": "intermediate-2026-09-week-01",
+      "course": "Intermediate",
+      "week": 1,
+      "title": "Week 01 · Python Fundamentals Review",
+      "chapter": "Chapter 01. Variables and Operators",
+      "sections": [
+        "Variables",
+        "Operators"
+      ],
+      "nodes": [
+        "python-core",
+        "variables-operators"
+      ],
+      "status": "available",
+      "path": "Classroom/PYTHON-2026-09/Intermediate/Lecture/Week-01/Week-01_Python_Concept_Review.pptx"
+    },
+    {
+      "id": "intermediate-2026-09-week-02",
+      "course": "Intermediate",
+      "week": 2,
+      "title": "Week 02 · Pythonic Code",
+      "chapter": "Chapter 02. Pythonic Code",
+      "sections": [
+        "2.1. Pythonic Code",
+        "2.2. Unpacking & Comprehension",
+        "2.3. Data Inspection & Aggregation",
+        "2.4. Sorting & Data Processing",
+        "2.5. Mini Project"
+      ],
+      "nodes": [
+        "pythonic-code",
+        "unpacking-comprehension",
+        "data-inspection-aggregation",
+        "sorting-data-processing"
+      ],
+      "status": "available",
+      "path": "Classroom/PYTHON-2026-09/Intermediate/Lecture/Week-02/Week-02_Pythonic_Code.pptx"
+    },
+    {
+      "id": "intermediate-2026-09-week-03",
+      "course": "Intermediate",
+      "week": 3,
+      "title": "Week 03 · File IO & Data Handling",
+      "chapter": "Chapter 03. File IO & Data Handling",
+      "sections": [
+        "3.1. File & Path",
+        "3.2. DataFrame & CSV",
+        "3.3. Data Cleaning"
+      ],
+      "nodes": [
+        "file-path",
+        "dataframe-csv",
+        "data-cleaning"
+      ],
+      "status": "available",
+      "path": "Classroom/PYTHON-2026-09/Intermediate/Lecture/Week-03/Week-03_File_IO_and_Data_Handling.pptx"
+    },
+    {
+      "id": "intermediate-2026-09-week-04",
+      "course": "Intermediate",
+      "week": 4,
+      "title": "Week 04 · Data Structures & Search Algorithms (I)",
+      "chapter": "Chapter 04. Data Structures & Search Algorithms",
+      "sections": [
+        "4.1. Data Structures",
+        "4.2. Graph Modeling",
+        "4.3. DFS & BFS"
+      ],
+      "nodes": [
+        "data-structures",
+        "graph-modeling",
+        "graph-search"
+      ],
+      "status": "available",
+      "path": "Classroom/PYTHON-2026-09/Intermediate/Lecture/Week-04/Week-04_Data_Structures_and_Search_Algorithms_1.pptx"
+    },
+    {
+      "id": "intermediate-2026-09-week-05",
+      "course": "Intermediate",
+      "week": 5,
+      "title": "Week 05 · Data Structures & Search Algorithms (II)",
+      "chapter": "Chapter 04. Data Structures & Search Algorithms",
+      "sections": [
+        "4.4. Dijkstra",
+        "4.5. A* & Advanced Search",
+        "4.6. Real-World Applications",
+        "4.7. Mini Project"
+      ],
+      "nodes": [
+        "data-structures",
+        "graph-search",
+        "dijkstra",
+        "a-star",
+        "real-world-applications"
+      ],
+      "status": "available",
+      "path": "Classroom/PYTHON-2026-09/Intermediate/Lecture/Week-05/Week-05_Data_Structures_and_Search_Algorithms_2.pptx"
+    },
+    {
+      "id": "intermediate-2026-09-week-06",
+      "course": "Intermediate",
+      "week": 6,
+      "title": "Week 06 · Web & Network Security",
+      "chapter": "Chapter 05. Web & Network Security",
+      "sections": [
+        "5.1. Introduction to Cybersecurity & CTF",
+        "5.2. Web Security & CTF",
+        "5.3. Network Security & Packet Analysis",
+        "5.4. Mini Project: Capture The Flag"
+      ],
+      "nodes": [
+        "cybersecurity-ctf",
+        "web-security",
+        "network-security"
+      ],
+      "status": "planned",
+      "path": null
+    }
+  ]
+}
