@@ -65,10 +65,18 @@ flowchart LR
 
 [Python 기초 정리](./MoreStudy/PythonGuide) · [데이터 시각화](./MoreStudy/Data_Visualization) · [로봇 공학](./MoreStudy/Robotics) · [C++](./MoreStudy/C%2B%2B)
 
+
 ## 🗂️ 강의 아카이브
 
-- [전체 강의 아카이브](./Classroom) · [2026-03](./Classroom/PYTHON-2026-03) · [2025-09](./Classroom/PYTHON-2025-09)
-- 강의 계획서: [기초과정](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/blob/main/Classroom/PYTHON-2026-09/[%EA%B0%95%EC%9D%98%20%EA%B3%84%ED%9A%8D%EC%84%9C]%EB%A7%88%EC%9D%B4%ED%8F%B4_%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%EA%B3%BC%EC%A0%95_2026_2.pdf) · [중급과정](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/blob/main/Classroom/PYTHON-2026-09/[%EA%B0%95%EC%9D%98%20%EA%B3%84%ED%9A%8D%EC%84%9C]%EB%A7%88%EC%9D%B4%ED%8F%B4_%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A4%91%EA%B8%89%EA%B3%BC%EC%A0%95_2026_2.pdf)
+- [전체 강의 아카이브](./Classroom) · [2026-09](./Classroom/PYTHON-2026-09) · [2026-03](./Classroom/PYTHON-2026-03) · [2025-09](./Classroom/PYTHON-2025-09)
+
+### 2026년 2학기 강의 안내
+
+| Python Basic | Python Intermediate |
+| :---: | :---: |
+| <a href="./Classroom/PYTHON-2026-09/Syllabus_poster_2026_2_Basic.png"><img src="./Classroom/PYTHON-2026-09/Syllabus_poster_2026_2_Basic.png" width="300" alt="기초과정 포스터"></a> | <a href="./Classroom/PYTHON-2026-09/Syllabus_poster_2026_2_Intermediate.png"><img src="./Classroom/PYTHON-2026-09/Syllabus_poster_2026_2_Intermediate.png" width="300" alt="중급과정 포스터"></a> |
+| [강의 계획서 (PDF)](./Classroom/PYTHON-2026-09/%5B강의%20계획서%5D마이폴_파이썬%20기초과정_2026_2.pdf) | [강의 계획서 (PDF)](./Classroom/PYTHON-2026-09/%5B강의%20계획서%5D마이폴_파이썬%20중급과정_2026_2.pdf) |
+
 
 ---
 
