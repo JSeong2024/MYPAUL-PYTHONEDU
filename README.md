@@ -30,8 +30,6 @@
 | 최신 공개 버전 | [v0.4.15](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/releases/tag/v0.4.15) |
 | 지원 환경 | Windows |
 | 배포 파일 | [`MYPAUL_Classroom.exe`](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/releases/download/v0.4.15/MYPAUL_Classroom.exe) |
-| 설치 | 불필요 (포터블 실행 파일) |
-| 업데이트 | 자동 업데이트 지원 |
 
 **실행 방법**
 
