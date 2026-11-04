@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "active_semester": "PYTHON-2026-09",
+  "courses": {
+    "Basic": {
+      "root": "Classroom/PYTHON-2026-09/Basic",
+      "watch": [
+        "Lecture/Week-*",
+        "Assignment/Week-*"
+      ]
+    },
+    "Intermediate": {
+      "root": "Classroom/PYTHON-2026-09/Intermediate",
+      "watch": [
+        "Lecture/Week-*",
+        "Assignment/Week-*"
+      ]
+    }
+  },
+  "feeds": {
+    "notices": "notices/index.json",
+    "schedule": "schedule/index.json"
+  },
+  "news_rules": {
+    "materials": {
+      "events": [
+        "added",
+        "moved_into_scope"
+      ],
+      "extensions": [
+        ".pptx",
+        ".zip",
+        ".pdf",
+        ".py",
+        ".html"
+      ]
+    },
+    "notices": "new_id",
+    "schedule": "new_event_or_time_changed"
+  }
+}
