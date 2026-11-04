@@ -43,7 +43,7 @@
 
 [전체 릴리스 및 이전 버전](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/releases) · [최신 릴리스 확인](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/releases/latest)
 
-## 🎓 현재 강의 · 2026-09
+## 🎓 진행중인 수업
 
 | 과정 | 주요 내용 | 강의실 |
 | :--- | :--- | :--- |
