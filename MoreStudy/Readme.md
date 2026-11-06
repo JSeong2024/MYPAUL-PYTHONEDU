@@ -1,32 +1,19 @@
-✅ 주제를 클릭하면 해당 내용으로 이동됩니다.
+다양한 기술 분야의 학습 자료를 정리한 공간입니다.
+
+학습 주제를 클릭하면 해당 자료로 이동합니다.
+
+## 학습 자료
+
+| 분야 | 학습 주제 | 주요 내용 | 상태 |
+|:---|:---|:---|:---:|
+| 프로그래밍 | [Python 기초 정리](./PythonGuide) | Python 문법 및 핵심 개념 | 🔵 진행 중 |
+| 프로그래밍 | [C++](./C++) | C++ 프로그래밍 및 주요 개념 | 🔵 진행 중 |
+| 로봇 공학 | [Robotics](./Robotics) | 로봇 공학 기초 및 응용 | 🔵 진행 중 |
+| 데이터 | 데이터 처리 | 데이터 수집, 정제 및 가공 | ⚪ 예정 |
+| 데이터 | [데이터 시각화](./Data_Visualization) | 데이터 분석 결과의 시각적 표현 | 🔵 진행 중 |
+| 인공지능 | 객체 탐지 | 영상 및 이미지 기반 객체 탐지 | ⚪ 예정 |
+| 웹 개발 | 웹 프로그래밍 | 웹 개발 기초 및 응용 | ⚪ 예정 |
 
 ---
 
-# [파이썬 기초 정리](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/tree/main/MoreStudy/PythonGuide)
-🔵 업로드 **진행중**
-
----
-
-# [로봇 공학](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/tree/main/MoreStudy/Robotics)
-🔵 업로드 **진행중**
-
----
-
-# 데이터 처리
-⚪️ 업로드 예정
-
-# [데이터 시각화](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/tree/main/MoreStudy/Data_Visualization)
-🔵 업로드 **진행중**
-
-# 객체 탐지
-⚪️ 업로드 예정
-
----
-
-# 웹 프로그래밍
-⚪️ 업로드 예정
-
----
-
-# [C++](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/tree/main/MoreStudy/C++)
-🔵 업로드 **진행중**
+학습 자료는 주제별로 순차적으로 추가 및 보완됩니다.
