@@ -4,7 +4,15 @@ Python에서 파일을 안전하게 읽고 저장하는 방법과 **Text, CSV, J
 
 본 자료의 예제는 **Python 3.13.5 / Pandas 2.2.3 / openpyxl 3.1.5** 환경에서 실행 검증했습니다. Parquet 예제는 `pyarrow`가 필요한 선택 실습이며, 설치되지 않은 환경에서는 안내 메시지를 출력합니다. 외부 API 호출 예제는 기본적으로 로컬 JSON 파일을 이용하므로 인터넷 연결이 필요하지 않습니다.
 
-**선행 학습:** [Chapter 01 — Introduction to Data Processing](../Chapter-01/) · [Chapter 02 — Python Data Structures](../Chapter-02/) · [Chapter 03 — NumPy Fundamentals](../Chapter-03/) · [Chapter 04 — Pandas & DataFrames](../Chapter-04/)
+<details>
+<summary><strong>선행 학습 목록</strong></summary>
+
+- [Chapter 01 — Introduction to Data Processing](../Chapter-01/)
+- [Chapter 02 — Python Data Structures](../Chapter-02/)
+- [Chapter 03 — NumPy Fundamentals](../Chapter-03/)
+- [Chapter 04 — Pandas & DataFrames](../Chapter-04/)
+
+</details>
 
 <a id="contents"></a>
 ## Contents
