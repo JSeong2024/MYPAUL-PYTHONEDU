@@ -168,7 +168,7 @@ print("제외된 값:", invalid_count)
 
 **권장 환경**
 
-- Python 3.13 이상 (기본 예제는 Python 3.10 이상에서도 실행할 수 있도록 작성)
+- Python 3.13 이상 (**권장**)
 - VS Code, 터미널 또는 Jupyter Notebook 중 선택
 - Windows, macOS, Linux 사용 가능
 - 이 Chapter의 예제는 별도 패키지 설치 불필요
