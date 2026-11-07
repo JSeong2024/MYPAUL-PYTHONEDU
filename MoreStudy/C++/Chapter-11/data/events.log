@@ -1,0 +1,3 @@
+INFO|motor|started
+WARN|battery|low|critical
+ERROR|motor|stalled
