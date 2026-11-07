@@ -1,10 +1,10 @@
 # Chapter 03. NumPy Fundamentals
 
-NumPy의 **ndarray(다차원 배열)**를 중심으로 배열 생성, 자료형, 인덱싱, 수치 연산, 집계, Broadcasting, 난수 생성 및 벡터화를 학습합니다. Chapter 02의 Python 자료구조를 확장하여, 여러 측정값을 일정한 형태로 표현하고 효율적으로 계산하는 방법을 다룹니다.
+NumPy의 **ndarray(다차원 배열)** 를 중심으로 배열 생성, 자료형, 인덱싱, 수치 연산, 집계, Broadcasting, 난수 생성 및 벡터화를 학습합니다. Chapter 02의 Python 자료구조를 확장하여, 여러 측정값을 일정한 형태로 표현하고 효율적으로 계산하는 방법을 다룹니다.
 
-본 자료는 **Python 3.13 이상과 NumPy 2.x**를 기준으로 작성하였으며, 예제는 NumPy 2.3.5 환경에서 실행 검증했습니다. NumPy 공식 문서의 2.5 버전 기능 설명도 참고했습니다. 운영체제와 패키지 버전에 따라 일부 출력 형식 및 난수 결과, 실행 시간은 달라질 수 있습니다.
+본 자료는 **Python 3.13 이상과 NumPy 2.x**를 기준으로 작성하였습니다. 운영체제와 패키지 버전에 따라 일부 출력 형식 및 난수 결과, 실행 시간은 달라질 수 있습니다.
 
-**선행 학습:** [Chapter 01 — Introduction to Data Processing](../Chapter-01/) · [Chapter 02 — Python Data Structures](../Chapter-02/) · Python 조건문·반복문·함수 기초
+**선행 학습:** [Chapter 01](../Chapter-01/) · [Chapter 02](../Chapter-02/) · Python 조건문·반복문·함수 기초
 
 <a id="contents"></a>
 ## Contents
@@ -48,7 +48,7 @@ python -m unittest discover -s tests -v
 - Chapter 03의 예제는 **NumPy 외에 별도의 패키지가 필요하지 않습니다.**
 - `examples/`는 완성된 설명용 코드, `exercises/`는 직접 완성할 코드, `solutions/`는 모범 정답입니다.
 - `data/`에는 교육용 가상 데이터가 있으며, 원본을 수정하지 않습니다.
-- Mini Project의 결과는 실행 후 `output/`에 생성되며 Git에는 포함하지 않습니다.
+- Mini Project의 결과는 실행 후 `output/`에 생성됩니다.
 
 
 ---
@@ -56,7 +56,7 @@ python -m unittest discover -s tests -v
 <a id="section-3-1"></a>
 ## 3.1. Introduction to NumPy — 개념과 설치
 
-**NumPy(Numerical Python)**는 다차원 배열과 배열 기반 수치 연산을 지원하는 Python 라이브러리입니다. 중심 자료구조인 `numpy.ndarray`는 하나의 배열 안에 일정한 데이터 타입을 사용하며, 배열 전체에 수행할 연산을 간결하게 표현할 수 있습니다.
+**NumPy(Numerical Python)** 는 다차원 배열과 배열 기반 수치 연산을 지원하는 Python 라이브러리입니다. 중심 자료구조인 `numpy.ndarray`는 하나의 배열 안에 일정한 데이터 타입을 사용하며, 배열 전체에 수행할 연산을 간결하게 표현할 수 있습니다.
 
 | 항목 | Python `list` | NumPy `ndarray` |
 |---|---|---|
@@ -85,7 +85,7 @@ print(np.array([1, 2]) + np.array([3, 4]))  # [4 6]
 <a id="section-3-2"></a>
 ## 3.2. ndarray & Array Metadata — shape, ndim, size, dtype
 
-NumPy 배열의 **축(Axis)**은 데이터의 각 차원을 나타냅니다. 1차원 배열은 축이 하나이고, 일반적인 표 형태의 2차원 배열은 행과 열 두 축을 갖습니다. `shape`는 각 축의 길이를 나타내는 튜플입니다.
+NumPy 배열의 **축(Axis)** 은 데이터의 각 차원을 나타냅니다. 1차원 배열은 축이 하나이고, 일반적인 표 형태의 2차원 배열은 행과 열 두 축을 갖습니다. `shape`는 각 축의 길이를 나타내는 튜플입니다.
 
 ```text
 1차원: [10, 20, 30]              shape=(3,)
