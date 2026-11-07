@@ -1,201 +1,243 @@
-<p align='center'>
-  <img src="https://capsule-render.vercel.app/api?type=soft&color=auto&section=header&text=Data%20Visualization&fontSize=40&animation=twinkling"/>
+<p align="center">
+  <img src="banner_DataVisualization.png" width="50%" alt="Data Visualization Class Banner">
 </p>
 
-<p align='center'>
-  <a href="https://github.com/JSeong2024/MYPAUL-PYTHONEDU/tree/main/MoreStudy">
-    <img src="https://img.shields.io/badge/Go%20To%20Back-F3EC69?&style=for-the-badge&&logoColor=white"/>
-  </a>
-</p>
+Python을 기반으로 데이터를 그래프로 표현하고, 분석 결과를 효과적으로 전달하는 방법을 학습하는 자료입니다. 시각화의 기본 원칙부터 Matplotlib·Seaborn을 활용한 정적 그래프, Plotly 기반 인터랙티브 시각화, Streamlit 대시보드 제작까지 단계적으로 다룹니다.
+
+각 Chapter는 개념 설명, 실행 가능한 예제 코드, 연습문제와 정답 코드로 구성합니다. 마지막에는 [Data Processing](../Data_Processing/)에서 가공한 기상 데이터를 활용하여 시각화 프로젝트를 완성합니다.
+
+- **주요 언어:** Python
+- **주요 도구:** Matplotlib, Seaborn, Plotly, Streamlit
+- **권장 선수 학습:** Python 기초 문법, NumPy 배열, Pandas DataFrame
+- **자료 구성:** 학습 문서, 예제 코드, 연습문제, 정답 코드, 실습 데이터 및 시각화 결과물
+
+## Contents
+
+### Part 1 — Data Visualization Fundamentals
+
+데이터 시각화의 목적과 주요 그래프 유형을 이해하고, 데이터를 정확하게 표현하기 위한 기본 원칙을 학습합니다.
+
+| Chapter | Topic |
+|:---:|---|
+| 01 | **Introduction to Data Visualization** — 시각화의 개념과 목적, 데이터와 그래프의 관계, 첫 번째 그래프 |
+| 02 | **Principles of Data Visualization** — 그래프 선택, 시각적 인코딩, 색상, 축과 스케일, 오해를 일으키는 표현 |
+
+### Part 2 — Static & Statistical Visualization
+
+Python 라이브러리를 활용하여 정적 그래프를 제작하고, 데이터의 분포·관계·시간에 따른 변화를 해석합니다.
+
+| Chapter | Topic |
+|:---:|---|
+| 03 | **Matplotlib** — Figure, Axes, Line·Bar·Scatter·Histogram, Subplots, 그래프 스타일과 저장 |
+| 04 | **Seaborn** — 분포 및 범주형 시각화, 관계 분석, Heatmap, Pairplot |
+| 05 | **Exploratory Data Analysis & Statistical Visualization** — EDA, 분포 해석, 상관관계, 이상치, 통계적 해석 |
+| 06 | **Time Series Visualization** — 날짜 축, 시계열 비교, 이동평균, 추세, 계절성, 누락된 관측값 |
+
+### Part 3 — Interactive Visualization & Dashboard
+
+사용자가 그래프를 직접 탐색할 수 있는 시각화와 Python 기반 웹 대시보드를 제작합니다.
+
+| Chapter | Topic |
+|:---:|---|
+| 07 | **Plotly & Interactive Visualization** — Hover, Zoom, 범례·필터, Plotly Express, HTML 내보내기 |
+| 08 | **Dashboard Development with Streamlit** — 레이아웃, 차트, 입력 위젯, 상태 관리, 데이터 캐싱, 배포 기초 |
+
+### Part 4 — Data Visualization Project
+
+앞서 학습한 시각화 기법을 연결하여 데이터 탐색부터 결과 해석, 대시보드 제작까지 하나의 프로젝트를 완성합니다.
+
+| Chapter | Topic |
+|:---:|---|
+| 09 | **Data Visualization Project** — 기상 데이터 탐색, 시각화 설계, 지역·기간별 비교, 인터랙티브 대시보드 |
+
+## Learning Path
+
+```text
+처리된 데이터 (Processed Data)
+    ↓
+데이터와 시각화 목적 확인 (Data Understanding)
+    ↓
+그래프 종류 및 표현 방법 선택 (Visualization Design)
+    ↓
+정적·통계 그래프 제작 (Matplotlib & Seaborn)
+    ↓
+패턴·분포·추세 해석 (Data Interpretation)
+    ↓
+인터랙티브 그래프 제작 (Plotly)
+    ↓
+웹 대시보드 구현 (Streamlit)
+    ↓
+결과 검토 및 공유 (Review & Communication)
+```
+
+이 과정은 데이터 처리 방법을 처음부터 반복하기보다, **어떤 그래프를 왜 선택하고 어떻게 해석해야 하는지**에 집중합니다. 데이터의 수집·정제·변환·집계는 [Data Processing](../Data_Processing/)에서 자세히 다룹니다.
+
+<details>
+<summary><strong>권장 선행 학습 목록</strong></summary>
+
+- [Data Processing — Chapter 03. NumPy Fundamentals](../Data_Processing/Chapter-03/)
+- [Data Processing — Chapter 04. Pandas & DataFrames](../Data_Processing/Chapter-04/)
+- [Data Processing — Chapter 06. Data Cleaning & Validation](../Data_Processing/Chapter-06/)
+- [Data Processing — Chapter 07. Data Transformation & Aggregation](../Data_Processing/Chapter-07/)
+- [Data Processing — Chapter 08. Data Processing Project](../Data_Processing/Chapter-08/)
+
+</details>
+
+## Getting Started
+
+### 1. 개발 환경
+
+- **Python:** 3.13 권장 (다른 버전은 사용하는 라이브러리의 지원 여부 확인)
+- **운영체제:** Windows, macOS, Linux
+- **에디터:** Visual Studio Code 권장, JupyterLab 선택 사용
+
+Python 설치 여부를 확인합니다.
+
+```bash
+python --version
+```
+
+일부 Windows 환경에서는 `py --version`, macOS·Linux 환경에서는 `python3 --version`을 사용해야 할 수 있습니다.
+
+### 2. 가상환경 생성
+
+프로젝트별 라이브러리 관리를 위해 가상환경 사용을 권장합니다. `Data_Visualization/` 디렉터리에서 실행합니다.
+
+```bash
+python -m venv .venv
+```
+
+**Windows PowerShell**
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
+**Windows Command Prompt**
+
+```bat
+.venv\Scripts\activate.bat
+```
+
+**macOS / Linux**
+
+```bash
+source .venv/bin/activate
+```
+
+가상환경을 종료하려면 `deactivate`를 실행합니다. `.venv/` 디렉터리는 Git에 커밋하지 않습니다.
+
+### 3. 라이브러리 설치
+
+```bash
+python -m pip install --upgrade pip
+python -m pip install numpy pandas matplotlib seaborn plotly streamlit
+```
+
+| 라이브러리 | 주요 용도 |
+|---|---|
+| `numpy` | 수치 배열과 기본 연산 |
+| `pandas` | 시각화할 데이터 선택 및 구성 |
+| `matplotlib` | 정적 그래프와 세부 스타일 제어 |
+| `seaborn` | 통계 그래프와 데이터 분포·관계 표현 |
+| `plotly` | 인터랙티브 그래프와 HTML 출력 |
+| `streamlit` | Python 기반 웹 대시보드 |
+
+Notebook 환경이 필요한 경우 JupyterLab을 추가로 설치할 수 있습니다.
+
+```bash
+python -m pip install jupyterlab
+jupyter lab
+```
+
+Chapter별로 필요한 추가 패키지는 해당 Chapter의 README에서 안내합니다.
+
+### 4. 첫 번째 데이터 시각화
+
+다음 예제는 일주일간의 가상 기온 데이터를 선 그래프로 표현합니다. 그래프의 가로축은 날짜, 세로축은 기온을 나타냅니다.
+
+```python
+import matplotlib.pyplot as plt
+
+# 교육용 가상 기온 데이터
+weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+temperatures = [21.5, 23.0, 22.4, 25.1, 26.3, 24.8, 23.2]
+
+fig, ax = plt.subplots(figsize=(8, 4))
+ax.plot(weekdays, temperatures, marker="o", linewidth=2)
+ax.set(title="Weekly Temperature", xlabel="Day", ylabel="Temperature (°C)")
+ax.grid(axis="y", alpha=0.3)
+fig.tight_layout()
+
+fig.savefig("weekly_temperature.png", dpi=150)
+plt.show()
+```
+
+**실행 결과**
+
+- 요일별 기온 변화를 보여주는 선 그래프가 표시됩니다.
+- 실행 위치에 `weekly_temperature.png` 파일이 생성됩니다.
+- 영어 축 제목을 사용하여 운영체제별 한글 글꼴 설정 없이도 실행할 수 있도록 구성했습니다.
+
+**그래프 해석:** 목요일부터 금요일까지 기온이 상승한 뒤 주말에 감소합니다. 다만 7일간의 예시만으로 장기적인 기후 추세를 판단할 수는 없습니다.
+
+그래프의 목적에 따라 막대그래프·산점도 등의 다른 표현이 더 적절할 수 있습니다. 그래프 선택 기준은 Chapter 02에서 다룹니다.
+
+## Directory Structure
+
+```text
+Data_Visualization/
+├── README.md
+├── banner_DataVisualization.png
+├── datasets/             # 여러 Chapter에서 사용하는 공통 데이터
+├── Chapter-01/
+│   ├── README.md
+│   ├── examples/
+│   ├── exercises/
+│   └── solutions/
+├── Chapter-02/
+├── Chapter-03/
+├── Chapter-04/
+├── Chapter-05/
+├── Chapter-06/
+├── Chapter-07/
+├── Chapter-08/
+└── Chapter-09/
+    ├── README.md
+    ├── examples/
+    ├── exercises/
+    ├── solutions/
+    └── project/
+```
+
+위 구조는 **학습자료 제작에 따라 추가할 예정인 디렉터리 구성**입니다. Chapter별로 필요하면 `data/`, `outputs/`, `tests/` 등의 디렉터리를 추가할 수 있습니다.
+
+## Code Guidelines
+
+- 모든 주요 예제는 Python으로 작성하고 실행 가능한 형태로 제공합니다.
+- 그래프를 작성하기 전에 데이터 출처, 단위, 기간, 결측 여부를 확인합니다.
+- 축 제목, 단위, 범례를 명확히 표시하고 불필요한 시각적 장식을 줄입니다.
+- 그래프 유형과 축 범위가 데이터의 의미를 왜곡하지 않도록 검토합니다.
+- 원본 데이터는 변경하지 않으며, 생성된 그래프와 가공 데이터는 필요에 따라 별도로 보관합니다.
+- 학습자료에서 사용하는 그래프와 코드의 결과가 일치하도록 유지합니다.
+- `examples/`와 `solutions/`을 구분하고, 연습문제는 `exercises/`에 제공합니다.
+- Quiz 정답은 각 문항 아래의 접기·펼치기 형식으로 개별 확인할 수 있도록 구성합니다.
+- 그래프의 특징과 한계, 결과를 해석할 때 주의할 점을 함께 설명합니다.
+
+## References
+
+- [Python Documentation](https://docs.python.org/3/)
+- [NumPy Documentation](https://numpy.org/doc/stable/)
+- [Pandas Documentation](https://pandas.pydata.org/docs/)
+- [Matplotlib Documentation](https://matplotlib.org/stable/)
+- [Matplotlib Tutorials](https://matplotlib.org/stable/tutorials/index.html)
+- [Seaborn Documentation](https://seaborn.pydata.org/)
+- [Plotly Python Documentation](https://plotly.com/python/)
+- [Plotly Express](https://plotly.com/python/plotly-express/)
+- [Streamlit Documentation](https://docs.streamlit.io/)
+- [Streamlit — Getting Started](https://docs.streamlit.io/get-started)
+- [Jupyter — Installation](https://jupyter.org/install)
 
 ---
-# NOTES
-- Last update: 2025.11.21.
-- Assignment: [Click Here](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/tree/main/PYTHON-2025-09/MoreStudy/Data_Visualization/Assignment)
 
-# Links
-- Numpy 01. https://myvelop.tistory.com/144
-
-# GUIDE
-🔗를 클릭하면 이동됩니다.
-- CH 01. 자료구조(리스트, 세트, 튜플, 딕셔너리) [🔗 Click Here](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/MoreStudy/Data_Visualization/Data%20Visualization_CH01.pdf)
-- CH 02. Numpy [🔗](#2-numpy)
-- CH 03. Pandas [🔗](#3-pandas)
-- CH 04. Matplotlib
-
----
-
-# Data Visualization (데이터 시각화)
-
-# 1. Python Data Structure
-- [Click Here](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/blob/main/PYTHON-2025-09/MoreStudy/Data_Visualization/Data%20Visualization_CH01.pdf)
-
-# 2. Numpy
-## 2.1. Numpy 란?
-- Numpy란 **Numerical Python**의 약자로 대규모 다차원 배열과 행렬 연산에 필요한 다양한 함수를 제공하는 라이브러리이다.
-- 파이썬의 list를 개선한 형태인 Numpy의 ndarray 객체는 **더 많은 데이터를 더 빠르게 처리**할 수 있도록 도와준다.
-- 넘파이는 N차원 배열 객체, 선형대수학, 푸리에 변환 및 난수 기능, 범용적 데이터 처리를 위한 다차원 컨테이너 등의 기능을 제공한다.
-
-Numpy를 사용하기 위해서 아래와 같이 선언 해준다. (보통 `as np`까지 써주는데, 안써도 상관은 없음)
-```
-import numpy as np
-```
-numpy가 설치되어 있지 않다면,
-```
-pip install numpy
-```
-또는
-```
-!pip install numpy
-```
-명령어를 통해 numpy를 설치하면 된다.
-
-## 2.2. array
-### 2.2.1. Numpy array 란?
-- array는 python의 list와 비슷한 개념이라고 생각하면 된다.
-- Numpy array와 List의 차이? ([Click Here](https://wnwa.tistory.com/2))
-<br />
-
-Numpy array는 언제 쓰는가?
-- Numpy array는 list에 비해서 **비교적 빠른 연산**을 지원하고 **메모리를 효율적으로 사용**할 수 있는 큰 장점을 지니고 있다.
-- 비교적 빠른 연산이 가능한 이유?
-  - **데이터 타입이 통일**되므로 원소의 type checking을 할 필요가 없다. 
-  - 파이썬 리스트는 다양한 종류의 데이터를 한 번에 담을 수 있다. 이 때문에 연산을 할 때마다 각 원소의 데이터 타입을 확인하는 '타입 체크(type checking)' 과정이 필요하며, 이 과정은 연산 속도를 늦춤.
-  - 넘파이 배열의 모든 원소는 동일한 데이터 타입을 가진다. 따라서 타입 체크 과정이 생략되어 연산이 훨씬 빠르게 진행됨.
-    
-- 메모리를 효율적으로 사용할 수 있는 이유?
-  - **universal function**를 제공하기 때문에 같은 연산 반복에 대해 훨씬 빠르다.
-  - 유니버설 함수: 넘파이가 제공하는 '유니버설 함수(ufunc)'는 배열의 모든 원소에 대해 반복적인 연산을 효율적으로 처리하는 최적화된 기능.
-  - 반복문 대체: 리스트로 동일한 작업을 하려면 파이썬의 for 반복문을 사용해야 하지만, 이는 넘파이의 벡터화된(vectorized) 연산에 비해 훨씬 느리다. 넘파이는 C언어로 구현된 효율적인 함수로 이러한 반복 연산을 대체하여 속도와 메모리 효율을 모두 잡음.
-  
-### 2.2.2. Numpy array
-Numpy 배열인 ndarray객체는 array메소드를 통해 생성할 수 있는데, 파라미터로 파이썬의 list형의 데이터를 넣어주면 된다.
-
-```
-import numpy as np
-arr=np.array([1,2,3]) # import numpy 라고만 선언할 경우, arr=numpy.array([1,2,3])라고 적어줘야 함
-print(arr) # [1 2 3]
-```
-(이하 코드에서는 import numpy as np는 적혀 있다 가정하고 생략함)
-
-```
-arr = np.array([1,2,3], dtype="float64")
-print(arr) # [1. 2. 3.]
-```
-
-### 2.2.3. Numpy 메소드(method)를 통한 array 생성
-
-```
-# 0으로 채운 길이 5의 정수 배열
-np.zeros(5, dtype="int") # array([0, 0, 0, 0, 0])
-print(np.zeros(5, dtype="int")) # [0 0 0 0 0]
-#dtype을 정의하지 않을 경우 기본 float64로 설정됨
-np.zeros(5) # array([0., 0., 0., 0., 0.])
-print(np.zeros(5)) # [0. 0. 0. 0. 0.]
-```
-```
-[0 0 0 0 0]
-[0. 0. 0. 0. 0.]
-```
-<br />
-
-```
-# 1로 채운 3x5 부동 소수점 배열
-arr=np.ones((3, 5), dtype=float)
-print(arr)
-```
-```
-[[1. 1. 1. 1. 1.]
- [1. 1. 1. 1. 1.]
- [1. 1. 1. 1. 1.]]
-```
-<br />
-
-
-```
-# 3.14로 채운 2x3 배열
-arr=np.full((2, 3), 3.14)
-print(arr)
-```
-```
-[[3.14 3.14 3.14]
- [3.14 3.14 3.14]]
-```
-<br />
-
-```
-# 3x3 단위행렬(곱했을 때 1과 같은 역할을 하는 행렬)
-arr=np.eye(3)
-print(arr)
-```
-```
-[[1. 0. 0.]
- [0. 1. 0.]
- [0. 0. 1.]]
-```
-<br/>
-
-np.empty는 지정된 형태와 데이터 유형을 가진 새로운 배열을 생성하지만 값은 초기화하지 않는 NumPy 함수.
-```
-arr=np.empty(3)
-print(arr)
-```
-<br/>
-
-난수(random)을 통한 배열 생성
-- 참고 링크 : https://nittaku.tistory.com/443
-- np.random을 이용한 배열 생성으로 random, normal, randint, randn, rand 등이 있다.
-
-```
-# 0과 1사이의 난수
-arr = np.random.random((3, 3))
-print(arr)
-```
-```
-[[0.39699144 0.38750686 0.10889586]
- [0.96605901 0.30149444 0.35351286]
- [0.89256293 0.0237404  0.33062919]]
-```
-<br />
-
-```
-# 정규 분포(평균=0, 표준 편차=1)의 난수로 채운 3x3 배열 만들기
-arr = np.random.normal(0, 1, (3, 3))
-print(arr)
-```
-```
-[[ 1.2782701   1.15385092 -0.12188603]
- [ 2.58624244 -0.73396409  0.83996935]
- [-2.22873188  0.03920276  0.43132214]]
-```
-<br />
-
-```
-# [0, 10] 사이의 정수 난수
-arr = np.random.randint(0, 10, (3, 3))
-print(arr)
-```
-```
-[[0 8 7]
- [1 9 7]
- [4 3 2]]
-```
-<br/>
-
-- np.random.seed()를 이용하면 **같은 값**의 난수 입력을 받을 수 있어 비교하기가 편하다. ([Click Here](https://antilibrary.org/2481#google_vignette))
-- seed값이 같다면 동일한 난수가 생성된다.
-  `np.random.seed(임의의 숫자)`와 같이 사용할 수 있음.
-```
-np.random.seed(0); print(np.random.rand(3))
-np.random.seed(0); print(np.random.rand(3))
-np.random.seed(0); print(np.random.rand(3))
-```
-```
-[0.5488135  0.71518937 0.60276338]
-[0.5488135  0.71518937 0.60276338]
-[0.5488135  0.71518937 0.60276338]
-```
-
-# 3. Pandas
-## 3.1. Pandas 란?
-- Pandas란
+[← MoreStudy](../Readme.md) · [Data Processing](../Data_Processing/)
