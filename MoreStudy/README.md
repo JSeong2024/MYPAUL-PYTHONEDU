@@ -26,7 +26,7 @@
 | 프로그래밍 | [C++](./C++) | C++&nbsp;프로그래밍&nbsp;및&nbsp;주요&nbsp;개념 | 🔵&nbsp;진행&nbsp;중 |
 | 정보보안 | [Cybersecurity](./Cybersecurity) | 웹·네트워크&nbsp;보안&nbsp;및&nbsp;CTF&nbsp;실습 | 🔵&nbsp;진행&nbsp;중 |
 | 로봇 공학 | [Robotics](./Robotics) | 로봇&nbsp;공학&nbsp;기초&nbsp;및&nbsp;응용 | 🔵&nbsp;진행&nbsp;중 |
-| 데이터 | [데이터 처리](./Data_Processing) | 데이터&nbsp;수집,&nbsp;정제&nbsp;및&nbsp;가공 | ⚪&nbsp;예정 |
+| 데이터 | [데이터 처리](./Data_Processing) | 데이터&nbsp;수집,&nbsp;정제&nbsp;및&nbsp;가공 | 🔵&nbsp;진행&nbsp;중 |
 | 데이터 | [데이터 시각화](./Data_Visualization) | 데이터&nbsp;분석&nbsp;결과의&nbsp;시각적&nbsp;표현 | 🔵&nbsp;진행&nbsp;중 |
 | 인공지능 | 객체 탐지 | 영상&nbsp;및&nbsp;이미지&nbsp;기반&nbsp;객체&nbsp;탐지 | ⚪&nbsp;예정 |
 | 웹 개발 | 웹 프로그래밍 | 웹&nbsp;개발&nbsp;기초&nbsp;및&nbsp;응용 | ⚪&nbsp;예정 |
