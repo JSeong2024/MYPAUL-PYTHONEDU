@@ -20,8 +20,8 @@ Python을 기반으로 데이터를 수집하고, 정제하고, 변환하는 방
 | Chapter | Topic |
 |:---:|---|
 | [01](./Chapter-01) | **Introduction to Data Processing** — 데이터 유형, 처리 흐름, 개발 환경, 기본 데이터 탐색 |
-| 02 | **Python Data Structures** — List, Tuple, Dictionary, Set, 중첩 데이터, 정렬과 필터링 |
-| 03 | **NumPy Fundamentals** — ndarray, 배열 연산, 인덱싱, Broadcasting, 벡터화 |
+| [02](./Chapter-02) | **Python Data Structures** — List, Tuple, Dictionary, Set, 중첩 데이터, 정렬과 필터링 |
+| [03](./Chapter-03) | **NumPy Fundamentals** — ndarray, 배열 연산, 인덱싱, Broadcasting, 벡터화 |
 
 ### Part 2 — Data Handling & Transformation
 
@@ -29,10 +29,10 @@ Python을 기반으로 데이터를 수집하고, 정제하고, 변환하는 방
 
 | Chapter | Topic |
 |:---:|---|
-| 04 | **Pandas & DataFrames** — Series, DataFrame, 데이터 선택, 정렬, 기본 집계 |
-| 05 | **File I/O & Data Formats** — pathlib, CSV, JSON, Excel, Parquet, SQLite, API 데이터 |
-| 06 | **Data Cleaning & Validation** — 결측치, 중복, 이상치, 자료형 변환, 유효성 검사 |
-| 07 | **Data Transformation & Aggregation** — GroupBy, Merge, Join, Pivot, 시계열 집계, 처리 흐름 설계 |
+| [04](./Chapter-04) | **Pandas & DataFrames** — Series, DataFrame, 데이터 선택, 정렬, 기본 집계 |
+| [05](./Chapter-05) | **File I/O & Data Formats** — pathlib, CSV, JSON, Excel, Parquet, SQLite, API 데이터 |
+| [06](./Chapter-06) | **Data Cleaning & Validation** — 결측치, 중복, 이상치, 자료형 변환, 유효성 검사 |
+| [07](./Chapter-07) | **Data Transformation & Aggregation** — GroupBy, Merge, Join, Pivot, 시계열 집계, 처리 흐름 설계 |
 
 ### Part 3 — Data Processing Project
 
@@ -40,7 +40,7 @@ Python을 기반으로 데이터를 수집하고, 정제하고, 변환하는 방
 
 | Chapter | Topic |
 |:---:|---|
-| 08 | **Data Processing Project** — 기상 데이터 불러오기, 검증, 정제, 결합, 집계, 결과 저장 |
+| [08](./Chapter-08) | **Data Processing Project** — 기상 데이터 불러오기, 검증, 정제, 결합, 집계, 결과 저장 |
 
 
 ## Learning Path
