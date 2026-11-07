@@ -1045,28 +1045,72 @@ g++ -std=c++23 -Wall -Wextra -Wpedantic -Werror \
 
 ## 10.20. Quiz & Summary
 
+
 ### Quiz
 
-1. `std::map`과 `std::unordered_map` 중 Key 정렬 순서를 보장하는 Container는 무엇인가요?
-2. `std::vector::push_back()`이 기존 Iterator를 무효화하는 대표적인 조건은 무엇인가요?
-3. `std::ranges::sort`에 전달하는 Comparator가 만족해야 할 주요 규칙은 무엇인가요?
-4. `std::ranges::remove_if` 호출만으로 Container 크기가 줄어드나요?
-5. `std::views::filter`가 생성하는 View는 원본 데이터의 Lifetime과 어떤 관계가 있나요?
-6. `std::ranges::to`가 없는 표준 라이브러리에서는 어떻게 결과를 `std::vector`로 만들 수 있나요?
-7. `std::priority_queue`에서 `top()`과 `pop()`의 역할은 무엇인가요?
+**1.** `std::map`과 `std::unordered_map` 중 Key 정렬 순서를 보장하는 Container는 무엇인가요?
 
 <details>
 <summary>정답 확인</summary>
 
-1. `std::map`. 기본적으로 Key를 정렬된 순서로 순회할 수 있음.
-2. 용량이 부족해 Reallocation이 발생하는 경우.
-3. Strict Weak Ordering.
-4. 아니요. 제거 대상 요소를 뒤쪽으로 모으며 실제 크기 감소에는 `erase()` 필요.
-5. 원본 데이터를 참조하는 View는 원본이 유효해야 하며 Invalidation도 고려해야 함.
-6. `std::ranges::copy(range, std::back_inserter(vector))` 등을 사용.
-7. `top()`은 최우선 요소 조회, `pop()`은 해당 요소 제거.
+`std::map`. 기본적으로 Key를 정렬된 순서로 순회할 수 있음.
 
 </details>
+
+**2.** `std::vector::push_back()`이 기존 Iterator를 무효화하는 대표적인 조건은 무엇인가요?
+
+<details>
+<summary>정답 확인</summary>
+
+용량이 부족해 Reallocation이 발생하는 경우.
+
+</details>
+
+**3.** `std::ranges::sort`에 전달하는 Comparator가 만족해야 할 주요 규칙은 무엇인가요?
+
+<details>
+<summary>정답 확인</summary>
+
+Strict Weak Ordering.
+
+</details>
+
+**4.** `std::ranges::remove_if` 호출만으로 Container 크기가 줄어드나요?
+
+<details>
+<summary>정답 확인</summary>
+
+아니요. 요소를 재배치해 논리적으로 제거하며, 실제 크기 감소에는 `erase()`가 필요함.
+
+</details>
+
+**5.** `std::views::filter`가 생성하는 View는 원본 데이터의 Lifetime과 어떤 관계가 있나요?
+
+<details>
+<summary>정답 확인</summary>
+
+원본 데이터를 참조하는 View는 원본이 유효해야 하며 Invalidation도 고려해야 함.
+
+</details>
+
+**6.** `std::ranges::to`가 없는 표준 라이브러리에서는 어떻게 결과를 `std::vector`로 만들 수 있나요?
+
+<details>
+<summary>정답 확인</summary>
+
+`std::ranges::copy(range, std::back_inserter(vector))` 등을 사용.
+
+</details>
+
+**7.** `std::priority_queue`에서 `top()`과 `pop()`의 역할은 무엇인가요?
+
+<details>
+<summary>정답 확인</summary>
+
+`top()`은 최우선 요소 조회, `pop()`은 해당 요소 제거.
+
+</details>
+
 
 ### Summary
 
