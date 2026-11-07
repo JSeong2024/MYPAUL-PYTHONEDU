@@ -6,7 +6,12 @@
   <a href="https://github.com/JSeong2024/MYPAUL-PYTHONEDU/actions/workflows/python-ci.yaml">
     <img src="https://github.com/JSeong2024/MYPAUL-PYTHONEDU/actions/workflows/python-ci.yaml/badge.svg?branch=main" alt="Python CI">
   </a>
+  &nbsp;
+  <a href="https://github.com/JSeong2024/MYPAUL-PYTHONEDU/actions/workflows/cpp-ci.yaml">
+    <img src="https://github.com/JSeong2024/MYPAUL-PYTHONEDU/actions/workflows/cpp-ci.yaml/badge.svg?branch=main" alt="C++ CI">
+  </a>
 </p>
+
 
 <p align="center">
   다양한 기술 분야의 학습 자료를 정리한 공간입니다.<br>
