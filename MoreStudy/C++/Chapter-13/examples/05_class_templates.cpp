@@ -1,29 +1,27 @@
-#include <array>
-#include <cstddef>
+#include <concepts>
 #include <print>
-#include <string>
 
-template <typename T, std::size_t Capacity>
-class FixedBuffer {
-    static_assert(Capacity > 0, "Capacity must be positive");
+// 센서값이 같은 숫자여도 단위가 다르면 서로 다른 타입으로 구분.
+struct CelsiusTag {};
+struct KilopascalTag {};
+
+template <typename Tag, std::floating_point T>
+class Quantity {
 public:
-    [[nodiscard]] bool push(const T& value) {
-        if (size_ == Capacity) return false;
-        data_[size_++] = value;
-        return true;
+    explicit constexpr Quantity(T value) noexcept : value_(value) {}
+    [[nodiscard]] constexpr T value() const noexcept { return value_; }
+    [[nodiscard]] constexpr Quantity operator+(Quantity other) const noexcept {
+        return Quantity{value_ + other.value_};
     }
-    [[nodiscard]] std::size_t size() const noexcept { return size_; }
-    [[nodiscard]] const T& at(std::size_t index) const { return data_.at(index); }
 private:
-    std::array<T, Capacity> data_{};
-    std::size_t size_{};
+    T value_;
 };
 
 int main() {
-    FixedBuffer<std::string, 2> names;
-    const bool first = names.push("front");
-    const bool second = names.push("rear");
-    const bool third = names.push("extra");
-    std::println("Inserted: {} {} {}", first, second, third);
-    std::println("Size: {}, First: {}", names.size(), names.at(0));
+    const Quantity<CelsiusTag, double> room{20.0};
+    const Quantity<CelsiusTag, double> offset{1.5};
+    const Quantity<KilopascalTag, double> pressure{101.3};
+    std::println("Temperature: {} C", (room + offset).value());
+    std::println("Pressure: {} kPa", pressure.value());
+    // room + pressure; // 단위가 다른 타입은 더할 수 없음
 }
