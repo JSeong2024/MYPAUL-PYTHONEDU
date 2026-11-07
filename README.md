@@ -19,7 +19,7 @@
 
 ## 📖 소개
 
-**MYPAUL-PYTHONEDU**는 Python 기초·중급 과정의 강의 노트, 예제 코드, 과제 및 보충 자료를 정리한 교육용 저장소입니다. 수업 자료는 `Classroom/`에서 학기별로 관리하고, 보충 학습 자료는 `MoreStudy/`에 모아두었습니다.
+**MYPAUL-PYTHONEDU**는 Python 기초·중급 과정의 강의 노트, 예제 코드, 과제 및 보충 자료를 정리한 교육용 저장소입니다. 수업 자료는 `Classroom/`에서 학기별로 관리하고, 추가 학습 자료는 `MoreStudy/`에 모아두었습니다.
 
 ## 💻 MYPAUL Classroom
 
