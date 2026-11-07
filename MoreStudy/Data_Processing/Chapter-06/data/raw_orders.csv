@@ -1,0 +1,32 @@
+order_id,order_date,customer_id,region,category,quantity,unit_price,status
+ORD-001,2026-10-01,C101,Seoul,Stationery,2,1500,completed
+ORD-002,2026-10-01,C102,busan,Electronics,1,25000,completed
+ORD-003,2026-10-02,C103, seoul ,food,3,3000,completed
+ORD-004,2026-10-02,C104,Gwangju,Food,2,4500,cancelled
+ORD-005,2026-10-03,C105,Seoul,Stationery,1,8000,completed
+ORD-006,2026-10-03,C106,Busan,food,2,6000,completed
+ORD-007,2026-10-04,C107,Incheon,Stationery,4,1500,completed
+ORD-008,2026-10-04,C108,Gwangju,Electronics,1,35000,completed
+ORD-009,2026-10-05,C109,Seoul,Food,,4800,completed
+ORD-010,2026-10-05,C110,Busan,Food,2,unknown,completed
+ORD-011,not-a-date,C111,Seoul,Stationery,1,2000,completed
+ORD-012,2026-10-06,C112,Daegu,Food,-1,2000,completed
+ORD-013,2026-10-06,C113,Seoul,Electronics,1,9999999,completed
+ORD-014,2026-10-07,C114,  ,Food,1,5500,completed
+ORD-015,2026-10-07,C115,Seoul,Food,2,4000,pending
+ORD-016,2026-10-08,C116,Busan,Stationery,2,1000,completed
+ORD-016,2026-10-08,C116,Busan,Stationery,2,1000,completed
+ORD-017,2026-10-08,C117,Incheon,Food,1,6500,completed
+ORD-018,2026-10-09,C118,Gwangju,Stationery,3,2200,completed
+ORD-019,2026-10-09,C119,Seoul,Food,1,3000,refunded
+ORD-020,2026-10-10,C120,Seoul,Food,1,15000,completed
+ORD-021,2026-10-10,C121,Seoul,Food,1,4000,COMPLETE
+ORD-022,2026-10-11,C122,Busan,Electronics,0,20000,completed
+ORD-023,2026-10-11,C123,Incheon,Stationery,1,5000,completed
+ORD-024,2026-10-12,C124, seoul ,Food,1,3500,completed
+ORD-025,2026-10-12,C125,Busan,Food,2,5000,completed
+ORD-026,2026-10-13,C126,Seoul,Electronics,1,40000,completed
+ORD-027,2026-10-13,C127,Seoul,Food,2,3000,completed
+ORD-028,2026-10-14,C128,Seoul,Stationery,1,1800,completed
+ORD-029,2026-10-14,C129, Busan ,Food,2,2500,completed
+ORD-030,2026-10-15,C130,Seoul,Food,1,3400,completed

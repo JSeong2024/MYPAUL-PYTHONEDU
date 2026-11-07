@@ -1,0 +1,25 @@
+{
+  "allowed_regions": [
+    "Seoul",
+    "Busan",
+    "Gwangju",
+    "Incheon"
+  ],
+  "allowed_categories": [
+    "Food",
+    "Electronics",
+    "Stationery"
+  ],
+  "allowed_statuses": [
+    "completed",
+    "pending",
+    "cancelled",
+    "refunded"
+  ],
+  "revenue_status": "completed",
+  "max_quantity": 500,
+  "max_unit_price": 10000000,
+  "review_unit_price_over": 500000,
+  "earliest_date": "2026-10-01",
+  "latest_date": "2026-10-31"
+}
