@@ -3,17 +3,20 @@
 </p>
 
 <p align="center">
-  <strong>개념을 이해하고, 코드로 구현하며, 실행 결과로 검증하는 프로그래밍 교육</strong>
+  <img src="https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/C%2B%2B-00599C?style=flat&logo=cplusplus&logoColor=white" alt="C++">
 </p>
 
 <p align="center">
-  <a href="./Classroom/PYTHON-2026-09/Basic">Python Basic</a> ·
-  <a href="./Classroom/PYTHON-2026-09/Intermediate">Python Intermediate</a> ·
+  <strong>개념을 이해하고, 코드로 구현하며, 실행 결과로 검증하는 프로그래밍 교육</strong>
+</p>
+<p align="center">
   <a href="./Classroom">강의 아카이브</a> ·
   <a href="./MoreStudy">추가 학습 자료</a> ·
   <a href="https://github.com/JSeong2024/MYPAUL-PYTHONEDU/releases/latest">Classroom 런처</a> ·
   <a href="./ABOUT.md">교육 안내</a>
 </p>
+
 
 ---
 
