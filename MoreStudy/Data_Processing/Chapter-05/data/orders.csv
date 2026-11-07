@@ -1,0 +1,13 @@
+order_id,order_date,region_code,product_id,quantity,unit_price,status
+ORD001,2026-10-01,01,P01,2,3500,completed
+ORD002,2026-10-01,02,P02,3,2500,completed
+ORD003,2026-10-02,03,P03,5,1200,completed
+ORD004,2026-10-02,01,P04,1,9000,completed
+ORD005,2026-10-02,02,P01,1,3500,canceled
+ORD006,2026-10-03,03,P02,2,2500,completed
+ORD007,2026-10-03,01,P03,4,1200,completed
+ORD008,2026-10-04,02,P04,2,9000,completed
+ORD009,2026-10-04,03,P01,3,3500,completed
+ORD010,2026-10-04,01,P02,1,2500,canceled
+ORD011,2026-10-05,02,P03,2,1200,completed
+ORD012,2026-10-05,03,P04,1,9000,completed

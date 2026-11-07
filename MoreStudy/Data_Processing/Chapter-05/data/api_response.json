@@ -1,0 +1,17 @@
+{
+  "source": "local-fixture",
+  "data": [
+    {
+      "city": "서울",
+      "rainfall_mm": 0.0
+    },
+    {
+      "city": "부산",
+      "rainfall_mm": 2.5
+    },
+    {
+      "city": "광주",
+      "rainfall_mm": 1.2
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "products": [
+    {
+      "product_id": "P01",
+      "name": "커피",
+      "category": "음료"
+    },
+    {
+      "product_id": "P02",
+      "name": "노트",
+      "category": "문구"
+    },
+    {
+      "product_id": "P03",
+      "name": "볼펜",
+      "category": "문구"
+    },
+    {
+      "product_id": "P04",
+      "name": "텀블러",
+      "category": "생활"
+    }
+  ]
+}
