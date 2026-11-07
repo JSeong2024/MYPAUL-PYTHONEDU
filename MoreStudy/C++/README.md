@@ -10,19 +10,19 @@ C++23을 기준으로 기본 문법부터 표준 라이브러리, 객체지향 �
 
 ## Chapters
 
-| Chapter | Topic | 상태 |
-|:---:|---|:---:|
-| [01](./Chapter-01/) | Getting Started — 컴파일, 입출력, 문자열, `using`, 입력 검증 | 작성 완료 |
-| [02](./Chapter-02/) | Variables & Data Types — 변수, 자료형, 상수, 형변환, 열거형 | 작성 완료 |
-| [03](./Chapter-03/) | Operators & Conditions — 연산자, 조건문, 장치 상태 판단 | 작성 완료 |
-| [04](./Chapter-04/) | Loops — 반복문, 센서 샘플링, 재시도 | 작성 완료 |
-| [05](./Chapter-05/) | Functions — 함수 설계, 반환값, 람다, 파일 분리 | 작성 완료 |
-| [06](./Chapter-06/) | Arrays & Strings — 배열, 문자열, 뷰, 입력 및 파싱 | 작성 완료 |
-| 07 | Pointers & References | 예정 |
-| 08 | Structs & Classes | 예정 |
-| 09 | Object-Oriented Programming | 예정 |
-| 10 | Standard Library (STL) | 예정 |
-| 11 | File I/O | 예정 |
+| Chapter | Topic |
+|:---:|---|
+| [01](./Chapter-01/) | Getting Started — 컴파일, 입출력, 문자열, `using`, 입력 검증 |
+| [02](./Chapter-02/) | Variables & Data Types — 변수, 자료형, 상수, 형변환, 열거형 |
+| [03](./Chapter-03/) | Operators & Conditions — 연산자, 조건문, 장치 상태 판단 |
+| [04](./Chapter-04/) | Loops — 반복문, 센서 샘플링, 재시도 |
+| [05](./Chapter-05/) | Functions — 함수 설계, 반환값, 람다, 파일 분리 |
+| [06](./Chapter-06/) | Arrays & Strings — 배열, 문자열, 뷰, 입력 및 파싱 |
+| [07](./Chapter-07/) | Pointers & References |
+| [08](./Chapter-08/) | Structs & Classes |
+| [09](./Chapter-09/) | Object-Oriented Programming |
+| [10](./Chapter-10/) | Standard Library (STL) |
+| [11](./Chapter-11/) | File I/O |
 
 
 ## Directory Structure
@@ -40,6 +40,11 @@ C++/
 ├── Chapter-04/
 ├── Chapter-05/
 └── Chapter-06/
+└── Chapter-07/
+└── Chapter-08/
+└── Chapter-09/
+└── Chapter-10/
+└── Chapter-11/
 ```
 
 ## Getting Started
