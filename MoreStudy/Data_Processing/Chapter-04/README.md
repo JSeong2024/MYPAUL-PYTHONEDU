@@ -4,7 +4,17 @@ Python의 **Pandas**를 이용해 표 형태의 데이터를 만들고, 읽고, 
 
 본 자료의 예제는 **Python 3.13.5 / Pandas 2.2.3** 환경에서 실행 검증했습니다. Pandas 3.x에서 기본 동작으로 도입된 **Copy-on-Write(CoW)** 및 연결된 인덱싱(Chained Assignment) 관련 주의사항도 반영했습니다. 출력 형식과 문자열 열의 기본 자료형은 Pandas 버전 또는 실행 환경에 따라 달라질 수 있습니다.
 
-**선행 학습:** [Chapter 01](../Chapter-01/) · [Chapter 02](../Chapter-02/) · [Chapter 03](../Chapter-03/)
+
+<details>
+<summary><strong>선행 학습 목록</strong></summary>
+
+- [Chapter 01 — Introduction to Data Processing](../Chapter-01/)
+- [Chapter 02 — Python Data Structures](../Chapter-02/)
+- [Chapter 03 — NumPy Fundamentals](../Chapter-03/)
+- [Chapter 04 — Pandas & DataFrames](../Chapter-04/)
+
+</details>
+
 
 <a id="contents"></a>
 ## Contents
