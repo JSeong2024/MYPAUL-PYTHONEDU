@@ -4,7 +4,13 @@ NumPy의 **ndarray(다차원 배열)** 를 중심으로 배열 생성, 자료형
 
 본 자료는 **Python 3.13 이상과 NumPy 2.x**를 기준으로 작성하였습니다. 운영체제와 패키지 버전에 따라 일부 출력 형식 및 난수 결과, 실행 시간은 달라질 수 있습니다.
 
-**선행 학습:** [Chapter 01](../Chapter-01/) · [Chapter 02](../Chapter-02/) · Python 조건문·반복문·함수 기초
+<details>
+<summary><strong>선행 학습 목록</strong></summary>
+
+- [Chapter 01 — Introduction to Data Processing](../Chapter-01/)
+- [Chapter 02 — Python Data Structures](../Chapter-02/)
+
+</details>
 
 <a id="contents"></a>
 ## Contents
