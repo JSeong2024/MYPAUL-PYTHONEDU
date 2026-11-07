@@ -1,0 +1,26 @@
+[
+  {
+    "corridor_id": "R-01",
+    "name": "Central Avenue"
+  },
+  {
+    "corridor_id": "R-02",
+    "name": "River Road"
+  },
+  {
+    "corridor_id": "R-03",
+    "name": "Station Street"
+  },
+  {
+    "corridor_id": "R-04",
+    "name": "Industrial Road"
+  },
+  {
+    "corridor_id": "R-05",
+    "name": "University Road"
+  },
+  {
+    "corridor_id": "R-06",
+    "name": "Market Road"
+  }
+]

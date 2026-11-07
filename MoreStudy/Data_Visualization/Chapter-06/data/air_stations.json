@@ -1,0 +1,18 @@
+[
+  {
+    "station_id": "AQ-A",
+    "region": "Seoul"
+  },
+  {
+    "station_id": "AQ-B",
+    "region": "Busan"
+  },
+  {
+    "station_id": "AQ-C",
+    "region": "Gwangju"
+  },
+  {
+    "station_id": "AQ-D",
+    "region": "Daejeon"
+  }
+]
