@@ -1,5 +1,3 @@
-# C++
-
 C++23을 기준으로 기본 문법부터 표준 라이브러리, 객체지향 프로그래밍까지 정리한 학습 자료입니다. 각 Chapter에서 개념 설명과 예제 코드를 확인하고, 연습문제를 직접 실행해 볼 수 있습니다.
 
 - **기준 표준:** C++23 (ISO/IEC 14882:2024)
@@ -11,9 +9,9 @@ C++23을 기준으로 기본 문법부터 표준 라이브러리, 객체지향 �
 | Chapter | Topic | 상태 |
 |:---:|---|:---:|
 | [01](./Chapter-01/) | Getting Started — 컴파일, 입출력, 문자열, `using`, 입력 검증 | 작성 완료 |
-| 02 | Variables & Data Types | 예정 |
-| 03 | Operators & Conditions | 예정 |
-| 04 | Loops | 예정 |
+| [02](./Chapter-02/) | Variables & Data Types — 변수, 자료형, 상수, 형변환, 열거형 | 작성 완료 |
+| [03](./Chapter-03/) | Operators & Conditions — 연산자, 조건문, 장치 상태 판단 | 작성 완료 |
+| [04](./Chapter-04/) | Loops — 반복문, 센서 샘플링, 재시도 | 작성 완료 |
 | 05 | Functions | 예정 |
 | 06 | Arrays & Strings | 예정 |
 | 07 | Pointers & References | 예정 |
@@ -22,7 +20,7 @@ C++23을 기준으로 기본 문법부터 표준 라이브러리, 객체지향 �
 | 10 | Standard Library (STL) | 예정 |
 | 11 | File I/O | 예정 |
 
-작성되지 않은 Chapter는 순차적으로 추가할 예정입니다.
+이후 Chapter는 순차적으로 추가할 예정입니다.
 
 ## Directory Structure
 
@@ -30,14 +28,16 @@ C++23을 기준으로 기본 문법부터 표준 라이브러리, 객체지향 �
 C++/
 ├── README.md
 ├── Chapter-01/
-│   ├── README.md       # 학습 문서
-│   ├── examples/       # 실행 예제
-│   ├── exercises/      # 연습문제
-│   └── solutions/      # 정답 코드
-└── Chapter-02/         # 추후 추가
+│   ├── README.md
+│   ├── examples/
+│   ├── exercises/
+│   └── solutions/
+├── Chapter-02/
+├── Chapter-03/
+└── Chapter-04/
 ```
 
-Chapter 폴더명은 `Chapter-01`, `Chapter-02` 형식으로 통일합니다. 각 Chapter의 제목과 학습 내용은 내부 `README.md`에서 관리합니다.
+모든 Chapter는 `Chapter-XX` 형식으로 관리합니다. 각 Chapter에는 학습 문서(`README.md`), 실행 예제(`examples/`), 연습문제(`exercises/`), 정답 코드(`solutions/`)를 배치합니다.
 
 ## Getting Started
 
