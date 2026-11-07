@@ -1,0 +1,19 @@
+{
+  "date_start": "2026-10-01",
+  "date_end": "2026-10-14",
+  "expected_times": [
+    "09:00",
+    "18:00"
+  ],
+  "temperature_c": {
+    "min": -30,
+    "max": 45
+  },
+  "humidity_pct": {
+    "min": 0,
+    "max": 100
+  },
+  "precipitation_mm": {
+    "min": 0
+  }
+}

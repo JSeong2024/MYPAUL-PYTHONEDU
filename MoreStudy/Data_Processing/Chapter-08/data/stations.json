@@ -1,0 +1,17 @@
+[
+  {
+    "station_id": "ST-01",
+    "region": "Seoul",
+    "elevation_m": 42
+  },
+  {
+    "station_id": "ST-02",
+    "region": "Busan",
+    "elevation_m": 18
+  },
+  {
+    "station_id": "ST-03",
+    "region": "Gwangju",
+    "elevation_m": 35
+  }
+]
