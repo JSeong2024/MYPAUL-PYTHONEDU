@@ -575,6 +575,34 @@ CSV + Policy JSON
     → 완료 주문의 지역별 매출 집계
 ```
 
+### Type Annotation Evaluation — `from __future__ import annotations`
+
+Chapter 02에서 다룬 타입 힌트는 `value: int`, `def f(...) -> str:`처럼 기대 자료형을 기록하는 표기입니다. `from __future__ import annotations`는 **타입 힌트를 평가하는 시점과 저장 방식**에 영향을 주는 선언입니다.
+
+Python 3.13 이하에서는 일반적으로 함수의 타입 힌트를 정의할 때 평가합니다. 아직 정의되지 않은 클래스 이름을 타입 힌트로 사용하면 오류가 발생할 수 있습니다. 다음 예제에서는 이 선언을 사용해 자기 자신의 클래스를 반환 타입에 표현합니다.
+
+```python
+from __future__ import annotations
+
+class Record:
+    def next_record(self) -> Record | None:
+        return None
+
+print(Record().next_record())
+```
+
+**실행 결과**
+
+```text
+None
+```
+
+- **Python 3.13 이하:** 이 선언을 사용하면 타입 힌트를 문자열 형태로 저장하여 아직 정의 중인 이름을 타입 힌트에 사용할 수 있습니다.
+- **Python 3.14 이상:** 기본 타입 힌트 평가 방식이 필요할 때 평가하는 방식으로 변경되었습니다. 다만 `from __future__ import annotations`를 명시한 파일에서는 기존의 **문자열화(Stringified Annotations)** 동작이 적용됩니다. 두 방식은 동일하지 않습니다.
+- **선언 위치:** 파일의 맨 앞에 배치하되, 모듈 설명 문자열(Docstring), 주석, 다른 `__future__` 선언은 앞에 올 수 있습니다.
+
+이 선언은 **데이터 검증이나 타입 강제를 수행하지 않습니다.** `pd.to_numeric()`과 `pd.to_datetime()` 등의 실제 검증·변환 로직과는 별개입니다. 아래 프로젝트에서는 타입 힌트의 평가 문제를 피하기 위해 사용했으며, 필요하지 않은 작은 함수에 관례적으로 추가할 필요는 없습니다.
+
 **프로젝트 코드 — [13_order_quality_pipeline.py](./examples/13_order_quality_pipeline.py)**
 
 아래 코드는 원본을 덮어쓰지 않고 `output/` 아래에 새 결과를 생성합니다.
@@ -1000,6 +1028,15 @@ python -m unittest discover -s tests -v
 
 </details>
 
+**Q13. `from __future__ import annotations`를 추가하면 Pandas 데이터의 자료형 오류가 자동으로 검증되나요?**
+
+<details>
+<summary>정답 및 해설 확인</summary>
+
+아닙니다. 이 선언은 타입 힌트의 평가·저장 방식에 영향을 줄 뿐, 입력 데이터의 자료형이나 값의 유효성을 검사하지 않습니다. 데이터 검증은 별도 코드로 수행해야 합니다.
+
+</details>
+
 ### Summary
 
 - **Data Quality:** 정확성, 완전성, 유효성, 일관성, 고유성, 적시성을 구분합니다.
@@ -1007,6 +1044,7 @@ python -m unittest discover -s tests -v
 - **Missing Strategies:** 삭제·대체·보존을 데이터 의미에 따라 선택합니다.
 - **Duplicates:** 전체 행 중복과 비즈니스 키 중복을 구분합니다.
 - **Type Conversion:** `to_numeric`, `to_datetime` 후 형식과 범위를 검증합니다.
+- **Future Annotations:** `from __future__ import annotations`는 타입 힌트 평가 방식을 조정하며 실제 값의 유효성 검사는 수행하지 않습니다.
 - **String Cleaning:** 공백·대소문자·허용 값의 표준화를 수행합니다.
 - **Outlier Detection:** 통계적 이상치는 자동 삭제보다 검토 근거로 활용합니다.
 - **Validation:** 열별 규칙과 열 간 관계를 함께 검사합니다.
@@ -1015,6 +1053,9 @@ python -m unittest discover -s tests -v
 - **Output Separation:** 정상, 제외, 검토 데이터를 구분하여 저장합니다.
 
 ### References
+
+- [Python — `__future__`](https://docs.python.org/3/library/__future__.html)
+- [Python — Annotation Semantics](https://docs.python.org/3/library/annotationlib.html#annotation-semantics)
 
 - [Python Documentation](https://docs.python.org/3/)
 - [Pandas — Working with Missing Data](https://pandas.pydata.org/docs/user_guide/missing_data.html)
