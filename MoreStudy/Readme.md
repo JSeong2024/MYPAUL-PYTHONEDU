@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="banner_MoreStudy.png" width="80%" alt="MoreStudy Banner">
+</p>
+
 다양한 기술 분야의 학습 자료를 정리한 공간입니다.
 **학습 주제**를 클릭하면 해당 자료로 이동합니다.
 
