@@ -19,7 +19,7 @@ Python을 기반으로 데이터를 수집하고, 정제하고, 변환하는 방
 
 | Chapter | Topic |
 |:---:|---|
-| 01 | **Introduction to Data Processing** — 데이터 유형, 처리 흐름, 개발 환경, 기본 데이터 탐색 |
+| [01](./Chapter-01) | **Introduction to Data Processing** — 데이터 유형, 처리 흐름, 개발 환경, 기본 데이터 탐색 |
 | 02 | **Python Data Structures** — List, Tuple, Dictionary, Set, 중첩 데이터, 정렬과 필터링 |
 | 03 | **NumPy Fundamentals** — ndarray, 배열 연산, 인덱싱, Broadcasting, 벡터화 |
 
