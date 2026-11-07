@@ -2,14 +2,13 @@
 
 Seaborn을 이용해 **데이터의 분포·범주별 차이·변수 사이의 관계**를 시각화합니다. Chapter 03의 Matplotlib `Figure`·`Axes`를 기반으로, 자주 사용하는 Seaborn 그래프와 Figure-level Facets를 학습합니다.
 
-각 예제는 **문제 상황 → 필요한 개념 → 코드 → 실제 그래프 → 코드 해설** 순서로 작성했습니다. 처음 등장하는 중요한 용어는 정의와 용도를 설명하고, 선택적 내용은 접어두었습니다. Coding Practice와 프로젝트는 완성 코드가 아닌 **시작 코드·요구사항·검증 기준**을 본문에 제공합니다.
+각 예제는 **문제 상황 → 필요한 개념 → 코드 → 실제 그래프 → 코드 해설** 순서로 작성했습니다. 처음 등장하는 중요한 용어는 정의와 용도를 설명하고, 선택적 내용은 접어두었습니다. Coding Practice와 프로젝트는 완성 코드가 아닌 **시작 코드·요구사항·검증 기준**을 제공합니다.
 
 모든 데이터는 **교육용 가상 데이터**입니다. 실제 매출, 서비스 성능, 도서관 방문 통계 또는 자전거 수요를 나타내지 않습니다.
 
 - **권장 환경:** Python 3.11 이상, Seaborn 0.13.2, Matplotlib, Pandas, NumPy, SciPy
 - **실행 검증:** Python 3.13.5, Seaborn 0.13.2, Matplotlib 3.10.8, Pandas 2.2.3, NumPy 2.3.5
 - **자료 구성:** Example 22개 · Coding Practice 18개 · Mini Project 3개 · Advanced Project 1개 · Quiz 20문제
-- **정답 공개 원칙:** README 본문에서는 Example 코드와 Quiz 정답만 공개. Coding Practice·Project 완성 코드는 `solutions/`에 별도 보관
 
 <details>
 <summary><strong>선행 학습 목록</strong></summary>
