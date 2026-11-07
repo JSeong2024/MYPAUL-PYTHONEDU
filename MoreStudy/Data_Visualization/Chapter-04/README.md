@@ -1216,7 +1216,7 @@ $$
 >
 > Pearson 상관계수의 벡터 표현과 L2 노름, 자기상관(Autocorrelation), 상호상관(Cross-Correlation), 시차(Lag)를 이용한 상관 분석을 더 자세히 학습할 수 있습니다.
 >
-> [Advanced Correlation Analysis — 심화자료](./Advanced_Correlation_Analysis/Advanced_Correlation_Analysis.md)
+> [Advanced Correlation Analysis — 심화자료](./Advanced_Correlation_Analysis/README.md)
 
 #### ② Pivot Heatmap — 범주 조합별 통계량
 
