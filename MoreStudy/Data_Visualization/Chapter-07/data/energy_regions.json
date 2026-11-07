@@ -1,0 +1,18 @@
+[
+  {
+    "region": "North",
+    "display_name": "North Region"
+  },
+  {
+    "region": "South",
+    "display_name": "South Region"
+  },
+  {
+    "region": "East",
+    "display_name": "East Region"
+  },
+  {
+    "region": "West",
+    "display_name": "West Region"
+  }
+]

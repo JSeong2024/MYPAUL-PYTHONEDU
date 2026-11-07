@@ -1,0 +1,200 @@
+[
+  {
+    "slug": "hover_name",
+    "title": "Hover Name",
+    "case": "매장별 매출 점에 커서를 올렸을 때 매장명을 제목으로 표시합니다.",
+    "required": "`px.scatter()`에 매장명을 강조하는 Hover 속성을 지정하세요.",
+    "setup": "df = pd.read_csv(DATA / 'retail_sales.csv').head(50)",
+    "stub": "# TODO: use x='units', y='revenue_krw', and hover_name='store'\nraise NotImplementedError",
+    "check": "scatter",
+    "num": 1,
+    "filename": "01_hover_name.py"
+  },
+  {
+    "slug": "category_color",
+    "title": "Categorical Color",
+    "case": "상품 분류별로 산점도의 색을 구별합니다.",
+    "required": "`category`로 범주형 색상을 부여하세요.",
+    "setup": "df = pd.read_csv(DATA / 'retail_sales.csv').head(80)",
+    "stub": "# TODO: color='category'\nraise NotImplementedError",
+    "check": "scatter",
+    "num": 2,
+    "filename": "02_category_color.py"
+  },
+  {
+    "slug": "hover_template",
+    "title": "Hover Template",
+    "case": "금액을 천 단위 구분자로 표시합니다.",
+    "required": "금액을 `%{y:,.0f}`로 포맷하고 `<extra></extra>`를 추가하세요.",
+    "setup": "fig=go.Figure(go.Scatter(x=['A','B'],y=[12000,18500],mode='markers'))",
+    "stub": "# TODO: call update_traces(hovertemplate=...)\nreturn fig",
+    "check": "scatter",
+    "num": 3,
+    "filename": "03_hover_template.py"
+  },
+  {
+    "slug": "legend_toggle",
+    "title": "Legend Toggle",
+    "case": "두 서비스 지연시간을 범례로 구별합니다.",
+    "required": "Trace마다 `name=`을 지정하고 두 Trace를 구성하세요.",
+    "setup": "fig=go.Figure()\nhours=['09:00','10:00','11:00']",
+    "stub": "# TODO: add two named line traces for API-A [120,150,130], API-B [180,170,190]\nreturn fig",
+    "check": "scatter",
+    "num": 4,
+    "filename": "04_legend_toggle.py"
+  },
+  {
+    "slug": "missing_gap",
+    "title": "Missing Observation",
+    "case": "11시 측정이 없을 때 선이 연결되지 않도록 해야 합니다.",
+    "required": "시간 인덱스를 복원하고 결측 시각을 `NaN`으로 남기세요.",
+    "setup": "observed=pd.Series([10,0,18],index=pd.to_datetime(['2026-10-01 09:00','2026-10-01 10:00','2026-10-01 12:00']))",
+    "stub": "# TODO: reindex 09:00–12:00 hourly and set connectgaps=False\nraise NotImplementedError",
+    "check": "scatter",
+    "num": 5,
+    "filename": "05_missing_gap.py"
+  },
+  {
+    "slug": "range_slider",
+    "title": "Range Slider",
+    "case": "날짜 축에서 관찰할 기간을 직접 선택합니다.",
+    "required": "날짜 축의 Range Slider를 활성화하세요.",
+    "setup": "df=pd.read_csv(DATA/'retail_sales.csv',parse_dates=['date'])\ndaily=df.groupby('date',as_index=False).revenue_krw.sum()\nfig=px.line(daily,x='date',y='revenue_krw')",
+    "stub": "# TODO: update_xaxes(...)\nreturn fig",
+    "check": "scatter",
+    "num": 6,
+    "filename": "06_range_slider.py"
+  },
+  {
+    "slug": "range_buttons",
+    "title": "Date Range Buttons",
+    "case": "날짜 그래프에 7일과 전체 기간 버튼을 추가합니다.",
+    "required": "`rangeselector`의 `buttons`에 7d와 All을 구성하세요.",
+    "setup": "fig=go.Figure(go.Scatter(x=pd.date_range('2026-10-01',periods=20),y=list(range(20))))",
+    "stub": "# TODO: add a 7d and All rangeselector\nreturn fig",
+    "check": "scatter",
+    "num": 7,
+    "filename": "07_range_buttons.py"
+  },
+  {
+    "slug": "dropdown",
+    "title": "Dropdown Visibility",
+    "case": "버튼으로 매장 A·B·C 중 하나만 표시합니다.",
+    "required": "드롭다운 버튼의 `visible` 배열 길이를 Trace 개수와 일치시키세요.",
+    "setup": "fig=go.Figure()\nfor name,values in [('A',[5,8]),('B',[7,6]),('C',[9,10])]:\n    fig.add_trace(go.Scatter(x=[1,2],y=values,name=name))",
+    "stub": "# TODO: one button per trace with matching visible array\nreturn fig",
+    "check": "scatter",
+    "num": 8,
+    "filename": "08_dropdown.py"
+  },
+  {
+    "slug": "restyle",
+    "title": "Restyle Mode",
+    "case": "선 그래프를 선+점 그래프로 전환하는 버튼을 구현합니다.",
+    "required": "`method=\"restyle\"`을 사용해 `mode`를 변경하세요.",
+    "setup": "fig=go.Figure(go.Scatter(x=[1,2,3],y=[3,2,4],mode='lines'))",
+    "stub": "# TODO: add two buttons for lines vs lines+markers\nreturn fig",
+    "check": "scatter",
+    "num": 9,
+    "filename": "09_restyle.py"
+  },
+  {
+    "slug": "subplot",
+    "title": "Subplot Placement",
+    "case": "방문자 그래프는 왼쪽, 매출 그래프는 오른쪽에 표시합니다.",
+    "required": "`row=1, col=1`과 `row=1, col=2`를 정확하게 지정하세요.",
+    "setup": "fig=make_subplots(rows=1,cols=2)",
+    "stub": "# TODO: left bar [10,20]; right scatter [80,90]\nreturn fig",
+    "check": "bar",
+    "num": 10,
+    "filename": "10_subplot.py"
+  },
+  {
+    "slug": "facet",
+    "title": "Facet Wrap",
+    "case": "팀별 응답시간을 별도의 작은 그래프로 나눕니다.",
+    "required": "`facet_col=\"team\"`과 `facet_col_wrap=2`를 사용하세요.",
+    "setup": "df=pd.read_csv(DATA/'support_tickets.csv').head(120)",
+    "stub": "# TODO: facet by team with two columns\nraise NotImplementedError",
+    "check": "scatter",
+    "num": 11,
+    "filename": "11_facet.py"
+  },
+  {
+    "slug": "sum_first",
+    "title": "Aggregate Before Bar",
+    "case": "상품 분류별 총매출을 하나의 막대로 비교합니다.",
+    "required": "`groupby()`로 합계를 구한 뒤 `px.bar()`로 표시하세요.",
+    "setup": "df=pd.read_csv(DATA/'retail_sales.csv')",
+    "stub": "# TODO: aggregate by category, then make a bar figure\nraise NotImplementedError",
+    "check": "bar",
+    "num": 12,
+    "filename": "12_sum_first.py"
+  },
+  {
+    "slug": "histogram_bins",
+    "title": "Histogram Bins",
+    "case": "응답시간의 구간 수를 지정합니다.",
+    "required": "`nbins=20`인 히스토그램을 생성하세요.",
+    "setup": "df=pd.read_csv(DATA/'support_tickets.csv')",
+    "stub": "# TODO: create histogram of first_response_min with 20 approximate bins\nraise NotImplementedError",
+    "check": "histogram",
+    "num": 13,
+    "filename": "13_histogram_bins.py"
+  },
+  {
+    "slug": "box_by_group",
+    "title": "Group Box Plot",
+    "case": "팀별 응답시간의 중앙값과 이상값을 비교합니다.",
+    "required": "X축 `team`, Y축 `first_response_min`인 Box Plot을 생성하세요.",
+    "setup": "df=pd.read_csv(DATA/'support_tickets.csv')",
+    "stub": "# TODO: box plot grouped by team\nraise NotImplementedError",
+    "check": "box",
+    "num": 14,
+    "filename": "14_box_by_group.py"
+  },
+  {
+    "slug": "heatmap",
+    "title": "Sales Heatmap",
+    "case": "매장×상품분류 매출 합계를 Heatmap으로 표시합니다.",
+    "required": "`pivot_table()`로 요약하고 `px.imshow()`로 표현하세요.",
+    "setup": "df=pd.read_csv(DATA/'retail_sales.csv')",
+    "stub": "# TODO: pivot sum revenue and use a heatmap\nraise NotImplementedError",
+    "check": "heatmap",
+    "num": 15,
+    "filename": "15_heatmap.py"
+  },
+  {
+    "slug": "continuous_color",
+    "title": "Continuous Color",
+    "case": "센서 점수의 크기를 연속 색상으로 표현합니다.",
+    "required": "`score`를 색상으로 지정하고 색상 막대를 유지하세요.",
+    "setup": "df=pd.DataFrame({'hour':[9,10,11,12],'score':[50,65,80,95]})",
+    "stub": "# TODO: scatter with color by score\nraise NotImplementedError",
+    "check": "scatter",
+    "num": 16,
+    "filename": "16_continuous_color.py"
+  },
+  {
+    "slug": "select_mode",
+    "title": "Select Mode",
+    "case": "마우스 드래그로 여러 점을 선택하는 모드를 기본으로 설정합니다.",
+    "required": "Layout에 `dragmode=\"select\"`를 지정하세요.",
+    "setup": "fig=go.Figure(go.Scatter(x=[1,2,3,4],y=[5,8,6,9],mode='markers'))",
+    "stub": "# TODO: configure the selection drag mode\nreturn fig",
+    "check": "scatter",
+    "num": 17,
+    "filename": "17_select_mode.py"
+  },
+  {
+    "slug": "html_export",
+    "title": "Offline File Export",
+    "case": "인터넷 없이 열리는 HTML을 출력 폴더에 저장합니다.",
+    "required": "`include_plotlyjs=True`로 단일 HTML 파일을 생성하고 경로를 반환하세요.",
+    "setup": "fig=go.Figure(go.Bar(x=['A','B'],y=[3,7]))\noutput=ROOT/'output/practice_18.html'\noutput.parent.mkdir(parents=True,exist_ok=True)",
+    "stub": "# TODO: export self-contained offline HTML to output\nraise NotImplementedError",
+    "check": "path",
+    "num": 18,
+    "filename": "18_html_export.py"
+  }
+]
