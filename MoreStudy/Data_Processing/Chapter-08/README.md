@@ -621,12 +621,34 @@ def run_pipeline(data_dir, output_dir, parquet=False):
 
 **명령행 실행** — [main.py](./project/main.py)
 
+Chapter 07의 [CLI & `argparse` 설명](../Chapter-07/#section-7-14)에서 배운 명령행 인수 처리 방식을 최종 프로젝트에 적용합니다. 실제 [main.py](./project/main.py)는 다음 옵션을 등록합니다.
+
+| 옵션 | 의미 | 생략 시 |
+|---|---|---|
+| `--data-dir` | 기상 관측 원본 파일 폴더 | Chapter 08의 `data/` |
+| `--output-dir` | 처리 결과 저장 폴더 | Chapter 08의 `output/` |
+| `--parquet` | CSV·JSON 외에 Parquet 출력 추가 | 사용하지 않음 (`False`) |
+| `--help` | 사용 가능한 옵션과 도움말 출력 | 요청 시 출력 후 종료 |
+
+**`main.py`의 인수 처리 부분**
+
+```python
+parser = argparse.ArgumentParser(description="기상 관측 데이터 검증 및 집계")
+parser.add_argument("--data-dir", type=Path, default=root / "data", help="원본 파일 폴더")
+parser.add_argument("--output-dir", type=Path, default=root / "output", help="결과 저장 폴더")
+parser.add_argument("--parquet", action="store_true", help="PyArrow를 이용한 Parquet 저장 추가")
+args = parser.parse_args()
+```
+
+`root`는 [실제 코드](./project/main.py)에서 `Path(__file__).resolve().parents[1]`로 지정하는 Chapter 08 디렉터리입니다. `type=Path`는 인수 문자열을 `Path` 객체로 변환하고, `action="store_true"`는 `--parquet` 옵션을 **적었을 때만** `True`로 설정합니다. 이후 `run_pipeline(args.data_dir, args.output_dir, parquet=args.parquet)`에 전달합니다. 경로 검증은 `argparse`가 아닌 프로젝트 로직에서 수행합니다.
+
 ```bash
 python project/main.py
 python project/main.py --data-dir data --output-dir output
+python project/main.py --help
 ```
 
-`--data-dir`와 `--output-dir`로 입력과 출력 위치를 지정할 수 있습니다. 두 경로가 같거나 입력 폴더 안에 결과를 저장하려 하면 오류를 발생시킵니다. 원본을 수정하지 않지만 **출력 폴더의 파일은 갱신될 수 있습니다.** 파일 여러 개를 한꺼번에 원자적으로 교체하는 기능은 구현하지 않았습니다.
+`--data-dir`와 `--output-dir`로 입력과 출력 위치를 지정할 수 있습니다. `--parquet`는 PyArrow를 설치한 경우에만 사용합니다. 두 경로가 같거나 입력 폴더 안에 결과를 저장하려 하면 오류를 발생시킵니다. 원본을 수정하지 않지만 **출력 폴더의 파일은 갱신될 수 있습니다.** 파일 여러 개를 한꺼번에 원자적으로 교체하는 기능은 구현하지 않았습니다.
 
 
 **예제 코드 — [11_weather_data_pipeline.py](./examples/11_weather_data_pipeline.py)**
@@ -921,6 +943,15 @@ python solutions/05_observation_coverage.py
 
 </details>
 
+**Q13. `python project/main.py --parquet`로 실행하면 `args.parquet`는 어떤 값이 되며, 추가로 필요한 패키지는 무엇인가요?**
+
+<details>
+<summary>Q13. 정답 및 해설 확인</summary>
+
+**정답:** `action="store_true"` 설정에 따라 `args.parquet`가 `True`가 됩니다. Parquet 파일 생성에는 이 프로젝트에서 선택한 `pyarrow` 패키지가 필요합니다.
+
+</details>
+
 ### Summary
 
 - **Data Pipeline:** 입력, 검증, 정제, 결합, 집계, 출력 단계를 독립적인 함수로 설계
@@ -934,9 +965,12 @@ python solutions/05_observation_coverage.py
 - **Missing vs Zero:** 관측이 없는 상태와 값이 0인 측정을 구분
 - **Export:** CSV·JSON 기본 출력, 필요할 때 Parquet 선택 사용
 - **Testing:** 데이터 오류, 반복 실행, 원본 보존, 집계 일치 여부 검증
+- **CLI / `argparse`:** `--data-dir`, `--output-dir`, `--parquet`로 실행 옵션을 전달하고 도움말을 제공
 - **Next Step:** Data Visualization에서 정제 결과와 집계 데이터를 그래프로 표현
 
 ### References
+
+- [Python — `argparse`](https://docs.python.org/3/library/argparse.html)
 
 - [Python Documentation — `pathlib`](https://docs.python.org/3/library/pathlib.html)
 - [Python Documentation — `json`](https://docs.python.org/3/library/json.html)
