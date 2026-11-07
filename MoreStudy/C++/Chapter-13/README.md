@@ -2,7 +2,7 @@
 
 C++23을 기준으로 Function Template, Concept, Constraint, Class Template, Ranges 및 Generic Library 설계를 다룹니다. 단순한 문법 소개에서 벗어나 **재사용 가능한 인터페이스를 어떻게 정의하고 검증하는지**를 중심으로 학습합니다.
 
-본 자료는 **C++23(ISO/IEC 14882:2024)**을 기준으로 작성되었습니다. 현재 출판된 표준을 기준으로 예제를 제공하며, C++26의 제안·초안 기능을 필수 코드에 사용하지 않습니다. GCC 14 이상 또는 필요한 C++23 표준 라이브러리를 지원하는 개발 환경을 권장합니다.
+본 자료는 **C++23(ISO/IEC 14882:2024)** 을 기준으로 작성되었습니다. 현재 출판된 표준을 기준으로 예제를 제공하며, C++26의 제안·초안 기능을 필수 코드에 사용하지 않습니다. GCC 14 이상 또는 필요한 C++23 표준 라이브러리를 지원하는 개발 환경을 권장합니다.
 
 **선행 학습:** [Chapter 05 — Functions](../Chapter-05/) · [Chapter 10 — Standard Library (STL)](../Chapter-10/) · [Chapter 12 — Modern C++ & Resource Management](../Chapter-12/)
 
