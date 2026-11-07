@@ -1,0 +1,72 @@
+[
+  {
+    "slug": "mini_01_weather_brief",
+    "title": "Mini Project 01 — Weather Brief",
+    "func": "weather_summary",
+    "description": "관측소별 기온과 강수량을 비교하는 보고서",
+    "kind": "weather"
+  },
+  {
+    "slug": "mini_02_retail_brief",
+    "title": "Mini Project 02 — Retail Brief",
+    "func": "retail_summary",
+    "description": "매장별 일매출 추이와 상품별 매출 구성",
+    "kind": "retail"
+  },
+  {
+    "slug": "advanced_01_weather_station",
+    "title": "Advanced 01 — Weather Station Review",
+    "func": "weather_summary",
+    "description": "관측소 선택에 따라 보고서 레이아웃이 변하는 기상 관측 품질 분석",
+    "kind": "weather"
+  },
+  {
+    "slug": "advanced_02_retail_performance",
+    "title": "Advanced 02 — Retail Performance Review",
+    "func": "retail_summary",
+    "description": "매장 매출·주문 건수·취소율 기준을 구별하는 매출 분석",
+    "kind": "retail"
+  },
+  {
+    "slug": "advanced_03_service_reliability",
+    "title": "Advanced 03 — Service Reliability Review",
+    "func": "latency_summary",
+    "description": "서비스별 P95 지연·오류율을 함께 검토하는 성능 분석",
+    "kind": "service"
+  },
+  {
+    "slug": "advanced_04_electricity_demand",
+    "title": "Advanced 04 — Regional Electricity Demand",
+    "func": "electricity_summary",
+    "description": "UTC 시간대·실측 전력과 에너지를 구별한 지역별 수요 보고서",
+    "kind": "electricity"
+  },
+  {
+    "slug": "advanced_05_metro_operations",
+    "title": "Advanced 05 — Metro Operations Audit",
+    "func": "metro_summary",
+    "description": "역별 예정 슬롯과 누락 시간을 구별한 도시철도 보고서",
+    "kind": "metro"
+  },
+  {
+    "slug": "challenge_01_flight_punctuality",
+    "title": "Challenge 01 — Airport Punctuality Review",
+    "func": "flight_summary",
+    "description": "공항별 정시운항률·지연 분포·누락된 편 슬롯 비교",
+    "kind": "flight"
+  },
+  {
+    "slug": "challenge_02_grid_incident",
+    "title": "Challenge 02 — Electricity Load Audit",
+    "func": "electricity_summary",
+    "description": "수요 급증 탐지와 관측 누락, 지역별 정규화 비교",
+    "kind": "electricity"
+  },
+  {
+    "slug": "challenge_03_transit_reliability",
+    "title": "Challenge 03 — City Transit Reliability Audit",
+    "func": "transit_summary",
+    "description": "다중 원천 운영 자료 검증·수집률·사고·재현 가능한 통합 보고서",
+    "kind": "transit"
+  }
+]

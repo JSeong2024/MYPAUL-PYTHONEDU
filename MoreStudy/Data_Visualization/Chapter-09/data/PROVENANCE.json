@@ -1,0 +1,34 @@
+{
+  "dataset_type": "Synthetic educational data; not observed public operations or official records",
+  "weather_source": "Reproduced with Data Processing Chapter-08 run_pipeline() from the locally generated preceding chapter artifact",
+  "weather_expected_report": {
+    "total_raw_rows": 92,
+    "accepted_rows": 79,
+    "review_rows": 3,
+    "rejected_rows": 10,
+    "reason_counts": {
+      "date_out_of_scope": 1,
+      "duplicate_observation_id": 1,
+      "duplicate_observation_slot": 1,
+      "humidity_out_of_range": 1,
+      "invalid_timestamp": 1,
+      "missing_humidity_pct": 1,
+      "missing_observation_id": 1,
+      "missing_temperature_c": 2,
+      "negative_precipitation": 1,
+      "non_numeric_temperature_c": 1,
+      "temperature_out_of_range": 2,
+      "unexpected_observation_time": 7,
+      "unknown_station": 1
+    },
+    "expected_observation_slots": 84,
+    "valid_observations": 79,
+    "missing_observation_slots": 5,
+    "coverage_pct": 94.05,
+    "missing_station_days": 1,
+    "partial_station_days": 3
+  },
+  "mobility_timezone": "America/New_York; 2026-11-01 local day is 25 hours due to fall DST transition",
+  "generation_seed": 20261107,
+  "purpose": "Practice analytics, chart choice, correctness, reproducibility, and data-quality handling; not operational decisions"
+}

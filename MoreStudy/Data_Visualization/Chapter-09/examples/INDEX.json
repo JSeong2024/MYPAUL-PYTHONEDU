@@ -1,0 +1,128 @@
+[
+  {
+    "file": "01_01_project_question.py",
+    "slug": "01_project_question",
+    "title": "질문에서 차트까지",
+    "scenario": "날짜별 방문 또는 관측 기록을 어떤 단위로 집계해야 하는지 확인",
+    "image": "figures/examples/01_01_project_question.png"
+  },
+  {
+    "file": "02_02_grain_vs_aggregation.py",
+    "slug": "02_grain_vs_aggregation",
+    "title": "관측 단위와 집계 단위",
+    "scenario": "개별 기록과 일별 평균은 서로 다른 단위",
+    "image": "figures/examples/02_02_grain_vs_aggregation.png"
+  },
+  {
+    "file": "03_03_quality_audit.py",
+    "slug": "03_quality_audit",
+    "title": "품질 감사와 제외 사유",
+    "scenario": "오류 행을 임의로 누락시키지 않고 사유를 표시",
+    "image": "figures/examples/03_03_quality_audit.png"
+  },
+  {
+    "file": "04_04_reference_join.py",
+    "slug": "04_reference_join",
+    "title": "기준정보 결합",
+    "scenario": "관측 ID를 정류장 등 참조정보와 연결",
+    "image": "figures/examples/04_04_reference_join.png"
+  },
+  {
+    "file": "05_05_missing_vs_zero.py",
+    "slug": "05_missing_vs_zero",
+    "title": "결측과 0 구별",
+    "scenario": "실제로 기록되지 않은 관측 슬롯은 측정값 0이 아님",
+    "image": "figures/examples/05_05_missing_vs_zero.png"
+  },
+  {
+    "file": "06_06_consistent_filters.py",
+    "slug": "06_consistent_filters",
+    "title": "일관된 필터 적용",
+    "scenario": "KPI와 그래프에 동일한 데이터 필터를 적용",
+    "image": "figures/examples/06_06_consistent_filters.png"
+  },
+  {
+    "file": "07_07_rates_denominators.py",
+    "slug": "07_rates_denominators",
+    "title": "비율과 분모",
+    "scenario": "오류 건수보다 요청 대비 오류율이 중요한 경우",
+    "image": "figures/examples/07_07_rates_denominators.png"
+  },
+  {
+    "file": "08_08_distribution_quantiles.py",
+    "slug": "08_distribution_quantiles",
+    "title": "분포와 백분위수",
+    "scenario": "평균만으로는 응답 지연의 긴 꼬리를 파악하기 어려움",
+    "image": "figures/examples/08_08_distribution_quantiles.png"
+  },
+  {
+    "file": "09_09_timezone_conversion.py",
+    "slug": "09_timezone_conversion",
+    "title": "UTC와 지역 시각",
+    "scenario": "UTC 날짜와 한국시간 날짜의 경계가 다를 수 있음",
+    "image": "figures/examples/09_09_timezone_conversion.png"
+  },
+  {
+    "file": "10_10_mw_vs_mwh.py",
+    "slug": "10_mw_vs_mwh",
+    "title": "전력과 에너지 구별",
+    "scenario": "전력 MW를 합계 내는 것이 자동으로 에너지 MWh가 되지는 않음",
+    "image": "figures/examples/10_10_mw_vs_mwh.png"
+  },
+  {
+    "file": "11_11_completeness.py",
+    "slug": "11_completeness",
+    "title": "완전한 관측일",
+    "scenario": "부분 기록의 일별 총량을 완전 관측일과 섞어 비교하지 않음",
+    "image": "figures/examples/11_11_completeness.png"
+  },
+  {
+    "file": "12_12_uncertainty.py",
+    "slug": "12_uncertainty",
+    "title": "표본수와 변동성",
+    "scenario": "표본수가 적은 집계 결과는 신뢰도가 떨어질 수 있음",
+    "image": "figures/examples/12_12_uncertainty.png"
+  },
+  {
+    "file": "13_13_heatmap.py",
+    "slug": "13_heatmap",
+    "title": "시간대 히트맵",
+    "scenario": "서로 다른 정류장의 시간별 이용 분포 확인",
+    "image": "figures/examples/13_13_heatmap.png"
+  },
+  {
+    "file": "14_14_static_vs_interactive.py",
+    "slug": "14_static_vs_interactive",
+    "title": "정적과 인터랙티브 차이",
+    "scenario": "PNG는 공유에 유리하고 Plotly HTML은 필터·확대가 가능",
+    "image": "figures/examples/14_14_static_vs_interactive.png"
+  },
+  {
+    "file": "15_15_report_reproducibility.py",
+    "slug": "15_report_reproducibility",
+    "title": "재현 가능한 보고서",
+    "scenario": "동일 입력·동일 기준은 같은 결과를 산출해야 함",
+    "image": "figures/examples/15_15_report_reproducibility.png"
+  },
+  {
+    "file": "16_16_quality_gate.py",
+    "slug": "16_quality_gate",
+    "title": "품질 게이트",
+    "scenario": "불완전한 날짜를 모른 채 일별 합계를 확정하지 않음",
+    "image": "figures/examples/16_16_quality_gate.png"
+  },
+  {
+    "file": "17_17_plotly_interactive.py",
+    "slug": "17_plotly_interactive",
+    "title": "Plotly HTML 내보내기",
+    "scenario": "확대·범례를 직접 조작할 수 있는 인터랙티브 결과",
+    "image": "figures/examples/17_17_plotly_interactive.png"
+  },
+  {
+    "file": "18_18_chart_readability.py",
+    "slug": "18_chart_readability",
+    "title": "그래프 완성도",
+    "scenario": "축·단위·라벨·폰트 등 기본 가독성을 점검",
+    "image": "figures/examples/18_18_chart_readability.png"
+  }
+]

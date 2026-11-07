@@ -1,0 +1,9 @@
+{
+  "dataset": "Synthetic educational data",
+  "time_window_local": "2026-09-01 through 2026-09-30",
+  "timezone": "Asia/Seoul",
+  "notes": "Fictitious data, not official observations or operational reports",
+  "expected_transit_slots": 6120,
+  "expected_metro_slots": 3240,
+  "expected_grid_slots": 2880
+}
