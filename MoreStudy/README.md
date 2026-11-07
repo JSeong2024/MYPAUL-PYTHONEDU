@@ -3,6 +3,12 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/JSeong2024/MYPAUL-PYTHONEDU/actions/workflows/python-ci.yaml">
+    <img src="https://github.com/JSeong2024/MYPAUL-PYTHONEDU/actions/workflows/python-ci.yaml/badge.svg?branch=main" alt="Python CI">
+  </a>
+</p>
+
+<p align="center">
   다양한 기술 분야의 학습 자료를 정리한 공간입니다.<br>
   <strong>학습 주제</strong>를 클릭하면 해당 자료로 이동합니다.
 </p>
