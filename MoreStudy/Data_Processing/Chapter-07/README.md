@@ -633,11 +633,47 @@ stores.csv ────────┘                                      ├�
 
 상품과 매장의 기준 테이블에서 키가 중복되면 **한 주문 행이 여러 결과 행으로 늘어날 수 있습니다.** `validate="many_to_one"`으로 잘못된 결합 관계를 검사하고, 결합 후 누락된 기준정보가 없음을 확인합니다.
 
+### CLI & `argparse` — 명령행 인수 처리
+
+**CLI(Command-Line Interface)**는 터미널에서 명령과 옵션을 입력해 프로그램을 실행하는 방식입니다. Python 표준 라이브러리의 `argparse`는 `--data`, `--output`처럼 실행 시 전달한 옵션을 읽고, 도움말을 표시하고, 잘못된 인수 사용을 안내합니다. 별도 설치가 필요하지 않습니다.
+
+```python
+import argparse
+from pathlib import Path
+
+parser = argparse.ArgumentParser(description="매출 보고서 실행 옵션")
+parser.add_argument("--data", type=Path, default=Path("data"))
+parser.add_argument("--output", type=Path, default=Path("output"))
+args = parser.parse_args()
+
+print("입력 폴더:", args.data)
+print("출력 폴더:", args.output)
+```
+
+위 예제에서 `ArgumentParser()`는 인수 처리기를 만들고, `add_argument()`는 사용할 옵션을 등록하며, `parse_args()`는 명령행 인수를 해석합니다. `type=Path`는 전달된 경로 문자열을 `Path` 객체로 바꿔 주지만, 폴더의 존재나 데이터의 유효성을 자동으로 확인하지는 않습니다.
+
+| 구성 | 의미 |
+|---|---|
+| `--data` | 데이터 입력 폴더를 지정하는 선택 옵션 |
+| `--output` | 결과 저장 폴더를 지정하는 선택 옵션 |
+| `default=...` | 옵션을 생략했을 때 사용할 기본값 |
+| `args.data` | 해석된 `--data` 옵션 값에 접근 |
+| `--help` / `-h` | 자동으로 생성된 도움말을 출력하고 종료 |
+
+이 Chapter의 실제 프로젝트 코드에는 동일한 방식을 적용했습니다. `Chapter-07/`에서 다음 명령으로 확인할 수 있습니다.
+
+```bash
+python examples/14_store_sales_pipeline.py --help
+python examples/14_store_sales_pipeline.py --data data --output output
+```
+
+프로젝트는 입력 데이터와 출력 경로를 추가로 검증합니다. 다음 Chapter 08에서는 이 방식을 `--data-dir`, `--output-dir`, `--parquet` 옵션으로 확장합니다.
+
 ### 파이프라인 코드
 
 **예제 코드 — [14_store_sales_pipeline.py](./examples/14_store_sales_pipeline.py)**
 
-아래는 완전한 실행 코드입니다. 데이터 로딩 → 검증 → 결합 → 집계 → 저장 순서로 구성했으며, `--data`, `--output` 인수로 입출력 경로를 변경할 수 있습니다.
+아래는 완전한 실행 코드입니다. 데이터 로딩 → 검증 → 결합 → 집계 → 저장 순서로 구성했으며, 앞에서 배운 `argparse`의 `--data`, `--output` 인수로 입출력 경로를 변경할 수 있습니다. `from __future__ import annotations`는 Chapter 06에서 설명한 타입 힌트 평가 관련 선언입니다.
 
 ```python
 """Chapter 07 Mini Project: 검증된 테이블 결합 및 매출 데이터 마트 생성."""
@@ -1030,6 +1066,15 @@ store   month  sales_won
 </details>
 
 
+**Q13. `argparse`에서 `parser.add_argument("--data", type=Path, default=Path("data"))`를 작성했다면 `--data`를 생략했을 때 어떤 값이 사용되나요?**
+
+<details>
+<summary>Q13. 정답 및 해설 확인</summary>
+
+**정답:** `Path("data")`가 기본값으로 사용됩니다. `type=Path`는 문자열을 경로 객체로 변환하지만 폴더가 실제로 존재하는지까지 검사하지는 않습니다.
+
+</details>
+
 ### Summary
 
 - **Transformation:** 계산 열, 값 매핑, 조건 처리로 데이터의 형태·표현 변경
@@ -1044,9 +1089,12 @@ store   month  sales_won
 - **Rolling & Cumulative:** 이동평균·누적합, 빈 날짜의 의미 확인
 - **Vectorization:** 열 단위 계산을 우선 고려하고 측정으로 성능 확인
 - **Pipeline:** 입력 검증, 변환, 집계, 출력, 테스트를 함수로 구성
+- **CLI / `argparse`:** 명령행 옵션·기본값·도움말을 구성하고 입력·출력 경로를 전달
 - **Validation:** 결합 전후 행 수와 집계 총액, 반복 실행 결과 확인
 
 ### References
+
+- [Python — `argparse`](https://docs.python.org/3/library/argparse.html)
 
 - [Pandas User Guide — Group By](https://pandas.pydata.org/docs/user_guide/groupby.html)
 - [Pandas User Guide — Merge, Join, Concatenate](https://pandas.pydata.org/docs/user_guide/merging.html)
