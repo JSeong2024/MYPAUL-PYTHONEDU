@@ -4,7 +4,12 @@
 
 본 자료는 **Python 3.13 이상** 환경을 권장하며, 예제는 **Python 3.10 이상**에서 사용할 수 있는 표준 라이브러리만 활용합니다. NumPy 배열과 Pandas DataFrame은 Chapter 03~04에서 다룹니다.
 
-**선행 학습:** [Chapter 01 — Introduction to Data Processing](../Chapter-01/) · Python 변수·조건문·반복문·함수의 기본 사용법
+<details>
+<summary><strong>선행 학습 목록</strong></summary>
+
+- [Chapter 01 — Introduction to Data Processing](../Chapter-01/)
+
+</details>
 
 <a id="contents"></a>
 ## Contents
