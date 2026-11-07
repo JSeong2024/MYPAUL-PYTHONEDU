@@ -1,0 +1,136 @@
+name: C++ CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'MoreStudy/C++/**'
+      - '.github/workflows/cpp-ci.yaml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'MoreStudy/C++/**'
+      - '.github/workflows/cpp-ci.yaml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  syntax:
+    name: GCC 14 / C++23 Syntax
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Check compiler
+        run: g++-14 --version
+
+      - name: Check standalone examples and solutions
+        run: |
+          python3 - <<'PY'
+          import subprocess
+          from pathlib import Path
+
+          root = Path('MoreStudy/C++')
+          sources = sorted(
+              path for path in root.rglob('*.cpp')
+              if path.parent.name in {'examples', 'solutions'}
+          )
+          if not sources:
+              raise SystemExit('No standalone C++ sources found')
+
+          for index, path in enumerate(sources, start=1):
+              print(f'[{index}/{len(sources)}] {path}', flush=True)
+              subprocess.run(
+                  ['g++-14', '-std=c++23', '-Wall', '-Wextra',
+                   '-Wpedantic', '-fsyntax-only', str(path)],
+                  check=True,
+              )
+
+          print(f'C++23 syntax OK: {len(sources)} files')
+          PY
+
+  build-and-test:
+    name: GCC 14 / CMake & Tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Check build tools
+        run: |
+          g++-14 --version
+          cmake --version
+
+      - name: Build standalone multi-file examples
+        run: |
+          set -euo pipefail
+          build_dir="$(mktemp -d)"
+
+          g++-14 -std=c++23 -Wall -Wextra -Wpedantic \
+            'MoreStudy/C++/Chapter-05/examples/10_multi_file/main.cpp' \
+            'MoreStudy/C++/Chapter-05/examples/10_multi_file/inventory.cpp' \
+            -o "$build_dir/inventory"
+          "$build_dir/inventory"
+
+          g++-14 -std=c++23 -Wall -Wextra -Wpedantic \
+            'MoreStudy/C++/Chapter-08/examples/13_device_registry_main.cpp' \
+            'MoreStudy/C++/Chapter-08/examples/13_device_registry.cpp' \
+            -o "$build_dir/device_registry"
+          "$build_dir/device_registry"
+
+          rm -rf "$build_dir"
+
+      - name: Build multi-file CMake projects
+        run: |
+          set -euo pipefail
+          projects=(
+            'MoreStudy/C++/Chapter-09/examples/16_robot_monitor'
+            'MoreStudy/C++/Chapter-10/examples/17_event_summary'
+            'MoreStudy/C++/Chapter-11/examples/17_sensor_report'
+            'MoreStudy/C++/Chapter-12/examples/17_device_session'
+            'MoreStudy/C++/Chapter-13/examples/17_telemetry_pipeline'
+          )
+
+          for project in "${projects[@]}"; do
+            echo "::group::${project}"
+            build_dir="$(mktemp -d)"
+            cmake -S "$project" -B "$build_dir" \
+              -DCMAKE_CXX_COMPILER=g++-14 \
+              -DCMAKE_CXX_STANDARD=23 \
+              -DCMAKE_CXX_STANDARD_REQUIRED=ON \
+              -DCMAKE_CXX_EXTENSIONS=OFF \
+              -DCMAKE_BUILD_TYPE=Release
+            cmake --build "$build_dir" --parallel 2
+
+            if [[ "$project" == *'17_telemetry_pipeline' ]]; then
+              ctest --test-dir "$build_dir" --output-on-failure --no-tests=error
+            fi
+
+            rm -rf "$build_dir"
+            echo '::endgroup::'
+          done
+
+      - name: Run non-interactive C++ tests
+        run: |
+          set -euo pipefail
+          test_sources=(
+            'MoreStudy/C++/Chapter-05/examples/11_function_tests.cpp'
+            'MoreStudy/C++/Chapter-09/examples/13_dependency_injection_test.cpp'
+          )
+
+          for source in "${test_sources[@]}"; do
+            echo "::group::${source}"
+            executable="$(mktemp)"
+            g++-14 -std=c++23 -Wall -Wextra -Wpedantic \
+              "$source" -o "$executable"
+            "$executable"
+            rm -f "$executable"
+            echo '::endgroup::'
+          done
