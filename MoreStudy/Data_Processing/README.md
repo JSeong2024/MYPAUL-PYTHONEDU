@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="banner_DataProcessing.png" width="60%" alt="Data Processing Class Banner">
+  <img src="banner_DataProcessing.png" width="50%" alt="Data Processing Class Banner">
 </p>
 
 Python을 기반으로 데이터를 수집하고, 정제하고, 변환하는 방법을 학습하는 자료입니다. Python 자료구조와 NumPy·Pandas를 활용한 데이터 처리부터 CSV·JSON·Excel·Parquet 파일 입출력, 데이터 품질 검증, 집계 및 처리 과정의 자동화까지 단계적으로 다룹니다.
