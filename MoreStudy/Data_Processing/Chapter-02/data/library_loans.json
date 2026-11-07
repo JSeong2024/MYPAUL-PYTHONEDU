@@ -1,0 +1,17 @@
+[
+  {"loan_id": "L-001", "branch": "중앙", "book_id": "B-01", "category": "과학", "status": "borrowed", "days_overdue": 3},
+  {"loan_id": "L-002", "branch": "중앙", "book_id": "B-02", "category": "문학", "status": "returned", "days_overdue": 0},
+  {"loan_id": "L-003", "branch": "동부", "book_id": "B-03", "category": "역사", "status": "borrowed", "days_overdue": 0},
+  {"loan_id": "L-004", "branch": "서부", "book_id": "B-04", "category": "과학", "status": "borrowed", "days_overdue": 5},
+  {"loan_id": "L-005", "branch": "동부", "book_id": "B-02", "category": "문학", "status": "returned", "days_overdue": 0},
+  {"loan_id": "L-006", "branch": "중앙", "book_id": "B-05", "category": "과학", "status": "borrowed", "days_overdue": 0},
+  {"loan_id": "L-007", "branch": "서부", "book_id": "B-06", "category": "문학", "status": "borrowed", "days_overdue": 2},
+  {"loan_id": "L-008", "branch": "중앙", "book_id": "B-07", "category": "역사", "status": "returned", "days_overdue": 0},
+  {"loan_id": "L-009", "branch": "동부", "book_id": "B-01", "category": "과학", "status": "borrowed", "days_overdue": 1},
+  {"loan_id": "L-010", "branch": "서부", "book_id": "B-08", "category": "문학", "status": "returned", "days_overdue": 0},
+  {"loan_id": "L-011", "branch": "중앙", "book_id": "B-09", "category": "과학", "status": "borrowed", "days_overdue": 0},
+  {"loan_id": "L-012", "branch": "동부", "book_id": "B-10", "category": "역사", "status": "borrowed", "days_overdue": 4},
+  {"loan_id": "L-009", "branch": "중앙", "book_id": "B-11", "category": "과학", "status": "borrowed", "days_overdue": 0},
+  {"loan_id": "L-014", "branch": "서부", "book_id": "B-12", "category": "", "status": "borrowed", "days_overdue": 1},
+  {"loan_id": "L-015", "branch": "중앙", "book_id": "B-13", "category": "문학", "status": "borrowed", "days_overdue": -2}
+]
