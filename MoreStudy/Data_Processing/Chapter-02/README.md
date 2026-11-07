@@ -233,6 +233,36 @@ print(order["customer"]["region"])  # 광주
 print(order["items"][0]["product"])  # 노트
 ```
 
+### Type Hints — 자료구조의 타입 표기
+
+프로젝트 코드에는 `list[int]`, `dict[str, int]`, `-> dict`처럼 자료형을 적은 표현이 등장합니다. 이러한 표기는 **타입 힌트(Type Hint)**로, 변수·함수의 입력과 반환값에 어떤 형태의 데이터가 기대되는지 나타냅니다. `list[int]`는 리스트를 새로 만드는 코드가 아니라 **정수 원소를 담는 리스트를 의미하는 타입 표기**입니다.
+
+| 표기 | 의미 |
+|---|---|
+| `scores: list[int]` | `scores`에 정수 리스트가 들어올 것으로 예상 |
+| `records: list[dict]` | 딕셔너리 형태의 레코드 여러 개 |
+| `counts: dict[str, int]` | 문자열 Key와 정수 Value를 가진 딕셔너리 |
+| `def f(...) -> int:` | 함수의 반환값이 정수일 것으로 예상 |
+| `str | None` | 문자열 또는 `None`을 허용하는 타입 표기 |
+
+```python
+def count_regions(regions: list[str]) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for region in regions:
+        counts[region] = counts.get(region, 0) + 1
+    return counts
+
+print(count_regions(["서울", "부산", "서울"]))
+```
+
+**실행 결과**
+
+```text
+{'서울': 2, '부산': 1}
+```
+
+`regions: list[str]`은 매개변수에 기대하는 자료형, `-> dict[str, int]`는 반환값의 형태를 나타냅니다. **타입 힌트 자체는 실행 중 자료형을 자동으로 검사하거나 변환하지 않습니다.** 외부 데이터의 유효성 검사는 `isinstance()` 등으로 직접 처리하거나 별도 검증 로직을 작성해야 합니다. 이 문법은 Python 3.10 이상을 기준으로 합니다.
+
 | 표현 | 의미 | 예시 |
 |---|---|---|
 | `list[int]` | 수치 목록 | 점수 5개 |
@@ -829,6 +859,7 @@ python tests/test_library_loan_report.py
 8. 동일한 책(`book_id`)의 대출 기록이 두 건 있다면 중복 오류로 무조건 삭제해야 할까요?
 9. `[x for x in values if x > 0]`은 어떤 자료구조를 반환하나요?
 10. `sorted(records, key=lambda x: (-x["score"], x["name"]))`의 두 정렬 기준은 무엇인가요?
+11. `def summarize(values: list[int]) -> float:`에서 `list[int]`와 `-> float`는 각각 무엇을 의미하나요?
 
 <details>
 <summary><strong>Quiz 정답 확인</strong></summary>
@@ -843,6 +874,7 @@ python tests/test_library_loan_report.py
 8. 아닙니다. 서로 다른 대출 거래라면 같은 도서가 재등장하는 것이 정상일 수 있습니다.
 9. List를 반환합니다.
 10. 점수 내림차순, 점수가 같으면 이름 오름차순입니다.
+11. `list[int]`는 정수 원소의 리스트를, `-> float`는 함수의 반환값이 실수일 것으로 예상함을 표시합니다. 타입 힌트만으로 런타임 검증이 수행되지는 않습니다.
 
 </details>
 
@@ -853,6 +885,7 @@ python tests/test_library_loan_report.py
 - **Dictionary:** Key-Value를 사용한 레코드·조회·집계 표현
 - **Set:** 고유값 관리, 합집합·교집합·차집합 처리
 - **Nested Structures:** List와 Dictionary를 결합한 복합 레코드 표현
+- **Type Hints:** `list[str]`, `dict[str, int]`, `->` 등으로 기대 자료형을 명시하지만 런타임 검증과는 구분
 - **Comprehension:** 간결한 데이터 추출·변환·자료구조 생성
 - **Sorting & Filtering:** `sorted()`와 조건식을 이용한 데이터 순서 및 범위 선택
 - **`collections`:** `Counter`로 빈도 계산, `defaultdict`로 그룹별 누적
@@ -870,6 +903,7 @@ python tests/test_library_loan_report.py
 - [Python — `copy`](https://docs.python.org/3/library/copy.html)
 - [Python — `json`](https://docs.python.org/3/library/json.html)
 - [Python — Built-in Functions](https://docs.python.org/3/library/functions.html)
+- [Python — `typing` (Type Hints)](https://docs.python.org/3/library/typing.html)
 
 ---
 
