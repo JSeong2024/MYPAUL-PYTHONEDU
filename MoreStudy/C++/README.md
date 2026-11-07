@@ -37,8 +37,6 @@ C++/
 └── Chapter-04/
 ```
 
-모든 Chapter는 `Chapter-XX` 형식으로 관리합니다. 각 Chapter에는 학습 문서(`README.md`), 실행 예제(`examples/`), 연습문제(`exercises/`), 정답 코드(`solutions/`)를 배치합니다.
-
 ## Getting Started
 
 [Chapter 01](./Chapter-01/)의 예제는 `Chapter-01/` 폴더를 기준으로 컴파일합니다.
