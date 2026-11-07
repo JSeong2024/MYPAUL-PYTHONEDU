@@ -59,9 +59,9 @@ flowchart LR
 
 학습한 개념을 직접 구현하고, 실행 결과를 분석하며 해결 방법을 개선하는 과정을 중시합니다.
 
-## 🔬 학습 자료
+## 🔬 추가 학습 자료
 
-[Python 기초 정리](./MoreStudy/PythonGuide) · [데이터 시각화](./MoreStudy/Data_Visualization) · [로봇 공학](./MoreStudy/Robotics) · [C++](./MoreStudy/C%2B%2B)
+[추가 학습 자료](./MoreStudy)
 
 
 ## 🗂️ 강의 아카이브
