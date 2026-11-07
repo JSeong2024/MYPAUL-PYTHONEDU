@@ -1,15 +1,15 @@
-name: C++ CI
+name: Cpp CI
 
 on:
   push:
     branches: [main]
     paths:
-      - 'MoreStudy/C++/**'
+      - 'MoreStudy/C\+\+/**'
       - '.github/workflows/cpp-ci.yaml'
   pull_request:
     branches: [main]
     paths:
-      - 'MoreStudy/C++/**'
+      - 'MoreStudy/C\+\+/**'
       - '.github/workflows/cpp-ci.yaml'
   workflow_dispatch:
 
@@ -17,8 +17,8 @@ permissions:
   contents: read
 
 jobs:
-  syntax:
-    name: GCC 14 / C++23 Syntax
+  cpp:
+    name: GCC 14 / C++23
     runs-on: ubuntu-24.04
     timeout-minutes: 20
 
@@ -26,10 +26,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v7
 
-      - name: Check compiler
-        run: g++-14 --version
+      - name: Verify compiler and build tools
+        run: |
+          g++-14 --version
+          cmake --version
 
-      - name: Check standalone examples and solutions
+      - name: Check standalone C++23 source files
         run: |
           python3 - <<'PY'
           import subprocess
@@ -38,40 +40,31 @@ jobs:
           root = Path('MoreStudy/C++')
           sources = sorted(
               path for path in root.rglob('*.cpp')
-              if path.parent.name in {'examples', 'solutions'}
+              if path.parent.name in ('examples', 'solutions')
           )
-          if not sources:
-              raise SystemExit('No standalone C++ sources found')
 
-          for index, path in enumerate(sources, start=1):
-              print(f'[{index}/{len(sources)}] {path}', flush=True)
+          if not sources:
+              raise SystemExit('No C++ source files found')
+
+          for number, source in enumerate(sources, 1):
+              print(f'[{number}/{len(sources)}] {source}', flush=True)
               subprocess.run(
-                  ['g++-14', '-std=c++23', '-Wall', '-Wextra',
-                   '-Wpedantic', '-fsyntax-only', str(path)],
+                  [
+                      'g++-14', '-std=c++23',
+                      '-Wall', '-Wextra', '-Wpedantic',
+                      '-fsyntax-only', str(source),
+                  ],
                   check=True,
               )
 
-          print(f'C++23 syntax OK: {len(sources)} files')
+          print(f'Syntax checks passed: {len(sources)} C++ files')
           PY
-
-  build-and-test:
-    name: GCC 14 / CMake & Tests
-    runs-on: ubuntu-24.04
-    timeout-minutes: 20
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v7
-
-      - name: Check build tools
-        run: |
-          g++-14 --version
-          cmake --version
 
       - name: Build standalone multi-file examples
         run: |
           set -euo pipefail
           build_dir="$(mktemp -d)"
+          trap 'rm -rf "$build_dir"' EXIT
 
           g++-14 -std=c++23 -Wall -Wextra -Wpedantic \
             'MoreStudy/C++/Chapter-05/examples/10_multi_file/main.cpp' \
@@ -85,9 +78,7 @@ jobs:
             -o "$build_dir/device_registry"
           "$build_dir/device_registry"
 
-          rm -rf "$build_dir"
-
-      - name: Build multi-file CMake projects
+      - name: Build CMake projects and run CTest
         run: |
           set -euo pipefail
           projects=(
@@ -99,7 +90,7 @@ jobs:
           )
 
           for project in "${projects[@]}"; do
-            echo "::group::${project}"
+            echo "::group::$project"
             build_dir="$(mktemp -d)"
             cmake -S "$project" -B "$build_dir" \
               -DCMAKE_CXX_COMPILER=g++-14 \
@@ -117,7 +108,7 @@ jobs:
             echo '::endgroup::'
           done
 
-      - name: Run non-interactive C++ tests
+      - name: Run non-interactive example tests
         run: |
           set -euo pipefail
           test_sources=(
@@ -125,12 +116,13 @@ jobs:
             'MoreStudy/C++/Chapter-09/examples/13_dependency_injection_test.cpp'
           )
 
-          for source in "${test_sources[@]}"; do
-            echo "::group::${source}"
-            executable="$(mktemp)"
+          build_dir="$(mktemp -d)"
+          trap 'rm -rf "$build_dir"' EXIT
+
+          for index in "${!test_sources[@]}"; do
+            source="${test_sources[$index]}"
+            executable="$build_dir/test_$index"
             g++-14 -std=c++23 -Wall -Wextra -Wpedantic \
               "$source" -o "$executable"
             "$executable"
-            rm -f "$executable"
-            echo '::endgroup::'
           done
