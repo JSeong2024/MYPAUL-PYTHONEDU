@@ -7,14 +7,14 @@ on:
       - 'MoreStudy/**/*.py'
       - 'MoreStudy/**/data/**'
       - 'MoreStudy/**/requirements*.txt'
-      - '.github/workflows/python-ci.yml'
+      - '.github/workflows/python-ci.yaml'
   pull_request:
     branches: [main]
     paths:
       - 'MoreStudy/**/*.py'
       - 'MoreStudy/**/data/**'
       - 'MoreStudy/**/requirements*.txt'
-      - '.github/workflows/python-ci.yml'
+      - '.github/workflows/python-ci.yaml'
   workflow_dispatch:
 
 permissions:
@@ -59,10 +59,14 @@ jobs:
           print(f'Syntax OK: {len(files)} Python files')
           PY
 
-      - name: Run Data Processing chapter tests
+      - name: Run Chapter 02 assertions
+        run: |
+          python MoreStudy/Data_Processing/Chapter-02/tests/test_library_loan_report.py
+
+      - name: Run Chapter 03-08 unit tests
         run: |
           set -euo pipefail
-          for chapter in MoreStudy/Data_Processing/Chapter-*; do
+          for chapter in MoreStudy/Data_Processing/Chapter-0{3..8}; do
             if [ -d "$chapter/tests" ]; then
               echo "::group::$(basename "$chapter")"
               (cd "$chapter" && python -m unittest discover -s tests -p 'test*.py' -v)
