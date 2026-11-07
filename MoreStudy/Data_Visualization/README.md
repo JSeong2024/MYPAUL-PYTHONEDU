@@ -19,8 +19,8 @@ Python을 기반으로 데이터를 그래프로 표현하고, 분석 결과를 
 
 | Chapter | Topic |
 |:---:|---|
-| [01](./Chapter-01) | **Introduction to Data Visualization** — 시각화의 개념과 목적, 데이터와 그래프의 관계, 첫 번째 그래프 |
-| [02](./Chapter-02) | **Principles of Data Visualization** — 그래프 선택, 시각적 인코딩, 색상, 축과 스케일, 오해를 일으키는 표현 |
+| [01](./Chapter-01/) | **Introduction to Data Visualization** — 시각화의 개념과 목적, 데이터와 그래프의 관계, 첫 번째 그래프 |
+| [02](./Chapter-02/) | **Principles of Data Visualization** — 그래프 선택, 시각적 인코딩, 색상, 축과 스케일, 오해를 일으키는 표현 |
 
 ### Part 2 — Static & Statistical Visualization
 
@@ -28,10 +28,10 @@ Python 라이브러리를 활용하여 정적 그래프를 제작하고, 데이�
 
 | Chapter | Topic |
 |:---:|---|
-| [03](./Chapter-03) | **Matplotlib** — Figure, Axes, Line·Bar·Scatter·Histogram, Subplots, 그래프 스타일과 저장 |
-| [04](./Chapter-04) | **Seaborn** — 분포 및 범주형 시각화, 관계 분석, Heatmap, Pairplot |
-| [05](./Chapter-05) | **Exploratory Data Analysis & Statistical Visualization** — EDA, 분포 해석, 상관관계, 이상치, 통계적 해석 |
-| [06](./Chapter-06) | **Time Series Visualization** — 날짜 축, 시계열 비교, 이동평균, 추세, 계절성, 누락된 관측값 |
+| [03](./Chapter-03/) | **Matplotlib** — Figure, Axes, Line·Bar·Scatter·Histogram, Subplots, 그래프 스타일과 저장 |
+| [04](./Chapter-04/) | **Seaborn** — 분포 및 범주형 시각화, 관계 분석, Heatmap, Pairplot |
+| [05](./Chapter-05/) | **Exploratory Data Analysis & Statistical Visualization** — EDA, 분포 해석, 상관관계, 이상치, 통계적 해석 |
+| [06](./Chapter-06/) | **Time Series Visualization** — 날짜 축, 시계열 비교, 이동평균, 추세, 계절성, 누락된 관측값 |
 
 ### Part 3 — Interactive Visualization & Dashboard
 
@@ -39,8 +39,8 @@ Python 라이브러리를 활용하여 정적 그래프를 제작하고, 데이�
 
 | Chapter | Topic |
 |:---:|---|
-| [07](./Chapter-07) | **Plotly & Interactive Visualization** — Hover, Zoom, 범례·필터, Plotly Express, HTML 내보내기 |
-| [08](./Chapter-08) | **Dashboard Development with Streamlit** — 레이아웃, 차트, 입력 위젯, 상태 관리, 데이터 캐싱, 배포 기초 |
+| [07](./Chapter-07/) | **Plotly & Interactive Visualization** — Hover, Zoom, 범례·필터, Plotly Express, HTML 내보내기 |
+| [08](./Chapter-08/) | **Dashboard Development with Streamlit** — 레이아웃, 차트, 입력 위젯, 상태 관리, 데이터 캐싱, 배포 기초 |
 
 ### Part 4 — Data Visualization Project
 
@@ -48,7 +48,7 @@ Python 라이브러리를 활용하여 정적 그래프를 제작하고, 데이�
 
 | Chapter | Topic |
 |:---:|---|
-| [09](./Chapter-09) | **Data Visualization Project** — 기상 데이터 탐색, 시각화 설계, 지역·기간별 비교, 인터랙티브 대시보드 |
+| [09](./Chapter-09/) | **Data Visualization Project** — 기상 데이터 탐색, 시각화 설계, 지역·기간별 비교, 인터랙티브 대시보드 |
 
 ## Learning Path
 
