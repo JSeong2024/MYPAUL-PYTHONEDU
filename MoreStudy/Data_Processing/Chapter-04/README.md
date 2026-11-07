@@ -11,7 +11,6 @@ Python의 **Pandas**를 이용해 표 형태의 데이터를 만들고, 읽고, 
 - [Chapter 01 — Introduction to Data Processing](../Chapter-01/)
 - [Chapter 02 — Python Data Structures](../Chapter-02/)
 - [Chapter 03 — NumPy Fundamentals](../Chapter-03/)
-- [Chapter 04 — Pandas & DataFrames](../Chapter-04/)
 
 </details>
 
