@@ -34,8 +34,8 @@ C++의 기본 문법과 주요 언어 기능을 학습하는 과정입니다.
 
 | Chapter | Topic |
 |:---:|---|
-| 12 | Modern C++ & Resource Management — Move Semantics, RAII, Exception Safety |
-| 13 | Templates & Generic Programming — Template, Concept, Generic Design |
+| [12](./Chapter-12/) | Modern C++ & Resource Management — Move Semantics, RAII, Exception Safety |
+| [13](./Chapter-13/) | Templates & Generic Programming — Template, Concept, Generic Design |
 | 14 | Concurrency & Multithreading — Thread, Synchronization, Atomic Operation |
 | 15 | Memory & Performance Optimization — 메모리 구조, 프로파일링, 최적화 |
 | 16 | CMake, Libraries & Project Structure — 빌드 구성, 라이브러리, 프로젝트 관리 |
