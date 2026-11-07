@@ -1,3 +1,5 @@
+
+
 C++23을 기준으로 기본 문법부터 표준 라이브러리, 객체지향 프로그래밍까지 정리한 학습 자료입니다. 각 Chapter에서 개념 설명과 예제 코드를 확인하고, 연습문제를 직접 실행해 볼 수 있습니다.
 
 - **기준 표준:** C++23 (ISO/IEC 14882:2024)
@@ -12,7 +14,7 @@ C++23을 기준으로 기본 문법부터 표준 라이브러리, 객체지향 �
 | [02](./Chapter-02/) | Variables & Data Types — 변수, 자료형, 상수, 형변환, 열거형 | 작성 완료 |
 | [03](./Chapter-03/) | Operators & Conditions — 연산자, 조건문, 장치 상태 판단 | 작성 완료 |
 | [04](./Chapter-04/) | Loops — 반복문, 센서 샘플링, 재시도 | 작성 완료 |
-| 05 | Functions | 예정 |
+| [05](./Chapter-05/) | Functions — 함수 설계, 반환값, 람다, 파일 분리 | 작성 완료 |
 | 06 | Arrays & Strings | 예정 |
 | 07 | Pointers & References | 예정 |
 | 08 | Structs & Classes | 예정 |
@@ -34,7 +36,8 @@ C++/
 │   └── solutions/
 ├── Chapter-02/
 ├── Chapter-03/
-└── Chapter-04/
+├── Chapter-04/
+└── Chapter-05/
 ```
 
 ## Getting Started
