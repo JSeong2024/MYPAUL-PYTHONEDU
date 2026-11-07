@@ -1,0 +1,142 @@
+[
+  {
+    "number": 1,
+    "stem": "01_store_revenue",
+    "title": "매장별 매출 확인",
+    "task": "매장 선택 위젯을 만들고 선택한 매장의 매출을 다시 계산하세요.",
+    "example": "04_selectbox"
+  },
+  {
+    "number": 2,
+    "stem": "02_category_filter",
+    "title": "상품 분류 선택",
+    "task": "상품 분류를 하나 이상 선택하고 해당 범주만 테이블에 표시하세요.",
+    "example": "05_multiselect"
+  },
+  {
+    "number": 3,
+    "stem": "03_date_range",
+    "title": "기간 선택",
+    "task": "시작일·종료일을 선택하고 유효한 두 날짜가 있는지 검사하세요.",
+    "example": "06_date_range"
+  },
+  {
+    "number": 4,
+    "stem": "04_p95_threshold",
+    "title": "시간별 P95 기준 초과",
+    "task": "임계값 슬라이더를 만들고 초과 시간대 기록 수를 계산하세요.",
+    "example": "07_slider"
+  },
+  {
+    "number": 5,
+    "stem": "05_plotly_sales",
+    "title": "Plotly 그래프 연결",
+    "task": "준비한 Figure를 Streamlit에 표시하세요.",
+    "example": "08_plotly"
+  },
+  {
+    "number": 6,
+    "stem": "06_mpl_view",
+    "title": "Matplotlib 보고서",
+    "task": "Figure를 표시하고 사용 후 닫아 자원을 관리하세요.",
+    "example": "09_matplotlib"
+  },
+  {
+    "number": 7,
+    "stem": "07_tabs",
+    "title": "두 그래프를 탭으로 구성",
+    "task": "매출 추이와 분류 그래프를 별도 탭으로 표시하세요.",
+    "example": "10_tabs"
+  },
+  {
+    "number": 8,
+    "stem": "08_expander",
+    "title": "설명 접기",
+    "task": "추가 설명을 접을 수 있는 영역에 표시하세요.",
+    "example": "11_expander"
+  },
+  {
+    "number": 9,
+    "stem": "09_form",
+    "title": "제출 시 필터 반영",
+    "task": "폼 안에 매장 선택을 만들고 제출 버튼을 지정하세요.",
+    "example": "12_form"
+  },
+  {
+    "number": 10,
+    "stem": "10_state_counter",
+    "title": "세션별 카운터",
+    "task": "세션 상태를 초기화하고, Add one 버튼 클릭 시 값이 1 증가하도록 나머지 코드를 완성하세요.",
+    "example": "13_session_state"
+  },
+  {
+    "number": 11,
+    "stem": "11_callback",
+    "title": "Callback 구현",
+    "task": "버튼 클릭 전에 실행되는 increment 콜백을 연결하세요.",
+    "example": "14_callback"
+  },
+  {
+    "number": 12,
+    "stem": "12_cache",
+    "title": "데이터 로딩 캐시",
+    "task": "파일 변경 시 캐시 키가 바뀌도록 함수에 인수를 전달하세요.",
+    "example": "15_cache_data"
+  },
+  {
+    "number": 13,
+    "stem": "13_download",
+    "title": "현재 테이블 내보내기",
+    "task": "UTF-8 CSV 다운로드 버튼을 구성하세요.",
+    "example": "17_download_button"
+  },
+  {
+    "number": 14,
+    "stem": "14_upload",
+    "title": "업로드 검증",
+    "task": "CSV 업로드 파일을 읽고 크기·내용 검증을 통과한 행만 표시하세요.",
+    "example": "18_upload_csv"
+  },
+  {
+    "number": 15,
+    "stem": "15_empty",
+    "title": "빈 선택 처리",
+    "task": "매장 선택이 없으면 사용자 안내 후 실행을 중단하세요.",
+    "example": "19_empty_state"
+  },
+  {
+    "number": 16,
+    "stem": "16_query",
+    "title": "URL 매장값 검증",
+    "task": "허용 목록에 있는 매장만 URL 선택값으로 사용하세요.",
+    "example": "20_query_params"
+  },
+  {
+    "number": 17,
+    "stem": "17_selection",
+    "title": "Plotly 포인트 선택",
+    "task": "막대그래프의 선택 이벤트를 받아 선택한 점 개수를 표시하세요.",
+    "example": "21_plotly_selection"
+  },
+  {
+    "number": 18,
+    "stem": "18_editor",
+    "title": "임계값 편집",
+    "task": "사용자가 편집한 임계값에 음수·결측이 없는지 검증하세요.",
+    "example": "22_data_editor"
+  },
+  {
+    "number": 19,
+    "stem": "19_navigation",
+    "title": "두 페이지 메뉴",
+    "task": "Overview·Details 페이지를 Streamlit 네비게이션에 등록하세요.",
+    "example": "23_navigation"
+  },
+  {
+    "number": 20,
+    "stem": "20_recompute",
+    "title": "필터와 KPI 동기화",
+    "task": "선택한 매장의 데이터를 먼저 필터링한 뒤 KPI와 Figure를 계산하세요.",
+    "example": "24_filters_recompute"
+  }
+]

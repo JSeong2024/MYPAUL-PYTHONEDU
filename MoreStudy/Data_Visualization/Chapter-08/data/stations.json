@@ -1,0 +1,37 @@
+[
+  {
+    "station_id": "M1-Central",
+    "line": "Line 1",
+    "label": "Central"
+  },
+  {
+    "station_id": "M1-Riverside",
+    "line": "Line 1",
+    "label": "Riverside"
+  },
+  {
+    "station_id": "M1-Harbor",
+    "line": "Line 1",
+    "label": "Harbor"
+  },
+  {
+    "station_id": "M2-Museum",
+    "line": "Line 2",
+    "label": "Museum"
+  },
+  {
+    "station_id": "M2-Park",
+    "line": "Line 2",
+    "label": "Park"
+  },
+  {
+    "station_id": "M2-Market",
+    "line": "Line 2",
+    "label": "Market"
+  },
+  {
+    "station_id": "M2-Depot",
+    "line": "Line 2",
+    "label": "Depot"
+  }
+]

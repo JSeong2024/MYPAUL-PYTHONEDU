@@ -1,0 +1,10 @@
+{
+  "start_date": "2026-10-01",
+  "end_date": "2026-10-14",
+  "frequency_hours": 1,
+  "timezone": "Asia/Seoul",
+  "allowed_lines": [
+    "Line 1",
+    "Line 2"
+  ]
+}
