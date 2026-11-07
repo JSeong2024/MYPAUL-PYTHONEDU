@@ -1,6 +1,6 @@
 # Chapter 12. Modern C++ & Resource Management
 
-C++23의 Resource Management, 객체 수명, Ownership, RAII, Move Semantics, Copy/Move 설계와 Exception Safety를 다룹니다. Chapter 07의 포인터·참조와 Chapter 08의 클래스 설계를 바탕으로 **자원 획득부터 해제까지의 책임을 코드에 명확하게 표현하는 방법**을 학습합니다.
+C++23의 Resource Management, 객체 수명, Ownership, RAII, Move Semantics, Copy/Move 설계와 Exception Safety를 다룹니다. Chapter 07의 포인터·참조와 Chapter 08의 클래스 설계를 확장하여, **객체 수명과 소유권을 바탕으로 자원을 안전하게 관리하는 방법**을 학습합니다.
 
 본 자료는 **C++23(ISO/IEC 14882:2024)** 을 기준으로 작성되었습니다. 일부 예제는 `<print>`, `<expected>`를 사용하므로 해당 C++23 표준 라이브러리를 지원하는 컴파일러가 필요합니다. GCC 14 이상 환경을 권장합니다.
 
