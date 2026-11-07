@@ -1212,6 +1212,12 @@ $$
 
 상관행렬은 행과 열에 같은 변수들을 사용하므로 보통 **대각선이 1**, 왼쪽 아래와 오른쪽 위의 값이 대칭입니다. 단, 상수 열처럼 변동이 없는 변수나 유효한 관측쌍이 부족한 경우에는 상관계수를 정의할 수 없어 `NaN`이 생길 수 있습니다.
 
+> **심화 학습 — Advanced Correlation Analysis**
+>
+> Pearson 상관계수의 벡터 표현과 L2 노름, 자기상관(Autocorrelation), 상호상관(Cross-Correlation), 시차(Lag)를 이용한 상관 분석을 더 자세히 학습할 수 있습니다.
+>
+> [Advanced Correlation Analysis — 심화자료](./Advanced_Correlation_Analysis/Advanced_Correlation_Analysis.md)
+
 #### ② Pivot Heatmap — 범주 조합별 통계량
 
 원본이 다음과 같은 Long-form이라고 가정합니다.
