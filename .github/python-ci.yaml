@@ -1,0 +1,71 @@
+name: Python CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'MoreStudy/**/*.py'
+      - 'MoreStudy/**/data/**'
+      - 'MoreStudy/**/requirements*.txt'
+      - '.github/workflows/python-ci.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'MoreStudy/**/*.py'
+      - 'MoreStudy/**/data/**'
+      - 'MoreStudy/**/requirements*.txt'
+      - '.github/workflows/python-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    name: Python 3.13 / Syntax & Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+
+      - name: Install test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install 'numpy==2.3.5' 'pandas==2.2.3' 'openpyxl>=3.1,<4'
+
+      - name: Check Python syntax
+        run: |
+          python - <<'PY'
+          import ast
+          from pathlib import Path
+
+          files = sorted(Path('MoreStudy').rglob('*.py'))
+          if not files:
+              raise SystemExit('No Python files found in MoreStudy')
+
+          for path in files:
+              try:
+                  ast.parse(path.read_text(encoding='utf-8-sig'), filename=str(path))
+              except SyntaxError as exc:
+                  raise SystemExit(f'{path}:{exc.lineno}: {exc.msg}') from exc
+
+          print(f'Syntax OK: {len(files)} Python files')
+          PY
+
+      - name: Run Data Processing chapter tests
+        run: |
+          set -euo pipefail
+          for chapter in MoreStudy/Data_Processing/Chapter-*; do
+            if [ -d "$chapter/tests" ]; then
+              echo "::group::$(basename "$chapter")"
+              (cd "$chapter" && python -m unittest discover -s tests -p 'test*.py' -v)
+              echo '::endgroup::'
+            fi
+          done
