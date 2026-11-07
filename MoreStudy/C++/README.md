@@ -1,5 +1,5 @@
 <p align="center">
-  <img src=".banner_Cpp.png" width="800" alt="C++ Class Banner">
+  <img src="banner_Cpp.png" width="60%" alt="C++ Class Banner">
 </p>
 
 C++23을 기준으로 기본 문법부터 표준 라이브러리, 객체지향 프로그래밍까지 정리한 학습 자료입니다. 각 Chapter에서 개념 설명과 예제 코드를 확인하고, 연습문제를 직접 실행해 볼 수 있습니다.
