@@ -2,7 +2,7 @@
 
 상속, 다형성, 가상 함수, 추상 클래스, 소유권 관리, 인터페이스 분리 및 테스트 가능한 객체 설계를 다룹니다. 센서·로봇 제어 시뮬레이션을 통해 **확장 가능한 구조와 안전한 객체 수명 관리**를 학습합니다.
 
-본 자료는 **C++23(ISO/IEC 14882:2024)**을 기준으로 작성되었습니다. 예제는 GCC 14 이상 및 C++23 표준 라이브러리 기능을 지원하는 개발 환경을 권장합니다.
+본 자료는 **C++23(ISO/IEC 14882:2024)** 을 기준으로 작성되었습니다. 예제는 GCC 14 이상 및 C++23 표준 라이브러리 기능을 지원하는 개발 환경을 권장합니다.
 
 **선행 학습:** Chapter 05 — Functions, Chapter 07 — Pointers & References, Chapter 08 — Structs & Classes
 
@@ -242,7 +242,7 @@ public:
 };
 ```
 
-`override` 누락은 버그로 이어질 수 있으므로 실제 코드에서는 재정의 함수에 붙이는 것이 좋습니다. `final`은 **확장이 금지되어야 하는 설계**에만 적용합니다.
+`override`를 생략하면 의도하지 않은 함수 숨김이나 잘못된 재정의를 놓칠 수 있습니다. 재정의 함수에는 `override`를 명시하고, `final`은 **추가 상속 또는 재정의를 제한해야 할 때** 사용합니다.
 
 **예제 코드 — [04_override_and_final.cpp](./examples/04_override_and_final.cpp)**
 
@@ -339,7 +339,7 @@ Reading: 22.5 C
 
 ## 9.7. Virtual Destructor와 객체의 수명
 
-소멸자(Destructor)는 객체의 수명이 끝날 때 호출됩니다. **기반 클래스 포인터로 파생 객체를 삭제하는 경우**, 기반 클래스의 소멸자는 일반적으로 가상 소멸자(Virtual Destructor)여야 합니다.
+소멸자(Destructor)는 객체의 수명(Lifetime)이 끝날 때 호출됩니다. **기반 클래스 포인터로 파생 객체를 삭제하는 경우**, 기반 클래스의 소멸자는 일반적으로 가상 소멸자(Virtual Destructor)여야 합니다.
 
 `std::unique_ptr<Base>`가 파생 객체를 소유하고 기본 삭제자를 사용한다면, 기반 클래스에 적절한 Virtual Destructor가 없을 때 삭제 과정이 **미정의 동작(Undefined Behavior, UB)**에 해당할 수 있습니다.
 
@@ -353,7 +353,7 @@ public:
 
 아래 예제에서 실제 소멸 순서는 `SerialConnection` → `Connection`입니다. 동적 메모리 관리에 `delete`를 직접 쓰지 않고 스마트 포인터(Smart Pointer)로 객체의 수명을 관리합니다.
 
-**설계 기준:** 기반 클래스 소멸자는 일반적으로 `public virtual` 또는 외부 삭제를 금지하려는 경우 `protected` 비가상 소멸자를 고려합니다. 단순히 상속이 가능하다는 이유만으로 모든 클래스에 Virtual Destructor가 필요한 것은 아닙니다.
+**참고:** 기반 클래스 소멸자는 보통 `public virtual`로 선언합니다. 다만 기반 클래스 포인터를 통한 삭제를 허용하지 않는 설계라면 `protected` 비가상 소멸자도 고려할 수 있습니다. 상속이 가능하다는 이유만으로 모든 클래스에 Virtual Destructor를 추가할 필요는 없습니다.
 
 **예제 코드 — [06_virtual_destructor.cpp](./examples/06_virtual_destructor.cpp)**
 
@@ -639,7 +639,7 @@ Cleaner-A motor: 3000 RPM
 
 여기서는 두 개의 작은 Interface를 함께 구현하므로 다중 상속(Multiple Inheritance)을 사용합니다. **상태나 구현을 가진 클래스의 다중 상속**은 충돌·모호성·다이아몬드 상속 문제를 일으킬 수 있어 신중하게 설계해야 합니다.
 
-실제 장치 제어 API는 하드웨어 상태에 따라 교정 실패가 발생할 수 있으므로, 제품 코드에서는 오류 반환 타입을 정의하는 것이 좋습니다.
+장치 제어 과정에서는 하드웨어 상태에 따라 Calibration이 실패할 수 있습니다. 실패 원인을 전달해야 한다면 반환 타입에 오류 정보를 포함합니다.
 
 **예제 코드 — [11_interface_segregation.cpp](./examples/11_interface_segregation.cpp)**
 
@@ -762,9 +762,9 @@ Error: Input must be from 0 to 100
 
 의존성 주입(Dependency Injection, DI)은 클래스나 함수가 필요한 구체 객체를 내부에서 직접 만들기보다 외부로부터 전달받는 방식입니다.
 
-실제 네트워크나 센서가 없어도 테스트할 수 있도록 **테스트 대역(Test Double)**을 주입할 수 있습니다. 아래 `FakeTransport`는 메시지를 실제로 전송하지 않고 메모리에 저장해 전송 요청의 결과를 검사합니다.
+네트워크나 센서에 연결하지 않고 테스트하려면 **테스트 대역(Test Double)**을 주입할 수 있습니다. 아래 `FakeTransport`는 메시지를 외부로 전송하는 대신 메모리에 기록해 전송 요청을 검증합니다.
 
-- **실제 구현:** 시리얼 포트·네트워크 등 외부 환경과 통신
+- **외부 통신 구현:** 시리얼 포트·네트워크 등과 데이터 교환
 - **Fake 구현:** 같은 Interface를 구현하지만 메모리에서 동작
 - **테스트 대상:** 전송 호출 여부, 데이터 내용, 실패 처리
 
@@ -1018,7 +1018,7 @@ BAT-B: unavailable
 
 ## 9.18. 성능·안전성·설계 점검
 
-OOP 설계에서는 문법이 올바른 것과 안전하게 확장할 수 있는 것을 구분해야 합니다.
+객체 간 관계, Lifetime, 오류 처리 방식에 따라 코드의 안전성과 확장성이 달라집니다. 다음 항목을 점검합니다.
 
 | 점검 항목 | 위험 사례 | 권장 방식 |
 |---|---|---|
@@ -1031,7 +1031,7 @@ OOP 설계에서는 문법이 올바른 것과 안전하게 확장할 수 있는
 | 상태 불변식 | 파생 구현에 동일한 입력 검증을 반복 | 공통 진입점에 검증 집약 |
 | 테스트 | 실물 장치가 있어야만 실행 가능 | Fake 기반 검증, 결과와 출력 분리 |
 
-가상 함수 호출의 비용을 막연히 추정하지 말고 `-O2`·프로파일링(Profiling)과 실제 입력으로 측정합니다. 객체 수명 및 잘못된 접근 검사는 AddressSanitizer(ASan)와 UndefinedBehaviorSanitizer(UBSan)를 활용할 수 있습니다.
+Virtual Function 호출 비용은 추측보다 측정을 통해 판단합니다. 최적화 옵션(`-O2`)을 적용한 빌드에서 프로파일링(Profiling)을 수행하고 대표 입력 데이터로 결과를 비교합니다. 메모리 접근 오류와 일부 UB 검출에는 AddressSanitizer(ASan), UndefinedBehaviorSanitizer(UBSan)를 활용할 수 있습니다.
 
 **GCC 또는 Clang 검사 예시**
 
