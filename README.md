@@ -27,7 +27,7 @@
 
 | 항목 | 내용 |
 | :--- | :--- |
-| 최신 공개 버전 | [0.4.15](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/releases/tag/v0.4.15) |
+| 최신 공개 버전 | [v0.4.15](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/releases/tag/v0.4.15) |
 | 지원 환경 | Windows |
 | 배포 파일 | [`MYPAUL_Classroom.exe`](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/releases/download/v0.4.15/MYPAUL_Classroom.exe) |
 
