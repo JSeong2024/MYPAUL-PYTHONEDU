@@ -1,10 +1,10 @@
 # Chapter 04. Pandas & DataFrames
 
-Python의 **Pandas**를 이용해 표 형태의 데이터를 만들고, 읽고, 탐색하고, 선택하고, 가공하는 방법을 학습합니다. Chapter 02의 Python 자료구조와 Chapter 03의 NumPy 배열을 확장하여, 데이터의 **행(Row)·열(Column)·인덱스(Index)**를 기준으로 작업하는 방법을 살펴봅니다.
+Python의 **Pandas**를 이용해 표 형태의 데이터를 만들고, 읽고, 탐색하고, 선택하고, 가공하는 방법을 학습합니다. Chapter 02의 Python 자료구조와 Chapter 03의 NumPy 배열을 확장하여, 데이터의 **행(Row)·열(Column)·인덱스(Index)** 를 기준으로 작업하는 방법을 살펴봅니다.
 
 본 자료의 예제는 **Python 3.13.5 / Pandas 2.2.3** 환경에서 실행 검증했습니다. Pandas 3.x에서 기본 동작으로 도입된 **Copy-on-Write(CoW)** 및 연결된 인덱싱(Chained Assignment) 관련 주의사항도 반영했습니다. 출력 형식과 문자열 열의 기본 자료형은 Pandas 버전 또는 실행 환경에 따라 달라질 수 있습니다.
 
-**선행 학습:** [Chapter 01 — Introduction to Data Processing](../Chapter-01/) · [Chapter 02 — Python Data Structures](../Chapter-02/) · [Chapter 03 — NumPy Fundamentals](../Chapter-03/)
+**선행 학습:** [Chapter 01](../Chapter-01/) · [Chapter 02](../Chapter-02/) · [Chapter 03](../Chapter-03/)
 
 <a id="contents"></a>
 ## Contents
@@ -43,7 +43,7 @@ python -m pip install pandas
 python -c "import pandas as pd; print(pd.__version__)"
 ```
 
-저장소의 **`Data_Processing/Chapter-04/`** 디렉터리에서 실행합니다. 예제는 대부분 Python 파일 자신의 위치에서 실습 CSV 경로를 계산하므로 다른 작업 디렉터리에서 실행해도 동일한 데이터를 읽습니다.
+**`Data_Processing/Chapter-04/`** 디렉터리에서 실행합니다. 예제는 대부분 Python 파일 자신의 위치에서 실습 CSV 경로를 계산하므로 다른 작업 디렉터리에서 실행해도 동일한 데이터를 읽습니다.
 
 ```bash
 python examples/01_series_dataframe.py
