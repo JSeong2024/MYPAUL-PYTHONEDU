@@ -1,11 +1,9 @@
-#include <print>
+#include <iostream>
 
-[[nodiscard]] double rectangle_area(double width, double height) noexcept {
+double rectangle_area(double width, double height) {
     return width * height;
 }
 
 int main() {
-    const double width{2.5};
-    const double height{4.0};
-    std::println("Area: {:.2f} m2", rectangle_area(width, height));
+    std::cout << "Area: " << rectangle_area(2.5, 4.0) << " m2\n";
 }

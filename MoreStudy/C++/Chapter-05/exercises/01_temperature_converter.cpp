@@ -1,20 +1,20 @@
-#include <cmath>
+#include <iomanip>
 #include <iostream>
-#include <print>
 
-[[nodiscard]] double to_fahrenheit(double celsius) noexcept {
-    // TODO: 화씨 = 섭씨 * 9.0 / 5.0 + 32.0
-    (void)celsius;
-    return 0.0;
+// TODO: 섭씨를 화씨로 변환하는 to_fahrenheit(double) 함수를 정의합니다.
+// Formula: Fahrenheit = Celsius * 9 / 5 + 32
+
+double to_fahrenheit(double celsius) {
+    // TODO
+    return celsius;
 }
 
 int main() {
     double celsius{};
-    std::cout << "Celsius: " << std::flush;
-    if (!(std::cin >> celsius) || !std::isfinite(celsius)) {
-        std::println("Invalid temperature");
+    if (!(std::cin >> celsius)) {
+        std::cerr << "Error: invalid temperature.\n";
         return 1;
     }
-
-    std::println("Fahrenheit: {:.1f}", to_fahrenheit(celsius));
+    std::cout << std::fixed << std::setprecision(1)
+              << "Fahrenheit: " << to_fahrenheit(celsius) << '\n';
 }
