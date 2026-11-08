@@ -1,28 +1,27 @@
-#include <algorithm>
-#include <print>
+#include <iostream>
 
 class Motor {
 public:
-    void set_speed(int rpm) noexcept { speed_ = std::clamp(rpm, 0, 3000); }
-    [[nodiscard]] int speed() const noexcept { return speed_; }
-
+    virtual ~Motor() = default;
+    [[nodiscard]] virtual bool set_speed(int rpm) noexcept = 0;
+    [[nodiscard]] virtual int speed() const noexcept = 0;
+};
+class ElectricMotor final : public Motor {
+public:
+    [[nodiscard]] bool set_speed(int rpm) noexcept override {
+        if (rpm < 0 || rpm > 3000) return false;
+        speed_ = rpm;
+        return true;
+    }
+    [[nodiscard]] int speed() const noexcept override { return speed_; }
 private:
     int speed_{};
 };
-
-class Robot {
-public:
-    void drive(int rpm) noexcept { motor_.set_speed(rpm); }
-    [[nodiscard]] int speed() const noexcept { return motor_.speed(); }
-
-private:
-    Motor motor_;
-};
-
 int main() {
-    Robot robot;
-    robot.drive(3500);
-    std::println("RPM: {}", robot.speed());
-    robot.drive(-100);
-    std::println("After invalid input: {} RPM", robot.speed());
+    ElectricMotor motor;
+    Motor& control = motor;
+    const bool first = control.set_speed(2000);
+    const bool second = control.set_speed(3500);
+    std::cout << std::boolalpha << "First: " << first << ", second: "
+              << second << ", RPM: " << control.speed() << '\n';
 }

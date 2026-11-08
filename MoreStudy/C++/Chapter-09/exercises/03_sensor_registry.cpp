@@ -1,40 +1,30 @@
+#include <iostream>
 #include <memory>
-#include <print>
-#include <string>
-#include <string_view>
-#include <utility>
 #include <vector>
 
-struct ISensor {
-    virtual ~ISensor() = default;
-    [[nodiscard]] virtual std::string_view id() const noexcept = 0;
-};
-
-class FixedSensor final : public ISensor {
+class Sensor {
 public:
-    explicit FixedSensor(std::string id) : id_(std::move(id)) {}
-    [[nodiscard]] std::string_view id() const noexcept override { return id_; }
-
-private:
-    std::string id_;
+    virtual ~Sensor() = default;
+    [[nodiscard]] virtual int read() const noexcept = 0;
 };
-
-class Registry {
+class FixedSensor final : public Sensor {
 public:
-    [[nodiscard]] bool add(std::unique_ptr<ISensor> sensor) {
-        // TODO: nullptr, 빈 ID, 중복 ID는 거부합니다.
-        // 성공하면 vector에 std::move(sensor)로 소유권을 이전합니다.
-        (void)sensor;
-        return false;
-    }
-    [[nodiscard]] std::size_t size() const noexcept { return sensors_.size(); }
-
+    explicit FixedSensor(int value) : value_{value} {}
+    [[nodiscard]] int read() const noexcept override { return value_; }
 private:
-    std::vector<std::unique_ptr<ISensor>> sensors_;
+    int value_{};
 };
-
+[[nodiscard]] int count_high(const std::vector<std::unique_ptr<Sensor>>& sensors,
+                             int threshold) {
+    // TODO: null 요소는 제외하고 read()가 threshold 이상인 센서 수를 반환하세요.
+    (void)sensors;
+    (void)threshold;
+    return 0;
+}
 int main() {
-    Registry registry;
-    const bool added = registry.add(std::make_unique<FixedSensor>("S-01"));
-    std::println("Added: {}, count: {}", added, registry.size());
+    std::vector<std::unique_ptr<Sensor>> sensors;
+    sensors.push_back(std::make_unique<FixedSensor>(75));
+    sensors.push_back(std::make_unique<FixedSensor>(82));
+    sensors.push_back(std::make_unique<FixedSensor>(90));
+    std::cout << "High: " << count_high(sensors, 80) << '\n';
 }

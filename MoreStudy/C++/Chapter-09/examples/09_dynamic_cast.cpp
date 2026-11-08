@@ -1,38 +1,26 @@
-#include <print>
-#include <string_view>
+#include <iostream>
 
 class Device {
 public:
     virtual ~Device() = default;
-    [[nodiscard]] virtual std::string_view type() const noexcept = 0;
 };
-
-class DebugSensor final : public Device {
+class Camera final : public Device {
 public:
-    [[nodiscard]] std::string_view type() const noexcept override {
-        return "DebugSensor";
-    }
-    [[nodiscard]] int error_count() const noexcept { return 2; }
+    [[nodiscard]] int frames_per_second() const noexcept { return 60; }
 };
+class Motor final : public Device {};
 
-class SimpleSensor final : public Device {
-public:
-    [[nodiscard]] std::string_view type() const noexcept override {
-        return "SimpleSensor";
+void inspect(const Device& device) {
+    const auto* camera = dynamic_cast<const Camera*>(&device);
+    if (camera == nullptr) {
+        std::cout << "Not a camera\n";
+        return;
     }
-};
-
-void report(const Device& device) {
-    if (const auto* debug = dynamic_cast<const DebugSensor*>(&device)) {
-        std::println("{} errors: {}", device.type(), debug->error_count());
-    } else {
-        std::println("{} has no debug details", device.type());
-    }
+    std::cout << "Camera FPS: " << camera->frames_per_second() << '\n';
 }
-
 int main() {
-    const DebugSensor debug;
-    const SimpleSensor simple;
-    report(debug);
-    report(simple);
+    const Camera camera;
+    const Motor motor;
+    inspect(camera);
+    inspect(motor);
 }

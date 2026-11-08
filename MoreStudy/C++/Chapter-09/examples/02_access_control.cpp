@@ -1,31 +1,27 @@
-#include <print>
-#include <string>
-#include <string_view>
-#include <utility>
+#include <iostream>
 
 class Controller {
 public:
-    explicit Controller(std::string name) : name_(std::move(name)) {}
-    [[nodiscard]] std::string_view name() const noexcept { return name_; }
-    [[nodiscard]] bool enabled() const noexcept { return enabled_; }
-
+    [[nodiscard]] int speed() const noexcept { return speed_; }
 protected:
-    void set_enabled(bool value) noexcept { enabled_ = value; }
-
+    void set_speed_unchecked(int speed) noexcept { speed_ = speed; }
 private:
-    std::string name_;
-    bool enabled_{false};
+    int speed_{};
 };
 
 class FanController final : public Controller {
 public:
-    using Controller::Controller;
-    void start() noexcept { set_enabled(true); }
-    void stop() noexcept { set_enabled(false); }
+    [[nodiscard]] bool request_speed(int rpm) noexcept {
+        if (rpm < 0 || rpm > 3000) return false;
+        set_speed_unchecked(rpm);
+        return true;
+    }
 };
 
 int main() {
-    FanController fan{"Fan-A"};
-    fan.start();
-    std::println("{} enabled: {}", fan.name(), fan.enabled());
+    FanController fan;
+    const bool accepted = fan.request_speed(1200);
+    const bool rejected = fan.request_speed(-1);
+    std::cout << std::boolalpha << "Accepted: " << accepted
+              << ", rejected: " << rejected << ", speed: " << fan.speed() << '\n';
 }

@@ -1,39 +1,29 @@
-#include <print>
+#include <iostream>
 
-struct IReadable {
-    virtual ~IReadable() = default;
-    [[nodiscard]] virtual double read() const = 0;
-};
-
-struct ICalibratable {
-    virtual ~ICalibratable() = default;
-    virtual void calibrate(double offset) = 0;
-};
-
-class AdjustableSensor final : public IReadable, public ICalibratable {
+class Reader {
 public:
-    explicit AdjustableSensor(double raw) : raw_(raw) {}
-    [[nodiscard]] double read() const override { return raw_ + offset_; }
-    void calibrate(double offset) override { offset_ = offset; }
-
+    virtual ~Reader() = default;
+    [[nodiscard]] virtual int read() const noexcept = 0;
+};
+class Resettable {
+public:
+    virtual ~Resettable() = default;
+    virtual void reset() noexcept = 0;
+};
+class CounterSensor final : public Reader, public Resettable {
+public:
+    [[nodiscard]] int read() const noexcept override { return count_; }
+    void reset() noexcept override { count_ = 0; }
+    void tick() noexcept { ++count_; }
 private:
-    double raw_{};
-    double offset_{};
+    int count_{};
 };
-
-class FixedSensor final : public IReadable {
-public:
-    [[nodiscard]] double read() const override { return 20.0; }
-};
-
-void display(const IReadable& sensor) {
-    std::println("Reading: {:.1f}", sensor.read());
-}
-
 int main() {
-    AdjustableSensor adjustable{21.0};
-    adjustable.calibrate(1.5);
-    const FixedSensor fixed;
-    display(adjustable);
-    display(fixed);
+    CounterSensor counter;
+    counter.tick();
+    const Reader& reader = counter;
+    Resettable& control = counter;
+    std::cout << "Before: " << reader.read() << '\n';
+    control.reset();
+    std::cout << "After: " << reader.read() << '\n';
 }

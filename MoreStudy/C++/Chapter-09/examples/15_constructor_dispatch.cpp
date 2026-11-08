@@ -1,23 +1,17 @@
-#include <print>
-#include <string_view>
+#include <iostream>
 
 class Base {
 public:
-    Base() { std::println("During Base construction: {}", name()); }
+    Base() { std::cout << "Base constructor: " << label() << '\n'; }
     virtual ~Base() = default;
-    [[nodiscard]] virtual std::string_view name() const noexcept {
-        return "Base";
-    }
+    [[nodiscard]] virtual const char* label() const noexcept { return "base"; }
 };
-
 class Derived final : public Base {
 public:
-    [[nodiscard]] std::string_view name() const noexcept override {
-        return "Derived";
-    }
+    Derived() { std::cout << "Derived constructor: " << label() << '\n'; }
+    [[nodiscard]] const char* label() const noexcept override { return "derived"; }
 };
-
 int main() {
-    const Derived derived;
-    std::println("After construction: {}", derived.name());
+    const Derived item;
+    std::cout << "After construction: " << item.label() << '\n';
 }

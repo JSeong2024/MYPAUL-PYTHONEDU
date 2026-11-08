@@ -1,28 +1,14 @@
-#include <format>
-#include <print>
-#include <string>
-#include <type_traits>
+#include <iostream>
 #include <variant>
 
-struct Temperature { double celsius; };
-struct Battery { int percent; };
-
-using Reading = std::variant<Temperature, Battery>;
-
-[[nodiscard]] std::string describe(const Reading& reading) {
-    return std::visit([](const auto& item) -> std::string {
-        using T = std::decay_t<decltype(item)>;
-        if constexpr (std::is_same_v<T, Temperature>) {
-            return std::format("Temperature: {:.1f} C", item.celsius);
-        } else {
-            return std::format("Battery: {}%", item.percent);
-        }
-    }, reading);
-}
+struct Temperature { int celsius{}; };
+struct Distance { int centimeters{}; };
 
 int main() {
-    const Reading first{Temperature{23.5}};
-    const Reading second{Battery{87}};
-    std::println("{}", describe(first));
-    std::println("{}", describe(second));
+    const std::variant<Temperature, Distance> reading{Distance{35}};
+    if (const auto* distance = std::get_if<Distance>(&reading)) {
+        std::cout << "Distance: " << distance->centimeters << " cm\n";
+    } else if (const auto* temperature = std::get_if<Temperature>(&reading)) {
+        std::cout << "Temperature: " << temperature->celsius << " C\n";
+    }
 }

@@ -1,31 +1,27 @@
-#include <print>
+#include <iostream>
 
 class Motor {
 public:
-    void set_speed(int rpm) noexcept {
-        // TODO: rpm을 0~3000으로 제한하고 speed_에 저장합니다.
+    virtual ~Motor() = default;
+    [[nodiscard]] virtual bool set_speed(int rpm) noexcept = 0;
+    [[nodiscard]] virtual int speed() const noexcept = 0;
+};
+class ElectricMotor final : public Motor {
+public:
+    [[nodiscard]] bool set_speed(int rpm) noexcept override {
+        // TODO: 0~3000 범위일 때만 speed_를 변경하고 true를 반환하세요.
         (void)rpm;
+        return false;
     }
-    [[nodiscard]] int speed() const noexcept { return speed_; }
-
+    [[nodiscard]] int speed() const noexcept override { return speed_; }
 private:
     int speed_{};
 };
-
-class Robot {
-public:
-    void drive(int rpm) noexcept {
-        // TODO: motor_의 메서드를 호출합니다.
-        (void)rpm;
-    }
-    [[nodiscard]] int speed() const noexcept { return motor_.speed(); }
-
-private:
-    Motor motor_;
-};
-
 int main() {
-    Robot robot;
-    robot.drive(3500);
-    std::println("RPM: {}", robot.speed());
+    ElectricMotor motor;
+    Motor& control = motor;
+    const bool first = control.set_speed(2000);
+    const bool second = control.set_speed(3500);
+    std::cout << std::boolalpha << "First: " << first << ", second: "
+              << second << ", RPM: " << control.speed() << '\n';
 }

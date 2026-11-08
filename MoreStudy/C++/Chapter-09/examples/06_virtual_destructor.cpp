@@ -1,20 +1,17 @@
+#include <iostream>
 #include <memory>
-#include <print>
 
-class Connection {
+class Device {
 public:
-    virtual ~Connection() { std::println("Connection closed"); }
-    virtual void send() const = 0;
+    virtual ~Device() { std::cout << "Device closed\n"; }
 };
 
-class SerialConnection final : public Connection {
+class Camera final : public Device {
 public:
-    ~SerialConnection() override { std::println("Serial resource released"); }
-    void send() const override { std::println("Sending packet"); }
+    ~Camera() override { std::cout << "Camera closed\n"; }
 };
 
 int main() {
-    std::unique_ptr<Connection> connection =
-        std::make_unique<SerialConnection>();
-    connection->send();
-}  // 파생 클래스 소멸자부터 순서대로 호출
+    std::unique_ptr<Device> device = std::make_unique<Camera>();
+    std::cout << "Using camera\n";
+}

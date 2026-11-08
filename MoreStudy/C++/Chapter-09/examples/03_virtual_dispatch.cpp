@@ -1,26 +1,23 @@
-#include <print>
-#include <string_view>
+#include <iostream>
 
-class StatusSource {
+class Sensor {
 public:
-    virtual ~StatusSource() = default;
-    [[nodiscard]] virtual std::string_view status() const noexcept {
-        return "unknown";
-    }
+    virtual ~Sensor() = default;
+    [[nodiscard]] virtual const char* kind() const noexcept { return "generic"; }
 };
 
-class OnlineSensor final : public StatusSource {
+class DistanceSensor final : public Sensor {
 public:
-    [[nodiscard]] std::string_view status() const noexcept override {
-        return "online";
-    }
+    [[nodiscard]] const char* kind() const noexcept override { return "distance"; }
 };
 
-void report(const StatusSource& source) {
-    std::println("Sensor status: {}", source.status());
+void print_kind(const Sensor& sensor) {
+    std::cout << "Sensor: " << sensor.kind() << '\n';
 }
 
 int main() {
-    const OnlineSensor sensor;
-    report(sensor);  // 기반 클래스 참조로 전달
+    const Sensor basic;
+    const DistanceSensor distance;
+    print_kind(basic);
+    print_kind(distance);
 }

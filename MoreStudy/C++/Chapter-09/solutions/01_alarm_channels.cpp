@@ -1,29 +1,22 @@
-#include <print>
-#include <string_view>
+#include <iostream>
 
-class IAlarmChannel {
+class Alarm {
 public:
-    virtual ~IAlarmChannel() = default;
-    virtual void notify(std::string_view message) const = 0;
+    virtual ~Alarm() = default;
+    [[nodiscard]] virtual bool triggered(int reading) const noexcept = 0;
 };
-
-class ConsoleAlarm final : public IAlarmChannel {
+class HighAlarm final : public Alarm {
 public:
-    void notify(std::string_view message) const override {
-        std::println("ALARM: {}", message);
+    explicit HighAlarm(int threshold) : threshold_{threshold} {}
+    [[nodiscard]] bool triggered(int reading) const noexcept override {
+        return reading >= threshold_;
     }
+private:
+    int threshold_{};
 };
-
-class SilentAlarm final : public IAlarmChannel {
-public:
-    void notify(std::string_view) const override {}
-};
-
 int main() {
-    const ConsoleAlarm console;
-    const SilentAlarm silent;
-    const IAlarmChannel& first = console;
-    const IAlarmChannel& second = silent;
-    first.notify("High temperature");
-    second.notify("High temperature");
+    const HighAlarm alarm{80};
+    const Alarm& rule = alarm;
+    std::cout << std::boolalpha << "79: " << rule.triggered(79)
+              << ", 80: " << rule.triggered(80) << '\n';
 }

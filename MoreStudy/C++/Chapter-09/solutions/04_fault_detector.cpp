@@ -1,37 +1,31 @@
-#include <cmath>
-#include <limits>
-#include <optional>
-#include <print>
+#include <iostream>
+#include <string>
+#include <string_view>
+#include <vector>
 
-struct IReadingSource {
-    virtual ~IReadingSource() = default;
-    [[nodiscard]] virtual std::optional<double> read() const = 0;
-};
-
-class FakeReading final : public IReadingSource {
+class Transport {
 public:
-    explicit FakeReading(std::optional<double> value) : value_(value) {}
-    [[nodiscard]] std::optional<double> read() const override { return value_; }
-
-private:
-    std::optional<double> value_;
+    virtual ~Transport() = default;
+    virtual bool send(std::string_view text) = 0;
 };
-
-[[nodiscard]] bool is_overheated(const IReadingSource& source,
-                                 double threshold) {
-    if (!std::isfinite(threshold)) return false;
-    const auto value = source.read();
-    return value && std::isfinite(*value) && *value > threshold;
+class FakeTransport final : public Transport {
+public:
+    bool send(std::string_view text) override {
+        messages_.emplace_back(text);
+        return true;
+    }
+    [[nodiscard]] const std::vector<std::string>& messages() const noexcept { return messages_; }
+private:
+    std::vector<std::string> messages_;
+};
+[[nodiscard]] bool report_fault(Transport& transport, int code) {
+    if (code <= 0) return false;
+    return transport.send("FAULT:" + std::to_string(code));
 }
-
 int main() {
-    const FakeReading hot{85.0};
-    const FakeReading normal{70.0};
-    const FakeReading missing{std::nullopt};
-    const FakeReading invalid{std::numeric_limits<double>::quiet_NaN()};
-
-    std::println("Hot: {}", is_overheated(hot, 80.0));
-    std::println("Normal: {}", is_overheated(normal, 80.0));
-    std::println("Missing: {}", is_overheated(missing, 80.0));
-    std::println("Invalid: {}", is_overheated(invalid, 80.0));
+    FakeTransport fake;
+    const bool sent = report_fault(fake, 42);
+    const bool rejected = report_fault(fake, 0);
+    std::cout << std::boolalpha << "Sent: " << sent << ", rejected: "
+              << rejected << ", messages: " << fake.messages().size() << '\n';
 }

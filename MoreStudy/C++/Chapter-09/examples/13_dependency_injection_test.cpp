@@ -1,37 +1,34 @@
-#include <print>
+#include <iostream>
 #include <string>
 #include <string_view>
 #include <vector>
 
-class ITransport {
+class Transport {
 public:
-    virtual ~ITransport() = default;
-    virtual bool send(std::string_view message) = 0;
+    virtual ~Transport() = default;
+    virtual bool send(std::string_view text) = 0;
 };
-
-class FakeTransport final : public ITransport {
+class FakeTransport final : public Transport {
 public:
-    bool send(std::string_view message) override {
-        messages_.emplace_back(message);
+    bool send(std::string_view text) override {
+        messages_.emplace_back(text);
         return true;
     }
     [[nodiscard]] const std::vector<std::string>& messages() const noexcept {
         return messages_;
     }
-
 private:
     std::vector<std::string> messages_;
 };
-
-[[nodiscard]] bool send_alarm(ITransport& transport, std::string_view text) {
-    return !text.empty() && transport.send(text);
+[[nodiscard]] bool send_alarm(Transport& transport, std::string_view message) {
+    return !message.empty() && transport.send(message);
 }
-
 int main() {
     FakeTransport fake;
     const bool sent = send_alarm(fake, "OVERHEAT");
-    const bool correct = sent && fake.messages().size() == 1 &&
+    const bool blocked = !send_alarm(fake, "");
+    const bool correct = sent && blocked && fake.messages().size() == 1 &&
                          fake.messages().front() == "OVERHEAT";
-    std::println("Transport test: {}", correct ? "PASS" : "FAIL");
+    std::cout << "Transport test: " << (correct ? "PASS" : "FAIL") << '\n';
     return correct ? 0 : 1;
 }

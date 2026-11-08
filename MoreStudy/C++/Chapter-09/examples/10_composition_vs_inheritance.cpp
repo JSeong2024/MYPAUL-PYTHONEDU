@@ -1,34 +1,28 @@
-#include <algorithm>
-#include <print>
-#include <string>
-#include <string_view>
-#include <utility>
+#include <iostream>
 
-class Motor {
+class Battery {
 public:
-    void set_rpm(int requested) noexcept {
-        rpm_ = std::clamp(requested, 0, 3'000);
+    explicit Battery(int percent) : percent_{percent} {}
+    [[nodiscard]] bool consume(int amount) noexcept {
+        if (amount < 0 || amount > percent_) return false;
+        percent_ -= amount;
+        return true;
     }
-    [[nodiscard]] int rpm() const noexcept { return rpm_; }
-
+    [[nodiscard]] int percent() const noexcept { return percent_; }
 private:
-    int rpm_{};
+    int percent_{};
 };
-
 class Robot {
 public:
-    explicit Robot(std::string name) : name_(std::move(name)) {}
-    void move(int requested_rpm) noexcept { motor_.set_rpm(requested_rpm); }
-    [[nodiscard]] std::string_view name() const noexcept { return name_; }
-    [[nodiscard]] int motor_rpm() const noexcept { return motor_.rpm(); }
-
+    explicit Robot(int battery_percent) : battery_{battery_percent} {}
+    [[nodiscard]] bool move() noexcept { return battery_.consume(10); }
+    [[nodiscard]] int battery() const noexcept { return battery_.percent(); }
 private:
-    std::string name_;
-    Motor motor_;  // Robot은 Motor를 소유함
+    Battery battery_;
 };
-
 int main() {
-    Robot robot{"Cleaner-A"};
-    robot.move(3'500);
-    std::println("{} motor: {} RPM", robot.name(), robot.motor_rpm());
+    Robot robot{35};
+    const bool moved = robot.move();
+    std::cout << std::boolalpha << "Moved: " << moved << ", battery: "
+              << robot.battery() << "%\n";
 }

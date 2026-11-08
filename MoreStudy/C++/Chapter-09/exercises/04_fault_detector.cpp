@@ -1,30 +1,33 @@
-#include <optional>
-#include <print>
+#include <iostream>
+#include <string>
+#include <string_view>
+#include <vector>
 
-struct IReadingSource {
-    virtual ~IReadingSource() = default;
-    [[nodiscard]] virtual std::optional<double> read() const = 0;
-};
-
-class FakeReading final : public IReadingSource {
+class Transport {
 public:
-    explicit FakeReading(std::optional<double> value) : value_(value) {}
-    [[nodiscard]] std::optional<double> read() const override { return value_; }
-
-private:
-    std::optional<double> value_;
+    virtual ~Transport() = default;
+    virtual bool send(std::string_view text) = 0;
 };
-
-[[nodiscard]] bool is_overheated(const IReadingSource& source,
-                                 double threshold) {
-    // TODO: 측정값이 없거나 유한하지 않으면 false
-    // TODO: 유효한 측정값이 threshold보다 크면 true
-    (void)source;
-    (void)threshold;
+class FakeTransport final : public Transport {
+public:
+    bool send(std::string_view text) override {
+        messages_.emplace_back(text);
+        return true;
+    }
+    [[nodiscard]] const std::vector<std::string>& messages() const noexcept { return messages_; }
+private:
+    std::vector<std::string> messages_;
+};
+[[nodiscard]] bool report_fault(Transport& transport, int code) {
+    // TODO: code가 양수이면 "FAULT:<code>"를 전송하고 전송 성공 여부를 반환하세요.
+    (void)transport;
+    (void)code;
     return false;
 }
-
 int main() {
-    const FakeReading sensor{85.0};
-    std::println("Overheated: {}", is_overheated(sensor, 80.0));
+    FakeTransport fake;
+    const bool sent = report_fault(fake, 42);
+    const bool rejected = report_fault(fake, 0);
+    std::cout << std::boolalpha << "Sent: " << sent << ", rejected: "
+              << rejected << ", messages: " << fake.messages().size() << '\n';
 }

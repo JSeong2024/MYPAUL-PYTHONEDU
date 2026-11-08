@@ -1,32 +1,24 @@
-#include <optional>
-#include <print>
+#include <iostream>
 
-class IReadingSource {
+class ReadingSource {
 public:
-    virtual ~IReadingSource() = default;
-    [[nodiscard]] virtual std::optional<double> read() const = 0;
+    virtual ~ReadingSource() = default;
+    [[nodiscard]] virtual int read() const noexcept = 0;
 };
 
-class SimulatedTemperature final : public IReadingSource {
+class FixedReading final : public ReadingSource {
 public:
-    explicit SimulatedTemperature(double value) : value_(value) {}
-    [[nodiscard]] std::optional<double> read() const override {
-        return value_;
-    }
-
+    explicit FixedReading(int value) : value_{value} {}
+    [[nodiscard]] int read() const noexcept override { return value_; }
 private:
-    double value_;
+    int value_{};
 };
 
-void display(const IReadingSource& source) {
-    if (const auto result = source.read()) {
-        std::println("Reading: {:.1f} C", *result);
-    } else {
-        std::println("Reading unavailable");
-    }
+[[nodiscard]] bool is_critical(const ReadingSource& source) {
+    return source.read() >= 80;
 }
 
 int main() {
-    const SimulatedTemperature sensor{22.5};
-    display(sensor);
+    const FixedReading source{85};
+    std::cout << std::boolalpha << "Critical: " << is_critical(source) << '\n';
 }

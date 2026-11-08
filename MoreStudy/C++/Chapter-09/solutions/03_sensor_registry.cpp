@@ -1,48 +1,31 @@
-#include <algorithm>
+#include <iostream>
 #include <memory>
-#include <print>
-#include <ranges>
-#include <string>
-#include <string_view>
-#include <utility>
 #include <vector>
 
-struct ISensor {
-    virtual ~ISensor() = default;
-    [[nodiscard]] virtual std::string_view id() const noexcept = 0;
-};
-
-class FixedSensor final : public ISensor {
+class Sensor {
 public:
-    explicit FixedSensor(std::string id) : id_(std::move(id)) {}
-    [[nodiscard]] std::string_view id() const noexcept override { return id_; }
-
+    virtual ~Sensor() = default;
+    [[nodiscard]] virtual int read() const noexcept = 0;
+};
+class FixedSensor final : public Sensor {
+public:
+    explicit FixedSensor(int value) : value_{value} {}
+    [[nodiscard]] int read() const noexcept override { return value_; }
 private:
-    std::string id_;
+    int value_{};
 };
-
-class Registry {
-public:
-    [[nodiscard]] bool add(std::unique_ptr<ISensor> sensor) {
-        if (!sensor || sensor->id().empty()) return false;
-        if (std::ranges::any_of(sensors_, [&](const auto& saved) {
-                return saved->id() == sensor->id();
-            })) return false;
-        sensors_.push_back(std::move(sensor));
-        return true;
+[[nodiscard]] int count_high(const std::vector<std::unique_ptr<Sensor>>& sensors,
+                             int threshold) {
+    int count{};
+    for (const auto& sensor : sensors) {
+        if (sensor && sensor->read() >= threshold) ++count;
     }
-    [[nodiscard]] std::size_t size() const noexcept { return sensors_.size(); }
-
-private:
-    std::vector<std::unique_ptr<ISensor>> sensors_;
-};
-
+    return count;
+}
 int main() {
-    Registry registry;
-    const bool first = registry.add(std::make_unique<FixedSensor>("S-01"));
-    const bool duplicate = registry.add(std::make_unique<FixedSensor>("S-01"));
-    const bool empty = registry.add(std::make_unique<FixedSensor>(""));
-    const bool null_added = registry.add(nullptr);
-    std::println("First: {}, duplicate: {}, empty: {}, null: {}, count: {}",
-                 first, duplicate, empty, null_added, registry.size());
+    std::vector<std::unique_ptr<Sensor>> sensors;
+    sensors.push_back(std::make_unique<FixedSensor>(75));
+    sensors.push_back(std::make_unique<FixedSensor>(82));
+    sensors.push_back(std::make_unique<FixedSensor>(90));
+    std::cout << "High: " << count_high(sensors, 80) << '\n';
 }

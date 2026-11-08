@@ -1,31 +1,21 @@
-#include <print>
-#include <string_view>
+#include <iostream>
 
 class Device {
 public:
     virtual ~Device() = default;
-    [[nodiscard]] virtual std::string_view type() const noexcept {
-        return "Device";
-    }
+    [[nodiscard]] virtual const char* kind() const noexcept { return "device"; }
 };
-
 class Camera final : public Device {
 public:
-    [[nodiscard]] std::string_view type() const noexcept override {
-        return "Camera";
-    }
+    [[nodiscard]] const char* kind() const noexcept override { return "camera"; }
 };
 
-void by_value(Device device) {
-    std::println("By value: {}", device.type());
-}
-
+void by_value(Device copy) { std::cout << "By value: " << copy.kind() << '\n'; }
 void by_reference(const Device& device) {
-    std::println("By reference: {}", device.type());
+    std::cout << "By reference: " << device.kind() << '\n';
 }
-
 int main() {
     const Camera camera;
-    by_value(camera);      // 파생 클래스 부분이 복사되지 않음
-    by_reference(camera);  // 원본의 실제 타입 유지
+    by_value(camera);  // 파생 부분이 복사되지 않는 객체 슬라이싱
+    by_reference(camera);
 }

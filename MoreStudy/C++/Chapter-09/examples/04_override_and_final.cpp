@@ -1,21 +1,20 @@
-#include <print>
-#include <string_view>
+#include <iostream>
 
 class Alarm {
 public:
     virtual ~Alarm() = default;
-    [[nodiscard]] virtual std::string_view message() const = 0;
+    [[nodiscard]] virtual bool triggered(int reading) const noexcept = 0;
 };
 
-class TemperatureAlarm final : public Alarm {
+class HighAlarm final : public Alarm {
 public:
-    [[nodiscard]] std::string_view message() const override {
-        return "Temperature limit exceeded";
+    [[nodiscard]] bool triggered(int reading) const noexcept override {
+        return reading >= 80;
     }
 };
 
 int main() {
-    const TemperatureAlarm alarm;
-    const Alarm& base = alarm;
-    std::println("{}", base.message());
+    const HighAlarm alarm;
+    std::cout << std::boolalpha << "79: " << alarm.triggered(79)
+              << ", 80: " << alarm.triggered(80) << '\n';
 }
