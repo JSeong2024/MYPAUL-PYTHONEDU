@@ -1,23 +1,22 @@
 #include <algorithm>
-#include <print>
-#include <string_view>
+#include <iostream>
 #include <vector>
 
-struct Sensor {
-    std::string_view id;
-    int temperature;
-};
-
 int main() {
-    const std::vector<Sensor> sensors{{"T-01", 31}, {"T-02", 72}, {"T-03", 42}};
-    const auto hot = std::ranges::find_if(sensors, [](const Sensor& sensor) {
-        return sensor.temperature >= 70;
+    const std::vector<int> response_ms{18, 45, 22, 90};
+    const auto slow = std::ranges::find_if(response_ms, [](int value) {
+        return value >= 80;
     });
-    if (hot != sensors.end()) {
-        std::println("First alert: {}", hot->id);
+    const bool valid = std::ranges::all_of(response_ms, [](int value) {
+        return value >= 0;
+    });
+    const auto high_count = std::ranges::count_if(response_ms, [](int value) {
+        return value >= 40;
+    });
+
+    if (slow != response_ms.end()) {
+        std::cout << "First slow: " << *slow << " ms\n";
     }
-    const bool all_normal = std::ranges::all_of(sensors, [](const Sensor& sensor) {
-        return sensor.temperature < 70;
-    });
-    std::println("All normal: {}", all_normal);
+    std::cout << std::boolalpha << "All valid: " << valid << '\n';
+    std::cout << "At least 40 ms: " << high_count << '\n';
 }

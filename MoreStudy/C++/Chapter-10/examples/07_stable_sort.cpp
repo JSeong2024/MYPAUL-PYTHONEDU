@@ -1,19 +1,20 @@
 #include <algorithm>
-#include <print>
-#include <string_view>
+#include <iostream>
+#include <string>
 #include <vector>
 
 struct Task {
-    std::string_view name;
-    int priority;
+    std::string name;
+    int priority{};
 };
 
 int main() {
-    std::vector<Task> tasks{{"scan", 5}, {"save", 8}, {"report", 5}};
-    std::ranges::stable_sort(tasks, [](const Task& a, const Task& b) {
+    std::vector<Task> tasks{{"scan", 2}, {"save", 1}, {"upload", 2}};
+    std::stable_sort(tasks.begin(), tasks.end(), [](const Task& a, const Task& b) {
         return a.priority > b.priority;
     });
+
     for (const auto& task : tasks) {
-        std::println("{}: {}", task.name, task.priority);
+        std::cout << task.name << ": " << task.priority << '\n';
     }
 }

@@ -1,0 +1,10 @@
+# Local build outputs
+/build/
+/.build/
+/cmake-build-*/
+*.o
+*.obj
+*.exe
+*.out
+*.pdb
+__pycache__/

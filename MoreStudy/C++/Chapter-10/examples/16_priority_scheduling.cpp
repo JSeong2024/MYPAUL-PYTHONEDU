@@ -1,29 +1,31 @@
-#include <print>
+#include <iostream>
 #include <queue>
-#include <string_view>
+#include <string>
 #include <vector>
 
-struct Job {
-    std::string_view id;
-    int priority;
+struct Task {
+    std::string name;
+    int priority{};
 };
 
 struct LowerPriority {
-    bool operator()(const Job& a, const Job& b) const {
+    bool operator()(const Task& a, const Task& b) const {
         if (a.priority != b.priority) {
             return a.priority < b.priority;
         }
-        return a.id > b.id;  // 동점에서는 사전순으로 앞선 ID 우선
+        return a.name > b.name;  // 동점이면 이름 오름차순
     }
 };
 
 int main() {
-    std::priority_queue<Job, std::vector<Job>, LowerPriority> queue;
-    queue.push({"save", 20});
-    queue.push({"scan", 90});
-    queue.push({"report", 90});
-    while (!queue.empty()) {
-        std::println("{}: {}", queue.top().id, queue.top().priority);
-        queue.pop();
+    std::priority_queue<Task, std::vector<Task>, LowerPriority> tasks;
+    tasks.push({"scan", 70});
+    tasks.push({"upload", 90});
+    tasks.push({"navigate", 90});
+
+    while (!tasks.empty()) {
+        const Task& next = tasks.top();
+        std::cout << next.name << ": " << next.priority << '\n';
+        tasks.pop();
     }
 }

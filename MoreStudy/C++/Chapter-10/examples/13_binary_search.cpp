@@ -1,12 +1,13 @@
-#include <iterator>
 #include <algorithm>
-#include <print>
+#include <iostream>
 #include <vector>
 
 int main() {
-    const std::vector<int> codes{10, 20, 20, 30, 40};  // 이미 정렬됨
-    const auto lower = std::ranges::lower_bound(codes, 20);
-    const auto upper = std::ranges::upper_bound(codes, 20);
-    std::println("Has 30: {}", std::ranges::binary_search(codes, 30));
-    std::println("Count of 20: {}", std::distance(lower, upper));
+    std::vector<int> channels{9, 2, 7, 2, 5};
+    std::ranges::sort(channels);
+
+    const bool has_seven = std::ranges::binary_search(channels, 7);
+    const auto first_two = std::ranges::lower_bound(channels, 2);
+    std::cout << std::boolalpha << "Has 7: " << has_seven << '\n';
+    std::cout << "First 2 index: " << (first_two - channels.begin()) << '\n';
 }

@@ -1,21 +1,17 @@
-#include <cstdio>
-#include "event_summary.hpp"
-#include <print>
-#include <vector>
+#include "summary.hpp"
+
+#include <iostream>
 
 int main() {
-    const std::vector<Event> events{
-        {"LIDAR", 48}, {"CAMERA", 87}, {"LIDAR", 110},
-        {"CAMERA", 35}, {"IMU", 12}
-    };
-    const auto result = summarize_events(events, 80);
-    if (!result) {
-        std::println(stderr, "Error: {}", result.error());
-        return 1;
+    events::Summary report;
+    for (const char* name : {"WARN", "INFO", "WARN", "ERROR", "INFO"}) {
+        if (!events::add_event(report, name)) {
+            return 1;
+        }
     }
-    for (const auto& summary : *result) {
-        std::println("{}: count={}, slow={}, mean={:.1f} ms",
-                     summary.device, summary.count, summary.slow_count,
-                     summary.mean_ms());
+    std::cout << "Total: " << report.total << '\n';
+    std::cout << "Distinct: " << events::distinct_count(report) << '\n';
+    for (const auto& [name, count] : report.frequency) {
+        std::cout << name << ": " << count << '\n';
     }
 }

@@ -1,14 +1,16 @@
-#include <print>
+#include <iostream>
 #include <ranges>
 #include <vector>
 
 int main() {
-    const std::vector<int> readings{12, 4, 20, 15, 8};
-    auto processed = readings
-        | std::views::filter([](int value) { return value >= 10; })
-        | std::views::transform([](int value) { return value * 2; })
-        | std::views::take(2);
-    for (const int value : processed) {
-        std::println("Processed: {}", value);
+    std::vector<int> readings{10, 21, 30, 42, 50};
+    auto selected = readings
+        | std::views::filter([](int value) { return value >= 20; })
+        | std::views::transform([](int value) { return value / 2; });
+
+    std::cout << "Half of >=20:";
+    for (const int value : selected) {
+        std::cout << ' ' << value;
     }
+    std::cout << '\n';
 }

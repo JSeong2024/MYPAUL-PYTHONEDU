@@ -1,21 +1,42 @@
+#include <iomanip>
 #include <iostream>
+#include <map>
 #include <string>
+#include <utility>
+#include <vector>
+
+struct Stats {
+    long long sum{};
+    int count{};
+};
+
+[[nodiscard]] std::map<std::string, Stats> summarize(
+    const std::vector<std::pair<std::string, int>>& entries) {
+    // TODO: 장치별 합계와 입력 개수를 집계합니다.
+    (void)entries;
+    return {};
+}
 
 int main() {
     int n{};
     if (!(std::cin >> n) || n < 1 || n > 10'000) {
-        std::cerr << "Invalid count\n";
+        std::cerr << "Error: invalid count\n";
         return 1;
     }
-    // TODO: 장치별 측정 횟수와 합계를 기록
-    // TODO: 장치 이름 오름차순으로 횟수와 평균(소수 첫째 자리) 출력
-    std::string device;
-    int latency{};
+    std::vector<std::pair<std::string, int>> entries;
+    entries.reserve(static_cast<std::size_t>(n));
     for (int i = 0; i < n; ++i) {
-        if (!(std::cin >> device >> latency) || latency < 0 || latency > 1'000'000) {
-            std::cerr << "Invalid reading\n";
+        std::string name;
+        int latency{};
+        if (!(std::cin >> name >> latency) || latency < 0 || latency > 1'000'000) {
+            std::cerr << "Error: invalid device entry\n";
             return 1;
         }
+        entries.emplace_back(name, latency);
     }
-    return 0;
+    std::cout << std::fixed << std::setprecision(1);
+    for (const auto& [name, stats] : summarize(entries)) {
+        std::cout << name << ": count=" << stats.count
+                  << ", mean=" << static_cast<double>(stats.sum) / stats.count << '\n';
+    }
 }

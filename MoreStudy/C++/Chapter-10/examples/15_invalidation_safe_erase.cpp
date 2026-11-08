@@ -1,16 +1,19 @@
-#include <print>
+#include <iostream>
 #include <vector>
 
 int main() {
-    std::vector<int> values{3, -1, 5, -2, 7};
-    for (auto it = values.begin(); it != values.end();) {
+    std::vector<int> samples{10, -1, 20, -1, 30};
+    for (auto it = samples.begin(); it != samples.end();) {
         if (*it < 0) {
-            it = values.erase(it);  // 반환된 새 Iterator로 갱신
+            it = samples.erase(it);  // 삭제 후 반환된 유효한 반복자 사용
         } else {
             ++it;
         }
     }
-    for (const int value : values) {
-        std::println("Valid: {}", value);
+
+    std::cout << "Valid:";
+    for (const int value : samples) {
+        std::cout << ' ' << value;
     }
+    std::cout << '\n';
 }

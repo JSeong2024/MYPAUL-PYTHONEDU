@@ -1,13 +1,19 @@
-#include <cstdio>
 #include <algorithm>
 #include <iostream>
-#include <print>
 #include <vector>
+
+[[nodiscard]] std::vector<int> clean_readings(std::vector<int> readings) {
+    std::erase(readings, -1);
+    std::ranges::sort(readings);
+    const auto duplicates = std::ranges::unique(readings);
+    readings.erase(duplicates.begin(), duplicates.end());
+    return readings;
+}
 
 int main() {
     int n{};
     if (!(std::cin >> n) || n < 1 || n > 10'000) {
-        std::println(stderr, "Invalid count");
+        std::cerr << "Error: invalid count\n";
         return 1;
     }
     std::vector<int> readings;
@@ -15,21 +21,19 @@ int main() {
     for (int i = 0; i < n; ++i) {
         int value{};
         if (!(std::cin >> value) || value < -1 || value > 1'000) {
-            std::println(stderr, "Invalid reading");
+            std::cerr << "Error: invalid reading\n";
             return 1;
         }
-        if (value != -1) readings.push_back(value);
+        readings.push_back(value);
     }
-    std::ranges::sort(readings);
-    const auto duplicates = std::ranges::unique(readings);
-    readings.erase(duplicates.begin(), duplicates.end());
-    if (readings.empty()) {
-        std::println("EMPTY");
+    const auto cleaned = clean_readings(readings);
+    if (cleaned.empty()) {
+        std::cout << "EMPTY\n";
     } else {
-        for (std::size_t i = 0; i < readings.size(); ++i) {
-            if (i != 0) std::print(" ");
-            std::print("{}", readings[i]);
+        for (std::size_t i = 0; i < cleaned.size(); ++i) {
+            if (i != 0) std::cout << ' ';
+            std::cout << cleaned[i];
         }
-        std::println();
+        std::cout << '\n';
     }
 }

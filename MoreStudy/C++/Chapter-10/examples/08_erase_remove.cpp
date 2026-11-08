@@ -1,14 +1,15 @@
 #include <algorithm>
-#include <print>
+#include <iostream>
 #include <vector>
 
 int main() {
-    std::vector<int> measurements{-1, 16, 21, -1, 19};
-    const auto removed = std::erase_if(measurements, [](int value) {
-        return value < 0;
-    });
-    std::println("Removed: {}", removed);
-    for (const int value : measurements) {
-        std::println("Measurement: {}", value);
+    std::vector<int> readings{20, -1, 18, -1, 25};
+    const auto removed = std::erase(readings, -1);  // C++20
+
+    std::cout << "Removed: " << removed << '\n';
+    std::cout << "Remaining:";
+    for (const int value : readings) {
+        std::cout << ' ' << value;
     }
+    std::cout << '\n';
 }

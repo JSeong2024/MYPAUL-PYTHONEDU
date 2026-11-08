@@ -1,14 +1,20 @@
-#include <array>
+#include <iostream>
 #include <numeric>
-#include <print>
+#include <vector>
 
 int main() {
-    constexpr std::array<int, 4> latencies{20, 30, 10, 40};
-    const long long sum = std::accumulate(latencies.begin(), latencies.end(), 0LL);
-    const double mean = static_cast<double>(sum) / latencies.size();
-    constexpr std::array<int, 4> weights{1, 2, 1, 2};
-    const int weighted = std::inner_product(latencies.begin(), latencies.end(),
-                                            weights.begin(), 0);
-    std::println("Mean: {:.1f} ms", mean);
-    std::println("Weighted sum: {}", weighted);
+    const std::vector<int> values{2, 4, 6, 8};
+    const int total = std::accumulate(values.begin(), values.end(), 0);
+    const int squared_sum = std::inner_product(values.begin(), values.end(),
+                                               values.begin(), 0);
+    std::vector<int> prefix(values.size());
+    std::partial_sum(values.begin(), values.end(), prefix.begin());
+
+    std::cout << "Total: " << total << '\n';
+    std::cout << "Squared sum: " << squared_sum << '\n';
+    std::cout << "Prefix:";
+    for (const int value : prefix) {
+        std::cout << ' ' << value;
+    }
+    std::cout << '\n';
 }

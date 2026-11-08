@@ -1,21 +1,45 @@
 #include <iostream>
+#include <queue>
 #include <string>
+#include <vector>
+
+struct Task {
+    std::string name;
+    int priority{};
+};
+
+struct LowerPriority {
+    bool operator()(const Task& a, const Task& b) const {
+        if (a.priority != b.priority) return a.priority < b.priority;
+        return a.name > b.name;
+    }
+};
+
+[[nodiscard]] std::vector<Task> top_k(const std::vector<Task>& tasks, int k) {
+    // TODO: 우선순위가 높은 순서로 k개를 반환합니다.
+    (void)tasks;
+    (void)k;
+    return {};
+}
 
 int main() {
     int n{}, k{};
     if (!(std::cin >> n >> k) || n < 1 || n > 10'000 || k < 1 || k > n) {
-        std::cerr << "Invalid size\n";
+        std::cerr << "Error: invalid task count\n";
         return 1;
     }
-    // TODO: 이름과 우선순위(0~100)를 n개 입력
-    // TODO: 우선순위 내림차순, 동점이면 이름 오름차순으로 k개 출력
-    std::string name;
-    int priority{};
+    std::vector<Task> tasks;
+    tasks.reserve(static_cast<std::size_t>(n));
     for (int i = 0; i < n; ++i) {
-        if (!(std::cin >> name >> priority) || priority < 0 || priority > 100) {
-            std::cerr << "Invalid task\n";
+        Task task;
+        if (!(std::cin >> task.name >> task.priority) ||
+            task.priority < 0 || task.priority > 100) {
+            std::cerr << "Error: invalid task\n";
             return 1;
         }
+        tasks.push_back(task);
     }
-    return 0;
+    for (const auto& task : top_k(tasks, k)) {
+        std::cout << task.name << ' ' << task.priority << '\n';
+    }
 }

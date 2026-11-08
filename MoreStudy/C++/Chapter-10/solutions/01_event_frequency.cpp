@@ -1,25 +1,34 @@
-#include <cstdio>
 #include <iostream>
 #include <map>
-#include <print>
 #include <string>
+#include <vector>
+
+[[nodiscard]] std::map<std::string, int> count_events(
+    const std::vector<std::string>& events) {
+    std::map<std::string, int> counts;
+    for (const auto& event : events) {
+        ++counts[event];
+    }
+    return counts;
+}
 
 int main() {
     int n{};
     if (!(std::cin >> n) || n < 1 || n > 10'000) {
-        std::println(stderr, "Invalid count");
+        std::cerr << "Error: invalid count\n";
         return 1;
     }
-    std::map<std::string, int> counts;
+    std::vector<std::string> events;
+    events.reserve(static_cast<std::size_t>(n));
     for (int i = 0; i < n; ++i) {
-        std::string event;
-        if (!(std::cin >> event)) {
-            std::println(stderr, "Invalid event");
+        std::string name;
+        if (!(std::cin >> name)) {
+            std::cerr << "Error: invalid event\n";
             return 1;
         }
-        ++counts[event];
+        events.push_back(name);
     }
-    for (const auto& [event, count] : counts) {
-        std::println("{}: {}", event, count);
+    for (const auto& [name, count] : count_events(events)) {
+        std::cout << name << ": " << count << '\n';
     }
 }

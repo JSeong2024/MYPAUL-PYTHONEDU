@@ -1,5 +1,5 @@
+#include <iostream>
 #include <map>
-#include <print>
 #include <set>
 #include <string>
 
@@ -9,10 +9,10 @@ int main() {
     std::set<int> channel_ids{8, 3, 8, 5};
 
     for (const auto& [name, quantity] : inventory) {
-        std::println("{}: {}", name, quantity);
+        std::cout << name << ": " << quantity << '\n';
     }
-    std::println("Unique channels: {}", channel_ids.size());
+    std::cout << "Unique channels: " << channel_ids.size() << '\n';
     if (const auto it = channel_ids.lower_bound(4); it != channel_ids.end()) {
-        std::println("First channel >= 4: {}", *it);
+        std::cout << "First channel >= 4: " << *it << '\n';
     }
 }

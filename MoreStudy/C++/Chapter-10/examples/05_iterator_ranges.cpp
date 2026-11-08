@@ -1,14 +1,17 @@
-#include <algorithm>
+#include <iostream>
 #include <iterator>
-#include <print>
 #include <vector>
 
 int main() {
-    const std::vector<int> samples{11, 13, 17, 19};
-    const auto it = std::ranges::find(samples, 17);
-    if (it != samples.end()) {
-        const auto position = std::distance(samples.cbegin(), it);
-        std::println("Found at index: {}", position);
+    const std::vector<int> readings{12, 15, 19, 24};
+    auto first = readings.cbegin();
+    auto last = readings.cend();
+    std::cout << "First: " << *first << '\n';
+    std::cout << "Distance: " << std::distance(first, last) << '\n';
+
+    int sum{};
+    for (; first != last; ++first) {
+        sum += *first;
     }
-    std::println("Length: {}", std::ranges::distance(samples));
+    std::cout << "Sum: " << sum << '\n';
 }
