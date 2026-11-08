@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="figures/projects/challenge_03_transit_reliability.png" width="88%" alt="Chapter 09 통합 교통 분석 보고서">
-</p>
-
 # Chapter 09. Data Visualization Project
 
 데이터를 읽고 그래프를 그리는 단계에서 나아가, **문제를 정의하고 자료를 검증한 뒤 해석 가능한 분석 결과를 전달하는 과정**을 학습합니다. Mini Project에서는 정적 보고서를, Advanced Project에서는 필터·완전성·지표의 일관성을, Challenge에서는 다중 입력·예외 처리·자동 검증을 다룹니다.
