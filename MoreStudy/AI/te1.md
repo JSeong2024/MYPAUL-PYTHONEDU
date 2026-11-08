@@ -114,12 +114,11 @@ y = np.array([0, 1, 1, 0])
 
 </details>
 
-
 ### Q-05. Loss와 Gradient의 방향
 
 **관련 개념:** [Chapter 02](../Chapter-02/README.md) · Loss Function · Gradient Descent
 
-단일 샘플에 대해 모델을 $\hat{y} = wx$로 정의합니다. 입력 $x = 2$, 실제값 $y = 5$, 현재 가중치 $w = 1$이고 손실 함수(Loss)가 $L = (wx - y)^2$일 때, 학습률(Learning Rate)이 $0.1$이라면 경사 하강법(Gradient Descent)을 **한 번 적용한 이후의 가중치 $w$**는 얼마입니까?
+단일 샘플에 대해 모델을 $\hat{y} = wx$로 정의합니다. 입력 $x = 2$, 실제값 $y = 5$, 현재 가중치 $w = 1$이고 손실 함수(Loss)가 $L = (wx - y)^2$일 때, 학습률(Learning Rate)이 $0.1$이라면 경사 하강법(Gradient Descent)을 **한 번 적용한 이후의 가중치** $w$는 얼마입니까?
 
 1. `-0.2`
 2. `1.2`
@@ -135,29 +134,29 @@ y = np.array([0, 1, 1, 0])
 
 손실 함수 $L$을 가중치 $w$에 대해 미분하면 다음과 같습니다.
 
-$$
+```math
 \frac{\partial L}{\partial w} = 2(wx-y)\cdot x
-$$
+```
 
 주어진 값($x=2$, $y=5$, $w=1$)을 대입하면,
 
-$$
+```math
 \frac{\partial L}{\partial w} = 2(1\times2-5)\times2 = -12
-$$
+```
 
 **2. 가중치 업데이트**
 
 학습률 $\eta=0.1$을 적용한 경사 하강법의 가중치 갱신 공식은 다음과 같습니다.
 
-$$
+```math
 w_{\text{new}} = w-\eta\frac{\partial L}{\partial w}
-$$
+```
 
 계산한 기울기를 대입하면,
 
-$$
+```math
 w_{\text{new}} = 1-0.1\times(-12) = 2.2
-$$
+```
 
 따라서 한 번의 경사 하강법 적용 후 가중치는 **2.2**입니다.
 
@@ -168,7 +167,6 @@ $$
 - **④ `3.0`:** 기울기와 학습률을 올바르게 적용하지 않은 결과입니다.
 
 </details>
-
 
 
 ### Q-06. Feature Scaling이 중요한 이유
