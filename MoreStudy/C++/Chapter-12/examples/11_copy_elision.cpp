@@ -1,4 +1,4 @@
-#include <print>
+#include <iostream>
 
 class Token {
 public:
@@ -11,10 +11,10 @@ private:
 };
 
 [[nodiscard]] Token make_token(int id) {
-    return Token{id}; // 같은 타입의 prvalue: C++17부터 직접 구성
+    return Token{id}; // 같은 타입 prvalue: C++17부터 직접 구성 보장
 }
 
 int main() {
-    Token value = make_token(27);
-    std::println("Token: {}", value.id());
+    Token token = make_token(27);
+    std::cout << "Token: " << token.id() << '\n';
 }

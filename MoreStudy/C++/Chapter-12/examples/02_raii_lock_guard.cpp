@@ -1,5 +1,5 @@
+#include <iostream>
 #include <mutex>
-#include <print>
 
 class Counter {
 public:
@@ -20,5 +20,5 @@ int main() {
     Counter counter;
     counter.increment();
     counter.increment();
-    std::println("Count: {}", counter.read());
+    std::cout << "Count: " << counter.read() << '\n';
 }

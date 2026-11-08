@@ -1,16 +1,37 @@
 #include <memory>
-#include <print>
+#include <stdexcept>
 #include <string>
+#include <string_view>
 #include <utility>
+#ifndef CH12_LIBRARY_ONLY
+#include <iostream>
+#endif
 
-struct Camera {
-    explicit Camera(std::string id) : id(std::move(id)) {}
-    std::string id;
+struct Device { std::string name; };
+
+class DeviceRegistry {
+public:
+    // 전달받은 unique_ptr의 독점 소유권을 Registry가 인수합니다.
+    void install(std::unique_ptr<Device> device) {
+        if (!device || device->name.empty()) {
+            throw std::invalid_argument("invalid device");
+        }
+        device_ = std::move(device);
+    }
+    [[nodiscard]] bool has_device() const noexcept { return static_cast<bool>(device_); }
+    [[nodiscard]] std::string_view name() const noexcept {
+        return device_ ? std::string_view{device_->name} : std::string_view{};
+    }
+private:
+    std::unique_ptr<Device> device_;
 };
 
+#ifndef CH12_LIBRARY_ONLY
 int main() {
-    auto source = std::make_unique<Camera>("cam-01");
-    auto destination = std::move(source);
-    std::println("Source exists: {}", source != nullptr);
-    if (destination) std::println("Camera: {}", destination->id);
+    DeviceRegistry registry;
+    auto device = std::make_unique<Device>(Device{"Motor-A"});
+    registry.install(std::move(device));
+    std::cout << "Device: " << registry.name() << '\n';
+    std::cout << std::boolalpha << "Old owner empty: " << (device == nullptr) << '\n';
 }
+#endif

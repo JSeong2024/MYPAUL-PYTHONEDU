@@ -1,13 +1,16 @@
 #pragma once
-#include <expected>
 #include <memory>
 #include <string>
 #include <string_view>
+#include <variant>
 
 namespace demo {
 struct RawPort;
 void close_port(RawPort* port) noexcept;
 [[nodiscard]] int closed_count() noexcept;
+
+enum class OpenError { empty_id, unavailable };
+[[nodiscard]] std::string_view error_message(OpenError error) noexcept;
 
 class Session {
 public:
@@ -17,7 +20,7 @@ public:
     Session& operator=(Session&&) noexcept = default;
     ~Session() = default;
 
-    [[nodiscard]] static std::expected<Session, std::string> open(std::string_view id);
+    [[nodiscard]] static std::variant<Session, OpenError> open(std::string_view id);
     [[nodiscard]] int next_reading();
     [[nodiscard]] std::string_view name() const noexcept;
 

@@ -1,7 +1,7 @@
 #include <algorithm>
 #include <cstddef>
+#include <iostream>
 #include <memory>
-#include <print>
 #include <stdexcept>
 #include <utility>
 
@@ -9,11 +9,12 @@ class IntBuffer {
 public:
     explicit IntBuffer(std::size_t size)
         : data_(size ? std::make_unique<int[]>(size) : nullptr), size_(size) {}
-
     ~IntBuffer() = default;
 
     IntBuffer(const IntBuffer& other) : IntBuffer(other.size_) {
-        if (size_ != 0) std::copy_n(other.data_.get(), size_, data_.get());
+        if (size_ != 0) {
+            std::copy_n(other.data_.get(), size_, data_.get());
+        }
     }
     IntBuffer& operator=(const IntBuffer& other) {
         if (this != &other) {
@@ -49,9 +50,9 @@ int main() {
     IntBuffer first{2};
     first.at(0) = 7;
     first.at(1) = 9;
-    IntBuffer copy{first};
-    copy.at(0) = 50;
+    IntBuffer copied{first};
+    copied.at(0) = 50;
     IntBuffer moved{std::move(first)};
-    std::println("Copy: {}, Moved: {}, Old size: {}",
-                 copy.at(0), moved.at(0), first.size());
+    std::cout << "Copy: " << copied.at(0) << ", Moved: " << moved.at(0)
+              << ", Old size: " << first.size() << '\n';
 }

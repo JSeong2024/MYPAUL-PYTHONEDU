@@ -1,5 +1,5 @@
+#include <iostream>
 #include <memory>
-#include <print>
 #include <utility>
 #include <vector>
 
@@ -13,5 +13,5 @@ int main() {
     jobs.emplace_back(10);
     Job task{20};
     jobs.push_back(std::move(task));
-    std::println("Jobs: {} / {}", *jobs[0].id, *jobs[1].id);
+    std::cout << "Jobs: " << *jobs.at(0).id << " / " << *jobs.at(1).id << '\n';
 }

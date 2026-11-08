@@ -1,16 +1,16 @@
-#include <print>
+#include <iostream>
+#include <span>
 #include <string>
 #include <string_view>
+#include <vector>
 
-[[nodiscard]] std::string_view first_word(std::string_view input) {
-    const auto pos = input.find(' ');
-    return input.substr(0, pos);
+void inspect(std::span<const int> values, std::string_view source) {
+    std::cout << source << ": " << values.front() << '\n';
 }
 
 int main() {
-    const std::string message{"sensor ready"};
-    const std::string_view borrowed = first_word(message);
-    std::println("Borrowed: {}", borrowed);
-    const std::string owned{borrowed}; // 별도 수명이 필요하면 복사하여 소유
-    std::println("Owned: {}", owned);
+    std::vector<int> readings{12, 14, 18};
+    std::string name{"sensor-A"};
+    inspect(readings, name);
+    // readings/name이 살아 있는 동안에만 span/string_view가 유효합니다.
 }

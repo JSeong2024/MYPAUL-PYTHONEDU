@@ -1,23 +1,23 @@
-#include <print>
+#include <iostream>
 #include <string_view>
 
 class Trace {
 public:
     explicit Trace(std::string_view name) : name_(name) {
-        std::println("Open: {}", name_);
+        std::cout << "Open: " << name_ << '\n';
     }
-    ~Trace() { std::println("Close: {}", name_); }
+    ~Trace() { std::cout << "Close: " << name_ << '\n'; }
     Trace(const Trace&) = delete;
     Trace& operator=(const Trace&) = delete;
 private:
-    std::string_view name_;  // 호출 중 유효한 문자열 리터럴을 참조
+    std::string_view name_;
 };
 
 int main() {
     Trace outer{"outer"};
     {
         Trace inner{"inner"};
-        std::println("Working");
+        std::cout << "Working\n";
     }
-    std::println("End of main");
+    std::cout << "End of main\n";
 }

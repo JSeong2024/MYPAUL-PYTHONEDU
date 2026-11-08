@@ -1,85 +1,124 @@
 # Chapter 12. Modern C++ & Resource Management
 
-C++23의 Resource Management, 객체 수명, Ownership, RAII, Move Semantics, Copy/Move 설계와 Exception Safety를 다룹니다. Chapter 07의 포인터·참조와 Chapter 08의 클래스 설계를 확장하여, **객체 수명과 소유권을 바탕으로 자원을 안전하게 관리하는 방법**을 학습합니다.
+객체의 수명과 자원의 소유권을 연결하여, 정상 종료와 오류 발생 상황 모두에서 자원을 안전하게 관리하는 방법을 학습합니다. Chapter 07의 포인터·참조, Chapter 08의 클래스, Chapter 09의 다형성, Chapter 11의 파일 입출력을 바탕으로 소유권 이전과 복사·이동 설계까지 확장합니다.
 
-본 자료는 **C++23(ISO/IEC 14882:2024)** 을 기준으로 작성되었습니다. 일부 예제는 `<print>`, `<expected>`를 사용하므로 해당 C++23 표준 라이브러리를 지원하는 컴파일러가 필요합니다. GCC 14 이상 환경을 권장합니다.
+해당 자료는 **C++20(ISO/IEC 14882:2020)** 을 바탕으로 제작되었습니다. C++17에서 도입된 유용한 문법도 사용합니다. C++23의 `std::expected`는 마지막 부분에서 비교하되 기본 예제와 프로젝트에서는 사용하지 않습니다.
 
-**선행 학습:** [Chapter 05 — Functions](../Chapter-05/) · [Chapter 07 — Pointers & References](../Chapter-07/) · [Chapter 08 — Structs & Classes](../Chapter-08/) · [Chapter 11 — File I/O](../Chapter-11/)
+<details>
+<summary>선행 학습</summary>
 
-<a id="contents"></a>
+- [Chapter 05. Functions](../Chapter-05/) — 함수 계약, 값·참조 매개변수, `std::optional`
+- [Chapter 07. Pointers & References](../Chapter-07/) — 주소, 객체 수명, 스마트 포인터의 기초
+- [Chapter 08. Structs & Classes](../Chapter-08/) — 생성자·소멸자, 합성, Rule of Zero의 기초
+- [Chapter 09. Object-Oriented Programming](../Chapter-09/) — 다형성과 소유권을 가진 객체 집합
+- [Chapter 11. File I/O](../Chapter-11/) — 파일 스트림의 RAII와 오류 처리
+
+</details>
+
 ## Contents
 
 | Section | Topic |
 |:---:|---|
-| [12.1](#section-12-1) | Resource Management와 객체 수명 |
-| [12.2](#section-12-2) | RAII와 자원 정리 |
-| [12.3](#section-12-3) | Ownership과 Borrowing |
-| [12.4](#section-12-4) | `std::unique_ptr` — 단일 소유권 |
-| [12.5](#section-12-5) | Custom Deleter — 외부 자원 관리 |
-| [12.6](#section-12-6) | Value Category와 이동 참조 |
-| [12.7](#section-12-7) | Move Semantics와 `std::move` |
-| [12.8](#section-12-8) | Move-Only Type과 소유권 이전 |
-| [12.9](#section-12-9) | Copy/Move Constructor와 Special Member Function |
-| [12.10](#section-12-10) | Rule of Zero — 자동 자원 관리 |
-| [12.11](#section-12-11) | Rule of Five — 직접 관리해야 하는 경우 |
-| [12.12](#section-12-12) | `std::exchange`와 이동 후 상태 |
-| [12.13](#section-12-13) | Copy Elision과 NRVO |
-| [12.14](#section-12-14) | `noexcept`와 `std::move_if_noexcept` |
-| [12.15](#section-12-15) | Exception Safety — 상태 변경의 원자성 |
-| [12.16](#section-12-16) | Borrowed View와 Dangling Reference |
-| [12.17](#section-12-17) | `std::expected`로 전달하는 소유권과 오류 |
-| [12.18](#section-12-18) | Perfect Forwarding — 다음 Chapter 연결 |
+| [12.1](#section-12-1) | Object Lifetime — 객체 수명과 스코프 |
+| [12.2](#section-12-2) | RAII — 객체 수명으로 자원 관리 |
+| [12.3](#section-12-3) | Ownership & Borrowing — 소유권과 대여 |
+| [12.4](#section-12-4) | Unique Ownership — `std::unique_ptr` |
+| [12.5](#section-12-5) | Custom Deleter — 외부 자원 해제 |
+| [12.6](#section-12-6) | Shared & Weak Ownership — 공유 소유와 관찰 |
+| [12.7](#section-12-7) | Value Categories — 값 범주와 rvalue 참조 |
+| [12.8](#section-12-8) | Move Semantics — 이동과 이동 전용 타입 |
+| [12.9](#section-12-9) | Special Member Functions — 복사·이동 생성자와 대입 |
+| [12.10](#section-12-10) | Rule of Zero — 특별 멤버 함수가 필요 없는 설계 |
+| [12.11](#section-12-11) | Rule of Three & Five — 직접 자원을 관리하는 클래스 |
+| [12.12](#section-12-12) | `std::exchange` & Moved-from State — 이동 후 상태 |
+| [12.13](#section-12-13) | Copy Elision & NRVO — 불필요한 복사·이동 생략 |
+| [12.14](#section-12-14) | `noexcept` & `std::move_if_noexcept` — 이동과 예외 |
+| [12.15](#section-12-15) | Exception Safety — 실패에도 상태 유지 |
+| [12.16](#section-12-16) | Non-owning Views — 수명과 무효화 |
+| [12.17](#section-12-17) | Error Handling — C++20 결과 표현 |
+| [12.18](#section-12-18) | Coding Practice — 연습문제 |
 | [12.19](#section-12-19) | Mini Project — Device Session Manager |
-| [12.20](#section-12-20) | 설계 시 참고 사항 |
-| [12.21](#section-12-21) | Coding Practice |
-| [12.22](#section-12-22) | Quiz & Summary |
+| [12.20](#section-12-20) | Quiz & Summary — 최종 점검 |
 
----
+## Getting Started
+
+다음 명령어는 `MoreStudy/C++/Chapter-12/` 폴더에서 실행합니다. `examples/` 아래의 단일 `.cpp` 파일은 각각 독립적으로 컴파일할 수 있습니다.
+
+**GCC — Git Bash**
+
+```bash
+g++ -std=c++20 -Wall -Wextra -Wpedantic examples/03_unique_ownership.cpp -o unique_ownership
+./unique_ownership
+```
+
+GCC 14가 설치되어 있고 실행 파일 이름이 `g++-14`라면 `g++` 대신 `g++-14`를 사용해도 됩니다. 아래의 모든 예제는 GCC 14에서 별도로 검증했습니다.
+
+**Clang**
+
+```bash
+clang++ -std=c++20 -Wall -Wextra -Wpedantic examples/03_unique_ownership.cpp -o unique_ownership
+./unique_ownership
+```
+
+**MSVC — Developer Command Prompt**
+
+```bat
+cl /nologo /std:c++20 /W4 /EHsc /utf-8 examples\03_unique_ownership.cpp /Fe:unique_ownership.exe
+unique_ownership.exe
+```
+
+Windows PowerShell에서는 `./unique_ownership` 대신 `.\unique_ownership.exe` 형태로 실행 파일을 호출할 수 있습니다. 빌드 명령어는 VS Code의 실행 버튼 대신 사용할 수도 있으며, 실제로 어떤 C++ 표준을 사용했는지 확인하는 데 유용합니다.
+
+**학습 목표**
+
+1. 객체 수명과 자원 수명 사이의 관계를 구분합니다.
+2. RAII와 스마트 포인터로 자원 반환 책임을 표현합니다.
+3. 복사와 이동의 차이를 설명하고 필요한 상황에 `std::move()`를 사용할 수 있습니다.
+4. Rule of Zero를 기본 설계로 삼고 직접 복사·이동을 구현해야 하는 경우를 구분합니다.
+5. 예외나 실패가 일어나더라도 프로그램 상태를 복구 가능한 형태로 유지합니다.
 
 <a id="section-12-1"></a>
 
-## 12.1. Resource Management와 객체 수명
+## 12.1. Object Lifetime — 객체 수명과 스코프
 
+**객체 수명(Object Lifetime)**은 어떤 객체가 존재하며 유효하게 사용될 수 있는 기간을 의미합니다. 이름을 코드에서 찾을 수 있는 범위인 **스코프(Scope)** 와 관련이 있지만 동일한 뜻은 아닙니다. 포인터를 변수 밖으로 전달했다고 해서 가리키는 객체의 수명까지 연장되는 것은 아닙니다.
 
-리소스 관리(Resource Management)는 파일, 메모리, 잠금, 장치 연결처럼 **획득과 반환이 필요한 자원**을 다루는 작업입니다. 일반 객체의 저장 공간도 자원이지만, 메모리 외에 운영체제가 제공하는 Handle이나 네트워크 연결 등도 포함됩니다.
-
-객체 수명(Object Lifetime, Lifetime)은 객체가 생성되어 사용할 수 있는 기간을 의미합니다. 객체가 유효한 범위와 자원을 소유한 기간은 일치할 수도, 다를 수도 있습니다.
-
-| 개념 | 의미 | 예시 |
+| 구분 | 의미 | 예시 |
 |---|---|---|
-| 스코프(Scope) | 이름을 참조할 수 있는 코드 범위 | 중괄호 `{}` |
-| Lifetime | 객체가 존재하는 기간 | 지역 변수 생성부터 소멸까지 |
-| 자원(Resource) | 획득·해제가 필요한 대상 | 파일 Handle, 메모리, Mutex |
-| 소유권(Ownership) | 자원 해제 책임 | `std::unique_ptr` 소유자 |
-| 대여(Borrowing) | 해제 책임 없이 일시적으로 접근 | `const T&`, `std::span` |
+| Scope | 식별자를 참조할 수 있는 코드의 범위 | `{}` 블록 안의 변수 이름 |
+| Object Lifetime | 객체가 유효하게 존재하는 기간 | 지역 객체의 생성부터 소멸까지 |
+| Resource Lifetime | 파일·메모리·장치 같은 자원이 확보된 기간 | 파일 열기부터 닫기까지 |
 
-지역 객체는 자신이 속한 블록을 벗어날 때 **생성 순서의 역순으로 소멸**합니다. 동적 할당 자원의 경우에도 이를 관리하는 객체를 스코프에 배치하면 해제 시점을 자동으로 제어할 수 있습니다.
+지역 객체는 일반적으로 선언된 블록을 벗어날 때 소멸하며, 같은 블록의 객체는 생성 순서의 역순으로 정리됩니다. 생성자(Constructor)에서 수행한 작업과 소멸자(Destructor)에서 수행한 작업의 순서를 출력해 확인해 봅니다.
+
+`<iostream>`의 `std::cout`은 콘솔 출력에, `<string_view>`의 `std::string_view`는 문자열을 복사하지 않고 읽는 데 사용합니다. 이 예제에서는 `Trace`가 프로그램 종료까지 살아 있는 문자열 리터럴만 참조합니다.
+
 
 **예제 코드 — [01_scope_lifetime.cpp](./examples/01_scope_lifetime.cpp)**
 
 ```cpp
-#include <print>
+#include <iostream>
 #include <string_view>
 
 class Trace {
 public:
     explicit Trace(std::string_view name) : name_(name) {
-        std::println("Open: {}", name_);
+        std::cout << "Open: " << name_ << '\n';
     }
-    ~Trace() { std::println("Close: {}", name_); }
+    ~Trace() { std::cout << "Close: " << name_ << '\n'; }
     Trace(const Trace&) = delete;
     Trace& operator=(const Trace&) = delete;
 private:
-    std::string_view name_;  // 호출 중 유효한 문자열 리터럴을 참조
+    std::string_view name_;
 };
 
 int main() {
     Trace outer{"outer"};
     {
         Trace inner{"inner"};
-        std::println("Working");
+        std::cout << "Working\n";
     }
-    std::println("End of main");
+    std::cout << "End of main\n";
 }
 ```
 
@@ -94,33 +133,28 @@ End of main
 Close: outer
 ```
 
-`inner` 객체는 내부 블록이 끝나는 시점에 먼저 소멸하고, `outer`는 `main()`을 빠져나갈 때 소멸합니다. `Trace`에 보관한 `std::string_view`는 이 예제에서 프로그램 전체에 걸쳐 유효한 문자열 리터럴만 참조합니다.
-
----
+`inner`가 포함된 블록이 끝나면 먼저 소멸하고, `outer`는 `main()`이 끝날 때 정리됩니다. 객체를 사용 가능한 기간과 스코프 종료 순서를 연결해 보세요.
 
 <a id="section-12-2"></a>
 
-## 12.2. RAII와 자원 정리
+## 12.2. RAII — 객체 수명으로 자원 관리
 
-
-자원 획득 즉 초기화(Resource Acquisition Is Initialization, RAII)는 자원을 객체의 생성과 연결하고, 소멸자를 통해 해제하는 설계 방식입니다. 자원을 얻은 직후 소유 객체에 맡겨 **함수의 여러 반환 경로와 예외 발생 시에도 정리**되도록 하는 것이 핵심입니다.
+**자원 획득 즉 초기화(Resource Acquisition Is Initialization, RAII)** 는 자원을 획득한 직후 관리 객체에 맡기고, 그 객체가 소멸할 때 자원을 반환하도록 하는 설계 방식입니다. 핵심은 `close()`나 `delete`를 함수의 모든 탈출 경로마다 직접 반복하지 않는다는 점입니다.
 
 ```text
-자원 획득 → RAII 객체 생성 → 자원 사용 → Scope 종료 → 소멸자에 의한 반환
+자원 획득 → 관리 객체 구성 → 자원 사용 → 스코프 종료 → 자원 반환
 ```
 
-- **획득 시점:** 생성자 또는 Factory Method로 유효한 자원 확보
-- **사용 기간:** 소유 객체가 자원의 유효성을 관리
-- **종료 시점:** 정상 반환이나 예외 처리 과정에서 객체 소멸
-- **주의:** 프로세스 강제 종료·전원 차단 등에서는 일반적인 소멸자 실행을 보장하지 않음
+Chapter 11의 `std::ifstream`도 RAII 객체입니다. 파일 스트림을 소멸하면 열린 파일이 정리됩니다. 잠금 역시 RAII가 유용한데, `<mutex>`의 `std::mutex`는 배타적 잠금을 제공하고 `std::lock_guard`는 스코프가 끝나면 자동으로 잠금 해제를 수행합니다. 예제는 단일 스레드로 사용법을 살펴보며, 다중 스레드와 데이터 경쟁은 Chapter 14에서 다룹니다.
 
-잠금 가드(Lock Guard)는 RAII의 대표 사례입니다. `std::lock_guard`는 생성 시 Mutex를 잠그고 소멸 시 잠금을 해제합니다. 실제 여러 Thread를 사용하는 환경에서는 데이터 경쟁(Data Race)과 잠금 순서도 별도로 고려해야 합니다.
+**주의:** 소멸자는 정상적인 스코프 종료와 예외로 인한 스택 되감기(Stack Unwinding) 과정에서 호출되지만, 비정상적인 프로세스 강제 종료나 전원 장애까지 보장하지는 않습니다.
+
 
 **예제 코드 — [02_raii_lock_guard.cpp](./examples/02_raii_lock_guard.cpp)**
 
 ```cpp
+#include <iostream>
 #include <mutex>
-#include <print>
 
 class Counter {
 public:
@@ -141,7 +175,7 @@ int main() {
     Counter counter;
     counter.increment();
     counter.increment();
-    std::println("Count: {}", counter.read());
+    std::cout << "Count: " << counter.read() << '\n';
 }
 ```
 
@@ -151,53 +185,88 @@ int main() {
 Count: 2
 ```
 
-`read()`에서도 동일한 Mutex를 사용하므로 값을 읽는 동안 쓰기 작업과의 충돌을 막습니다. `mutable`은 논리적으로 읽기 전용인 멤버 함수에서 내부 동기화용 Mutex를 잠글 수 있도록 사용합니다. Concurrency의 세부 내용은 Chapter 14에서 다룹니다.
-
----
+`read()`는 값을 읽는 함수이지만 내부 동기화용 `mutex_`를 잠급니다. `mutable`은 이런 논리적 읽기 전용 함수에서 동기화 멤버를 변경하도록 허용합니다.
 
 <a id="section-12-3"></a>
 
-## 12.3. Ownership과 Borrowing
+## 12.3. Ownership & Borrowing — 소유권과 대여
+
+**소유권(Ownership)** 은 자원을 누가 반환할 책임이 있는지를 나타내는 계약입니다. 반면 **대여(Borrowing)** 는 소유권을 넘기지 않고 필요한 동안만 객체를 참조하는 접근 방식입니다. 두 역할을 함수의 매개변수 타입에서 구분하면 자원을 중복 해제하거나 누락할 가능성을 줄일 수 있습니다.
+
+| 매개변수 표현 | 소유권 변화 | 대표적인 용도 |
+|---|---|---|
+| `const T&` | 없음 | 변경 없이 객체 관찰 |
+| `T&` | 없음 | 호출자의 객체 수정 |
+| `T*` | 보통 없음 | `nullptr`을 허용할 수 있는 비소유 접근 |
+| `std::span<T>` | 없음 | 연속된 요소들을 대여 |
+| `std::unique_ptr<T>`를 값으로 받기 | 독점 소유권 인수 | 자원 소유자를 함수 안으로 이전 |
+| `std::shared_ptr<T>`를 값으로 받기 | 공유 소유권 참여 | 수명을 공동으로 관리 |
+
+아래 예제의 `inspect()`는 읽기만 수행하지만 `register_device()`는 독점 소유권을 값으로 전달받습니다. `std::move(device)` 이후에는 원래 포인터의 소유권이 넘어갔으므로, 포인터가 비어 있는지 확인한 뒤에는 역참조하지 않습니다.
+
+`<memory>`에는 `std::unique_ptr`와 `std::make_unique`가, `<utility>`에는 `std::move`가 정의되어 있습니다.
 
 
-Ownership은 **누가 자원을 반환해야 하는지**에 관한 계약입니다. 반면 Borrowing은 자원을 소유하지 않고 제한된 기간에 접근하는 방식입니다.
+**예제 코드 — [16_resource_contracts.cpp](./examples/16_resource_contracts.cpp)**
 
-| 전달 방법 | Ownership 이전 | 주된 의미 |
-|---|:---:|---|
-| `T` 값 전달 | 타입에 따라 복사·이동 | 독립적인 값을 받음 |
-| `const T&` | X | 읽기 전용 Borrowing |
-| `T&` | X | 변경 가능한 Borrowing |
-| `T*` | 일반적으로 X | nullable 대상을 나타낼 수 있음 |
-| `std::span<T>` | X | 연속 데이터의 Borrowing |
-| `std::unique_ptr<T>` 값 전달 | O | 단일 소유권 이전 |
-| `std::shared_ptr<T>` 값 전달 | 공유 | 공동 소유권 참여 |
+```cpp
+#include <iostream>
+#include <memory>
+#include <string>
+#include <utility>
 
-**핵심:** Raw Pointer를 전달한다고 자동으로 Ownership이 이전되는 것은 아닙니다. 호출자가 삭제해야 하는지 불분명한 API보다 소유권 타입이 드러나는 API가 좋습니다.
+struct Device { std::string name; };
 
-`std::shared_ptr`는 여러 객체가 같은 자원을 함께 소유할 필요가 있을 때 사용합니다. 단순히 객체를 읽는다는 이유로 공유 소유권을 도입할 필요는 없습니다. 순환 참조는 `std::weak_ptr`로 끊을 수 있지만, 가능하면 Ownership 관계 자체를 단순하게 설계합니다.
+void inspect(const Device& value) { // 접근만 수행: 비소유
+    std::cout << "Inspect: " << value.name << '\n';
+}
 
----
+void register_device(std::unique_ptr<Device> device) { // 소유권 인수
+    inspect(*device);
+    std::cout << "Registered\n";
+}
+
+int main() {
+    auto device = std::make_unique<Device>(Device{"Pump-A"});
+    inspect(*device);
+    register_device(std::move(device));
+    std::cout << std::boolalpha << "Owner empty: " << (device == nullptr) << '\n';
+}
+```
+
+**실행 결과**
+
+```text
+Inspect: Pump-A
+Inspect: Pump-A
+Registered
+Owner empty: true
+```
+
+`register_device()`는 `std::unique_ptr`를 값으로 받으므로 소유권을 인수합니다. 원래 소유자는 더 이상 관리 중인 객체를 역참조하면 안 됩니다.
 
 <a id="section-12-4"></a>
 
-## 12.4. `std::unique_ptr` — 단일 소유권
+## 12.4. Unique Ownership — `std::unique_ptr`
 
+**스마트 포인터(Smart Pointer)** `std::unique_ptr<T>`는 동적 자원의 소유자를 한 명으로 제한합니다. 소유 객체가 스코프를 벗어나면 관리 중인 자원이 정리되므로 일반적인 경우 `new`와 `delete`를 직접 호출할 필요가 없습니다. 객체 생성에는 `<memory>`의 `std::make_unique<T>(...)`를 우선 사용합니다.
 
-`std::unique_ptr<T>`는 동적으로 생성한 객체를 **하나의 소유자**가 관리하도록 하는 Smart Pointer입니다. `std::make_unique<T>(...)`를 사용하면 소유 객체를 간단하게 만들 수 있습니다.
+| 연산 | 의미 |
+|---|---|
+| `*owner`, `owner->member` | 관리하는 객체에 접근 (비어 있으면 안 됨) |
+| `owner.get()` | 소유권을 이전하지 않고 원시 포인터 조회 |
+| `std::move(owner)` | 이전 대상이 이동을 선택하도록 rvalue로 변환 |
+| `owner.reset()` | 현재 자원 정리 또는 새 자원으로 교체 |
+| `owner.release()` | 자동 해제 없이 소유권 포기. 반환된 포인터 관리 책임을 별도로 인수해야 함 |
 
-- `*owner`, `owner->member` — 소유한 객체 접근
-- `owner.get()` — Ownership을 넘기지 않고 Raw Pointer만 조회
-- `std::move(owner)` — 소유권을 이전할 수 있도록 rvalue로 변환
-- `owner.reset()` — 현재 소유 자원 해제 또는 다른 자원으로 변경
-- `owner.release()` — 해제 없이 Ownership 포기. 반환된 Raw Pointer를 관리할 명확한 주체가 필요함
+아래 코드는 `inspect(*owner)`로 읽기만 한 뒤 소유권을 다른 `unique_ptr`에 이전합니다. 이동 이후 원래 `unique_ptr`가 `nullptr`이 되는 상태는 이 타입이 명시적으로 보장하는 동작입니다.
 
-일시적으로 객체를 관찰하는 함수에는 `const T&` 등 Borrowing 타입을 우선 고려합니다.
 
 **예제 코드 — [03_unique_ownership.cpp](./examples/03_unique_ownership.cpp)**
 
 ```cpp
+#include <iostream>
 #include <memory>
-#include <print>
 #include <string>
 #include <utility>
 
@@ -207,15 +276,14 @@ struct Device {
 };
 
 void inspect(const Device& device) {
-    std::println("Device: {}", device.name);
+    std::cout << "Device: " << device.name << '\n';
 }
 
 int main() {
     auto owner = std::make_unique<Device>("Motor-A");
-    inspect(*owner); // 대여: Ownership 이동 없음
-
+    inspect(*owner);
     auto next_owner = std::move(owner);
-    std::println("Old owner empty: {}", owner == nullptr);
+    std::cout << std::boolalpha << "Old owner empty: " << (owner == nullptr) << '\n';
     inspect(*next_owner);
 }
 ```
@@ -228,25 +296,25 @@ Old owner empty: true
 Device: Motor-A
 ```
 
-`inspect()`는 `Device`를 빌려 읽으므로 Ownership을 변경하지 않습니다. `next_owner`가 소유권을 받은 뒤 원래 `unique_ptr`는 `nullptr` 상태가 됩니다. 이는 `std::unique_ptr`에서 보장하는 Move 이후 상태입니다.
-
----
+`owner`는 이동 뒤 비어 있지만 `next_owner`가 자원을 관리합니다. 두 포인터가 같은 자원을 동시에 독점 소유하지 않습니다.
 
 <a id="section-12-5"></a>
 
-## 12.5. Custom Deleter — 외부 자원 관리
+## 12.5. Custom Deleter — 외부 자원 해제
 
+자원은 반드시 `delete`로 반환하는 것이 아닙니다. C 라이브러리의 파일 핸들 `std::FILE*`는 `std::fclose()`로 닫아야 합니다. **사용자 정의 삭제자(Custom Deleter)** 는 자원별 반환 규칙을 `std::unique_ptr<T, Deleter>`에 전달합니다.
 
-외부 라이브러리의 자원은 반드시 `delete`로 해제하는 것이 아닙니다. 예를 들어 C API의 `std::FILE*`는 `std::fclose()`로 닫아야 합니다. 이러한 해제 규칙을 사용자 정의 삭제자(Custom Deleter)에 넣을 수 있습니다.
+`<cstdio>`는 C 스타일 파일 함수(`std::tmpfile`, `std::fputs`, `std::fflush`, `std::fclose`)를, `<memory>`는 소유권 관리자를 제공합니다. 예제에서는 임시 파일을 열고 출력한 뒤, 관리 객체의 소멸자가 파일을 닫도록 합니다. 임시 파일 생성 가능 여부는 실행 환경에 따라 다를 수 있습니다.
 
-`std::unique_ptr<T, Deleter>`는 종료 시 지정한 Deleter를 호출합니다. 다만 자원 해제 함수가 오류를 반환하는 경우, **소멸자가 그 오류를 사용자에게 전달하지는 못합니다.** 중요한 저장 작업은 명시적으로 `flush`·`close`의 성공 여부를 확인하는 별도 인터페이스가 필요할 수 있습니다.
+**해제 실패와 저장 실패는 구분해야 합니다.** 삭제자 안에서 무시한 `fclose()`의 오류는 사용자에게 전달되지 않습니다. 중요한 파일 저장에서는 기록 후 스트림 상태와 `close()`의 성공 여부를 명시적으로 확인해야 합니다. RAII는 자원 반환을 쉽게 하지만 영구 저장의 내구성까지 보장하지는 않습니다.
+
 
 **예제 코드 — [04_custom_deleter.cpp](./examples/04_custom_deleter.cpp)**
 
 ```cpp
 #include <cstdio>
+#include <iostream>
 #include <memory>
-#include <print>
 
 struct FileCloser {
     void operator()(std::FILE* file) const noexcept {
@@ -259,15 +327,14 @@ struct FileCloser {
 int main() {
     std::unique_ptr<std::FILE, FileCloser> file{std::tmpfile()};
     if (!file) {
-        std::println(stderr, "Cannot create temporary file");
+        std::cerr << "Cannot create temporary file\n";
         return 1;
     }
     if (std::fputs("sample=42\n", file.get()) < 0 || std::fflush(file.get()) != 0) {
-        std::println(stderr, "Write failed");
+        std::cerr << "Write failed\n";
         return 1;
     }
-    std::println("Temporary file written");
-    // fclose 결과 검증·저장 내구성이 중요하면 별도의 명시적 처리 필요
+    std::cout << "Temporary file written\n";
 }
 ```
 
@@ -277,64 +344,124 @@ int main() {
 Temporary file written
 ```
 
-임시 파일 생성에 실패하면 즉시 종료합니다. 쓰기 후 `std::fflush()`의 실패 여부를 확인하고, Scope 종료 시 Custom Deleter가 파일을 닫습니다. 이 예제는 파일 저장 내구성(Durability)이나 `fclose()` 실패 검증까지 보장하지는 않습니다.
-
----
+출력 직전 파일 생성에 실패하면 에러 스트림으로 메시지를 기록하고 `1`을 반환합니다. `std::tmpfile()`이 만드는 임시 파일은 일반 파일과 이름·삭제 동작이 다를 수 있습니다.
 
 <a id="section-12-6"></a>
 
-## 12.6. Value Category와 이동 참조
+## 12.6. Shared & Weak Ownership — 공유 소유와 관찰
+
+`std::shared_ptr<T>`는 여러 소유자가 같은 자원을 함께 관리할 때 사용합니다. **참조 계수(Reference Count)** 가 마지막 소유자까지 사라졌을 때 관리하는 자원을 정리합니다. 공동 소유권이 필요하지 않은 값에는 `std::unique_ptr`나 일반 값 타입을 사용하는 편이 의도가 명확합니다.
+
+`std::weak_ptr<T>`는 참조 계수를 증가시키지 않는 **비소유 관찰자(Non-owning Observer)** 입니다. 다른 객체가 이미 해제되었을 수 있으므로 `lock()`으로 잠시 `shared_ptr`를 확보한 후 접근해야 합니다. 두 객체가 서로를 `shared_ptr`로 소유하는 **순환 참조(Cyclic Reference)** 를 만들면 자원이 해제되지 않을 수 있는데, 한쪽 관계를 `weak_ptr`로 표현하여 방지할 수 있습니다.
+
+아래 예제에서는 `owner`와 `second`가 동시에 소유할 때 참조 계수가 2이고, 마지막 소유자가 정리되면 관찰자는 만료 상태가 됩니다. `lock()`이 만들어 내는 임시 소유자도 존재하는 동안에는 수명에 영향을 줍니다.
 
 
-값 범주(Value Category)는 표현식이 어떤 종류의 값을 나타내는지 구분하는 C++ 언어 규칙입니다. **타입과 Value Category는 서로 다른 개념**입니다.
-
-| 분류 | 의미 | 예시 |
-|---|---|---|
-| `lvalue` | 식별 가능한 객체를 나타내는 표현식 | 이름 있는 변수 `value` |
-| `prvalue` | 값을 계산하거나 결과 객체를 초기화하는 표현식 | `Device{...}`, 정수 리터럴 `42` |
-| `xvalue` | 자원을 재사용할 수 있는 객체를 나타내는 표현식 | `std::move(value)` |
-
-`T&`는 보통 lvalue를 참조하고, `T&&`는 rvalue 참조(Rvalue Reference)를 나타냅니다. **이름이 있는 `T&&` 변수 자체는 lvalue 표현식**이라는 점에 주의해야 합니다.
+**예제 코드 — [06_shared_weak.cpp](./examples/06_shared_weak.cpp)**
 
 ```cpp
-#include <string>
-#include <utility>
+#include <iostream>
+#include <memory>
 
-std::string text{"ABC"};  // text는 lvalue
-std::string&& ref = std::move(text);
-// ref라는 이름을 사용하는 표현식은 lvalue
-// std::move(ref)는 xvalue 표현식
+int main() {
+    auto owner = std::make_shared<int>(42);
+    std::weak_ptr<int> observer = owner;
+    {
+        auto second = owner;
+        std::cout << "Owners: " << owner.use_count() << '\n';
+        if (auto borrowed = observer.lock()) {
+            std::cout << "Value: " << *borrowed << '\n';
+        }
+    }
+    owner.reset();
+    std::cout << std::boolalpha << "Expired: " << observer.expired() << '\n';
+}
 ```
 
-`std::move`는 데이터 복사를 수행하거나 실제 이동을 강제하는 함수가 아닙니다. 이어지는 Section에서 구분합니다.
+**실행 결과**
 
----
+```text
+Owners: 2
+Value: 42
+Expired: true
+```
+
+`observer.lock()`이 성공한 동안에는 일시적인 공유 소유자가 생깁니다. `owner.reset()` 이후에는 살아 있는 공유 소유자가 없어 `expired()`가 참입니다.
 
 <a id="section-12-7"></a>
 
-## 12.7. Move Semantics와 `std::move`
+## 12.7. Value Categories — 값 범주와 rvalue 참조
+
+C++ 표현식은 타입뿐 아니라 **값 범주(Value Category)** 도 가집니다. 간단히 구분하면 `lvalue`는 식별 가능한 기존 객체를 나타내고, `prvalue`는 값을 생성하는 표현식, `xvalue`는 자원을 이전할 수 있음을 나타내는 표현식입니다.
+
+| 표현식 | 값 범주 | 설명 |
+|---|---|---|
+| `value` | lvalue | 이름 있는 기존 객체 |
+| `std::string{"abc"}` | prvalue | 임시 값을 생성하는 표현식 |
+| `std::move(value)` | xvalue | 기존 객체를 이동 후보로 표시 |
+
+`T&`와 `T&&`를 각각 좌값 참조(Lvalue Reference), 우값 참조(Rvalue Reference)라고 부릅니다. 주의할 점은 **이름이 있는 우값 참조 변수도 이름으로 사용할 때에는 lvalue** 라는 사실입니다. 예제는 동일한 `inspect()` 함수의 `const std::string&`와 `std::string&&` 오버로드 중 어떤 것이 선택되는지 보여 줍니다. 여기서 `std::move`는 실제 복사를 수행하지 않고 표현식의 값 범주를 바꾸기만 합니다.
 
 
-이동 의미론(Move Semantics)은 자원을 복사하는 대신, 기존 객체에서 새 객체로 **자원을 이전할 수 있도록** 하는 C++ 기능입니다. `std::move`는 인수를 rvalue로 취급하도록 캐스팅하여 Move Constructor 등의 호출 가능성을 열어 줍니다.
-
-`std::move` 자체는 메모리를 옮기지 않습니다. 대상 타입에 이동 연산이 없으면 복사가 선택될 수도 있습니다. 특히 `const` 객체는 일반적으로 이동을 통해 자원을 넘길 수 없으므로 `std::move(const_object)`를 남용하지 않습니다.
-
-**Move 이후 상태:** 표준 라이브러리 객체는 일반적으로 유효하지만 값이 특정되지 않을 수 있습니다. `std::unique_ptr`처럼 상태가 따로 명시된 타입을 제외하면, Move 이후 내용이 비어 있다고 가정하지 않습니다.
-
-**예제 코드 — [05_move_semantics.cpp](./examples/05_move_semantics.cpp)**
+**예제 코드 — [07_value_categories.cpp](./examples/07_value_categories.cpp)**
 
 ```cpp
-#include <print>
+#include <iostream>
+#include <string>
+#include <utility>
+
+void inspect(const std::string&) { std::cout << "Lvalue\n"; }
+void inspect(std::string&&) { std::cout << "Rvalue\n"; }
+
+int main() {
+    std::string text{"abc"};
+    inspect(text);
+    inspect(std::move(text));
+    std::string&& named_reference = std::string{"temporary"};
+    inspect(named_reference); // 이름을 가진 rvalue 참조 표현식은 lvalue
+}
+```
+
+**실행 결과**
+
+```text
+Lvalue
+Rvalue
+Lvalue
+```
+
+세 번째 호출의 `named_reference`는 선언 타입이 `std::string&&`이더라도 표현식 자체는 lvalue이므로 `const std::string&` 오버로드가 선택됩니다.
+
+<a id="section-12-8"></a>
+
+## 12.8. Move Semantics — 이동과 이동 전용 타입
+
+**이동 의미론(Move Semantics)** 은 객체가 소유한 자원을 필요할 때 다른 객체로 이전할 수 있게 합니다. `std::move(x)`는 곧바로 데이터를 옮기는 함수가 아니라, 이동 생성자 등 이동 연산이 선택될 수 있도록 `x`를 xvalue로 표현하는 캐스트입니다. 대상 타입이 이동을 제공하지 않으면 복사가 선택될 수도 있습니다.
+
+```text
+복사: 원본을 보존하면서 대상 객체의 값 구성
+이동: 원본이 소유한 자원을 대상에 이전할 수 있음
+```
+
+`const` 객체에 `std::move()`를 적용하더라도 일반적으로 이동 생성자가 아닌 복사가 선택될 수 있습니다. 이동 대상 타입이 실제로 무엇을 지원하는지 확인해야 합니다.
+
+이동된 표준 라이브러리 객체는 일반적으로 유효하지만 값이 특정되지 않는 경우가 많습니다. 따라서 `std::string`의 이동 이후 내용이 반드시 비어 있다고 가정하지 않고, 새 값을 대입한 후 재사용합니다. **이동 전용 타입(Move-only Type)** 은 복사를 허용하지 않고 이동만 허용하는 타입으로 `std::unique_ptr`가 대표적입니다. `std::vector`에 이동 전용 객체를 추가할 때는 `emplace_back()`으로 제자리 생성하거나, 이미 존재하는 객체를 `std::move()`로 이전합니다.
+
+
+**예제 ① 이동 후 재사용 — [05_move_semantics.cpp](./examples/05_move_semantics.cpp)**
+
+```cpp
+#include <iostream>
 #include <string>
 #include <utility>
 
 int main() {
     std::string source{"sensor-packet"};
     std::string target = std::move(source);
-    std::println("Target: {}", target);
-    // 이동 후 source는 유효하지만 내용은 특정하지 않음
+    std::cout << "Target: " << target << '\n';
+    // 이동 이후의 source 내용은 가정하지 않고 새 값을 대입합니다.
     source = "reused";
-    std::println("Source: {}", source);
+    std::cout << "Source: " << source << '\n';
 }
 ```
 
@@ -345,24 +472,12 @@ Target: sensor-packet
 Source: reused
 ```
 
-`source`는 Move 이후 다시 문자열을 대입한 뒤 사용합니다. 기존 내용이 남았는지 검사하거나 비어 있다고 가정하는 코드는 작성하지 않습니다.
 
----
-
-<a id="section-12-8"></a>
-
-## 12.8. Move-Only Type과 소유권 이전
-
-
-이동 전용 타입(Move-Only Type)은 복사는 허용하지 않고 Move만 허용하는 타입입니다. 예를 들어 `std::unique_ptr`는 Exclusive Ownership을 나타내므로 복사 생성자가 삭제되어 있습니다.
-
-Move-Only Type을 Container에 보관하려면 `emplace_back()`으로 직접 구성하거나 `std::move()`를 이용해 이전해야 합니다. 매개변수로 단일 소유권을 받는 함수에서도 Move를 사용합니다.
-
-**예제 코드 — [06_move_only.cpp](./examples/06_move_only.cpp)**
+**예제 ② 이동 전용 객체 — [06_move_only.cpp](./examples/06_move_only.cpp)**
 
 ```cpp
+#include <iostream>
 #include <memory>
-#include <print>
 #include <utility>
 #include <vector>
 
@@ -376,7 +491,7 @@ int main() {
     jobs.emplace_back(10);
     Job task{20};
     jobs.push_back(std::move(task));
-    std::println("Jobs: {} / {}", *jobs[0].id, *jobs[1].id);
+    std::cout << "Jobs: " << *jobs.at(0).id << " / " << *jobs.at(1).id << '\n';
 }
 ```
 
@@ -386,37 +501,35 @@ int main() {
 Jobs: 10 / 20
 ```
 
-`jobs.push_back(std::move(task))`에서 `task`의 Ownership이 Container의 요소로 이전됩니다. 새 작업을 만들 때는 `emplace_back()`이 불필요한 임시 객체 생성을 줄일 수 있지만, 항상 더 빠르다고 가정해서는 안 됩니다.
-
----
+`Job`에 `std::unique_ptr` 멤버가 있으므로 기본 복사는 불가능합니다. `emplace_back(10)`은 새 요소를 직접 생성하고 `push_back(std::move(task))`는 이동을 허용합니다.
 
 <a id="section-12-9"></a>
 
-## 12.9. Copy/Move Constructor와 Special Member Function
+## 12.9. Special Member Functions — 복사·이동 생성자와 대입
 
+복사·이동의 구체적인 동작은 클래스의 **특수 멤버 함수(Special Member Functions)** 로 정의할 수 있습니다. 기존 객체에서 새 객체를 만드는 생성과 이미 존재하는 객체의 상태를 바꾸는 대입은 서로 다른 연산입니다.
 
-클래스의 복사 생성자(Copy Constructor), 이동 생성자(Move Constructor), 대입 연산자, 소멸자(Destructor)는 객체 수명과 자원 관리에 직접 관여합니다. 이를 특수 멤버 함수(Special Member Function)라고 합니다.
+| 동작 | 선언 형태 |
+|---|---|
+| 복사 생성 | `T(const T&)` |
+| 복사 대입 | `T& operator=(const T&)` |
+| 이동 생성 | `T(T&&)` |
+| 이동 대입 | `T& operator=(T&&)` |
+| 소멸 | `~T()` |
 
-| 동작 | 대표 선언 | 사용 상황 |
-|---|---|---|
-| 복사 생성 | `T(const T&)` | 다른 객체에서 새 객체 생성 |
-| 복사 대입 | `T& operator=(const T&)` | 기존 객체에 복사 |
-| 이동 생성 | `T(T&&)` | rvalue에서 새 객체 생성 |
-| 이동 대입 | `T& operator=(T&&)` | 기존 객체에 자원 이전 |
-| 소멸 | `~T()` | 객체 종료 시 정리 |
+`= default`는 컴파일러가 제공할 수 있는 구현을 사용하겠다는 뜻이고 `= delete`는 해당 연산을 금지합니다. **사용자 선언 소멸자나 복사 관련 멤버는 암시적 이동 멤버의 생성 규칙에 영향을 줄 수 있습니다.** 따라서 소멸자만 가볍게 추가했다고 가정해 이동 가능성을 단정해서는 안 됩니다. 다음 예제는 복사 생성자와 이동 생성자가 각각 호출되는 상황을 확인합니다.
 
-`= default`는 컴파일러가 제공할 수 있는 기본 구현을 요청하며, `= delete`는 해당 연산을 금지합니다. 다른 Special Member Function을 직접 선언하면 암시적 Move 생성 여부 등이 달라질 수 있으므로, **기본 생성 규칙을 고려하지 않은 소멸자 선언**은 주의가 필요합니다.
 
 **예제 코드 — [07_copy_move_tracing.cpp](./examples/07_copy_move_tracing.cpp)**
 
 ```cpp
-#include <print>
+#include <iostream>
 #include <utility>
 
 struct Probe {
     Probe() = default;
-    Probe(const Probe&) { std::println("Copy"); }
-    Probe(Probe&&) noexcept { std::println("Move"); }
+    Probe(const Probe&) { std::cout << "Copy\n"; }
+    Probe(Probe&&) noexcept { std::cout << "Move\n"; }
 };
 
 int main() {
@@ -435,27 +548,23 @@ Copy
 Move
 ```
 
-출력되는 `Copy`와 `Move`는 명시적으로 각 생성자를 선택한 결과입니다. **모든 C++ 객체 생성마다 복사·이동이 반드시 일어나는 것은 아닙니다.** Copy Elision은 12.13에서 다룹니다.
-
----
+`copied`는 이름 있는 `source`에서 구성하므로 복사 생성자가, `moved`는 이동 후보 표현식에서 구성하므로 이동 생성자가 선택됩니다.
 
 <a id="section-12-10"></a>
 
-## 12.10. Rule of Zero — 자동 자원 관리
+## 12.10. Rule of Zero — 특별 멤버 함수가 필요 없는 설계
 
+**제로 규칙(Rule of Zero)** 은 직접 자원을 해제하는 역할이 없는 클래스에서는 복사·이동·소멸자를 직접 구현하지 않는 설계 원칙입니다. 이미 자원 관리를 수행하는 `std::string`, `std::vector`, `std::unique_ptr`를 멤버로 두고, 클래스는 도메인 데이터와 규칙을 처리하도록 분리합니다.
 
-제로 규칙(Rule of Zero)은 클래스가 자원 관리 자체를 담당하지 않는다면 복사·이동·소멸자를 직접 구현하지 않는 설계 원칙입니다. `std::string`, `std::vector`, `std::unique_ptr`처럼 이미 자원을 관리하는 멤버를 사용하면 다수의 클래스가 이 규칙을 따를 수 있습니다.
+예제의 `SensorBatch`는 자원 관리 특별 멤버 함수를 구현하지 않았어도 표준 라이브러리 멤버의 복사·이동 동작을 활용할 수 있습니다. 단, 모든 클래스가 복사 가능한 것은 아닙니다. 예를 들어 `std::unique_ptr`를 멤버로 가진 타입은 명시적 깊은 복사 구현이 없으면 복사가 제한됩니다.
 
-```text
-비즈니스 데이터와 로직을 가진 클래스 → 표준 Container·Smart Pointer 활용 → Special Member Function의 자동 생성 활용
-```
+실무에서는 직접 메모리를 관리하는 클래스를 만들어 특별 멤버 함수 다섯 개를 늘리는 것보다, **소유권을 담당하는 표준 타입을 합성(Composition)** 해서 불필요한 구현을 줄이는 편이 우선입니다.
 
-멤버의 복사 가능 여부에 따라 바깥 클래스의 복사 가능 여부도 결정됩니다. 예를 들어 `std::unique_ptr` 멤버를 가진 클래스는 특별한 구현이 없으면 복사할 수 없습니다.
 
 **예제 코드 — [08_rule_of_zero.cpp](./examples/08_rule_of_zero.cpp)**
 
 ```cpp
-#include <print>
+#include <iostream>
 #include <string>
 #include <utility>
 #include <vector>
@@ -469,8 +578,8 @@ int main() {
     SensorBatch first{"sensor-A", {12, 15, 14}};
     SensorBatch copied = first;
     SensorBatch moved = std::move(first);
-    std::println("Copy samples: {}", copied.readings.size());
-    std::println("Move samples: {}", moved.readings.size());
+    std::cout << "Copy samples: " << copied.readings.size() << '\n';
+    std::cout << "Move samples: " << moved.readings.size() << '\n';
 }
 ```
 
@@ -481,31 +590,31 @@ Copy samples: 3
 Move samples: 3
 ```
 
-`SensorBatch`는 소멸자나 Copy/Move Constructor를 정의하지 않았습니다. 두 멤버가 자원을 직접 관리하므로 간결하게 설계할 수 있습니다.
-
----
+복사본과 이동된 객체 모두 3개의 읽기 값을 보유합니다. 이동 이전의 `first`에 어떤 내용이 남았는지는 출력하거나 검사하지 않습니다.
 
 <a id="section-12-11"></a>
 
-## 12.11. Rule of Five — 직접 관리해야 하는 경우
+## 12.11. Rule of Three & Five — 직접 자원을 관리하는 클래스
 
+**세 가지 규칙(Rule of Three)** 은 직접 자원을 관리하는 타입에서 소멸·복사 생성·복사 대입을 함께 고려해야 한다는 원칙입니다. 이동 의미론까지 포함하면 **다섯 가지 규칙(Rule of Five)** 으로 확장됩니다. 그러나 모든 클래스에 이 함수 다섯 개를 작성하라는 뜻은 아닙니다. Rule of Zero가 기본이고, 직접 자원을 관리하거나 복사 동작을 맞춤 정의해야 할 때만 검토합니다.
 
-파이브 규칙(Rule of Five)은 자원 소유 클래스를 직접 구현해야 할 때 **소멸·복사·이동의 계약을 함께 검토**해야 한다는 원칙입니다. 직접 작성이 필요한 특별한 API를 제외하면 Rule of Zero를 우선 고려합니다.
+여기서는 `std::unique_ptr<int[]>`로 배열의 수명을 관리하되, 값을 복사할 수 있는 `IntBuffer`를 만들기 위해 복사 생성·복사 대입을 직접 구현합니다. `<algorithm>`의 `std::copy_n`은 지정한 개수의 요소를 복사하고, `<stdexcept>`의 `std::out_of_range`는 유효하지 않은 인덱스를 알릴 때 사용합니다.
 
-다음 예제에서는 단순한 배열 Buffer를 예시로 복사 시 Deep Copy를 수행하고, Move 시 자원을 이전합니다. 별도 메모리 관리 코드를 학습하기 위한 예제이며, 실제 데이터 저장에는 `std::vector` 등이 일반적으로 더 적합합니다.
+- **깊은 복사(Deep Copy):** 다른 배열 저장 공간을 만들어 내용을 복사합니다. 단순 포인터 복사로 두 객체가 같은 배열을 해제하지 않게 합니다.
+- **복사 후 교환(Copy-and-Swap):** 먼저 복사본을 완성한 뒤 기존 데이터와 교환합니다. 복사 실패 시 기존 상태를 변경하지 않습니다.
+- **이동:** 자원 관리자를 이전하고 원래 객체의 크기를 `0`으로 돌립니다.
+- **자기 대입(Self-assignment):** `this != &other`로 불필요한 처리와 자원 손상을 피합니다.
 
-- **Deep Copy:** 소유 데이터의 새로운 저장 공간 확보
-- **Copy-and-Swap:** 먼저 복사본 구성 후 `swap`으로 교체하여 예외 시 기존 객체 보호
-- **Move Constructor:** 기존 자원을 새 객체에 이전
-- **Self-assignment:** 자기 자신에 대한 대입 방어
+직접 관리한 배열의 크기와 반환 규칙을 비교해 보면 왜 특별 멤버 함수가 서로 연결되는지 알 수 있습니다. 실제 배열 데이터 저장에는 먼저 `std::vector`를 고려하세요.
+
 
 **예제 코드 — [09_rule_of_five.cpp](./examples/09_rule_of_five.cpp)**
 
 ```cpp
 #include <algorithm>
 #include <cstddef>
+#include <iostream>
 #include <memory>
-#include <print>
 #include <stdexcept>
 #include <utility>
 
@@ -513,11 +622,12 @@ class IntBuffer {
 public:
     explicit IntBuffer(std::size_t size)
         : data_(size ? std::make_unique<int[]>(size) : nullptr), size_(size) {}
-
     ~IntBuffer() = default;
 
     IntBuffer(const IntBuffer& other) : IntBuffer(other.size_) {
-        if (size_ != 0) std::copy_n(other.data_.get(), size_, data_.get());
+        if (size_ != 0) {
+            std::copy_n(other.data_.get(), size_, data_.get());
+        }
     }
     IntBuffer& operator=(const IntBuffer& other) {
         if (this != &other) {
@@ -553,11 +663,11 @@ int main() {
     IntBuffer first{2};
     first.at(0) = 7;
     first.at(1) = 9;
-    IntBuffer copy{first};
-    copy.at(0) = 50;
+    IntBuffer copied{first};
+    copied.at(0) = 50;
     IntBuffer moved{std::move(first)};
-    std::println("Copy: {}, Moved: {}, Old size: {}",
-                 copy.at(0), moved.at(0), first.size());
+    std::cout << "Copy: " << copied.at(0) << ", Moved: " << moved.at(0)
+              << ", Old size: " << first.size() << '\n';
 }
 ```
 
@@ -567,44 +677,61 @@ int main() {
 Copy: 50, Moved: 7, Old size: 0
 ```
 
-이 예제는 내부 버퍼를 `std::unique_ptr<int[]>`로 보관하되, 값 타입으로 복사할 수 있도록 복사 기능을 직접 정의합니다. `at()`은 잘못된 인덱스에 `std::out_of_range` 예외를 발생시킵니다. `size_`가 `0`일 때는 배열을 사용하지 않습니다.
-
----
+복사본의 첫 번째 값을 수정해도 이동한 원본 데이터의 값은 바뀌지 않습니다. 두 객체가 서로 다른 배열을 소유하기 때문입니다.
 
 <a id="section-12-12"></a>
 
-## 12.12. `std::exchange`와 이동 후 상태
+## 12.12. `std::exchange` & Moved-from State — 이동 후 상태
 
+`std::exchange(object, new_value)`는 기존 값을 반환하면서 대상에 새 값을 대입하는 `<utility>`의 함수입니다. 이동 생성자에서 원본 객체를 명시적 무효 상태로 바꿀 때 활용할 수 있습니다.
 
-`std::exchange(object, new_value)`는 이전 값을 반환하고 대상에 새로운 값을 대입합니다. Move Constructor에서 원래 객체를 **문서화된 유효 상태**로 돌려놓을 때 유용합니다.
+예제의 `OwnedHandle`은 실제 OS 핸들이 아니라 **반환 횟수를 관찰하기 위한 시뮬레이션** 입니다. 정수 `-1`을 소유하지 않은 상태로 사용합니다. `OwnedHandle`을 이동하면 원본 ID가 `-1`로 바뀌고, 종료할 때 유효한 ID를 가진 소유자만 반환 횟수를 증가시킵니다.
 
-Resource Handle을 `-1`과 같은 무효 값으로 관리하면 두 객체가 같은 Handle을 소유하는 상황을 방지할 수 있습니다. 단, 실제 파일이나 Socket Handle의 특수한 무효 값은 해당 플랫폼 API에 따라 결정해야 합니다.
+**중요:** `std::move` 자체는 원본을 `-1`로 만드는 함수가 아닙니다. 여기서는 `OwnedHandle`의 이동 생성자에 `std::exchange(other.id_, -1)`를 직접 작성했기 때문에 그 상태가 보장됩니다. 실제 운영체제의 핸들은 플랫폼별 무효 값과 해제 함수를 정확히 따라야 합니다.
+
 
 **예제 코드 — [10_exchange_state.cpp](./examples/10_exchange_state.cpp)**
 
 ```cpp
-#include <print>
+#include <iostream>
 #include <utility>
 
-class Handle {
+// 실제 장치 대신, 정리 횟수를 세는 가상의 자원 식별자를 사용합니다.
+class OwnedHandle {
 public:
-    explicit Handle(int id) noexcept : id_(id) {}
-    Handle(const Handle&) = delete;
-    Handle& operator=(const Handle&) = delete;
-    Handle(Handle&& other) noexcept : id_(std::exchange(other.id_, -1)) {}
-    Handle& operator=(Handle&& other) noexcept {
-        if (this != &other) id_ = std::exchange(other.id_, -1);
+    explicit OwnedHandle(int id) noexcept : id_(id) {}
+    ~OwnedHandle() { release(); }
+    OwnedHandle(const OwnedHandle&) = delete;
+    OwnedHandle& operator=(const OwnedHandle&) = delete;
+    OwnedHandle(OwnedHandle&& other) noexcept
+        : id_(std::exchange(other.id_, -1)) {}
+    OwnedHandle& operator=(OwnedHandle&& other) noexcept {
+        if (this != &other) {
+            release();
+            id_ = std::exchange(other.id_, -1);
+        }
         return *this;
     }
     [[nodiscard]] int id() const noexcept { return id_; }
+    [[nodiscard]] static int released() noexcept { return released_; }
 private:
+    void release() noexcept {
+        if (id_ != -1) {
+            ++released_;
+            id_ = -1;
+        }
+    }
     int id_{-1};
+    inline static int released_{0};
 };
 
 int main() {
-    Handle first{42};
-    Handle second{std::move(first)};
-    std::println("New: {}, Old: {}", second.id(), first.id());
+    {
+        OwnedHandle first{42};
+        OwnedHandle second{std::move(first)};
+        std::cout << "New: " << second.id() << ", Old: " << first.id() << '\n';
+    }
+    std::cout << "Released: " << OwnedHandle::released() << '\n';
 }
 ```
 
@@ -612,32 +739,28 @@ int main() {
 
 ```text
 New: 42, Old: -1
+Released: 1
 ```
 
-이 예제의 `Handle`은 실제 OS 자원을 소유하지 않는 상태 모델입니다. 실제 자원 소유 타입에서는 소멸자가 반환 책임을 수행하도록 만들어야 합니다.
-
----
+원본이 이동 후 `-1`이 되므로 이중 반환이 일어나지 않습니다. 소멸 시점의 반환 횟수는 1회입니다.
 
 <a id="section-12-13"></a>
 
-## 12.13. Copy Elision과 NRVO
+## 12.13. Copy Elision & NRVO — 불필요한 복사·이동 생략
 
-
-복사 생략(Copy Elision)은 객체의 불필요한 중간 복사·이동을 생략하거나, C++17 이후 특정 경우에 **최종 목적지에 직접 객체를 구성**하는 언어 규칙입니다.
-
-- **Guaranteed Copy Elision:** 같은 타입의 prvalue를 반환하는 경우 등에서 직접 구성. C++17부터 보장되는 경우 존재
-- **이름 있는 반환값 최적화(Named Return Value Optimization, NRVO):** 지역 변수 이름을 반환하는 경우 컴파일러가 생략할 수 있는 최적화. 항상 보장되지는 않음
-- **주의:** 반환문에 습관적으로 `std::move(local)`을 붙이면 NRVO 적용 기회를 방해할 수 있음
+**복사 생략(Copy Elision)** 은 불필요한 중간 객체의 복사·이동을 피하는 규칙입니다. C++17부터 같은 타입의 prvalue를 반환하는 특정 경우에는 최종 대상에 바로 객체를 생성하므로 복사 생성자와 이동 생성자가 없어도 가능합니다.
 
 ```cpp
-T make_direct() { return T{}; } // 보장되는 직접 구성 조건
-T make_named() { T value; return value; } // NRVO 후보
+Token make_token(int id) { return Token{id}; }  // 같은 타입 prvalue: 직접 구성 보장
 ```
+
+반대로 이름이 붙은 지역 변수를 `return local;`로 반환할 때는 **이름 있는 반환값 최적화(Named Return Value Optimization, NRVO)** 가 적용될 *수* 있지만 보장되지는 않습니다. 함수의 지역 객체에 습관적으로 `return std::move(local);`을 붙이면 NRVO 적용 기회를 방해할 수 있습니다. 성능이 중요한 경우에는 컴파일러 동작을 가정하기보다 프로파일링하고 측정해야 합니다.
+
 
 **예제 코드 — [11_copy_elision.cpp](./examples/11_copy_elision.cpp)**
 
 ```cpp
-#include <print>
+#include <iostream>
 
 class Token {
 public:
@@ -650,12 +773,12 @@ private:
 };
 
 [[nodiscard]] Token make_token(int id) {
-    return Token{id}; // 같은 타입의 prvalue: C++17부터 직접 구성
+    return Token{id}; // 같은 타입 prvalue: C++17부터 직접 구성 보장
 }
 
 int main() {
-    Token value = make_token(27);
-    std::println("Token: {}", value.id());
+    Token token = make_token(27);
+    std::cout << "Token: " << token.id() << '\n';
 }
 ```
 
@@ -665,95 +788,83 @@ int main() {
 Token: 27
 ```
 
-`Token`은 복사와 이동 생성자가 모두 삭제되어 있지만 예제의 반환 방식은 C++17 이후의 직접 구성이 가능하므로 정상 컴파일됩니다. 이 동작을 일반적인 `return local;` 모든 경우에 그대로 적용해서는 안 됩니다.
-
----
+`Token`은 복사·이동 생성자가 모두 삭제되어 있지만 `return Token{id};` 형태는 C++20에서 동작합니다. NRVO가 가능한 경우와 혼동하지 마세요.
 
 <a id="section-12-14"></a>
 
-## 12.14. `noexcept`와 `std::move_if_noexcept`
+## 12.14. `noexcept` & `std::move_if_noexcept` — 이동과 예외
 
+`noexcept`는 함수가 예외를 던지지 않는다는 계약을 표시합니다. 특히 이동 생성자에 `noexcept`가 붙어 있으면 `std::vector` 같은 컨테이너가 재할당 과정에서 이동을 선택하는 데 유리할 수 있습니다. 다만 실제로 예외가 밖으로 전파된다면 `std::terminate()`가 호출될 수 있으므로 무조건 붙여서는 안 됩니다.
 
-`noexcept`는 함수가 예외를 외부로 전파하지 않는다는 계약을 나타냅니다. 처리하지 못한 예외가 `noexcept` 함수 밖으로 나가면 `std::terminate()`가 호출됩니다. 따라서 단순한 속도 최적화 목적으로 붙이지 않습니다.
+`<utility>`의 `std::move_if_noexcept()`는 이동이 예외를 던질 수 있고 복사가 가능한 타입에서는 복사를 선택할 수 있게 합니다. 아래 예제의 `Fragile`은 이동 생성자에 `noexcept(false)`를 선언했고 복사가 가능하므로 `Copy`가 출력됩니다.
 
-`std::move_if_noexcept`는 Move Constructor가 `noexcept`이거나 복사할 수 없는 타입이면 rvalue 참조를 반환하고, 그렇지 않으면 `const` lvalue 참조를 반환해 복사가 선택될 수 있도록 합니다. `std::vector`의 재할당 시 예외 보장과 관련된 기능입니다.
+**주의:** 이동 전용 타입처럼 복사할 수 없는 경우에는 이동이 예외를 던질 수 있더라도 이동이 선택될 수 있습니다. 이 기능이 모든 컨테이너 연산의 강한 예외 보장을 자동으로 보장하는 것은 아닙니다.
 
-| 타입의 조건 | `std::move_if_noexcept`의 선택 |
-|---|---|
-| Move가 `noexcept` | Move가 가능한 rvalue 참조 |
-| 복사 불가 | 예외 가능성이 있어도 rvalue 참조 |
-| 복사 가능 + Move에서 예외 가능 | Copy가 가능한 `const` lvalue 참조 |
 
 **예제 코드 — [12_move_if_noexcept.cpp](./examples/12_move_if_noexcept.cpp)**
 
 ```cpp
-#include <print>
+#include <iostream>
 #include <utility>
 
-struct MightThrow {
-    MightThrow() = default;
-    MightThrow(const MightThrow&) { std::println("Copy selected"); }
-    MightThrow(MightThrow&&) noexcept(false) { std::println("Move selected"); }
-};
-struct SafeMove {
-    SafeMove() = default;
-    SafeMove(const SafeMove&) { std::println("Copy selected"); }
-    SafeMove(SafeMove&&) noexcept { std::println("Move selected"); }
+struct Fragile {
+    Fragile() = default;
+    Fragile(const Fragile&) { std::cout << "Copy\n"; }
+    Fragile(Fragile&&) noexcept(false) { std::cout << "Move\n"; }
 };
 
 int main() {
-    MightThrow a;
-    SafeMove b;
-    [[maybe_unused]] MightThrow a2{std::move_if_noexcept(a)};
-    [[maybe_unused]] SafeMove b2{std::move_if_noexcept(b)};
+    Fragile source;
+    Fragile target{std::move_if_noexcept(source)};
+    (void)target;
 }
 ```
 
 **실행 결과**
 
 ```text
-Copy selected
-Move selected
+Copy
 ```
 
-첫 번째 객체에서는 복사가 선택되고, 두 번째 객체에서는 Move가 선택됩니다. Copy와 Move가 모두 예외를 던질 수 있다는 상황에서도 모든 Container 연산이 동일한 예외 보장을 제공하는 것은 아닙니다.
-
----
+이 예제에서는 복사 생성자가 호출됩니다. 컨테이너 내부 재배치를 설명하기 위한 단순화된 함수 호출입니다.
 
 <a id="section-12-15"></a>
 
-## 12.15. Exception Safety — 상태 변경의 원자성
+## 12.15. Exception Safety — 실패에도 상태 유지
 
+**예외 안전성(Exception Safety)** 은 동작 도중 예외가 발생해도 프로그램의 자원과 상태가 어떤 조건을 유지하는지를 설명합니다. 단순히 `try`/`catch`로 오류 메시지를 출력하는 것과는 다릅니다.
 
-예외 안전성(Exception Safety)은 실패하거나 예외가 발생한 뒤 **프로그램 상태가 어떤 조건을 유지하는지** 설명하는 계약입니다.
-
-| 보장 | 의미 |
+| 수준 | 보장 내용 |
 |---|---|
-| 기본 보장(Basic Guarantee) | 객체가 유효한 상태를 유지하며 자원 누수 없음. 기존 값은 바뀔 수 있음 |
-| 강한 보장(Strong Guarantee) | 실패 시 관찰 가능한 상태가 기존과 동일하게 유지됨 |
-| 예외 없음 보장(No-Throw Guarantee) | 해당 연산이 예외를 외부로 던지지 않음 |
+| No-throw Guarantee | 해당 연산이 예외를 밖으로 내보내지 않음 |
+| Strong Guarantee | 실패 시 관찰 가능한 기존 상태가 유지됨 |
+| Basic Guarantee | 실패해도 객체의 유효한 상태와 자원 누수 방지 등을 유지함 |
 
-**Transactional Update:** 새로운 데이터를 임시 객체에 구성 → 전체 검증 → 최종 `swap`으로 교체. 이러한 방식은 기존 상태를 중간에 부분 수정하는 오류를 줄일 수 있습니다. 단, 교체 대상 외부에 이미 부수 효과가 생겼다면 전체 시스템에 대한 Strong Guarantee가 성립한다고 단정할 수 없습니다.
+`ReadingStore::replace()`는 새 값을 임시 벡터에 넣고 **모든 검증을 완료한 후에만** 기존 벡터와 교환합니다. 입력값에 오류가 있거나 임시 벡터 복사에서 예외가 발생하면 기존 객체가 바뀌지 않습니다. 이 패턴은 임시 상태 구성 후 확정(Commit)하는 **트랜잭션 형태의 상태 갱신**입니다.
+
+이 예제의 `swap()`은 기본 `std::allocator`를 사용하는 벡터 사이의 교환이며 예외를 던지지 않습니다. 다른 사용자 정의 자원이나 외부 파일에까지 같은 보장이 자동 적용된다고 생각하면 안 됩니다.
+
 
 **예제 코드 — [13_exception_safety.cpp](./examples/13_exception_safety.cpp)**
 
 ```cpp
-#include <algorithm>
-#include <print>
+#include <iostream>
 #include <span>
 #include <stdexcept>
-#include <vector>
 #include <utility>
+#include <vector>
 
-class Readings {
+class ReadingStore {
 public:
-    explicit Readings(std::vector<int> values) : values_(std::move(values)) {}
-    void replace(std::span<const int> values) {
-        std::vector<int> staged{values.begin(), values.end()};
-        if (std::ranges::any_of(staged, [](int x) { return x < 0; })) {
-            throw std::invalid_argument("negative reading");
+    explicit ReadingStore(std::vector<int> values) : values_(std::move(values)) {}
+    void replace(std::span<const int> incoming) {
+        std::vector<int> staged{incoming.begin(), incoming.end()};
+        for (int value : staged) {
+            if (value < 0 || value > 100) {
+                throw std::invalid_argument("reading outside 0..100");
+            }
         }
-        values_.swap(staged); // 검증이 끝난 뒤 한번에 교체
+        values_.swap(staged); // 검증이 끝나면 한 번에 교체
     }
     [[nodiscard]] int first() const { return values_.at(0); }
 private:
@@ -761,14 +872,14 @@ private:
 };
 
 int main() {
-    Readings batch{{10, 20}};
+    ReadingStore store{{10, 20}};
+    const int incoming[]{30, 130};
     try {
-        const int invalid[] = {3, -4};
-        batch.replace(invalid);
+        store.replace(incoming);
     } catch (const std::invalid_argument&) {
-        std::println("Rejected");
+        std::cout << "Rejected\n";
     }
-    std::println("First unchanged: {}", batch.first());
+    std::cout << "First: " << store.first() << '\n';
 }
 ```
 
@@ -776,268 +887,123 @@ int main() {
 
 ```text
 Rejected
-First unchanged: 10
+First: 10
 ```
 
-유효하지 않은 값 `-4`로 교체를 시도해도 `Readings`의 기존 데이터 `10, 20`은 유지됩니다. 먼저 임시 `std::vector`를 완성한 뒤 교체하기 때문입니다.
-
----
+검증에 실패하더라도 `readings_` 대신 `values_`가 기존 값 10을 유지합니다. 오류를 감지할 수 있다는 사실만으로 Strong Guarantee를 얻는 것은 아닙니다.
 
 <a id="section-12-16"></a>
 
-## 12.16. Borrowed View와 Dangling Reference
+## 12.16. Non-owning Views — 수명과 무효화
 
+`std::span<T>`는 연속된 요소들의 구간을, `std::string_view`는 문자열 구간을 **소유하지 않고 관찰**합니다. 이들은 Chapter 06~07에서 다룬 뷰(View)의 연장선입니다. `std::span`은 `<span>`에서, `std::string_view`는 `<string_view>`에서 제공합니다.
 
-빌려온 뷰(Borrowed View)는 원본 데이터를 소유하지 않고 읽거나 변경할 수 있는 범위를 나타냅니다. `std::string_view`, `std::span`, `T&`는 원본 객체의 Lifetime을 넘겨 저장하면 안 됩니다.
+`std::vector`가 요소를 추가하면서 재할당하면 기존 포인터·참조·반복자가 무효화될 수 있습니다. 같은 이유로 저장 공간을 관찰하던 `std::span`도 더는 안전하지 않을 수 있습니다. `std::string_view` 역시 원본 문자열이 소멸·변경되어 저장 공간이 바뀌면 댕글링 뷰(Dangling View)가 될 수 있습니다.
 
-댕글링 참조(Dangling Reference)는 이미 Lifetime이 끝난 객체를 참조하는 상태입니다. 해당 참조를 잘못 사용하면 미정의 동작(Undefined Behavior, UB)이 발생할 수 있습니다.
+예제에서는 소유자 `readings`, `name`이 살아 있는 동안만 뷰를 매개변수로 사용합니다. 아래 코드는 안전한 접근의 예지만, 함수가 이 뷰를 보관하거나 나중에 반환한다면 수명 계약을 별도로 검토해야 합니다.
 
-```cpp
-// 잘못된 코드: 지역 문자열 소멸 후 View가 남음
-// std::string_view bad() {
-//     std::string local{"temporary"};
-//     return local;
-// }
-```
-
-호출자가 원본 데이터를 오래 유지할 수 없다면 `std::string`처럼 자체 데이터를 소유하는 반환값을 선택합니다. Raw Pointer·View는 사용 편의성보다 **원본 Lifetime과 Invalidation 규칙**을 우선 확인해야 합니다.
 
 **예제 코드 — [14_borrowed_view.cpp](./examples/14_borrowed_view.cpp)**
 
 ```cpp
-#include <print>
+#include <iostream>
+#include <span>
 #include <string>
 #include <string_view>
+#include <vector>
 
-[[nodiscard]] std::string_view first_word(std::string_view input) {
-    const auto pos = input.find(' ');
-    return input.substr(0, pos);
+void inspect(std::span<const int> values, std::string_view source) {
+    std::cout << source << ": " << values.front() << '\n';
 }
 
 int main() {
-    const std::string message{"sensor ready"};
-    const std::string_view borrowed = first_word(message);
-    std::println("Borrowed: {}", borrowed);
-    const std::string owned{borrowed}; // 별도 수명이 필요하면 복사하여 소유
-    std::println("Owned: {}", owned);
+    std::vector<int> readings{12, 14, 18};
+    std::string name{"sensor-A"};
+    inspect(readings, name);
+    // readings/name이 살아 있는 동안에만 span/string_view가 유효합니다.
 }
 ```
 
 **실행 결과**
 
 ```text
-Borrowed: sensor
-Owned: sensor
+sensor-A: 12
 ```
 
-`first_word()`는 전달받은 문자열의 일부를 가리키는 View를 반환합니다. 호출자가 원본을 유지하는 동안에만 사용해야 하며, 독립적인 보관이 필요하면 `std::string`으로 복사합니다.
-
----
+`inspect()`가 뷰를 저장하거나 반환하지 않기 때문에 이 예제에서는 소유자의 수명이 충분합니다.
 
 <a id="section-12-17"></a>
 
-## 12.17. `std::expected`로 전달하는 소유권과 오류
+## 12.17. Error Handling — C++20 결과 표현
+
+자원 생성이 실패할 수 있다면 반환형에 실패 가능성을 표현해야 합니다. C++17부터 사용할 수 있는 `<optional>`의 `std::optional<T>`는 **값이 있거나 없는 상태**를 나타냅니다. 실패 원인을 구분할 필요가 없을 때는 충분하지만, 이유가 여러 개인 경우에는 별도 오류 타입이 필요합니다.
+
+아래 예제의 `create_device()`는 장치 ID가 비어 있으면 `std::nullopt`를 반환하고, 성공하면 값 타입 `Device`를 반환합니다. 상세 오류가 필요한 `Device Session Manager` 프로젝트에서는 Chapter 09에서 다룬 `std::variant<Session, OpenError>`를 사용해 성공값과 실패 원인을 구분합니다. `std::variant`는 `<variant>` 헤더에 정의되어 있습니다.
+
+<details>
+<summary>C++23 이후 참고 — `std::expected`</summary>
+
+C++23의 `<expected>`에는 `std::expected<T, E>`가 도입되어 성공값 `T`와 오류값 `E`를 함께 표현할 수 있습니다. **이 타입은 C++20 표준 라이브러리에 포함되지 않으므로** 이번 Chapter의 기본 소스에서는 사용하지 않습니다. 오류가 없다는 것만 알아도 된다면 `std::optional`, 원인을 명확히 전달해야 한다면 C++20의 `std::variant`나 전용 결과 구조체를 사용할 수 있습니다.
+
+</details>
 
 
-Factory Function은 유효한 객체를 구성하거나 실패 이유를 반환할 때 유용합니다. C++23의 `std::expected<T, E>`는 성공값과 오류를 명확히 구분할 수 있습니다.
+**예제 코드 — [15_optional_factory.cpp](./examples/15_optional_factory.cpp)**
 
 ```cpp
-std::expected<std::unique_ptr<Device>, std::string>
-```
-
-이 반환형은 성공 시 `Device`의 Exclusive Ownership을 돌려주고, 실패 시 오류 문자열을 전달합니다. `std::expected` 자체는 동적 메모리 할당 실패 등의 모든 예외를 자동으로 오류 값으로 변환하지는 않습니다.
-
-**예제 코드 — [15_expected_factory.cpp](./examples/15_expected_factory.cpp)**
-
-```cpp
-#include <expected>
-#include <memory>
-#include <print>
+#include <iostream>
+#include <optional>
 #include <string>
 #include <string_view>
-#include <utility>
 
 struct Device {
     std::string id;
-    explicit Device(std::string value) : id(std::move(value)) {}
 };
 
-[[nodiscard]] std::expected<std::unique_ptr<Device>, std::string>
-connect(std::string_view id) {
-    if (id.empty()) return std::unexpected("empty id");
-    return std::make_unique<Device>(std::string{id});
+[[nodiscard]] std::optional<Device> create_device(std::string_view id) {
+    if (id.empty()) return std::nullopt;
+    return Device{std::string{id}};
 }
 
 int main() {
-    auto result = connect("camera-A");
-    if (result) std::println("Connected: {}", (*result)->id);
-    auto failed = connect("");
-    if (!failed) std::println("Rejected: {}", failed.error());
+    auto device = create_device("sensor-A");
+    if (device) std::cout << "Created: " << device->id << '\n';
+    if (!create_device("")) std::cout << "Rejected empty id\n";
 }
 ```
 
 **실행 결과**
 
 ```text
-Connected: camera-A
-Rejected: empty id
+Created: sensor-A
+Rejected empty id
 ```
 
-`std::unexpected(...)`는 실패 결과를 만들고, `*result`는 성공값인 `std::unique_ptr<Device>`에 접근합니다. 성공 확인 없이 값을 꺼내지 않도록 합니다.
-
----
+`std::optional`은 성공 여부만 전달합니다. 입력 형식 오류와 시스템 장치 미연결을 구별하려면 에러 정보를 따로 설계합니다.
 
 <a id="section-12-18"></a>
 
-## 12.18. Perfect Forwarding — 다음 Chapter 연결
+## 12.18. Coding Practice — 연습문제
 
+각 문제에는 학생용 시작 코드와 독립적으로 실행 가능한 모범답안이 있습니다. **입력은 표준 입력이 아니라 명시된 함수 인수 또는 객체 생성 인수**이며, `main()`은 이를 보여 주는 데모입니다. 실제 검증에서는 여러 인수를 직접 전달해 결과와 내부 상태를 검사합니다.
 
-완벽 전달(Perfect Forwarding)은 템플릿으로 받은 인수의 Value Category를 유지하며 다른 함수에 전달하는 기법입니다. `std::forward<T>`와 전달 참조(Forwarding Reference)를 사용합니다.
+| Exercise | 핵심 주제 | 학생용 코드 | 모범답안 |
+|:---:|---|---|---|
+| 01 | Transactional Update — 검증 후 일괄 교체 | [시작 코드](./exercises/01_transactional_update.cpp) | [정답](./solutions/01_transactional_update.cpp) |
+| 02 | Unique Owner — 소유권 이전 | [시작 코드](./exercises/02_unique_owner.cpp) | [정답](./solutions/02_unique_owner.cpp) |
+| 03 | Move-only Packet — 이동 후 유효 상태 | [시작 코드](./exercises/03_move_only_packet.cpp) | [정답](./solutions/03_move_only_packet.cpp) |
+| 04 | Device Factory — 실패하는 생성 | [시작 코드](./exercises/04_device_factory.cpp) | [정답](./solutions/04_device_factory.cpp) |
 
-이 Chapter에서는 사용 형태만 확인합니다. 템플릿 매개변수 추론, Reference Collapsing, Constraints 및 Generic Programming의 세부 원리는 **Chapter 13**에서 다룹니다.
+### Exercise 01 — Transactional Update
 
-**예제 코드 — [16_perfect_forwarding_preview.cpp](./examples/16_perfect_forwarding_preview.cpp)**
+센서 측정값 전체를 새 묶음으로 바꾸는 `SensorStore::replace(std::span<const int>)`를 완성합니다. 부분 갱신이 아니라 **모든 검증을 통과한 후 한 번에 교체**해야 합니다.
 
-```cpp
-#include <memory>
-#include <print>
-#include <string>
-#include <utility>
+- **입력:** 정수 구간. 값은 0~100을 허용하며 빈 구간은 거부합니다.
+- **출력 및 처리:** 성공하면 이전 값을 대체합니다. 실패하면 `std::invalid_argument`를 던지고 기존 값은 그대로 유지합니다.
+- **구현 조건:** 임시 벡터 구성 → 전체 검증 → `swap()` 순서로 구현합니다.
+- **완료 기준:** 0·100 경계값, 비어 있는 입력, 음수·101 이상의 값, 기존 상태 보존을 검증합니다.
 
-struct Device {
-    explicit Device(std::string name) : name(std::move(name)) {}
-    std::string name;
-};
-
-template <typename T, typename... Args>
-[[nodiscard]] std::unique_ptr<T> create_owned(Args&&... args) {
-    return std::make_unique<T>(std::forward<Args>(args)...);
-}
-
-int main() {
-    std::string name{"camera-A"};
-    const auto device = create_owned<Device>(name);
-    std::println("Created: {}", device->name);
-}
-```
-
-**실행 결과**
-
-```text
-Created: camera-A
-```
-
-`std::forward<Args>(args)...`는 호출자가 전달한 인수의 속성을 유지하려는 의도를 표현합니다. 직접 템플릿 Factory를 작성할 필요가 없다면 `std::make_unique`를 바로 사용하는 편이 간결합니다.
-
----
-
-<a id="section-12-19"></a>
-
-## 12.19. Mini Project — Device Session Manager
-
-
-센서 연결을 관리하는 간단한 시뮬레이션입니다. 실제 하드웨어와 연결하지 않으며, 외부 C API가 반환하는 Raw Pointer를 RAII 객체가 관리하는 구조를 학습합니다.
-
-```text
-examples/17_device_session/
-├── CMakeLists.txt
-├── session.hpp
-├── session.cpp
-└── main.cpp
-```
-
-| 구성 요소 | 역할 |
-|---|---|
-| `RawPort` | 외부 장치 Handle을 흉내 낸 객체 |
-| `close_port()` | RawPort의 해제 함수 |
-| `Session::Closer` | Custom Deleter로 해제 규칙 전달 |
-| `Session` | 복사 금지, 이동 허용하는 Exclusive Owner |
-| `Session::open()` | `std::expected` 기반 Factory |
-| `main.cpp` | 연결·측정·자동 정리 시나리오 |
-
-**컴파일 및 실행** — `Chapter-12/` 기준
-
-```bash
-g++ -std=c++23 -Wall -Wextra -Wpedantic \
-  examples/17_device_session/main.cpp \
-  examples/17_device_session/session.cpp -o device_session
-./device_session
-```
-
-**CMake**
-
-```bash
-cmake -S examples/17_device_session -B build/ch12-device-session
-cmake --build build/ch12-device-session
-./build/ch12-device-session/device_session
-```
-
-**실행 결과**
-
-```text
-Connected: sensor-A
-Samples: 21, 24, 22
-Closed sessions: 1
-Rejected: device id is empty
-```
-
-`Session`의 Scope가 끝나면 Custom Deleter가 호출되어 Handle이 반환됩니다. `Session::open("")`는 생성하지 않고 오류를 반환합니다. `next_reading()`은 이동 후 비어 있는 객체에서 호출하면 예외를 던지도록 구현했습니다.
-
-> 이 예제의 `open_port()`는 외부 API를 모사하기 위해 직접 `new`를 사용합니다. 일반적인 동적 객체 생성은 `std::make_unique` 등을 우선 사용합니다.
-
----
-
-<a id="section-12-20"></a>
-
-## 12.20. 설계 시 참고 사항
-
-
-다음 항목을 확인하면 Ownership과 수명 관리 실수를 줄일 수 있습니다.
-
-| 질문 | 확인 사항 |
-|---|---|
-| 누가 자원을 해제하나요? | Ownership을 특정 객체로 한정할 수 있는지 |
-| Copy가 필요한가요? | 값 복사가 의미 있는지, Move-Only Type이 적절한지 |
-| Move 후 상태는 무엇인가요? | 타입이 보장하는 상태만 사용하고 있는지 |
-| 반환 형식은 명확한가요? | 값·Borrowing·Exclusive Ownership을 구분하는지 |
-| 실패하면 이전 상태가 보존되나요? | 필요한 Exception Guarantee가 무엇인지 |
-| Custom Deleter가 필요한가요? | 외부 API의 해제 함수와 매칭되는지 |
-| Container에서 이동하나요? | `noexcept` 및 Reallocation의 영향을 이해하는지 |
-| View가 안전한가요? | 원본 Lifetime과 Invalidation 여부를 확인했는지 |
-
-**피해야 할 패턴**
-
-```cpp
-// new로 만든 자원을 모든 반환 경로에서 수동으로 delete
-// Copy와 Move를 고려하지 않고 소유 Raw Pointer를 얕게 복사
-// std::move 이후 표준 컨테이너가 반드시 비어 있다고 가정
-// 원본 지역 변수보다 오래 살아 있는 string_view 반환
-// 모든 함수에 근거 없이 noexcept 선언
-```
-
-Chapter 12는 자원의 소유 방식과 수명 계약에 집중합니다. Memory Allocation 및 성능 측정은 Chapter 15, 빌드 환경은 Chapter 16, 테스트·프로파일링은 Chapter 17에서 확장합니다.
-
----
-
-<a id="section-12-21"></a>
-
-## 12.21. Coding Practice
-
-
-연습문제는 `exercises/`에서 미완성 코드를 수정하고, 구현한 프로그램의 출력 결과를 확인하는 방식으로 진행합니다. 모범답안은 `solutions/`에 별도 보관되어 있습니다.
-
-### 실습 ① — Transactional Sensor Update
-
-**파일:** [exercises/01_transactional_update.cpp](./exercises/01_transactional_update.cpp) · [모범답안](./solutions/01_transactional_update.cpp)
-
-기존 센서 데이터 `{10, 20}`을 새로운 입력으로 교체하는 `replace()` 함수를 완성합니다.
-
-- 입력값 범위: `0~100`
-- 유효하지 않은 입력은 `std::invalid_argument`로 거부
-- 실패한 경우 기존 데이터 유지
-- 정상 입력 `{60, 80}`으로 교체되는지 확인
-
-**모범답안 실행 결과**
+**데모 실행 결과 (모범답안)**
 
 ```text
 Rejected
@@ -1045,191 +1011,284 @@ First: 10
 Updated: 60
 ```
 
-### 실습 ② — Unique Ownership Transfer
+### Exercise 02 — Unique Owner
 
-**파일:** [exercises/02_unique_owner.cpp](./exercises/02_unique_owner.cpp) · [모범답안](./solutions/02_unique_owner.cpp)
+장치 한 개만 보관하는 `DeviceRegistry::install(std::unique_ptr<Device>)`를 완성합니다. 새 장치를 설치할 때 기존 장치는 정리되고 새 장치의 독점 소유권을 Registry로 이전합니다.
 
-`std::unique_ptr<Camera>`의 Ownership을 다른 변수에 이전합니다.
+- **입력:** `std::unique_ptr<Device>` (이름이 있는 장치 또는 비어 있는 포인터).
+- **출력 및 처리:** `name()`, `has_device()`로 상태를 조회합니다. 비어 있거나 이름이 없는 장치는 `std::invalid_argument`로 거부합니다.
+- **구현 조건:** 검증 실패 시 기존 장치 유지, 성공 시 `std::move()`로 소유권 이전.
+- **완료 기준:** 설치·교체·`nullptr`·빈 이름과 원래 소유자의 빈 상태를 검증합니다.
 
-- `std::move()`를 이용한 이전
-- 원래 소유자가 `nullptr`인지 확인
-- 새로운 소유자로 Camera ID 출력
-
-**모범답안 실행 결과**
-
-```text
-Source exists: false
-Camera: cam-01
-```
-
-### 실습 ③ — Move-Only Packet
-
-**파일:** [exercises/03_move_only_packet.cpp](./exercises/03_move_only_packet.cpp) · [모범답안](./solutions/03_move_only_packet.cpp)
-
-`Packet`을 Move-Only Type으로 변경하고 전달 후 재사용을 구현합니다.
-
-- 복사 생성·대입 금지
-- Move Constructor·Move Assignment 허용
-- 데이터를 Move한 뒤 새 값 대입으로 원본 재사용
-
-**모범답안 실행 결과**
+**데모 실행 결과**
 
 ```text
-Delivered bytes: 4
-Reused bytes: 1
+Device: Motor-A
+Old owner empty: true
 ```
 
-### 실습 ④ — Device Factory
+### Exercise 03 — Move-only Packet
 
-**파일:** [exercises/04_device_factory.cpp](./exercises/04_device_factory.cpp) · [모범답안](./solutions/04_device_factory.cpp)
+`std::unique_ptr<std::vector<int>>`를 멤버로 갖는 `Packet`의 조회 함수를 완성합니다. 복사는 금지하고 이동은 허용합니다.
 
-`std::expected<std::unique_ptr<Device>, std::string>`을 반환하는 Factory를 완성합니다.
+- **입력:** 생성자에 전달한 정수 묶음.
+- **출력:** `size()`는 원소 수, `sum()`은 총합을 반환합니다. `<numeric>`의 `std::accumulate`는 지정한 범위의 값들을 누적하는 데 사용할 수 있습니다.
+- **구현 조건:** 이동으로 소유권을 넘긴 원본도 조회 함수에서 안전하게 `0`을 반환해야 합니다.
+- **완료 기준:** 복사 금지 여부, 이동 생성·이동 대입, 빈 패킷·이동 후 원본 상태를 검사합니다.
 
-- 장치 이름은 빈 문자열이 아니어야 함
-- 측정 주기는 `1~1000ms`
-- 정상 입력은 Exclusive Ownership으로 반환
-- 실패 시 원인별 오류 메시지 반환
-
-**모범답안 실행 결과**
+**데모 실행 결과**
 
 ```text
-Device: lidar (50 ms)
-Error: empty device name
+Size: 3, Sum: 10
+Old size: 0
 ```
 
-### 컴파일 및 실행
+### Exercise 04 — Device Factory
 
-**GCC** — `Chapter-12/` 기준
+유효한 매개변수로만 `Device` 값을 만드는 `make_device()`를 구현합니다. 생성 실패가 예외 상황인지 일반적인 입력 거부인지 구분해 봅니다.
+
+- **입력:** 장치 이름과 정수 제한값(`limit`). 이름은 1~16자, 영문자·숫자·하이픈만 허용합니다. `limit`는 0~100입니다.
+- **출력:** 성공하면 `std::optional<Device>`에 값이 있고, 실패하면 `std::nullopt`입니다.
+- **완료 기준:** 이름 길이 경계, 허용되지 않은 문자, 음수·101 이상, 0·100을 검사합니다.
+
+**데모 실행 결과**
+
+```text
+Created: sensor-A / 80
+Rejected empty name
+```
+
+**컴파일 및 테스트**
 
 ```bash
-g++ -std=c++23 -Wall -Wextra -Wpedantic \
-  solutions/01_transactional_update.cpp -o transactional_update
+g++ -std=c++20 -Wall -Wextra -Wpedantic exercises/01_transactional_update.cpp -o transactional_update
 ./transactional_update
+
+python tests/check.py
+python tests/check.py --mode student --only exercise-01
 ```
 
-**Clang** — 지원되는 C++23 표준 라이브러리 환경
+첫 번째 검증 명령은 전체 예제·모범답안을 검사합니다. `--mode student`는 학생 파일을 검증합니다. `TODO`를 완료하지 않았다면 해당 테스트의 실패가 정상적인 시작 상태입니다. 테스트는 정답 문자열뿐 아니라 함수 반환값과 객체 상태도 검사합니다.
+
+<a id="section-12-19"></a>
+
+## 12.19. Mini Project — Device Session Manager
+
+가상의 장치 SDK에서 장치를 열고, 측정값을 읽고, 연결을 종료하는 작은 프로그램을 만듭니다. Chapter 11의 파일 스트림과 비슷하게, 장치 연결도 **획득한 자원을 반드시 한 번 반환해야 하는 대상**으로 취급합니다. 실제 하드웨어나 드라이버를 설치하지 않고 테스트할 수 있도록 장치 연결을 `RawPort` 구조체로 시뮬레이션합니다.
+
+### 상황 및 요구사항
+
+운영 프로그램이 장치 연결을 요청할 때 빈 ID나 연결할 수 없는 장치를 구분해야 합니다. 성공적으로 연결된 장치는 측정값을 반복해서 읽을 수 있어야 하고, 작업이 끝나거나 중간에 예외가 발생하면 자원이 정확히 한 번 정리되어야 합니다.
+
+1. `Session::open(id)`는 성공 시 `Session`, 실패 시 `OpenError`를 나타냅니다. 반환형은 `std::variant<Session, OpenError>`입니다.
+2. 빈 ID는 `OpenError::empty_id`, `offline`은 `OpenError::unavailable`로 구분합니다.
+3. 정상 연결의 측정값은 `21, 24, 22` 순서로 반복됩니다.
+4. `Session`은 복사할 수 없고 이동만 가능합니다. 이동 이후 원래 객체의 `name()`은 빈 문자열 뷰를 반환합니다.
+5. 소유권이 없는 객체에서 `next_reading()`을 호출하면 `std::logic_error`를 발생시킵니다.
+6. 관리 중인 자원은 소멸 시 `close_port()`로 한 번만 해제되어야 합니다. `closed_count()`로 이를 확인합니다.
+7. `RawPort`의 자원 해제는 `std::unique_ptr<RawPort, Closer>`가 담당합니다. `Session` 외부에서는 원시 포인터를 삭제하지 않습니다.
+
+**공개 데모의 출력**
+
+```text
+Connected: sensor-A
+Samples: 21, 24, 22
+Closed sessions: 1
+Rejected: empty id
+```
+
+**학생용 프로젝트**
+
+- [main.cpp](./project/main.cpp) — 호출 및 결과 확인
+- [session.hpp](./project/session.hpp) — 공개 API와 소유권 계약
+- [session.cpp](./project/session.cpp) — 미완성 구현 (`TODO`)
+- [CMakeLists.txt](./project/CMakeLists.txt) — 독립 빌드 구성
+
+**완성 예제 / 모범답안**
+
+- [완성된 다중 파일 예제](./examples/17_device_session/) — 기존 GitHub Actions가 참조하는 경로 유지
+- [모범답안 폴더](./solutions/device_session/) — 독립적으로 빌드 가능한 정답 프로젝트
+
+**프로젝트 컴파일 — GCC**
 
 ```bash
-clang++ -std=c++23 -Wall -Wextra -Wpedantic \
-  solutions/01_transactional_update.cpp -o transactional_update
-./transactional_update
+g++ -std=c++20 -Wall -Wextra -Wpedantic project/main.cpp project/session.cpp -o device_session_student
+./device_session_student
 ```
 
-**MSVC** — Developer Command Prompt
+**완성 예제 — CMake**
 
-```bat
-cl /nologo /std:c++23preview /W4 /EHsc /permissive- /utf-8 solutions\01_transactional_update.cpp /Fe:transactional_update.exe
-transactional_update.exe
+```bash
+cmake -S examples/17_device_session -B build/ch12 -DCMAKE_CXX_STANDARD=20
+cmake --build build/ch12
+ctest --test-dir build/ch12 --output-on-failure
 ```
 
-MSVC는 설치 버전에 따라 `/std:c++23` 또는 `/std:c++23preview` 지원 여부를 확인해야 합니다. C++23 언어 모드와 개별 표준 라이브러리 기능의 지원 수준은 다를 수 있습니다.
+**학생용 전체 검사**
 
----
+```bash
+python tests/check.py --mode student --only project
+```
 
-<a id="section-12-22"></a>
+완료 기준은 정상 연결·오류 식별·이동 후 접근 검사·반복 읽기·정확한 자원 정리입니다. 테스트는 해당 동작을 별도로 확인하므로 출력만 흉내 내서는 통과하지 않습니다. 이 프로젝트의 `RawPort`는 교육용 가짜 장치이며, 실제 장치 SDK에서는 `close_port`의 실패 규칙과 스레드 안전성, 장치 재연결 정책 등을 별도로 다뤄야 합니다.
 
-## 12.22. Quiz & Summary
+<a id="section-12-20"></a>
 
+## 12.20. Quiz & Summary — 최종 점검
 
 ### Quiz
 
-**1.** RAII를 사용하는 가장 중요한 이유는 무엇인가요?
+**1.** 스코프를 벗어날 때 객체가 생성된 순서의 역순으로 소멸하는 경우는 무엇입니까?
+
+- A. 같은 블록에서 만든 지역 객체
+- B. 모든 동적 할당 객체
+- C. 전원 차단으로 강제 종료된 모든 객체
 
 <details>
-<summary>정답 확인</summary>
+<summary>정답 및 해설</summary>
 
-자원 해제를 객체 Lifetime에 연결하여 정상 반환과 예외 발생 경로에서 누락 없이 정리하기 위함.
+A. 같은 블록에서 정상적으로 생성·소멸하는 지역 객체는 생성 순서의 역순으로 소멸합니다. 동적 자원은 소유자의 수명과 반환 규칙에 따라 달라집니다.
 
 </details>
 
-**2.** `std::move(object)`를 호출하는 순간 실제로 자원이 반드시 이동하나요?
+**2.** RAII가 파일 처리 중 예외가 발생했을 때 유용한 이유를 설명하세요.
 
 <details>
-<summary>정답 확인</summary>
+<summary>정답 및 해설</summary>
 
-아니요. `std::move`는 rvalue로 취급하도록 캐스팅하며 실제 Move 또는 Copy 여부는 타입과 이후 연산에 따라 결정됨.
+`std::ifstream`, `std::unique_ptr` 등 관리 객체의 소멸자가 자원 반환을 수행하므로 여러 실패 경로마다 해제 코드를 반복할 필요가 없습니다. 다만 강제 종료나 영구 저장 내구성은 별도 문제입니다.
 
 </details>
 
-**3.** `std::unique_ptr<T>`를 다른 소유자에게 전달할 때 주로 사용하는 연산은 무엇인가요?
+**3.** 읽기만 하는 함수에 소유권을 이전하지 않으려면 어떤 매개변수가 적절합니까?
+
+- A. `std::unique_ptr<T>` 값 전달
+- B. `const T&`
+- C. 반환된 원시 포인터에 `delete` 호출
 
 <details>
-<summary>정답 확인</summary>
+<summary>정답 및 해설</summary>
 
-`std::move(owner)`를 이용한 Move Constructor 또는 Move Assignment.
+B. `const T&`는 비소유 읽기 접근을 표현합니다. 소유권 이전이 필요한 함수에서만 `unique_ptr` 값 전달을 고려합니다.
 
 </details>
 
-**4.** Rule of Zero가 권장하는 클래스 설계 방식은 무엇인가요?
+**4.** `std::move(source)`가 실제로 데이터를 복사하거나 이동하는지 설명하세요.
 
 <details>
-<summary>정답 확인</summary>
+<summary>정답 및 해설</summary>
 
-표준 Container와 RAII 타입에 자원 관리를 맡기고 특별한 이유가 없으면 Special Member Function을 직접 구현하지 않는 방식.
+`std::move`는 표현식을 xvalue로 바꾸는 캐스트이며 자체적으로 메모리를 옮기지 않습니다. 이후 선택되는 이동 생성자·이동 대입 등이 자원 이전을 수행할 수 있습니다. 대상 타입에 따라 복사가 일어날 수도 있습니다.
 
 </details>
 
-**5.** `return T{};`와 `return local;`의 Copy Elision 보장은 동일한가요?
+**5.** `std::unique_ptr<T>`를 이동한 직후 원래 포인터의 보장된 상태는 무엇입니까?
+
+- A. 원래 객체를 계속 소유
+- B. `nullptr`
+- C. 반드시 예외 발생
 
 <details>
-<summary>정답 확인</summary>
+<summary>정답 및 해설</summary>
 
-아니요. 특정한 `return T{};` 형태는 C++17 이후 직접 구성이 보장되지만, 이름 있는 지역 변수를 반환할 때의 NRVO는 허용되더라도 일반적으로 보장되지 않음.
+B. `std::unique_ptr`에서 이동으로 소유권이 이전되면 원래 포인터는 비어 있게 됩니다. 일반 `std::string`의 이동 후 값까지 이 규칙으로 판단하면 안 됩니다.
 
 </details>
 
-**6.** `std::move_if_noexcept`가 Copy를 선택할 수 있는 조건은 무엇인가요?
+**6.** `std::shared_ptr`와 `std::weak_ptr`의 수명 관리 차이를 설명하세요.
 
 <details>
-<summary>정답 확인</summary>
+<summary>정답 및 해설</summary>
 
-Copy가 가능하고 Move Constructor가 `noexcept`가 아닐 때 Copy가 가능한 참조를 반환함.
+`shared_ptr`는 소유자로 참조 계수에 참여하지만 `weak_ptr`는 관리 대상의 수명을 연장하지 않습니다. 사용 시 `lock()`으로 잠시 공유 소유자를 얻고 만료 여부를 확인합니다.
 
 </details>
 
-**7.** Strong Guarantee는 실패 시 어떤 상태를 보장하나요?
+**7.** 다음 중 이름이 있는 `T&& ref`를 표현식 `ref`로 사용했을 때의 값 범주는?
+
+- A. lvalue
+- B. prvalue
+- C. xvalue
 
 <details>
-<summary>정답 확인</summary>
+<summary>정답 및 해설</summary>
 
-실패 전과 동일한 관찰 가능한 상태를 유지함. 필요한 Resource를 임시로 준비한 후 안전하게 교체하는 방식 등이 활용됨.
+A. 우값 참조 타입이라도 이름으로 평가한 변수 표현식은 lvalue입니다. `std::move(ref)`와 구분해야 합니다.
 
 </details>
 
-**8.** 지역 `std::string`에서 얻은 `std::string_view`를 함수 밖으로 반환하면 어떤 문제가 생길 수 있나요?
+**8.** Rule of Zero를 우선하라는 이유와 Rule of Five를 고려하는 상황을 설명하세요.
 
 <details>
-<summary>정답 확인</summary>
+<summary>정답 및 해설</summary>
 
-원본 문자열이 소멸하여 Dangling View가 될 수 있음. 그 View를 잘못 접근하면 UB가 발생할 수 있음.
+표준 라이브러리 타입으로 소유권을 관리하면 직접 복사·이동·소멸을 구현할 필요가 줄어 오류 가능성이 낮아집니다. 별도의 자원 관리 규칙이나 깊은 복사가 필요한 타입을 직접 만들 때 Rule of Five를 검토합니다.
+
+</details>
+
+**9.** `return T{};`에서 C++17 이후 조건을 충족하는 prvalue 반환은 어떻게 처리됩니까?
+
+- A. 복사 생성자 필수
+- B. 이동 생성자 필수
+- C. 최종 대상에 직접 구성될 수 있으며 해당 경우 복사·이동이 필요 없음
+
+<details>
+<summary>정답 및 해설</summary>
+
+C. 같은 타입 prvalue 반환 등 일부 경우에는 직접 구성이 보장됩니다. 지역 변수 이름을 반환하는 NRVO는 별개의, 보장되지 않는 경우입니다.
+
+</details>
+
+**10.** `std::move_if_noexcept()`가 복사를 선택할 수 있는 조건을 설명하세요.
+
+<details>
+<summary>정답 및 해설</summary>
+
+이동 생성자가 예외를 던질 수 있고 복사가 가능한 경우 등에 복사를 선택할 수 있습니다. 복사가 불가능한 이동 전용 타입까지 항상 복사를 선택하는 것은 아닙니다.
+
+</details>
+
+**11.** 임시 벡터에 검증 후 `swap`하여 최종 갱신할 때 목표하는 예외 보장은 무엇입니까?
+
+- A. Strong Guarantee
+- B. 오류 발생 즉시 모든 파일 자동 복구
+- C. 메모리 사용량 항상 0
+
+<details>
+<summary>정답 및 해설</summary>
+
+A. 갱신 전 모든 처리를 임시 상태에서 수행하고 비예외 교환으로 확정하면 실패 시 원래 상태를 보존할 수 있습니다.
+
+</details>
+
+**12.** `std::span`이 `std::vector`의 재할당 이후 안전하지 않을 수 있는 이유를 설명하세요.
+
+<details>
+<summary>정답 및 해설</summary>
+
+span은 원소 메모리를 소유하지 않습니다. vector가 용량을 늘리며 새 저장 공간으로 재할당하면 원래 메모리에 대한 관찰이 무효화될 수 있습니다.
 
 </details>
 
 ### Summary
 
-- **Lifetime:** 자원과 객체가 유효하게 존재하는 기간
-- **Ownership:** 자원 반환 책임의 명확한 표현
-- **RAII:** 객체의 소멸과 자원 정리를 연결
-- **`std::unique_ptr`:** Exclusive Ownership을 갖는 Smart Pointer
-- **Move Semantics:** 자원을 복사하는 대신 이전할 수 있도록 하는 기능
-- **Rule of Zero:** 기본 자원 관리 타입을 활용하고 불필요한 특수 멤버 구현 방지
-- **Rule of Five:** 직접 자원을 관리할 때 Copy·Move·Destructor의 계약 함께 검토
-- **Copy Elision:** 특정 상황에서 불필요한 객체 구성·Copy/Move 제거
-- **`std::move_if_noexcept`:** Exception Guarantee를 고려한 Copy/Move 선택
-- **Exception Safety:** 실패 후 상태 보존 수준의 명시
-- **Borrowed View:** 원본 Lifetime과 Invalidation에 의존하는 비소유 참조
+- **Lifetime:** 객체를 사용할 수 있는 기간과 이름의 유효 범위는 구분합니다.
+- **RAII:** 자원 관리 객체의 소멸자에 해제 책임을 연결합니다.
+- **Ownership:** 읽기·수정·소유권 이전을 함수 인터페이스에서 명시합니다.
+- **Smart Pointer:** 독점 소유는 `unique_ptr`, 반드시 필요한 공유 소유는 `shared_ptr`, 비소유 관찰은 `weak_ptr`입니다.
+- **Move:** `std::move()`는 이동 후보 표현식을 만들며 실제 이동 동작은 타입이 결정합니다.
+- **Rule of Zero/Five:** 자동 관리 타입을 우선 사용하고 직접 소유 규칙을 만들 때만 특별 멤버를 설계합니다.
+- **Exception Safety:** 실패 시 기존 상태를 유지하려면 임시 결과를 완성하고 마지막에 상태를 확정합니다.
+- **Borrowing:** `std::span`, `std::string_view`, 참조·포인터가 소유자보다 오래 살아남지 않도록 합니다.
 
 ### References
 
-- [cppreference — RAII](https://en.cppreference.com/w/cpp/language/raii)
-- [cppreference — Move Constructor](https://en.cppreference.com/w/cpp/language/move_constructor)
-- [cppreference — `std::move`](https://en.cppreference.com/w/cpp/utility/move)
-- [cppreference — `std::move_if_noexcept`](https://en.cppreference.com/w/cpp/utility/move_if_noexcept)
-- [cppreference — Copy Elision](https://en.cppreference.com/w/cpp/language/copy_elision)
-- [cppreference — `std::unique_ptr`](https://en.cppreference.com/w/cpp/memory/unique_ptr)
-- [cppreference — `std::expected`](https://en.cppreference.com/w/cpp/utility/expected)
 - [C++ Core Guidelines — Resource Management](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#S-resource)
+- [cppreference — `std::unique_ptr`](https://en.cppreference.com/w/cpp/memory/unique_ptr)
+- [cppreference — `std::shared_ptr`](https://en.cppreference.com/w/cpp/memory/shared_ptr)
+- [cppreference — `std::move`](https://en.cppreference.com/w/cpp/utility/move)
+- [cppreference — Copy elision](https://en.cppreference.com/w/cpp/language/copy_elision)
+- [cppreference — `std::move_if_noexcept`](https://en.cppreference.com/w/cpp/utility/move_if_noexcept)
+- [cppreference — `std::expected` (C++23 참고)](https://en.cppreference.com/w/cpp/utility/expected)
 
----
-
-[← C++ 목차](../README.md) · [Chapter 11 — File I/O](../Chapter-11/)
+[← C++ 목차](../README.md#contents) · [이전 Chapter — File I/O](../Chapter-11/)

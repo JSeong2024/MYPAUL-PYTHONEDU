@@ -1,26 +1,32 @@
-#include <expected>
-#include <memory>
-#include <print>
+#include <optional>
 #include <string>
-#include <string_view>
+#include <utility>
+#ifndef CH12_LIBRARY_ONLY
+#include <iostream>
+#endif
 
 struct Device {
     std::string name;
-    int interval_ms{};
+    int limit{};
 };
 
-[[nodiscard]] std::expected<std::unique_ptr<Device>, std::string>
-create_device(std::string_view name, int interval_ms) {
-    if (name.empty()) return std::unexpected("empty device name");
-    if (interval_ms < 1 || interval_ms > 1'000) {
-        return std::unexpected("interval must be 1..1000 ms");
+[[nodiscard]] std::optional<Device> make_device(std::string name, int limit) {
+    if (name.empty() || name.size() > 16 || limit < 0 || limit > 100) {
+        return std::nullopt;
     }
-    return std::make_unique<Device>(Device{std::string{name}, interval_ms});
+    for (unsigned char ch : name) {
+        const bool allowed = (ch >= 'a' && ch <= 'z') ||
+                             (ch >= 'A' && ch <= 'Z') ||
+                             (ch >= '0' && ch <= '9') || ch == '-';
+        if (!allowed) return std::nullopt;
+    }
+    return Device{std::move(name), limit};
 }
 
+#ifndef CH12_LIBRARY_ONLY
 int main() {
-    auto ok = create_device("lidar", 50);
-    if (ok) std::println("Device: {} ({} ms)", (*ok)->name, (*ok)->interval_ms);
-    auto bad = create_device("", 0);
-    if (!bad) std::println("Error: {}", bad.error());
+    auto device = make_device("sensor-A", 80);
+    if (device) std::cout << "Created: " << device->name << " / " << device->limit << '\n';
+    if (!make_device("", 20)) std::cout << "Rejected empty name\n";
 }
+#endif

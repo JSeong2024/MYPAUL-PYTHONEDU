@@ -1,5 +1,5 @@
+#include <iostream>
 #include <memory>
-#include <print>
 #include <string>
 #include <utility>
 
@@ -9,14 +9,13 @@ struct Device {
 };
 
 void inspect(const Device& device) {
-    std::println("Device: {}", device.name);
+    std::cout << "Device: " << device.name << '\n';
 }
 
 int main() {
     auto owner = std::make_unique<Device>("Motor-A");
-    inspect(*owner); // 대여: Ownership 이동 없음
-
+    inspect(*owner);
     auto next_owner = std::move(owner);
-    std::println("Old owner empty: {}", owner == nullptr);
+    std::cout << std::boolalpha << "Old owner empty: " << (owner == nullptr) << '\n';
     inspect(*next_owner);
 }

@@ -1,4 +1,4 @@
-#include <print>
+#include <iostream>
 #include <string>
 #include <utility>
 #include <vector>
@@ -12,6 +12,6 @@ int main() {
     SensorBatch first{"sensor-A", {12, 15, 14}};
     SensorBatch copied = first;
     SensorBatch moved = std::move(first);
-    std::println("Copy samples: {}", copied.readings.size());
-    std::println("Move samples: {}", moved.readings.size());
+    std::cout << "Copy samples: " << copied.readings.size() << '\n';
+    std::cout << "Move samples: " << moved.readings.size() << '\n';
 }

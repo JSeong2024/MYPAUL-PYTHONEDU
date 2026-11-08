@@ -1,10 +1,10 @@
-#include <print>
+#include <iostream>
 #include <utility>
 
 struct Probe {
     Probe() = default;
-    Probe(const Probe&) { std::println("Copy"); }
-    Probe(Probe&&) noexcept { std::println("Move"); }
+    Probe(const Probe&) { std::cout << "Copy\n"; }
+    Probe(Probe&&) noexcept { std::cout << "Move\n"; }
 };
 
 int main() {

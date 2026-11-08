@@ -1,19 +1,20 @@
-#include <algorithm>
-#include <print>
+#include <iostream>
 #include <span>
 #include <stdexcept>
-#include <vector>
 #include <utility>
+#include <vector>
 
-class Readings {
+class ReadingStore {
 public:
-    explicit Readings(std::vector<int> values) : values_(std::move(values)) {}
-    void replace(std::span<const int> values) {
-        std::vector<int> staged{values.begin(), values.end()};
-        if (std::ranges::any_of(staged, [](int x) { return x < 0; })) {
-            throw std::invalid_argument("negative reading");
+    explicit ReadingStore(std::vector<int> values) : values_(std::move(values)) {}
+    void replace(std::span<const int> incoming) {
+        std::vector<int> staged{incoming.begin(), incoming.end()};
+        for (int value : staged) {
+            if (value < 0 || value > 100) {
+                throw std::invalid_argument("reading outside 0..100");
+            }
         }
-        values_.swap(staged); // 검증이 끝난 뒤 한번에 교체
+        values_.swap(staged); // 검증이 끝나면 한 번에 교체
     }
     [[nodiscard]] int first() const { return values_.at(0); }
 private:
@@ -21,12 +22,12 @@ private:
 };
 
 int main() {
-    Readings batch{{10, 20}};
+    ReadingStore store{{10, 20}};
+    const int incoming[]{30, 130};
     try {
-        const int invalid[] = {3, -4};
-        batch.replace(invalid);
+        store.replace(incoming);
     } catch (const std::invalid_argument&) {
-        std::println("Rejected");
+        std::cout << "Rejected\n";
     }
-    std::println("First unchanged: {}", batch.first());
+    std::cout << "First: " << store.first() << '\n';
 }

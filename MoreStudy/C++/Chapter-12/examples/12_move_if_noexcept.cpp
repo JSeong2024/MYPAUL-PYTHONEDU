@@ -1,20 +1,14 @@
-#include <print>
+#include <iostream>
 #include <utility>
 
-struct MightThrow {
-    MightThrow() = default;
-    MightThrow(const MightThrow&) { std::println("Copy selected"); }
-    MightThrow(MightThrow&&) noexcept(false) { std::println("Move selected"); }
-};
-struct SafeMove {
-    SafeMove() = default;
-    SafeMove(const SafeMove&) { std::println("Copy selected"); }
-    SafeMove(SafeMove&&) noexcept { std::println("Move selected"); }
+struct Fragile {
+    Fragile() = default;
+    Fragile(const Fragile&) { std::cout << "Copy\n"; }
+    Fragile(Fragile&&) noexcept(false) { std::cout << "Move\n"; }
 };
 
 int main() {
-    MightThrow a;
-    SafeMove b;
-    [[maybe_unused]] MightThrow a2{std::move_if_noexcept(a)};
-    [[maybe_unused]] SafeMove b2{std::move_if_noexcept(b)};
+    Fragile source;
+    Fragile target{std::move_if_noexcept(source)};
+    (void)target;
 }

@@ -1,22 +1,23 @@
 #include "session.hpp"
-#include <print>
+#include <iostream>
 #include <utility>
+#include <variant>
 
 int main() {
     {
         auto result = demo::Session::open("sensor-A");
-        if (!result) {
-            std::println(stderr, "Error: {}", result.error());
+        if (std::holds_alternative<demo::OpenError>(result)) {
+            std::cerr << "Open failed\n";
             return 1;
         }
-        demo::Session session{std::move(*result)};
-        std::println("Connected: {}", session.name());
-        const int first = session.next_reading();
-        const int second = session.next_reading();
-        const int third = session.next_reading();
-        std::println("Samples: {}, {}, {}", first, second, third);
+        demo::Session session{std::move(std::get<demo::Session>(result))};
+        std::cout << "Connected: " << session.name() << '\n';
+        std::cout << "Samples: " << session.next_reading() << ", "
+                  << session.next_reading() << ", " << session.next_reading() << '\n';
     }
-    std::println("Closed sessions: {}", demo::closed_count());
+    std::cout << "Closed sessions: " << demo::closed_count() << '\n';
     auto rejected = demo::Session::open("");
-    if (!rejected) std::println("Rejected: {}", rejected.error());
+    if (auto* error = std::get_if<demo::OpenError>(&rejected)) {
+        std::cout << "Rejected: " << demo::error_message(*error) << '\n';
+    }
 }
