@@ -4,8 +4,6 @@
 
 입력 데이터의 구성은 [Data Provenance](./resources/DATA_PROVENANCE.md)에서 확인할 수 있습니다.
 
-이번 장에는 총 **10개의 독립 프로젝트**가 있습니다. 각 프로젝트는 `README.md`, 시작 코드, 입력 데이터, 모범 구현과 테스트에 연결되어 있으며, 모범 구현의 출력 그림을 제공합니다.
-
 <details>
 <summary><strong>선행 학습 목록</strong></summary>
 
