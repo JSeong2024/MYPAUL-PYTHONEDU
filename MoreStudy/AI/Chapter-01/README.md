@@ -14,8 +14,6 @@
 - [Data Processing](../../Data_Processing/) — NumPy 배열, Pandas DataFrame(선택)
 - [Data Visualization](../../Data_Visualization/) — 그래프 읽기와 해석(선택)
 
-Python의 리스트·조건문·함수를 이해하면 시작할 수 있습니다. 배열 계산과 머신러닝 라이브러리는 예제에서 함께 소개합니다.
-
 </details>
 
 <a id="contents"></a>
