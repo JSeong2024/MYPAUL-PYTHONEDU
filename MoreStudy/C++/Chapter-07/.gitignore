@@ -1,0 +1,8 @@
+# Local build outputs
+build/
+output/
+*.o
+*.obj
+*.exe
+*.out
+__pycache__/

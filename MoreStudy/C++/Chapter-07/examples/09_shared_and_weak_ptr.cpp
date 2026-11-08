@@ -1,15 +1,14 @@
+#include <iostream>
 #include <memory>
-#include <print>
 #include <string>
 
 int main() {
     auto owner = std::make_shared<std::string>("navigation-map");
     std::weak_ptr<std::string> observer{owner};
-
-    if (const auto locked = observer.lock()) {
-        std::println("Active: {}", *locked);
+    if (const auto active = observer.lock()) {
+        std::cout << "Active: " << *active << '\n';
     }
-
     owner.reset();
-    std::println("Expired: {}", observer.expired());
+    std::cout << std::boolalpha;
+    std::cout << "Expired: " << observer.expired() << '\n';
 }

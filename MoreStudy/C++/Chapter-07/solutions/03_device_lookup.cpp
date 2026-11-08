@@ -1,4 +1,4 @@
-#include <print>
+#include <iostream>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -14,9 +14,10 @@
 }
 
 int main() {
-    const std::vector<std::string> devices{"camera", "lidar", "imu"};
+    const std::vector<std::string> devices{"camera", "imu", "lidar"};
     if (const auto* found = find_device(devices, "imu")) {
-        std::println("Found: {}", *found);
+        std::cout << "Found: " << *found << '\n';
     }
-    std::println("Missing: {}", find_device(devices, "gps") == nullptr);
+    std::cout << std::boolalpha;
+    std::cout << "Missing: " << (find_device(devices, "gps") == nullptr) << '\n';
 }

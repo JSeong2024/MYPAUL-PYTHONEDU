@@ -1,4 +1,4 @@
-#include <print>
+#include <iostream>
 
 [[nodiscard]] bool try_set_rpm(int& current, int requested) noexcept {
     if (requested < 0 || requested > 3'000) {
@@ -9,8 +9,10 @@
 }
 
 int main() {
-    int current{1'000};
-    const bool first = try_set_rpm(current, 2'500);
-    const bool second = try_set_rpm(current, -10);
-    std::println("First: {}, Second: {}, RPM: {}", first, second, current);
+    int rpm{1'200};
+    const bool first{try_set_rpm(rpm, 2'500)};
+    const bool second{try_set_rpm(rpm, 4'000)};
+    std::cout << std::boolalpha;
+    std::cout << "First: " << first << ", Second: " << second
+              << ", RPM: " << rpm << '\n';
 }

@@ -1,11 +1,11 @@
-#include <print>
+#include <iostream>
 
 int main() {
     int temperature{24};
     int* reading{&temperature};
-
-    std::println("Original: {} C", temperature);
+    std::cout << "Original: " << temperature << " C\n";
     *reading = 26;
-    std::println("Updated: {} C", temperature);
-    std::println("Same object: {}", reading == &temperature);
+    std::cout << "Updated: " << temperature << " C\n";
+    std::cout << std::boolalpha;
+    std::cout << "Same object: " << (reading == &temperature) << '\n';
 }

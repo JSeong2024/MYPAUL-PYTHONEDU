@@ -1,5 +1,5 @@
 #include <array>
-#include <print>
+#include <iostream>
 #include <span>
 
 [[nodiscard]] int first_or_default(std::span<const int> samples,
@@ -10,6 +10,6 @@
 int main() {
     const std::array<int, 3> samples{10, 20, 30};
     const std::span<const int> empty{};
-    std::println("First: {}", first_or_default(samples, -1));
-    std::println("Empty: {}", first_or_default(empty, -1));
+    std::cout << "First: " << first_or_default(samples, -1) << '\n';
+    std::cout << "Empty: " << first_or_default(empty, -1) << '\n';
 }

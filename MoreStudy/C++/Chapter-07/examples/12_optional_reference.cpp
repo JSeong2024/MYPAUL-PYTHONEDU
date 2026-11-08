@@ -1,6 +1,6 @@
 #include <functional>
+#include <iostream>
 #include <optional>
-#include <print>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -20,5 +20,5 @@ int main() {
     if (auto found = find_mutable(devices, "lidar")) {
         found->get() = "lidar-front";
     }
-    std::println("Renamed: {}", devices.at(1));
+    std::cout << "Renamed: " << devices.at(1) << '\n';
 }

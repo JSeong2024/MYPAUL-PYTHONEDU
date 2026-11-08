@@ -1,20 +1,21 @@
 #include <cstddef>
 #include <cstdint>
+#include <iostream>
+#include <iterator>
 #include <optional>
-#include <print>
 #include <span>
 
-[[nodiscard]] std::optional<std::uint32_t> sum_bytes(
+[[nodiscard]] std::optional<unsigned long long> sum_bytes(
     const std::uint8_t* data, std::size_t length) {
     if (data == nullptr && length != 0) {
         return std::nullopt;
     }
     if (length == 0) {
-        return std::uint32_t{0};
+        return 0ULL;
     }
-    // 유효한 원본 버퍼와 길이라는 호출 계약이 충족된 경우에만 실행함.
+    // Caller must guarantee a valid buffer with at least 'length' elements.
     const std::span<const std::uint8_t> bytes{data, length};
-    std::uint32_t total{0};
+    unsigned long long total{};
     for (const std::uint8_t value : bytes) {
         total += value;
     }
@@ -23,8 +24,7 @@
 
 int main() {
     const std::uint8_t bytes[]{1, 2, 3, 4};
-    if (const auto total = sum_bytes(bytes, std::size(bytes))) {
-        std::println("Checksum sum: {}", *total);
-    }
-    std::println("Invalid: {}", !sum_bytes(nullptr, 4));
+    std::cout << "Checksum sum: " << *sum_bytes(bytes, std::size(bytes)) << '\n';
+    std::cout << std::boolalpha;
+    std::cout << "Invalid: " << !sum_bytes(nullptr, 4) << '\n';
 }

@@ -1,16 +1,14 @@
+#include <iostream>
 #include <memory>
-#include <print>
 #include <string>
 #include <utility>
 
-void consume_config(std::unique_ptr<std::string> config) {
-    if (config) {
-        std::println("Loaded config: {}", *config);
-    }
-}
-
 int main() {
-    auto config = std::make_unique<std::string>("motor.max_rpm=3000");
-    consume_config(std::move(config));
-    std::println("Ownership transferred: {}", config == nullptr);
+    auto owner = std::make_unique<std::string>("sensor-A");
+    std::unique_ptr<std::string> current{std::move(owner)};
+    std::cout << std::boolalpha;
+    std::cout << "Previous owner empty: " << (owner == nullptr) << '\n';
+    if (current) {
+        std::cout << "Current device: " << *current << '\n';
+    }
 }

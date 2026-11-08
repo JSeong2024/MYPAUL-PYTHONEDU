@@ -1,24 +1,27 @@
 #include <array>
+#include <iomanip>
+#include <iostream>
 #include <optional>
-#include <print>
 #include <span>
 
 [[nodiscard]] std::optional<double> average(std::span<const int> samples) {
     if (samples.empty()) {
         return std::nullopt;
     }
-    double sum{0.0};
+    double total{};
     for (const int sample : samples) {
-        sum += sample;
+        total += sample;
     }
-    return sum / static_cast<double>(samples.size());
+    return total / static_cast<double>(samples.size());
 }
 
 int main() {
     const std::array readings{10, 20, 30, 40};
-    if (const auto value = average(readings)) {
-        std::println("Average: {:.1f}", *value);
+    const auto result = average(readings);
+    if (result) {
+        std::cout << std::fixed << std::setprecision(1)
+                  << "Average: " << *result << '\n';
     }
-    const std::span<const int> empty{};
-    std::println("Empty: {}", !average(empty));
+    std::cout << std::boolalpha;
+    std::cout << "Empty: " << !average(std::span<const int>{}) << '\n';
 }

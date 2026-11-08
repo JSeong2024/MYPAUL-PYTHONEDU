@@ -1,11 +1,11 @@
-#include <print>
+#include <iostream>
 
 void print_temperature(const int* reading) {
     if (reading == nullptr) {
-        std::println("No sensor reading");
+        std::cout << "No sensor reading\n";
         return;
     }
-    std::println("Sensor: {} C", *reading);
+    std::cout << "Sensor: " << *reading << " C\n";
 }
 
 int main() {
