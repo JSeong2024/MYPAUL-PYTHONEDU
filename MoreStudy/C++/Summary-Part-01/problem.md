@@ -2,7 +2,7 @@
 
 해당 자료는 **C++20(ISO/IEC 14882:2020)** 을 바탕으로 제작되었습니다.
 
-[← Summary 목차](./README.md) · [Quiz](./quiz.md) · [Problems](./problem.md) · [HTML 문제집](./Summary-Part-01.html)
+[← Summary 목차](./README.md) · [Quiz](./quiz.md) · [Problems](./problem.md) · [HTML 문제집](https://jseong2024.github.io/MYPAUL-PYTHONEDU/MoreStudy/C%2B%2B/Summary-Part-01/Summary-Part-01.html)
 
 ## Contents
 
@@ -1320,4 +1320,4 @@ events.csv,3,DUPLICATE_EVENT
 
 [오류 코드 정의서](./solutions/R-01_ERROR_CODES.md) · [성능 검증 가이드](./solutions/R-01_PERFORMANCE.md)
 
-[← Summary 목차](./README.md) · [Quiz](./quiz.md) · [Problems](./problem.md) · [HTML 문제집](./Summary-Part-01.html)
+[← Summary 목차](./README.md) · [Quiz](./quiz.md) · [Problems](./problem.md) · [HTML 문제집](https://jseong2024.github.io/MYPAUL-PYTHONEDU/MoreStudy/C%2B%2B/Summary-Part-01/Summary-Part-01.html)
