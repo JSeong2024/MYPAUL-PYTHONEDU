@@ -1,0 +1,1308 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>C++ Fundamentals · Summary Part 01 — Problem Book</title>
+<style>
+:root{--ink:#152942;--navy:#0c1d33;--navy2:#142c49;--paper:#fff;--bg:#e8edf3;--line:#dbe3ec;--muted:#63758c;--accent:#2a72cb;--acclight:#eff6ff;--accentborder:#cfe1fa;--shadow:0 13px 43px #243b5720}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font:15px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI","Malgun Gothic",sans-serif;background:var(--bg);color:var(--ink)}button,input,textarea{font:inherit}button{cursor:pointer}a{color:#145caa;text-decoration:none}a:hover{text-decoration:underline}code,pre{font-family:Consolas,"SFMono-Regular",monospace}code{font-size:.92em;background:#edf3f9;padding:.12em .35em;border-radius:4px}pre{background:#111e30;color:#e9f1fb;white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal;font:13px/1.75 Consolas,monospace;margin:0;padding:18px 20px;overflow-x:auto}
+.app{display:grid;grid-template-columns:260px minmax(0,1fr);min-height:100vh}.sidebar{background:var(--navy);color:#dce8f6;height:100vh;position:sticky;top:0;display:flex;flex-direction:column;min-height:0;border-right:1px solid #30415a}.side-brand{padding:26px 22px 21px;border-bottom:1px solid #ffffff17}.brand-small{color:#79bde8;font-size:10px;font-weight:800;letter-spacing:.17em}.side-brand h1{font-size:18px;line-height:1.33;margin:8px 0 2px;letter-spacing:-.035em}.side-brand p{color:#94abc5;font-size:11px;margin:0}.modebar{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:17px 16px 3px}.modebar button{background:#142943;border:1px solid #2e4661;color:#a3bcd6;border-radius:8px;font-weight:750;padding:9px 7px;font-size:12px}.modebar button.active{color:#fff;background:#27517e;border-color:#4e91d4}.navtitle{font-size:10px;font-weight:800;color:#7590b0;letter-spacing:.15em;margin:19px 22px 10px}.side-areas{flex:1;overflow-y:auto;padding:0 13px 15px}.tierhead{display:flex;justify-content:space-between;align-items:center;padding:13px 9px 6px;color:#afc5dc;font-size:11px;font-weight:800;letter-spacing:.055em}.tierhead span:last-child{color:#8299b6;font-size:10px}.side-link{width:100%;text-align:left;display:flex;align-items:center;gap:10px;border:1px solid transparent;background:transparent;padding:9px 10px;border-radius:8px;color:#a3b8d0;font-size:12px}.side-link:hover{color:#fff;background:#ffffff0d}.side-link.active{border-color:#547898;background:#203a58;color:#fff}.side-link .n{font:750 11px Consolas,monospace;color:#7dc2fd;flex:0 0 30px}.side-link .t{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.side-foot{border-top:1px solid #ffffff18;color:#9aaec8;font-size:11px;padding:16px 20px 23px}.side-foot a{color:#9dd2ff}
+.main{min-width:0;padding:28px clamp(18px,4vw,58px) 64px}.toolbar{max-width:940px;margin:0 auto 19px;display:flex;align-items:center;justify-content:space-between;gap:12px;color:#61738c;font-size:12px}.toolbar strong{color:#243b57}.toolbar-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.toolbar button{background:#fff;border:1px solid #cbd7e4;padding:7px 12px;border-radius:8px;color:#37516d;font-size:12px;font-weight:700}.toolbar button:hover{border-color:#729aca;background:#f8fbff}.filterbar{max-width:940px;margin:0 auto 18px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}.filterbar button{border:1px solid #cbd6e1;color:#4c6078;background:#fff;padding:7px 12px;border-radius:99px;font-size:11px;font-weight:700}.filterbar button.active{color:#fff;background:#1c3b5d;border-color:#1c3b5d}.filterbar input{margin-left:auto;border:1px solid #cbd6e1;min-width:195px;padding:8px 12px;background:#fff;border-radius:9px;font-size:12px;color:#192e45}.filterbar input:focus{outline:2px solid #bdd9f5;outline-offset:1px}
+.sheet{position:relative;max-width:940px;margin:0 auto;background:var(--paper);box-shadow:var(--shadow);min-height:1015px;--accent:#216fc9;--acclight:#f0f6ff;--accentborder:#d1e1f7}.sheet[data-level="advanced"]{--accent:#7155bd;--acclight:#f5f1ff;--accentborder:#dfd5f7}.sheet[data-level="challenge"]{--accent:#c47824;--acclight:#fff6ea;--accentborder:#f3dfc6}.sheet[data-level="radiant"]{--accent:#ac7b24;--acclight:#fcf7ed;--accentborder:#e7d7b9}.sheet-top{height:14px;background:var(--navy);position:relative}.sheet-top:after{content:"";display:block;position:absolute;bottom:0;left:0;width:30%;height:3px;background:var(--accent)}.sheet-content{padding:48px clamp(27px,5vw,70px) 63px}.sheet-meta{display:flex;align-items:center;justify-content:space-between;color:#8899ad;font-size:10px;letter-spacing:.12em;font-weight:800;margin-bottom:35px}.sheet-meta .right{color:var(--accent)}.problem-header{display:flex;align-items:center;gap:22px;padding-bottom:23px;border-bottom:2px solid #132d49}.problem-no{flex:0 0 78px;height:78px;display:flex;align-items:center;justify-content:center;flex-direction:column;background:var(--accent);border-radius:13px;color:white;box-shadow:0 7px 18px #1d355223}.problem-no strong{font-size:27px;line-height:1.15;letter-spacing:-.05em}.problem-no small{font-size:9px;font-weight:700;opacity:.8;letter-spacing:.14em}.header-titles{flex:1;min-width:0}.division{font-size:10px;font-weight:850;color:var(--accent);letter-spacing:.16em;text-transform:uppercase}.header-titles h2{font-size:clamp(24px,3vw,37px);line-height:1.2;letter-spacing:-.05em;color:#0a1e36;margin:7px 0 0;font-weight:800}.tag{background:var(--acclight);border:1px solid var(--accentborder);color:var(--accent);padding:6px 10px;border-radius:7px;font-size:10px;font-weight:800;white-space:nowrap}.summary{font-size:14px;line-height:1.9;margin:30px 0 26px;color:#344b62}.section-label{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:28px 0 11px;font-size:15px;color:#132b45;font-weight:800}.section-label:after{content:"";height:1px;flex:1;background:var(--line);margin-left:10px}.statement{font-size:14px;color:#304459;line-height:1.85}.statement p{margin:0 0 12px}.tasks{padding:15px 18px 15px 44px;background:#f7f9fc;border-left:3px solid var(--accent);margin:16px 0 7px;font-size:13px;color:#2d425a;line-height:1.8}.tasks li{padding-left:4px;margin:4px 0}.io-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:12px 0 0}.io{padding-top:10px;border-top:3px solid var(--accent)}.io-kicker{font-size:10px;color:var(--accent);font-weight:900;letter-spacing:.11em}.io h3{font-size:14px;margin:3px 0 7px}.io p{margin:0;font-size:12.5px;color:#50637b;line-height:1.75}.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:19px}.chip{background:var(--acclight);border:1px solid var(--accentborder);color:#40556c;padding:4px 10px;border-radius:25px;font-size:11px;font-weight:650}.sample-heading{display:flex;justify-content:space-between;align-items:center;font-weight:850;color:#122c47;font-size:15px;margin:28px 0 12px}.sample-heading small{font-size:10px;color:#93a2b2;letter-spacing:.12em}.sample-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.sample-card{border:1px solid var(--accentborder);border-radius:9px;overflow:hidden;min-width:0}.sample-label{background:var(--acclight);padding:9px 14px;font-size:10px;font-weight:850;letter-spacing:.1em;color:var(--accent)}.sample-card pre{font-size:12px;min-height:100px}.note{margin-top:19px;padding:15px 17px;display:grid;grid-template-columns:60px 1fr;gap:10px;background:#fff8e8;border:1px solid #efd99f;border-radius:9px;color:#6d562a}.note strong{font-size:10px;letter-spacing:.1em;align-self:start;padding-top:3px}.note span{font-size:12px;line-height:1.75}.folds{margin-top:27px;border-top:1px solid var(--line)}details{border-bottom:1px solid var(--line)}summary{cursor:pointer;list-style:none;color:#243c57;font-size:13px;font-weight:800;padding:14px 4px;display:flex;align-items:center;justify-content:space-between;gap:12px}summary::-webkit-details-marker{display:none}summary:after{content:"+";font-size:22px;font-weight:400;color:#71849a;line-height:1}details[open] summary:after{content:"−"}summary:hover{color:var(--accent)}.fold-body{padding:0 4px 18px;color:#566c84;font-size:12.5px;line-height:1.8}.fold-body ul{margin:0;padding-left:20px}.fold-body li{margin:3px 0}.refs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.ref{padding:9px 11px;background:#f4f8fc;border:1px solid #dae4ef;border-radius:7px;display:flex;align-items:start;gap:10px;font-size:12px}.ref strong{color:#145eac;white-space:nowrap}.ref span{color:#52667c}.deliverable{padding:14px 17px;border:1px solid var(--accentborder);background:var(--acclight);border-radius:8px;font-size:13px;color:#304c66;margin-top:18px}.deliverable strong{display:block;color:var(--accent);font-size:11px;letter-spacing:.07em;margin-bottom:4px}.sheet-footer{position:absolute;left:0;right:0;bottom:0;padding:0 clamp(27px,5vw,70px) 21px;font-size:10px;color:#95a4b6}.footer-inner{border-top:1px solid #e2e9f0;padding-top:8px;display:flex;justify-content:space-between;gap:12px}.bottom-nav{max-width:940px;display:flex;justify-content:space-between;gap:12px;margin:18px auto 0}.bottom-nav button{border:1px solid #c3d0dd;background:#fff;color:#263e58;font-weight:750;padding:10px 15px;border-radius:9px;font-size:12px}.bottom-nav button:disabled{opacity:.4;cursor:default}.bottom-nav .counter{align-self:center;font-size:12px;color:#64788e}.empty{padding:70px 20px;text-align:center;color:#6d8196;background:white;border:1px solid #d5e0ea;border-radius:10px}
+#quizView{max-width:940px;margin:0 auto;display:none}.quiz-banner{background:#fff;border-top:10px solid var(--navy);padding:30px 38px;border-bottom:1px solid var(--line)}.quiz-banner .division{color:#286bb9}.quiz-banner h2{font-size:30px;margin:5px 0;letter-spacing:-.04em}.quiz-banner p{font-size:13px;color:#62748b;margin:0}.quiz-toolbar{display:flex;align-items:center;gap:7px;margin:15px 0}.quiz-toolbar button{border:1px solid #cad6e2;background:white;border-radius:25px;padding:7px 14px;font-size:12px;font-weight:700;color:#53677e}.quiz-toolbar button.active{background:#193b61;color:white;border-color:#193b61}.quiz-list{display:grid;gap:10px}.quiz-item{background:white;border:1px solid #d8e2ec;padding:22px 28px}.quiz-index{font-size:11px;font-weight:800;color:#2b72c1;letter-spacing:.07em}.quiz-item h3{margin:9px 0;font-size:16px;letter-spacing:-.018em}.quiz-item pre{margin:10px 0 12px;font-size:12px;display:inline-block;max-width:100%;padding:12px 15px}.quiz-options{margin:10px 0 16px;padding-left:21px;list-style:decimal;color:#4a5f76;font-size:13px}.quiz-options li{padding:3px 0}.quiz-item details{border-top:1px solid #e2e8f0;border-bottom:0}.quiz-ref{color:#7f90a3;font-size:11px;margin-top:5px}
+.view-disabled{display:none!important}
+
+.brand-top{display:flex;align-items:center;gap:12px}.cpp-mini{width:36px;height:36px;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(0,0,0,.18))}.cpp-mark{display:flex;align-items:center;justify-content:center;width:50px;height:50px;border-radius:12px;background:var(--acclight);border:1px solid var(--accentborder)}.cpp-mark img{width:30px;height:30px;object-fit:contain}.sheet{overflow:hidden}.guide-sheet .problem-header{align-items:flex-start}.guide-sheet .guide-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px}.guide-sheet .guide-card{border:1px solid #d8e2ed;border-radius:10px;padding:16px 17px;background:#f8fbff}.guide-sheet .guide-card h3{margin:0 0 8px;font-size:14px;color:#123050}.guide-sheet .guide-card p,.guide-sheet .guide-card li{font-size:12.5px;color:#4c627a;line-height:1.75}.guide-sheet .guide-card ul{margin:0;padding-left:18px}.guide-sheet .guide-tip{margin-top:18px;padding:15px 16px;border-left:4px solid #2a72cb;background:#eef6ff;border-radius:10px;color:#35526f;font-size:13px;line-height:1.75}.radiant-sheet{background:#fff}.radiant-sheet .sheet-top:after{width:100%;background:linear-gradient(90deg,#a98028 0%,#f0d27b 28%,#d8f0ff 60%,#84c5ff 100%)}.radiant-sheet .problem-header{position:relative}.radiant-sheet .problem-no{background:transparent;box-shadow:none;padding:0;overflow:hidden}.radiant-sheet .problem-no img{width:78px;height:78px;border-radius:13px;display:block;object-fit:cover;box-shadow:0 8px 18px rgba(29,53,82,.24)}.radiant-sheet .problem-no small{position:absolute;left:-9999px}.radiant-sheet .header-titles h2{text-shadow:0 2px 15px rgba(255,255,255,.65)}.radiant-sheet .summary,.radiant-sheet .statement,.radiant-sheet .io p,.radiant-sheet .chip{position:relative;z-index:1}.quiz-options{list-style:none;padding:0;margin:12px 0 0;display:grid;gap:8px}.quiz-options li{margin:0}.quiz-choice{display:flex;align-items:flex-start;gap:10px;padding:11px 12px;border:1px solid #d4e0ed;border-radius:8px;background:#fbfdff;cursor:pointer;transition:.15s border-color,.15s background-color}.quiz-choice:hover{border-color:#8cb2db;background:#f6fbff}.quiz-choice input{margin-top:2px}.quiz-choice.checked{border-color:#4d83bd;background:#edf5ff}.quiz-choice .choice-no{font-weight:800;color:#30577f;min-width:22px}.quiz-choice .choice-text{color:#334a64;line-height:1.6}.quiz-meta-inline{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.problem-guide-chip{display:inline-flex;align-items:center;gap:8px;background:#eef6ff;border:1px solid #d3e4f7;padding:6px 10px;border-radius:999px;font-size:11px;font-weight:700;color:#30577f}.problem-guide-chip img{width:16px;height:16px;object-fit:contain}
+
+/* Desktop reading scale */
+body{font-size:16px;line-height:1.72}
+.app{grid-template-columns:275px minmax(0,1fr)}
+.main{padding:32px clamp(22px,3vw,58px) 80px}
+.toolbar,.filterbar,.bottom-nav,#quizView,.sheet{max-width:1120px}
+.sheet{min-height:1120px}
+.sheet-content{padding:56px clamp(35px,5.1vw,84px) 86px}
+.sheet-footer{padding:0 clamp(35px,5.1vw,84px) 23px}
+.sheet-meta{font-size:11px;margin-bottom:38px}
+.problem-header{gap:26px;padding-bottom:27px}
+.problem-no{flex-basis:88px;height:88px}
+.problem-no strong{font-size:30px}
+.header-titles h2{font-size:clamp(28px,3.1vw,41px)}
+.summary{font-size:16px;line-height:1.85;margin:32px 0 30px}
+.section-label{font-size:17px;margin:33px 0 13px}
+.statement{font-size:15.5px;line-height:1.9}
+.tasks{font-size:14px;line-height:1.85;padding:18px 22px 18px 48px}
+.io h3{font-size:15px}
+.io p{font-size:14px}
+.io-kicker,.sample-label{font-size:11px}
+.chips{gap:8px}.chip{font-size:12px;padding:6px 11px}
+.sample-heading{font-size:17px;margin-top:33px}
+.sample-card pre{font-size:13.5px;padding:20px 22px;min-height:116px}
+.note{padding:19px 20px;grid-template-columns:65px 1fr}
+.note span{font-size:13.5px}
+.folds summary,.implementation-guide summary{font-size:14px}
+.fold-body{font-size:13.5px}
+.ref{font-size:13px;padding:12px 13px}
+.guide-sheet .guide-grid{grid-template-columns:1fr;gap:16px;margin-top:22px}
+.guide-sheet .guide-card{padding:20px 25px;background:#f8fbff}
+.guide-sheet .guide-card h3{font-size:17px;margin:0 0 11px}
+.guide-sheet .guide-card .guide-en{font-size:12px;color:#607a95;font-weight:650;margin-left:6px}
+.guide-sheet .guide-card li{font-size:14px;line-height:1.8;margin-bottom:7px}
+.guide-list{padding-left:24px;margin:0}
+.guide-sheet .guide-tip{margin-top:22px;font-size:14px;padding:20px 22px}
+.guide-levels{padding:21px 25px;border:1px solid #d8e2ed;border-radius:10px;margin-top:16px}
+.guide-levels>strong{font-size:14px;color:#183453;display:block;margin-bottom:11px}
+.guide-level-chips{display:flex;gap:8px;flex-wrap:wrap}
+.guide-level-chips span{display:inline-flex;align-items:center;gap:7px;background:#f4f8fc;border:1px solid #dbe6f2;padding:8px 12px;border-radius:8px;color:#51647a;font-size:12px}
+.guide-level-chips b{color:#274563}
+.implementation-guide{margin-top:24px;border:1px solid var(--accentborder);background:#fbfcff;border-radius:10px;overflow:hidden}
+.implementation-guide summary{padding:15px 20px;justify-content:flex-start;gap:11px;color:var(--accent)}
+.implementation-guide summary small{font-size:11px;color:#8191a3;font-weight:500;margin-left:4px}
+.implementation-guide summary:after{margin-left:auto}
+.implementation-guide[open] summary{border-bottom:1px solid var(--accentborder)}
+.hint-body{padding:9px 20px 17px}
+.hint-steps{list-style:none;margin:0;padding:0}
+.hint-steps li{display:grid;grid-template-columns:87px 1fr;gap:12px;align-items:start;padding:12px 0;border-bottom:1px solid #e9eef6}
+.hint-steps li:last-child{border-bottom:0}
+.hint-steps .step-label{font:800 11px/1.8 Consolas,monospace;color:var(--accent);letter-spacing:.08em}
+.hint-steps p{font-size:13.5px;line-height:1.7;margin:0;color:#445a71}
+.implementation-guide[data-guide-level="challenge"]{background:#fffefb}
+.implementation-guide[data-guide-level="challenge"] .hint-steps p{font-size:13px}
+#quizView{max-width:1120px}
+.quiz-banner{padding:36px 45px}
+.quiz-banner h2{font-size:34px}
+.quiz-banner p{font-size:14px}
+.quiz-item{padding:28px 36px}
+.quiz-item h3{font-size:18px;line-height:1.7}
+.quiz-options{gap:10px}
+.quiz-choice{padding:14px 16px}
+.quiz-choice .choice-text{font-size:14.5px}
+.quiz-index{font-size:12px}
+.radiant-sheet .problem-no img{width:88px;height:88px}
+
+@media(max-width:1100px){.app{grid-template-columns:224px minmax(0,1fr)}.main{padding:23px 23px 54px}.sheet-content{padding:36px 32px 70px}.sheet-footer{padding:0 32px 20px}.tag{display:none}}@media(max-width:760px){.app{display:block}.sidebar{height:auto;position:relative}.side-brand{padding:14px 18px}.side-brand h1{font-size:17px}.modebar{padding:7px 14px 10px}.navtitle,.side-areas,.side-foot{display:none}.main{padding:18px 12px 36px}.toolbar{margin-bottom:12px}.toolbar strong{font-size:11px}.sheet{min-height:880px}.sheet-content{padding:26px 22px 66px}.sheet-footer{padding:0 22px 17px}.problem-header{gap:13px}.problem-no{flex-basis:57px;height:57px;border-radius:10px}.problem-no strong{font-size:19px}.problem-no small{font-size:7px}.header-titles h2{font-size:23px}.sheet-meta{margin-bottom:22px}.io-grid,.sample-grid,.refs,.guide-sheet .guide-grid{grid-template-columns:1fr}.note{grid-template-columns:1fr;gap:0}.tasks{padding-left:29px}.filterbar input{width:100%;margin:3px 0 0}.quiz-item{padding:19px 20px}.quiz-banner{padding:25px 22px}.quiz-banner h2{font-size:24px}.toolbar-actions button{padding:6px 9px}}
+
+@media(max-width:1100px) and (min-width:761px){.app{grid-template-columns:235px minmax(0,1fr)}.main{padding:24px 24px 56px}.sheet-content{padding:40px 34px 78px}.sheet-footer{padding:0 34px 20px}}
+@media(max-width:760px){body{font-size:15px}.main{padding:19px 12px 42px}.sheet{min-height:0}.sheet-content{padding:29px 22px 74px}.sheet-footer{padding:0 22px 18px}.problem-no{flex-basis:61px;height:61px}.problem-no strong{font-size:20px}.radiant-sheet .problem-no img{width:61px;height:61px}.header-titles h2{font-size:24px}.summary{font-size:15px;line-height:1.8}.statement{font-size:14px}.section-label{font-size:16px}.tasks{font-size:13px;padding:14px 17px 14px 35px}.io p{font-size:13px}.sample-card pre{font-size:12px;min-height:72px;padding:14px 16px}.guide-sheet .guide-card{padding:17px 18px}.guide-sheet .guide-card h3{font-size:15px}.guide-sheet .guide-card li{font-size:13px}.guide-levels{padding:16px 17px}.guide-sheet .guide-tip{font-size:13px;padding:17px}.quiz-item{padding:22px 20px}.quiz-item h3{font-size:16px}.quiz-choice .choice-text{font-size:13px}.quiz-banner{padding:25px 22px}.quiz-banner h2{font-size:26px}.quiz-banner p{font-size:13px}.hint-steps li{grid-template-columns:1fr;gap:2px}.hint-body{padding:8px 16px 14px}.hint-steps p{font-size:12.5px}.note span{font-size:12px}}
+
+
+/* Quiz answer sheet */
+.quiz-item .fold-body{padding-top:13px;padding-bottom:22px;color:#38516b;font-size:14px;line-height:1.85}
+.quiz-item .fold-body p{margin:8px 0 12px}
+.quiz-item h3 code,.quiz-choice code,.fold-body code{background:#edf4fb;color:#1c4e7e;padding:2px 5px;border-radius:4px}
+.quiz-item textarea{width:100%;min-height:98px;resize:vertical;border:1px solid #d4e0ed;border-radius:8px;padding:13px 14px;font-size:14px;color:#253d57;line-height:1.65}
+.quiz-item textarea:focus{outline:2px solid #acd4ff;outline-offset:1px}
+.quiz-choice{min-height:55px}
+.quiz-choice input{accent-color:#2a72cb;flex:0 0 auto;width:17px;height:17px;margin-top:4px}
+.quiz-choice .choice-text{font-size:14.5px}
+.quiz-options li{padding:0}
+.quiz-reference{padding-top:10px;border-top:1px solid #e4ebf3;margin-top:16px!important}
+.wrong-explanations{margin:19px 0 9px}
+.wrong-explanations h4{font-size:14px;margin:0 0 9px;color:#213f5b}
+.wrong-row{padding:12px 15px;background:#f7fafd;border-left:3px solid #bfd3e9;margin:8px 0}
+.wrong-row strong{font-size:13px;color:#304b68}
+.wrong-row p{margin:5px 0 0!important;font-size:13px}
+.model-code{margin-top:20px;border:1px solid #d7e2ef;border-radius:9px;overflow:hidden}
+.code-caption{padding:8px 14px;background:#eff5fc;font-weight:800;font-size:12px;color:#2c5683;display:flex;align-items:center;justify-content:space-between}
+.code-caption span{font-family:Consolas,monospace;color:#6e91ac}
+.model-code pre{display:block;max-width:none;margin:0;padding:17px 20px;white-space:pre;overflow-x:auto;font-size:13px;line-height:1.68}
+.model-code .model-output{background:#152e49;color:#d8f3fb}
+/* Brief STEP hints */
+.implementation-guide .hint-step-content{min-width:0}
+.implementation-guide .hint-step-content>strong{font-size:14px;color:#2d4561}
+.implementation-guide .hint-steps p{margin:4px 0 0}
+.implementation-guide .hint-code{margin:12px 0 0;padding:14px 17px;border-radius:8px;font:13px/1.62 Consolas,monospace;color:#eaf4ff;background:#10253d;white-space:pre;overflow:auto}
+.implementation-guide[data-guide-level="challenge"] .hint-code{font-size:12.5px}
+/* Keep literal code on dark code panels: no inline-code background */
+.hint-code code,.model-code pre code,.quiz-item pre code{background:transparent!important;color:inherit!important;padding:0!important;border-radius:0!important;font:inherit!important}
+/* Radiant: white paper, gemstone badge, sapphire/ice-blue accents */
+.sheet[data-level="radiant"]{--accent:#317ead;--acclight:#edf8ff;--accentborder:#c8e7fa;background:#fff}
+.radiant-sheet{background:#fff!important}
+.radiant-sheet .sheet-top{background:linear-gradient(90deg,#0d2b4b,#226999 45%,#86c9ef 73%,#dbf9ff)}
+.radiant-sheet .sheet-top:after{width:100%;height:3px;background:linear-gradient(90deg,#3a92c4,#c2f0ff 55%,#3d98d4)}
+.radiant-sheet .problem-header{border-bottom:2px solid #3b8bb6}
+.radiant-sheet .problem-header:after{content:"";position:absolute;bottom:-2px;left:0;width:35%;height:2px;background:linear-gradient(90deg,#e4fdff,#3ea0d7);}
+.radiant-sheet .division,.radiant-sheet .io-kicker,.radiant-sheet .sample-label{color:#246b98}
+.radiant-sheet .section-label:after{background:linear-gradient(90deg,#6ebde7,#e7f6ff)}
+.radiant-sheet .tasks{background:#f5fbff;border-left:3px solid #5bbee6}
+.radiant-sheet .note{background:#f3fbff;border-color:#cbe9fb;color:#325f7a}
+.radiant-sheet .note strong{color:#286e99}
+.radiant-sheet .chip{background:#eff8ff;border-color:#c8e7f9;color:#426b83}
+.radiant-sheet .sample-card{border-color:#cae4f7}
+.radiant-sheet .sample-label{background:#eff8ff}
+.radiant-sheet .deliverable{background:#f2f9ff;border-color:#bcdff2}
+.radiant-sheet .problem-no.radiant-gem{position:relative;border:1px solid #a9d9f7;flex:0 0 88px;height:88px;background:#64b7ed;border-radius:15px;box-shadow:0 6px 18px #2e88bd33,0 0 0 3px #d9f5ff inset;overflow:hidden}
+.radiant-sheet .radiant-gem .gem-art{position:absolute;inset:0;width:100%;height:100%}
+.radiant-sheet .radiant-gem .gem-typography{position:relative;z-index:1;color:#fff;text-align:center;text-shadow:0 1px 2px #061d3a}
+.radiant-sheet .radiant-gem .gem-typography strong{display:block;font-size:26px;line-height:1.1;font-weight:900;letter-spacing:-.04em}
+.radiant-sheet .radiant-gem .gem-typography small{position:static;left:auto;display:block;color:#e5fbff;font-size:9px;letter-spacing:.08em;opacity:1;font-weight:900;margin-top:4px}
+.radiant-sheet .radiant-wash{display:none!important}
+@media(max-width:760px){.radiant-sheet .problem-no.radiant-gem{flex:0 0 61px;height:61px;border-radius:11px}.radiant-sheet .radiant-gem .gem-typography strong{font-size:18px}.radiant-sheet .radiant-gem .gem-typography small{font-size:7px;margin-top:2px}.implementation-guide .hint-steps li{grid-template-columns:1fr;gap:4px}.implementation-guide .hint-code{font-size:12px}.model-code pre{font-size:11.5px;padding:14px}.wrong-row{padding:10px 12px}}
+
+@media print{.sheet{min-height:0}.guide-sheet .guide-card{padding:10px 15px}.guide-sheet .guide-grid{gap:10px}.implementation-guide{break-inside:avoid}.guide-levels{padding:10px 15px}@page{size:A4;margin:10mm}body{background:white}.app{display:block}.sidebar,.toolbar,.filterbar,.bottom-nav{display:none!important}.main{padding:0}.sheet{box-shadow:none;max-width:none;min-height:0;width:100%;break-after:page}.sheet-content{padding:10mm 9mm 18mm}.sheet-meta{margin-bottom:8mm}.sheet-footer{position:static;margin-top:14mm;padding:0 9mm 0}.quiz-item{break-inside:avoid}#quizView{max-width:none}.quiz-banner{padding:12mm}*{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+
+/* Problem sheets: full statement first; expanded case-study layout */
+.statement p{font-size:15px;line-height:1.95;margin:0 0 9px;color:#2c435d}
+.statement strong{color:#193c60;font-weight:800}
+.tasks li{padding:4px 0;line-height:1.85}
+.tasks code,.statement code,.radiant-panel code,.radiant-extra code{background:#eaf2fb;color:#184f80;font-size:.92em;padding:2px 5px;border-radius:4px}
+.tasks strong{font-weight:800;color:#254a6a}
+.section-english{font-size:11px;color:#7595b5;font-weight:650;letter-spacing:.04em;margin-left:9px}
+.radiant-io{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:24px}
+.radiant-panel{border-top:3px solid #489ac9;padding-top:13px;min-width:0}
+.radiant-panel-kicker{font-size:11px;font-weight:900;letter-spacing:.15em;color:#2378a9}
+.radiant-panel>h3{font-size:16px;margin:3px 0 14px;color:#153454}
+.radiant-panel>p{font-size:13px;color:#556d84;margin:0 0 12px;line-height:1.8}
+.radiant-file{padding:14px 0;border-bottom:1px solid #e2edf7;font-size:12.8px;line-height:1.8;color:#3f5570}
+.radiant-file:first-of-type{padding-top:4px}
+.radiant-file:last-child{border-bottom:none}
+.radiant-file h4{font-size:14px;margin:0 0 8px;color:#1f5278;line-height:1.55}
+.radiant-file h4 span{font-size:12px;color:#7c91a7;font-weight:600;margin-left:6px}
+.radiant-file p{margin:2px 0 7px}
+.radiant-file ul{margin:3px 0 0;padding-left:20px}
+.radiant-file li{padding:2px 0}
+.radiant-extra{margin-top:27px;border-top:1px solid #d8e7f4;padding-top:16px}
+.radiant-extra h3{font-size:17px;margin:0 0 12px;color:#173c5b}
+.radiant-extra h3 span{font-size:12px;font-weight:600;color:#82a2bc;margin-left:5px}
+.radiant-extra ul{margin:0;padding:0 0 0 24px;font-size:14px;line-height:1.9;color:#3e5771}
+.radiant-extra li{margin-bottom:8px;padding-left:4px}
+.radiant-extra strong{color:#22567d}
+@media(max-width:780px){.radiant-io{grid-template-columns:1fr;gap:16px}.radiant-panel{padding-top:11px}.section-english{display:block;margin:2px 0 0}.statement p{font-size:14px}}
+@media print{.radiant-io{break-inside:avoid}.radiant-panel{break-inside:avoid}.radiant-extra{break-inside:avoid}}
+
+
+/* Challenge · warm gold details on unchanged white paper */
+.sheet[data-level="challenge"]{
+  --accent:#a97716;
+  --acclight:#fff9ea;
+  --accentborder:#ead9ad;
+  background:#fff;
+}
+.sheet[data-level="challenge"] .sheet-top{
+  background:linear-gradient(90deg,#372b1c 0%,#7a5619 48%,#b99342 100%);
+}
+.sheet[data-level="challenge"] .sheet-top:after{
+  width:45%;height:3px;
+  background:linear-gradient(90deg,#d8a133,#ffe6a3,#bd811b);
+}
+.sheet[data-level="challenge"] .problem-no{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  color:#fff9e7;
+  background:linear-gradient(137deg,#73500d 0%,#bb8623 23%,#f1d588 45%,#c48e23 61%,#654309 100%);
+  border:1px solid #e0bd60;
+  box-shadow:0 7px 19px rgba(128,86,17,.22),inset 0 1px 2px rgba(255,255,255,.85),inset 0 -6px 13px rgba(83,53,2,.2);
+  text-shadow:0 1px 2px rgba(72,44,4,.52);
+}
+.sheet[data-level="challenge"] .problem-no:before{
+  content:"";position:absolute;inset:3px;border:1px solid rgba(255,244,194,.55);border-radius:9px;z-index:-1;
+}
+.sheet[data-level="challenge"] .problem-no:after{
+  content:"";position:absolute;top:-65%;left:-68%;width:64%;height:230%;transform:rotate(28deg);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);opacity:.76;pointer-events:none;
+}
+.sheet[data-level="challenge"] .problem-header{
+  position:relative;
+  border-bottom:2px solid #ab7a22;
+}
+.sheet[data-level="challenge"] .problem-header:after{
+  content:"";position:absolute;bottom:-2px;left:0;width:34%;height:2px;
+  background:linear-gradient(90deg,#80570d,#fff0b8,#b78524);
+}
+.sheet[data-level="challenge"] .division,
+.sheet[data-level="challenge"] .io-kicker,
+.sheet[data-level="challenge"] .sample-label{color:#986511;}
+.sheet[data-level="challenge"] .section-label:after{
+  background:linear-gradient(90deg,#ddc48a 0%,#f3e9d0 54%,#e5e8ea 100%);
+}
+.sheet[data-level="challenge"] .tasks{
+  background:#fffdf7;border-left:3px solid #c29742;
+}
+.sheet[data-level="challenge"] .io{border-top-color:#ad7a1d;}
+.sheet[data-level="challenge"] .sample-card{border-color:#e6d6b1;}
+.sheet[data-level="challenge"] .sample-label{background:#fffaf0;}
+.sheet[data-level="challenge"] .note{
+  background:#fffaf0;border-color:#e8d7ad;color:#6f592e;
+}
+.sheet[data-level="challenge"] .implementation-guide{
+  background:#fffdf8;border-color:#e7d6ae;
+}
+.sheet[data-level="challenge"] .implementation-guide summary{color:#936716;}
+.sheet[data-level="challenge"] .sheet-footer .footer-inner{border-top-color:#e9dcbc;}
+@media (prefers-reduced-motion:no-preference){
+  .sheet[data-level="challenge"] .problem-no:after{animation:gold-glint 8s ease-in-out infinite;}
+  @keyframes gold-glint{0%,36%,100%{left:-68%;opacity:0}45%{opacity:.7}64%{left:146%;opacity:0}}
+}
+@media print{
+  .sheet[data-level="challenge"]{background:#fff!important;}
+  .sheet[data-level="challenge"] .problem-no:after{animation:none;}
+}
+
+
+html{scroll-behavior:auto}
+/* v7 — fluid code panels: both columns fill the full available height */
+.sample-grid{align-items:stretch}
+.sample-card{display:flex;flex-direction:column;min-width:0;background:#101e32;border:1px solid var(--accentborder);overflow:hidden}
+.sample-card>.sample-label{flex:0 0 auto;position:relative;z-index:1}
+.sample-card>pre{flex:1 1 auto;min-height:116px;margin:0;border:0;border-radius:0;background:#111e30;display:block}
+@media(max-width:760px){.sample-card>pre{min-height:72px}}
+
+/* v7 — filter buttons: tactile hover and premium tier treatments */
+.filterbar button{position:relative;isolation:isolate;transition:transform .22s cubic-bezier(.2,.85,.25,1.15),box-shadow .22s ease,border-color .22s ease,background .22s ease,color .22s ease;will-change:transform}
+.filterbar button:hover{transform:translateY(-4px);box-shadow:0 8px 18px rgba(22,62,105,.16);border-color:#759bbe;background:#f2f8ff;color:#123e69}
+.filterbar button:active{transform:translateY(-1px)}
+.filterbar button:focus-visible{outline:3px solid #88bde9;outline-offset:3px}
+.filterbar button.active{box-shadow:0 4px 12px rgba(15,54,96,.22);border-color:#1c3b5d}
+.filterbar button.active:hover{background:#173858;color:#fff;box-shadow:0 8px 20px rgba(16,62,115,.32)}
+.filterbar button[data-level="challenge"]{border-color:#d9bd76;background:linear-gradient(130deg,#fffdf8,#fff3d0);color:#865c16}
+.filterbar button[data-level="challenge"]:hover{border-color:#f1cf66;background:linear-gradient(120deg,#fff4c9,#f4d486,#fff6d7);color:#674308;box-shadow:0 0 13px rgba(234,176,53,.38),0 9px 23px rgba(169,107,24,.25)}
+.filterbar button[data-level="challenge"].active{background:linear-gradient(120deg,#896018,#c39130,#ffe6a2,#a9751a);border-color:#f0d189;color:#fff;box-shadow:0 2px 9px rgba(166,121,28,.28),0 0 14px rgba(219,165,51,.3);text-shadow:0 1px 2px #795015}
+.filterbar button[data-level="challenge"].active:hover{box-shadow:0 0 20px rgba(241,191,64,.58),0 9px 21px rgba(156,105,23,.32)}
+.filterbar button[data-level="radiant"]{border:1px solid #8cc6f0;color:#256699;background:linear-gradient(117deg,#f2fdff,#ddf3ff 35%,#e6e6ff 72%,#fafaff)}
+.filterbar button[data-level="radiant"]:hover{background:linear-gradient(120deg,#d4f8ff 0%,#93d9ff 28%,#e8e4ff 53%,#a2dbff 77%,#dcf8ff 100%);border-color:#92bbf9;color:#093f79;box-shadow:0 0 11px rgba(75,197,250,.46),0 0 23px rgba(165,147,244,.35),0 9px 20px rgba(52,112,179,.17)}
+.filterbar button[data-level="radiant"].active{color:#fff;border-color:#c9f5ff;text-shadow:0 1px 3px #1b4e84;background:linear-gradient(115deg,#164b85,#3b94d2 27%,#8dcfe9 46%,#7b8fd4 70%,#275e9d 100%);box-shadow:0 0 12px rgba(51,164,223,.35),0 0 17px rgba(170,143,238,.25)}
+.filterbar button[data-level="radiant"].active:hover{background:linear-gradient(120deg,#134c8c,#64b9f3 27%,#d5faff 48%,#7c9bdf 75%,#3562a6);box-shadow:0 0 16px rgba(65,185,244,.55),0 0 30px rgba(171,133,239,.42),0 10px 22px rgba(38,95,174,.22)}
+
+/* v7 — Radiant: genuinely faceted diamond, not a frosted glass square */
+.radiant-sheet{background:#fff!important}
+.radiant-sheet .problem-no.radiant-gem{position:relative;isolation:isolate;overflow:visible;flex:0 0 92px;width:92px;height:92px;border:0;border-radius:18px;background:transparent;box-shadow:0 0 0 transparent;filter:drop-shadow(0 5px 8px rgba(12,89,169,.27)) drop-shadow(0 0 11px rgba(133,208,255,.36))}
+.radiant-sheet .radiant-gem .gem-art{position:absolute;inset:0;width:100%;height:100%;border-radius:0;filter:drop-shadow(0 0 3px rgba(233,249,255,.8))}
+.radiant-sheet .radiant-gem .gem-title{position:relative;z-index:3;display:block;font-size:29px;color:#fff;font-weight:900;line-height:1;letter-spacing:-.03em;text-shadow:0 1px 2px #061f49,0 0 11px rgba(23,109,170,.85)}
+.radiant-sheet .radiant-gem .gem-spark{position:absolute;pointer-events:none;z-index:2;left:14%;top:8%;height:32%;width:32%;transform:rotate(45deg);background:radial-gradient(circle,#fff 0%,rgba(235,252,255,.75) 15%,rgba(235,252,255,0) 66%);mix-blend-mode:screen}
+@media(prefers-reduced-motion:no-preference){.radiant-sheet .radiant-gem .gem-spark{animation:gem-flare 5.5s ease-in-out infinite}@keyframes gem-flare{0%,100%{opacity:.58;transform:translate(-4px,3px) rotate(45deg) scale(.8)}40%{opacity:1;transform:translate(8px,-1px) rotate(45deg) scale(1.1)}66%{opacity:.65;transform:translate(4px,7px) rotate(45deg) scale(.85)}}}
+/* Crystal-like faceted header bands; dark code area remains clearly readable */
+.radiant-sheet .sample-card{position:relative;border:1.5px solid transparent;background:linear-gradient(#fff,#fff) padding-box,linear-gradient(125deg,#3c98e0,#d9fbff 35%,#8c9ae9 65%,#52cfe4 100%) border-box;box-shadow:0 0 16px rgba(103,203,248,.22),0 8px 26px rgba(28,104,175,.1)}
+.radiant-sheet .sample-card>.sample-label{overflow:hidden;position:relative;color:#0f497c;font-weight:900;letter-spacing:.17em;text-shadow:0 1px 0 rgba(255,255,255,.8);background:linear-gradient(120deg,#d8f6ff 0%,#79c7ef 30%,#d9faff 50%,#a2a9eb 72%,#e8f8ff 100%);border-bottom:1px solid #b2def5}
+.radiant-sheet .sample-card>.sample-label:before{content:"";pointer-events:none;position:absolute;inset:0;opacity:.56;background:linear-gradient(148deg,transparent 0 19%,rgba(255,255,255,.78) 20% 28%,transparent 29%),linear-gradient(33deg,transparent 0 40%,rgba(76,134,218,.28) 41% 54%,transparent 55%),linear-gradient(126deg,transparent 0 67%,rgba(248,255,255,.82) 68% 78%,transparent 79%);mix-blend-mode:screen}
+.radiant-sheet .sample-card>pre{background:#0d203b;color:#eefbff}
+.radiant-sheet .sample-card:hover{box-shadow:0 0 19px rgba(88,207,255,.39),0 0 26px rgba(166,146,233,.19),0 9px 24px rgba(31,104,178,.12)}
+.radiant-sheet .sample-card>.sample-label:after{content:"";position:absolute;top:0;left:-60%;width:25%;height:100%;pointer-events:none;transform:skewX(-30deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.6),transparent)}
+@media(prefers-reduced-motion:no-preference){.radiant-sheet .sample-card:hover>.sample-label:after{animation:facet-sweep 1.2s ease both}@keyframes facet-sweep{from{left:-60%}to{left:130%}}}
+
+/* v7 — Follow-along right navigator. Does not move the page on next/previous. */
+.bottom-nav.floating-nav{position:fixed;z-index:90;right:16px;top:50%;transform:translateY(-50%);margin:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:7px;width:75px;padding:9px 7px;background:rgba(255,255,255,.94);border:1px solid rgba(180,201,225,.95);border-radius:15px;box-shadow:0 10px 30px rgba(10,39,75,.17);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.bottom-nav.floating-nav button{border:0;background:transparent;color:#355776;min-width:60px;padding:9px 4px;border-radius:9px;font-size:11px;line-height:1.25;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;transition:background .18s ease,transform .18s ease,color .18s ease}
+.bottom-nav.floating-nav button>.nav-word{font-size:11px;font-weight:750;line-height:1.2}
+.bottom-nav.floating-nav button>span[aria-hidden="true"]{font-size:19px;line-height:1.2}
+.bottom-nav.floating-nav button:hover:not(:disabled){color:#14609f;background:#e9f4ff;transform:translateY(-2px)}
+.bottom-nav.floating-nav button:focus-visible{outline:2px solid #3e9fe2;outline-offset:1px}
+.bottom-nav.floating-nav button:disabled{opacity:.28;cursor:default}
+.bottom-nav.floating-nav .counter{font:750 10.5px/1.3 Consolas,monospace;text-align:center;color:#54708d;border-top:1px solid #e4edf6;border-bottom:1px solid #e4edf6;width:100%;padding:8px 0}
+@media(max-width:1199px){.bottom-nav.floating-nav{right:13px;width:63px;padding:6px 4px}.bottom-nav.floating-nav button{min-width:53px}}
+@media(max-width:860px){.main{padding-bottom:110px}.bottom-nav.floating-nav{top:auto;right:50%;bottom:15px;transform:translateX(50%);width:auto;flex-direction:row;gap:8px;padding:5px 9px;border-radius:14px;box-shadow:0 6px 27px rgba(7,34,71,.21)}.bottom-nav.floating-nav button{min-width:67px;flex-direction:row;gap:5px;padding:10px 10px;font-size:12px}.bottom-nav.floating-nav button>.nav-word{font-size:13px}.bottom-nav.floating-nav button>span[aria-hidden="true"]{font-size:14px}.bottom-nav.floating-nav .counter{border:0;border-left:1px solid #e4edf6;border-right:1px solid #e4edf6;width:auto;min-width:69px;padding:7px 9px}}
+@media(prefers-reduced-motion:reduce){.filterbar button,.bottom-nav.floating-nav button{transition:none!important;transform:none!important}.radiant-sheet .radiant-gem .gem-spark,.radiant-sheet .sample-card>.sample-label:after{animation:none!important}}
+@media print{.bottom-nav.floating-nav{display:none!important}.filterbar button{transform:none;box-shadow:none}.radiant-sheet .sample-card{box-shadow:none!important}.radiant-sheet .radiant-gem .gem-spark{animation:none}}
+
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+ <div class="side-brand"><div class="brand-small">MORESTUDY</div><h1>Summary — Part 01</h1><p>Chapter 01–11 · 종합 복습</p></div>
+ <div class="modebar"><button type="button" id="modeQuiz" class="active">Quiz</button><button type="button" id="modeProblems">Problems</button></div>
+ <div class="navtitle" id="sideNavTitle">REVIEW</div>
+ <div class="side-areas" id="problemNavigation"></div>
+ <div class="side-foot"><a href="https://github.com/JSeong2024/MYPAUL-PYTHONEDU/tree/main/MoreStudy/C%2B%2B" target="_blank" rel="noopener">C++ 목차 ↗</a></div>
+</aside>
+<main class="main">
+ <div id="problemsView">
+  <div class="toolbar"><span><strong>Problems</strong> / <span id="crumb">Basic · B-01</span></span><div class="toolbar-actions"><button type="button" id="printCurrent">현재 문제 인쇄</button></div></div>
+  <div class="filterbar" id="problemFilters"><button data-level="all" class="active">전체 15</button><button data-level="basic">Basic 6</button><button data-level="advanced">Advanced 5</button><button data-level="challenge">Challenge 3</button><button data-level="radiant">Radiant 1</button><input id="search" aria-label="문제 검색" placeholder="문제 번호·제목 검색"></div>
+  <div id="problemHost"></div>
+  <nav class="bottom-nav floating-nav" aria-label="문제 이동"><button type="button" id="previous" aria-label="이전 문제" title="이전 문제"><span aria-hidden="true">←</span><span class="nav-word">이전</span></button><span id="pageCounter" class="counter" aria-live="polite"></span><button type="button" id="next" aria-label="다음 문제" title="다음 문제"><span class="nav-word">다음</span><span aria-hidden="true">→</span></button></nav>
+ </div>
+ <div id="quizView">
+  <div class="quiz-banner"><div class="division">REVIEW / CHAPTER 01—11</div><h2>Quiz &amp; Review</h2><p>객관식 12문항 · 주관식 8문항. 문제를 풀고 정답 및 해설을 확인하세요.</p></div>
+  <div class="quiz-toolbar"><button type="button" class="active" data-quiz="all">전체 20</button><button type="button" data-quiz="mcq">객관식 12</button><button type="button" data-quiz="written">주관식 8</button></div>
+  <div id="quizList" class="quiz-list"></div>
+ </div>
+</main>
+</div>
+<script>
+'use strict';
+const cppLogoData = 'data:image/png;base64,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';
+const repo = 'https://github.com/JSeong2024/MYPAUL-PYTHONEDU/blob/main/MoreStudy/C%2B%2B/';
+const chapters = [
+  'Getting Started with C++','Variables & Data Types','Operators & Conditions','Loops','Functions','Arrays & Strings','Pointers & References','Structs & Classes','Object-Oriented Programming','Standard Library (STL)','File I/O'
+];
+const chapterUrl = n => repo+'Chapter-'+String(n).padStart(2,'0')+'/README.md';
+const concept = (c,topic)=>({c,topic});
+const levels = {basic:{name:'Basic',color:'var(--blue)',subtitle:'기초 구현'},advanced:{name:'Advanced',color:'var(--purple)',subtitle:'정확한 판단'},challenge:{name:'Challenge',color:'var(--orange)',subtitle:'현실 적용'},radiant:{name:'Radiant',color:'var(--gold)',subtitle:'종합 의뢰'}};
+const problems = [
+  {
+    "id": "B-01",
+    "level": "basic",
+    "title": "배송비 계산기",
+    "scenario": "온라인 상점은 상품 무게와 배송 방식에 따라 배송비를 계산합니다. 무게가 1,000g 이하이면 기본 요금을 적용하고, 이를 초과한 무게에는 500g 단위로 추가 요금을 부과합니다. 특급 배송을 선택하면 별도의 요금도 붙습니다.\n\n상품 무게와 배송 유형을 입력받아 최종 배송비를 계산하는 프로그램을 작성하세요. 허용 범위를 벗어난 입력은 요금을 계산하지 않고 `INVALID`로 처리합니다.",
+    "tasks": [
+      "상품 무게 `W`는 1~20,000g의 정수입니다. 범위를 벗어나면 `INVALID`를 출력합니다.",
+      "기본 배송비는 3,000원입니다. 1,000g을 초과한 무게에 대해서는 500g마다 500원을 추가하며, 남는 무게는 올림하여 계산합니다.",
+      "배송 유형은 일반 배송 `0`, 특급 배송 `1`로 구분합니다. 특급 배송에는 2,000원을 추가합니다.",
+      "무게와 배송 유형이 모두 유효할 때만 최종 요금을 출력합니다."
+    ],
+    "checks": [
+      "1,000g과 1,001g의 배송비 차이",
+      "추가 무게가 500g 단위에 정확히 맞는 경우",
+      "무게 0·20,001g 및 잘못된 배송 유형"
+    ],
+    "concepts": [
+      {
+        "c": 2,
+        "topic": "정수형과 범위"
+      },
+      {
+        "c": 3,
+        "topic": "조건과 경계값"
+      },
+      {
+        "c": 5,
+        "topic": "함수 반환값"
+      }
+    ],
+    "sample": {
+      "in": "1200 1",
+      "out": "5500"
+    }
+  },
+  {
+    "id": "B-02",
+    "level": "basic",
+    "title": "주차 요금 정산",
+    "scenario": "유료 주차장에서 입차 시각과 출차 시각을 기준으로 주차 요금을 정산하려고 합니다. 최초 30분에는 기본 요금이 적용됩니다. 이후 이용 시간은 10분 단위로 계산하며, 10분이 채 되지 않아도 한 단위로 봅니다.\n\n두 시각은 같은 날의 `HH:MM` 형식으로 주어집니다. 주차 시간을 계산해 요금을 출력하는 프로그램을 작성하세요. 시각이 잘못되었거나 출차 시각이 입차 시각보다 늦지 않으면 `INVALID`를 출력합니다.",
+    "tasks": [
+      "입차·출차 시각을 `HH:MM` 형식으로 입력받고, 각각 `00:00`부터 `23:59` 사이인지 확인합니다.",
+      "출차 시각은 입차 시각보다 늦어야 합니다. 날짜가 바뀌는 주차는 고려하지 않습니다.",
+      "이용 시간 30분까지는 1,000원입니다. 30분을 초과하면 10분마다 500원을 추가하고, 남는 시간은 올림하여 계산합니다.",
+      "시각 검증과 요금 계산은 각각 함수로 작성합니다."
+    ],
+    "checks": [
+      "30분과 31분에 해당하는 요금",
+      "초과 시간이 정확히 10분인 경우",
+      "잘못된 시각(`24:00` 등)과 출차 시각이 빠르거나 같은 경우"
+    ],
+    "concepts": [
+      {
+        "c": 3,
+        "topic": "조건 분기"
+      },
+      {
+        "c": 5,
+        "topic": "함수 분리"
+      },
+      {
+        "c": 6,
+        "topic": "문자열 처리"
+      }
+    ]
+  },
+  {
+    "id": "B-03",
+    "level": "basic",
+    "title": "시험 점수 요약",
+    "scenario": "한 학급의 시험 결과를 정리하려고 합니다. 학생 수와 각 학생의 점수가 주어졌을 때 최저 점수, 최고 점수, 평균 점수를 구해야 합니다. 점수는 0점부터 100점까지이며, 평균은 소수 첫째 자리까지 표시합니다.\n\n입력된 점수의 통계를 출력하는 프로그램을 작성하세요. 학생 수나 점수가 허용 범위를 벗어나면 통계 대신 `INVALID`를 출력합니다.",
+    "tasks": [
+      "학생 수 `N`은 1~100명, 각 학생의 점수는 0~100점입니다.",
+      "반복문을 사용해 점수의 합계와 최솟값·최댓값을 구합니다.",
+      "결과는 `MIN`, `MAX`, `AVG` 순서로 한 줄씩 출력합니다. 평균은 소수 첫째 자리까지 표시합니다.",
+      "잘못된 값이 하나라도 있으면 통계 결과를 출력하지 않고 `INVALID`를 출력합니다."
+    ],
+    "checks": [
+      "학생이 1명인 경우",
+      "모든 학생의 점수가 같은 경우",
+      "0점·100점 및 허용 범위를 벗어난 점수"
+    ],
+    "concepts": [
+      {
+        "c": 2,
+        "topic": "자료형"
+      },
+      {
+        "c": 4,
+        "topic": "반복과 누적"
+      },
+      {
+        "c": 6,
+        "topic": "std::vector"
+      }
+    ]
+  },
+  {
+    "id": "B-04",
+    "level": "basic",
+    "title": "상품 코드 검색",
+    "scenario": "매장 상품 목록에는 상품 코드, 가격, 재고 수량이 기록되어 있습니다. 직원은 상품 코드를 입력해 해당 상품의 정보를 조회하려고 합니다.\n\n상품 목록을 입력된 순서대로 검색하고, 코드가 정확히 일치하는 상품의 정보를 출력하는 프로그램을 작성하세요. 찾는 상품이 없으면 `NOT_FOUND`를 출력합니다.",
+    "tasks": [
+      "상품의 코드·가격·재고 수량을 하나의 구조체로 표현합니다.",
+      "상품 코드는 대소문자를 구분하며, 입력된 코드와 정확히 일치하는 항목을 검색합니다.",
+      "상품을 찾으면 코드·가격·재고 수량을 출력합니다. 목록이 비었거나 일치하는 코드가 없으면 `NOT_FOUND`를 출력합니다.",
+      "검색과 결과 출력을 별도의 함수로 작성하고, 검색 실패 시 유효하지 않은 인덱스에 접근하지 않도록 합니다."
+    ],
+    "checks": [
+      "첫 번째·마지막 상품 검색",
+      "재고가 0인 상품 검색",
+      "빈 목록과 존재하지 않는 상품 코드"
+    ],
+    "concepts": [
+      {
+        "c": 5,
+        "topic": "함수와 결과 전달"
+      },
+      {
+        "c": 6,
+        "topic": "배열과 검색"
+      },
+      {
+        "c": 8,
+        "topic": "구조체"
+      }
+    ]
+  },
+  {
+    "id": "B-05",
+    "level": "basic",
+    "title": "도서 대출 상태 관리",
+    "scenario": "작은 도서관에서 같은 제목의 책을 여러 권 보유하고 있습니다. 책을 빌려줄 때는 대출 가능한 수량을 한 권 줄이고, 반납받으면 한 권 늘립니다. 다만 남은 책이 없으면 대출할 수 없고, 대출된 책이 없다면 반납도 받을 수 없습니다.\n\n`BORROW`와 `RETURN` 명령을 순서대로 처리하는 도서 관리 클래스를 작성하세요. 각 명령의 성공 여부와 남은 수량을 출력해야 합니다.",
+    "tasks": [
+      "도서 제목, 전체 보유 수량, 현재 대출 가능한 수량을 관리하는 클래스를 작성합니다.",
+      "`BORROW`는 대출 가능한 책이 있을 때만 성공하며, 성공하면 남은 수량을 1 줄입니다.",
+      "`RETURN`은 대출된 책이 있을 때만 성공하며, 성공하면 남은 수량을 1 늘립니다.",
+      "실패한 명령은 수량을 변경하지 않습니다. 남은 수량은 항상 0 이상이고 전체 보유 수량 이하여야 합니다."
+    ],
+    "checks": [
+      "전체 보유 수량이 0인 경우",
+      "모든 책이 대출된 상태의 추가 대출",
+      "대출 기록이 없는 반납 및 반복 명령"
+    ],
+    "concepts": [
+      {
+        "c": 5,
+        "topic": "함수 계약"
+      },
+      {
+        "c": 8,
+        "topic": "클래스·캡슐화·불변 조건"
+      }
+    ]
+  },
+  {
+    "id": "B-06",
+    "level": "basic",
+    "title": "일일 로그 분류",
+    "scenario": "하루 동안 기록된 애플리케이션 로그에서 정보(`INFO`), 경고(`WARN`), 오류(`ERROR`)가 몇 번 발생했는지 확인하려고 합니다. 로그 파일에는 한 줄에 하나씩 `LEVEL|메시지` 형식의 기록이 들어 있습니다.\n\n파일을 처음부터 끝까지 읽어 레벨별 건수를 출력하는 프로그램을 작성하세요. 알 수 없는 레벨이나 구분자 `|`가 없는 행은 `INVALID`로 집계합니다. 파일을 열지 못했다면 다른 결과를 출력하지 않고 `OPEN_ERROR`만 출력합니다.",
+    "tasks": [
+      "표준 입력으로 전달된 파일 경로를 이용해 로그 파일을 엽니다.",
+      "파일을 한 줄씩 읽고 `INFO`, `WARN`, `ERROR`의 발생 횟수를 각각 집계합니다.",
+      "인식할 수 없는 레벨이나 `|` 구분자가 없는 행은 `INVALID` 건수에 포함합니다.",
+      "파일을 열지 못하면 집계를 진행하지 않고 `OPEN_ERROR`를 출력합니다."
+    ],
+    "checks": [
+      "로그가 없는 빈 파일",
+      "알 수 없는 레벨과 구분자 없는 행",
+      "존재하지 않는 파일 경로"
+    ],
+    "concepts": [
+      {
+        "c": 3,
+        "topic": "조건"
+      },
+      {
+        "c": 6,
+        "topic": "문자열 분리"
+      },
+      {
+        "c": 11,
+        "topic": "파일 읽기·스트림 상태"
+      }
+    ]
+  },
+  {
+    "id": "A-01",
+    "level": "advanced",
+    "title": "환불 금액의 자료형 검증",
+    "scenario": "쇼핑몰에서 환불 금액을 계산했더니 예상보다 작은 값이 나오는 문제가 발견되었습니다. 환불 비율을 먼저 정수로 나누면 `rate / 100`의 소수 부분이 사라지기 때문입니다. 큰 금액에서는 중간 곱셈이 자료형의 범위를 넘을 수도 있습니다.\n\n원금과 환불 비율을 입력받아 환불액을 원 단위로 계산하는 프로그램을 작성하세요. 소수 부분이 0.5원 이상이면 올림하는 반올림 규칙을 적용하고, 계산 도중 오버플로가 발생하지 않도록 해야 합니다.",
+    "tasks": [
+      "원금 `P`와 환불 비율 `R`을 정수로 입력받고 각각의 범위를 검사합니다.",
+      "`rate / 100`을 먼저 계산하면 일부 비율이 0이 되는 이유를 설명합니다.",
+      "원금에 비율을 적용한 뒤 0.5원 이상을 올림하는 반올림 규칙을 구현합니다.",
+      "최대 원금에서도 중간 곱셈이 안전하게 이루어지도록 자료형과 연산 순서를 선택합니다."
+    ],
+    "checks": [
+      "환불 비율 0%·1%·99%·100%",
+      "소수 부분이 정확히 0.5원인 경우",
+      "최대 원금에서 중간 곱셈의 범위"
+    ],
+    "concepts": [
+      {
+        "c": 2,
+        "topic": "정수·실수 변환과 범위"
+      },
+      {
+        "c": 3,
+        "topic": "산술과 경계 조건"
+      },
+      {
+        "c": 5,
+        "topic": "함수 계약"
+      }
+    ]
+  },
+  {
+    "id": "A-02",
+    "level": "advanced",
+    "title": "재고 변경 함수의 계약",
+    "scenario": "재고 관리 프로그램에서 판매 명령을 실행해도 실제 재고가 줄어들지 않는 오류가 발견되었습니다. 재고를 수정하는 함수가 원본이 아닌 복사본을 변경하고 있었기 때문입니다.\n\n판매(`SELL`)와 입고(`RESTOCK`) 명령을 처리하도록 함수를 수정하세요. 원본 재고는 참조로 전달하며, 명령이 실패했을 때는 기존 수량을 유지해야 합니다. 각 명령의 처리 결과와 변경 후 재고를 출력합니다.",
+    "tasks": [
+      "재고를 값으로 전달할 때 호출자의 재고가 바뀌지 않는 이유를 설명합니다.",
+      "원본 재고를 변경하는 함수에는 참조 매개변수를 사용합니다.",
+      "`SELL`은 요청 수량이 현재 재고보다 많으면 실패하며, 재고를 변경하지 않습니다.",
+      "`RESTOCK`도 명령 수량을 검증한 뒤 처리합니다. 재고를 조회하는 기능은 읽기 전용으로 작성합니다."
+    ],
+    "checks": [
+      "판매 성공 후 호출자 재고가 실제로 감소하는지 확인",
+      "재고 부족으로 판매가 실패한 경우",
+      "입고 이후 재고와 잘못된 명령 수량"
+    ],
+    "concepts": [
+      {
+        "c": 5,
+        "topic": "매개변수 전달"
+      },
+      {
+        "c": 7,
+        "topic": "참조와 const"
+      },
+      {
+        "c": 8,
+        "topic": "유효 상태"
+      }
+    ]
+  },
+  {
+    "id": "A-03",
+    "level": "advanced",
+    "title": "작업 요청 정렬 규칙",
+    "scenario": "고객 문의를 처리하는 팀은 접수된 작업에 우선순위를 부여합니다. 우선순위가 높은 작업부터 처리하지만, 우선순위가 같다면 먼저 접수된 작업이 앞서야 합니다.\n\n작업 ID와 우선순위가 입력된 순서대로 주어집니다. 두 기준을 만족하도록 작업을 정렬하고, 처리할 작업 ID를 차례대로 출력하는 프로그램을 작성하세요.",
+    "tasks": [
+      "작업마다 ID, 우선순위, 접수 순서를 저장합니다.",
+      "우선순위가 높은 작업부터 나오도록 내림차순 정렬합니다.",
+      "우선순위가 같은 작업끼리는 입력 순서를 유지합니다.",
+      "`std::sort`와 `std::stable_sort`의 차이를 설명하고, 요구사항에 맞는 정렬 방법을 선택합니다."
+    ],
+    "checks": [
+      "모든 작업의 우선순위가 같은 경우",
+      "높은 우선순위 작업이 나중에 입력된 경우",
+      "여러 우선순위에 동점 작업이 섞인 경우"
+    ],
+    "concepts": [
+      {
+        "c": 6,
+        "topic": "std::vector"
+      },
+      {
+        "c": 8,
+        "topic": "구조체"
+      },
+      {
+        "c": 10,
+        "topic": "정렬·안정 정렬"
+      }
+    ],
+    "sample": {
+      "in": "T1 2\nT2 5\nT3 2\nT4 5",
+      "out": "T2\nT4\nT1\nT3"
+    }
+  },
+  {
+    "id": "A-04",
+    "level": "advanced",
+    "title": "조회 성능과 출력 순서",
+    "scenario": "서비스에 접속한 고객의 방문 기록이 쌓이고 있습니다. 같은 고객 코드가 여러 번 나타날 수 있으므로 코드별 방문 횟수를 모두 합산해야 합니다. 기록이 많아질수록 검색과 집계에 사용하는 자료구조도 중요해집니다.\n\n고객별 방문 횟수를 계산한 뒤 고객 코드 오름차순으로 출력하세요. 선택한 컨테이너가 조회와 출력 순서에 어떤 영향을 주는지도 설명해야 합니다.",
+    "tasks": [
+      "고객 코드별로 방문 횟수를 누적합니다.",
+      "`std::map`과 `std::unordered_map`의 검색·삽입·순회 특성을 비교합니다.",
+      "사용할 컨테이너를 선택하고 예상 시간 복잡도를 설명합니다.",
+      "입력 순서와 관계없이 결과는 고객 코드 오름차순으로 출력합니다."
+    ],
+    "checks": [
+      "고객 코드가 정렬되지 않은 입력",
+      "같은 고객의 방문 기록이 여러 번 나온 경우",
+      "방문 기록이 0건인 경우"
+    ],
+    "concepts": [
+      {
+        "c": 10,
+        "topic": "연관 컨테이너와 시간 복잡도"
+      },
+      {
+        "c": 5,
+        "topic": "함수 분리"
+      }
+    ]
+  },
+  {
+    "id": "A-05",
+    "level": "advanced",
+    "title": "CSV 파서 경계 검사",
+    "scenario": "상품 정보를 CSV 파일에서 읽었더니 일부 상품의 이름과 가격이 잘못 구분되었습니다. 상품명에 쉼표가 들어갈 수 있기 때문입니다. 큰따옴표로 묶은 필드 안에서는 쉼표를 구분자로 취급하지 않으며, 큰따옴표 두 개(`\"\"`)는 문자 하나를 뜻합니다.\n\n예를 들어 `\"Pencil, Blue\",300`은 상품명 `Pencil, Blue`와 가격 `300`으로 읽어야 합니다. 이 규칙에 따라 CSV를 해석하는 프로그램을 작성하세요. 형식이 잘못된 행은 오류를 출력하고 다음 행을 계속 처리합니다.",
+    "tasks": [
+      "큰따옴표로 묶인 필드 안의 쉼표는 필드 구분자로 처리하지 않습니다.",
+      "인용 필드 안의 연속된 큰따옴표 `\"\"`는 큰따옴표 하나로 변환합니다.",
+      "닫히지 않은 따옴표나 잘못된 가격처럼 형식에 맞지 않는 행은 오류로 처리합니다.",
+      "오류가 발생하면 해당 행 번호와 오류 코드를 출력하고, 이후 행의 처리는 계속합니다."
+    ],
+    "checks": [
+      "쉼표가 포함된 상품명 `\"Pencil, Blue\",300`",
+      "큰따옴표가 포함된 상품명 `\"He said \"\"Hi\"\"\",500`",
+      "닫히지 않은 따옴표와 잘못된 가격"
+    ],
+    "concepts": [
+      {
+        "c": 6,
+        "topic": "문자열 탐색과 파싱"
+      },
+      {
+        "c": 11,
+        "topic": "CSV 형식·오류 검증"
+      }
+    ]
+  },
+  {
+    "id": "C-01",
+    "level": "challenge",
+    "title": "행사 신청자 명단 필터링과 분류",
+    "scenario": "지역 행사 참가 신청이 마감되었습니다. 운영팀은 담당자별로 수집한 신청 기록을 하나로 합쳤지만, 일부 기록에서 중복 신청과 이름 누락 문제가 발견되었습니다.\n\n행사장 수용 인원에도 제한이 있습니다. 따라서 신청 순서를 유지하면서 참가자를 확정하고, 정원을 초과한 신청은 대기 명단에 등록해야 합니다. 중복 신청이나 필수 정보가 누락된 신청은 별도로 분류해야 합니다.\n\n신청 기록을 원본 순서대로 처리하여 참가 확정 명단, 대기 명단, 거부 목록을 생성하는 프로그램을 작성하세요. 유효하지 않은 신청이 있더라도 나머지 신청은 정상적으로 처리해야 합니다.",
+    "tasks": [
+      "설정 파일에서 참가 정원을 읽고, 신청 기록을 원본 순서대로 처리합니다.",
+      "이름이나 이메일이 누락된 신청은 거부합니다. 이메일은 공백이 없고, `@`가 정확히 하나 있으며, `@` 앞뒤에 문자가 있어야 유효한 것으로 판단합니다.",
+      "동일한 이메일로 여러 번 신청한 경우 첫 번째 유효 신청만 인정합니다. 정원이 초과되면 이후의 유효 신청은 대기 명단에 등록합니다.",
+      "처리 결과를 `accepted.csv`, `waitlist.csv`, `rejected.csv`에 각각 저장하고, 참가 확정·대기·거부 건수를 출력합니다."
+    ],
+    "checks": [
+      "신청 순서를 변경했을 때 참가 확정 및 대기 명단의 변화",
+      "중복 이메일, 필수 정보 누락, 정원 0 및 정원 경계 조건",
+      "거부된 신청이 정원과 중복 검사 결과에 영향을 주지 않는지 확인",
+      "동일한 입력으로 재실행했을 때 결과 파일의 내용이 일치하는지 확인"
+    ],
+    "concepts": [
+      {
+        "c": 5,
+        "topic": "함수 분리"
+      },
+      {
+        "c": 8,
+        "topic": "구조체 모델링"
+      },
+      {
+        "c": 10,
+        "topic": "중복 검사·컨테이너"
+      },
+      {
+        "c": 11,
+        "topic": "CSV 읽기·쓰기"
+      }
+    ]
+  },
+  {
+    "id": "C-02",
+    "level": "challenge",
+    "title": "센서 장애 보고서",
+    "scenario": "건물에 설치된 센서들이 측정값을 중앙 시스템으로 전송합니다. 기록에는 장치 ID와 순번이 함께 저장됩니다. 하지만 통신 지연이나 재전송 때문에 순번이 뒤바뀐 기록이 들어오기도 합니다.\n\n이전 기록을 그대로 반영하면 가장 최근에 승인한 측정값이 오래된 값으로 바뀔 수 있습니다. 따라서 각 장치가 마지막으로 승인한 순번을 따로 관리해야 합니다. 측정값이 범위를 벗어난 경우에도 기존 상태를 유지해야 합니다.\n\n`readings.csv`를 순서대로 처리해 장치별 상태 보고서와 거부 목록을 생성하세요. 한 장치에서 오류가 발생하더라도 다른 장치의 기록은 계속 처리합니다.",
+    "tasks": [
+      "장치 ID별로 마지막 유효 순번, 유효 기록 수, 마지막 측정값을 관리합니다.",
+      "순번은 양의 정수여야 하며, 같은 장치에서 마지막으로 승인한 순번보다 커야 합니다. 거부된 기록은 순번을 갱신하지 않습니다.",
+      "측정값이 0~100 범위를 벗어나면 거부합니다. 마지막 유효 측정값이 80 이상인 장치는 상태를 `WARN`으로 표시합니다.",
+      "장치 ID 오름차순으로 `devices.csv`를 작성하고, 거부된 기록은 원본 행 번호와 오류 코드를 `rejected.csv`에 저장합니다."
+    ],
+    "checks": [
+      "여러 장치의 기록이 섞여 들어오는 경우",
+      "중복·역순 순번과 0 이하의 순번",
+      "측정값 범위 초과와 빈 파일",
+      "거부된 기록이 이전 승인 상태를 바꾸지 않는지 확인"
+    ],
+    "concepts": [
+      {
+        "c": 3,
+        "topic": "조건·경계값"
+      },
+      {
+        "c": 8,
+        "topic": "데이터 모델"
+      },
+      {
+        "c": 10,
+        "topic": "장치별 집계"
+      },
+      {
+        "c": 11,
+        "topic": "텍스트 파일 처리"
+      }
+    ]
+  },
+  {
+    "id": "C-03",
+    "level": "challenge",
+    "title": "매장 재고 이력 감사",
+    "scenario": "매장 재고 마감 보고서에서 재고가 음수로 표시되는 문제가 발견되었습니다. 거래 기록을 확인해 보니 재고보다 많은 수량을 판매한 요청과 같은 거래가 여러 번 전송된 사례가 있었습니다.\n\n최종 재고를 단순히 0으로 바꾸면 어느 거래에서 문제가 발생했는지 알 수 없습니다. 초기 재고를 기준으로 거래를 차례대로 다시 적용하고, 반영할 수 없는 거래는 사유와 함께 남겨야 합니다.\n\n거래 로그를 검증해 상품별 최종 재고와 거부된 거래 목록을 생성하는 프로그램을 작성하세요.",
+    "tasks": [
+      "`stock.csv`에서 초기 재고를 읽고 `events.csv`의 거래를 원본 순서대로 처리합니다.",
+      "상품 ID가 없거나 수량이 0 이하인 거래는 거부합니다. 판매(`OUT`) 수량이 현재 재고보다 많을 때도 거부합니다.",
+      "입고(`IN`)는 재고를 늘리고 판매(`OUT`)는 재고를 줄입니다. 거래 ID가 이전에 정상 반영된 ID와 같으면 중복으로 거부합니다.",
+      "거부된 거래는 재고와 거래 ID 사용 상태를 바꾸지 않습니다. 최종 재고는 `inventory.csv`, 거부된 거래의 행 번호와 사유는 `rejected.csv`에 저장합니다."
+    ],
+    "checks": [
+      "판매 후 재고가 정확히 0이 되는 경우",
+      "재고 부족으로 거부된 판매",
+      "정상 처리된 거래 ID가 다시 등장한 경우",
+      "거부된 거래 다음에 정상 거래가 이어지는 경우"
+    ],
+    "concepts": [
+      {
+        "c": 3,
+        "topic": "검증과 빠른 종료"
+      },
+      {
+        "c": 8,
+        "topic": "구조체·함수 책임"
+      },
+      {
+        "c": 10,
+        "topic": "상품/거래 ID 검색"
+      },
+      {
+        "c": 11,
+        "topic": "다중 파일 처리"
+      }
+    ],
+    "sample": {
+      "in": "stock.csv: P01,5\nevents.csv:\nE01,P01,OUT,3\nE02,P01,OUT,4\nE01,P01,OUT,3",
+      "out": "inventory.csv: P01,2\nrejected.csv:\n2,INSUFFICIENT_STOCK\n3,DUPLICATE_EVENT"
+    }
+  },
+  {
+    "id": "R-01",
+    "level": "radiant",
+    "title": "흩어진 정산 기록의 진실",
+    "scenario": "서로 다른 시스템에서 출력된 정산 결과가 서로 일치하지 않아 감사(Audit) 팀에 비상이 걸렸습니다. 원본 데이터인 주문 파일과 결제·환불 이벤트 파일은 남아 있지만, 내부에는 중복 이벤트와 훼손된 비정상 행들이 뒤섞여 있어 기존 담당자조차 어떤 기록이 실제로 반영되었는지 설명하지 못하고 있습니다. 데이터의 무결성과 신뢰성을 회복할 수 있는 **결정론적(Deterministic) 정산 검증 프로그램**을 재작성하여 검증 가능한 최종 결과를 납품해야 합니다.",
+    "tasks": [
+      "**입력 데이터 로드**: `orders.csv`와 `events.csv`를 UTF-8 인코딩(헤더 없음) 기준으로 파싱합니다.",
+      "**오류 로깅(Validation)**: 필수 필드 누락, 타입 오류, 0 이하 금액 등 유효하지 않은 행을 `rejected.csv`에 **파일명, 원본 행 번호, 표준 오류 코드**로 기록합니다.",
+      "**주문 중복 제어(Idempotency)**: 주문 ID는 유일해야 합니다. 중복 주문은 `DUPLICATE_ORDER`로 거부하며 최초의 유효 주문만 반영합니다.",
+      "**이벤트 중복 제어**: 이벤트 ID는 최초로 정상 승인된 것만 적용하며, 이후 다시 등장하면 `DUPLICATE_EVENT`로 거부합니다.",
+      "**비즈니스 규칙 검증**: 알 수 없는 주문(`UNKNOWN_ORDER`), 누적 결제액을 초과하는 환불(`REFUND_EXCEEDS_PAY`), 주문 금액을 초과하는 순결제액(`ORDER_EXCEEDED`)을 거부합니다.",
+      "**이벤트 순서 및 불변성**: 이벤트는 입력 파일의 **기록 순서대로** 적용하며, 거부한 이벤트는 금액과 이벤트 ID 사용 상태를 변경하지 않습니다.",
+      "**정렬 및 출력 규격**: 정산 보고서는 **주문 ID 오름차순**, 오류 보고서는 **파일명·원본 행 번호 오름차순**으로 출력합니다.",
+      "**결과 재현성(Deterministic)**: 전체 순결제액 합계, 미정산 주문 수와 오류 건수를 함께 기록하며, 동일한 입력을 재처리하면 내용이 완전히 같은 결과 파일을 만들어야 합니다.",
+      "**안전한 파일 I/O(Atomic Write)**: 같은 파일시스템의 임시 경로에 먼저 기록하고 성공 여부를 확인한 뒤 대상 결과를 교체합니다. 교체 실패와 복구 방법을 명시하고, 플랫폼별 파일 교체 동작을 고려합니다.",
+      "**성능 분석 및 비교**: 기준 구현 완료 후 10만 행 이상의 데이터를 사용해 처리 시간과 메모리 사용량을 비교하고, 탐색 자료구조와 알고리즘 선택 근거를 작성합니다."
+    ],
+    "checks": [
+      "**비즈니스 예외 검증**: 중복 이벤트, 유효하지 않은 주문, 잘못된 금액, 결제액을 초과하는 환불 등 예외 케이스 처리 확인",
+      "**결과 재현성(Deterministic)**: 같은 입력을 반복 실행했을 때 정산·오류 파일 내용의 완전한 일치 여부 확인",
+      "**성능 및 자료구조 최적화**: 10만 행 이상을 처리하면서 주문·이벤트 ID 조회에 불필요한 반복 선형 검색이 없는지 확인",
+      "**정답 데이터셋 대조**: 제공한 샘플 데이터와 정산·오류 보고서의 내용 일치 여부 확인",
+      "**경계값 및 강건성 테스트**: 공개 예제 외에 경계값과 의도적인 오류 입력을 직접 구성해 테스트 수행"
+    ],
+    "concepts": [
+      {
+        "c": 2,
+        "topic": "정수 금액과 오버플로"
+      },
+      {
+        "c": 3,
+        "topic": "검증·조건·오류 분기"
+      },
+      {
+        "c": 5,
+        "topic": "함수 계약·테스트"
+      },
+      {
+        "c": 6,
+        "topic": "문자열·파싱"
+      },
+      {
+        "c": 8,
+        "topic": "데이터 구조·캡슐화"
+      },
+      {
+        "c": 10,
+        "topic": "연관 컨테이너·정렬"
+      },
+      {
+        "c": 11,
+        "topic": "파일 처리·안전한 저장"
+      }
+    ],
+    "sample": {
+      "in": "orders.csv\nA01,10000\n\nevents.csv\nE01,A01,PAY,7000\nE02,A01,REFUND,2000\nE01,A01,PAY,7000",
+      "out": "settlement.csv\nA01,10000,5000,5000\n\nrejected.csv\nevents.csv,3,DUPLICATE_EVENT"
+    }
+  }
+];
+const quiz=[{"id":"Q-01","kind":"mcq","chapter":1,"q":"C++20 표준 출력과 관련된 설명 중 **가장 올바른 것**을 고르시오.","choices":["`std::cout << std::format(\"{}\", \"Hello\");`를 출력하려면 `<iostream>`과 `<format>` 헤더가 필요하다.","`std::println(\"Hello\");`는 C++20 표준에 포함되어 있으므로 `<iostream>` 없이 바로 사용할 수 있다.","`using namespace std;`를 선언하면 `cout.print(\"Hello\");` 형태로 출력할 수 있다.","표준 출력 스트림 객체는 전역 객체이므로 별도의 헤더 없이 `std::cout`을 바로 사용할 수 있다."],"correct":0,"why":"**정답 설명:** C++20의 `std::format`은 `<format>`에 선언되어 있고, `std::cout`은 `<iostream>`에 선언되어 있습니다. 형식화된 문자열을 출력할 때 두 헤더를 명시적으로 포함하는 것이 올바릅니다.","wrong":[{"n":2,"title":"C++20과 C++23 표준 혼동","body":"`std::println`과 `<print>`는 C++23부터 제공됩니다. C++20의 표준 출력 기능으로 간주할 수 없습니다."},{"n":3,"title":"존재하지 않는 멤버 함수","body":"`std::cout`에는 `.print()` 멤버 함수가 없습니다. `using namespace std;`를 사용하더라도 새로운 멤버 함수가 생기지 않습니다."},{"n":4,"title":"헤더 선언과 객체의 수명 혼동","body":"`std::cout`이 전역 스트림 객체라는 사실과, 소스에서 해당 이름을 사용하기 위한 선언은 별개입니다. `<iostream>`을 직접 포함해야 합니다."}]},{"id":"Q-02","kind":"mcq","chapter":2,"q":"다음 코드에서 일어나는 일은 무엇입니까?","choices":["`value`는 `3`이 됩니다.","`value`는 `4`가 됩니다.","축소 변환(Narrowing Conversion) 때문에 컴파일 오류가 발생합니다.","실행할 때만 오류가 발생합니다."],"correct":2,"why":"**중괄호 초기화(Brace Initialization)** 는 실수에서 정수로의 축소 변환처럼 값이 손실될 수 있는 초기화를 허용하지 않습니다. 따라서 `int value{3.5};`는 컴파일되지 않습니다. 반면 `int value(3.5);`는 변환을 허용해 정수 `3`을 저장합니다.","wrong":[{"n":1,"title":"암묵적 변환과 중괄호 초기화 혼동","body":"다른 초기화 방식에서 `3.5`가 `3`으로 변환될 수 있지만, 중괄호 초기화는 이 축소 변환을 거부합니다."},{"n":2,"title":"반올림 혼동","body":"실수에서 정수로 변환할 때 자동 반올림하여 `4`가 되는 것은 아닙니다."},{"n":4,"title":"오류 발생 시점","body":"이 코드는 실행 시점이 아니라 컴파일 시점에 진단됩니다."}],"code":"int value{3.5};"},{"id":"Q-03","kind":"mcq","chapter":3,"q":"`x`가 `0`일 때, 다음 조건식의 동작은 무엇입니까?","choices":["`0`으로 나누기 연산이 실행되어 오류가 발생합니다.","오른쪽 항을 평가하지 않고 전체 결과가 `false`가 됩니다.","조건식은 `true`가 됩니다.","조건식의 문법이 잘못되어 컴파일되지 않습니다."],"correct":1,"why":"논리 AND 연산자 `&&`는 **단락 평가(Short-circuit Evaluation)** 를 수행합니다. 왼쪽 조건 `x != 0`이 `false`이므로 오른쪽 `10 / x > 2`는 평가하지 않습니다. 따라서 0으로 나누기 연산은 실행되지 않습니다.","wrong":[{"n":1,"title":"단락 평가 누락","body":"오른쪽 식은 실행되지 않으므로 0으로 나누지 않습니다."},{"n":3,"title":"논리 AND의 결과 판단 오류","body":"`&&`는 왼쪽 항이 거짓이면 전체 결과도 거짓입니다."},{"n":4,"title":"실행 시 평가와 문법의 혼동","body":"`x`가 정수로 선언되어 있다면 식 자체는 올바른 C++ 표현식입니다."}],"code":"x != 0 && 10 / x > 2"},{"id":"Q-04","kind":"mcq","chapter":4,"q":"다음 반복문의 출력 결과는 무엇입니까?","choices":["`123`","`012`","`01`","`0123`"],"correct":1,"why":"`i`는 `0`부터 시작하여 `0`, `1`, `2`일 때만 반복문 본문을 실행합니다. `i`가 `3`이 되는 순간 `i < 3`이 거짓이므로 종료됩니다. 따라서 공백 없이 `012`가 출력됩니다.","wrong":[{"n":1,"title":"시작값 누락","body":"`i`의 초깃값은 `1`이 아니라 `0`입니다."},{"n":3,"title":"반복 종료 시점 오해","body":"`i == 2`인 반복도 `i < 3`을 만족합니다."},{"n":4,"title":"끝값 포함 착각","body":"`i == 3`에서는 조건이 거짓이므로 `3`은 출력되지 않습니다."}],"code":"for (int i = 0; i < 3; ++i) {\n    std::cout << i;\n}"},{"id":"Q-05","kind":"mcq","chapter":5,"q":"함수 내부에서 호출자(Caller)의 정수 변수 값을 **직접 변경**하려면 어떤 매개변수가 가장 적절합니까?","choices":["`int value`","`const int& value`","`int& value`","`const int value`"],"correct":2,"why":"`int&`는 호출자의 원본 정수에 대한 **참조 전달(Pass by Reference)** 입니다. 이 참조로 값을 변경하면 호출자의 변수에도 반영됩니다.","wrong":[{"n":1,"title":"값 전달","body":"매개변수가 복사본이므로 함수 내부의 수정이 원본에 반영되지 않습니다."},{"n":2,"title":"읽기 전용 참조","body":"`const int&`는 원본을 참조하지만 참조를 통한 수정은 금지됩니다."},{"n":4,"title":"상수 복사본","body":"`const int`는 복사된 값을 함수 안에서도 수정할 수 없게 합니다."}]},{"id":"Q-06","kind":"mcq","chapter":6,"q":"`std::vector<int> v{1, 2, 3};`에 대한 설명 중 **가장 옳은 것**은 무엇입니까?","choices":["`v[3]`은 안전하게 `0`을 반환합니다.","`v.at(3)`은 범위를 검사한 뒤 예외(`std::out_of_range`)를 던집니다.","`v[3]`은 유효하지 않은 인덱스이므로 항상 컴파일 오류를 발생시킵니다.","`v.at(3)`은 범위를 벗어나면 자동으로 새 요소를 추가합니다."],"correct":1,"why":"`std::vector`의 유효 인덱스는 `0`, `1`, `2`입니다. `at()`은 인덱스를 검사하고 범위 밖이면 `std::out_of_range` 예외를 던집니다. 반면 `operator[]`는 범위를 검사하지 않으며, 이 경우 접근하면 **미정의 동작(Undefined Behavior, UB)** 입니다.","wrong":[{"n":1,"title":"범위 밖 접근","body":"`v[3]`으로 존재하지 않는 요소를 읽는 동작은 보장되지 않습니다."},{"n":3,"title":"컴파일 오류와 런타임 오류 구별","body":"`v[3]`은 문법상 유효하며 컴파일러가 반드시 잡아주지 않습니다."},{"n":4,"title":"컨테이너 인터페이스 혼동","body":"`at()`은 접근 함수이고, 요소 추가는 `push_back()` 또는 `emplace_back()` 등의 역할입니다."}]},{"id":"Q-07","kind":"mcq","chapter":7,"q":"함수 내부 지역 변수(Local Variable)의 참조(Reference)를 반환한 뒤 호출자가 그 참조로 값에 접근하면 어떤 문제가 발생할 수 있습니까?","choices":["항상 자동으로 깊은 복사(Deep Copy)가 이루어집니다.","지역 변수의 수명이 끝나 댕글링 참조(Dangling Reference)가 되며, 이를 사용하면 미정의 동작이 발생할 수 있습니다.","컴파일러가 반드시 문법 오류로 거부합니다.","`std::string` 타입에서만 안전하게 작동합니다."],"correct":1,"why":"일반 지역 객체는 함수 종료 시 수명이 끝납니다. 그 객체를 가리키는 참조를 반환하면 **댕글링 참조(Dangling Reference)** 가 되며, 수명이 끝난 객체에 접근하는 것은 미정의 동작입니다. 컴파일러 경고가 나오더라도 항상 오류로 차단되는 것은 아닙니다.","wrong":[{"n":1,"title":"참조와 복사 혼동","body":"참조 반환은 값을 복사하지 않습니다."},{"n":3,"title":"컴파일러 진단 보장 오해","body":"진단이 가능해도 컴파일 오류로 반드시 거부된다는 보장은 없습니다."},{"n":4,"title":"자료형에 따른 안전성 착각","body":"지역 객체 수명이 끝나는 문제는 문자열에만 한정되지 않습니다."}]},{"id":"Q-08","kind":"mcq","chapter":8,"q":"클래스가 수량(Quantity)을 항상 `0` 이상으로 유지해야 할 때 가장 알맞은 설계는 무엇입니까?","choices":["수량 멤버를 `public`으로 두어 외부에서 자유롭게 수정하게 합니다.","수량 멤버를 `private`으로 보호하고, 생성과 수정 과정에서 유효 범위를 검사합니다.","출력할 때만 음수를 `0`으로 바꿔 보여줍니다.","음수를 그대로 저장하고 문제가 발생하면 나중에 처리합니다."],"correct":1,"why":"**캡슐화(Encapsulation)** 는 내부 상태에 대한 무분별한 접근을 제한합니다. 생성자와 상태 변경 함수에서 조건을 검사해 **불변 조건(Invariant)** 인 `quantity >= 0`을 계속 만족하도록 만드는 것이 핵심입니다.","wrong":[{"n":1,"title":"무제한 외부 수정","body":"외부에서 음수를 직접 대입할 수 있어 불변 조건을 유지할 수 없습니다."},{"n":3,"title":"표시와 상태 혼동","body":"화면에서만 값을 고쳐 보여도 객체 내부에는 잘못된 상태가 남습니다."},{"n":4,"title":"검증 책임 지연","body":"객체는 유효하지 않은 값을 받아들이지 않도록 상태 변경 시점에 검증해야 합니다."}]},{"id":"Q-09","kind":"mcq","chapter":9,"q":"기본 클래스(Base Class)의 포인터나 참조로 파생 클래스(Derived Class)에서 재정의한 함수를 동적으로 호출하려면 기본 클래스의 해당 함수가 무엇이어야 합니까?","choices":["`static`","`virtual`","`explicit`","`friend`"],"correct":1,"why":"기본 클래스의 멤버 함수를 `virtual`로 선언하면 실제 객체 타입에 따라 재정의된 함수가 호출되는 **동적 디스패치(Dynamic Dispatch)** 가 가능합니다. 파생 클래스 쪽에는 `override`를 붙여 재정의를 검사하는 것이 좋습니다.","wrong":[{"n":1,"title":"정적 멤버 혼동","body":"`static` 멤버 함수는 가상 함수가 될 수 없습니다."},{"n":3,"title":"명시적 변환 키워드","body":"`explicit`은 생성자나 변환 함수의 암묵적 변환을 제어하는 데 사용합니다."},{"n":4,"title":"접근 권한 키워드","body":"`friend`는 지정한 함수나 클래스에 접근 권한을 부여합니다."}]},{"id":"Q-10","kind":"mcq","chapter":10,"q":"다음 중 **키(Key)를 기준으로 오름차순 정렬된 상태를 유지**하며 요소를 순회해야 할 때 가장 적절한 C++ STL 컨테이너는 무엇입니까?","choices":["`std::unordered_map`","`std::vector`만 가능","`std::map`","`std::stack`"],"correct":2,"why":"`std::map`은 기본 비교자인 `std::less`를 사용해 키의 오름차순으로 요소를 유지하고 순회합니다. 일반적으로 균형 이진 탐색 트리로 구현되지만 구체적인 트리 종류까지 표준에서 강제하지는 않습니다.","wrong":[{"n":1,"title":"해시 컨테이너의 순서 보장 착각","body":"`std::unordered_map`은 순회 순서를 정렬된 상태로 보장하지 않습니다."},{"n":2,"title":"정렬 유지 기능 혼동","body":"`std::vector`로도 정렬된 결과를 만들 수 있지만 삽입 때마다 정렬을 유지하려면 추가 처리가 필요합니다."},{"n":4,"title":"컨테이너 어댑터의 목적","body":"`std::stack`은 가장 나중에 넣은 요소부터 꺼내는 구조이며 키 기반 정렬 순회용이 아닙니다."}]},{"id":"Q-11","kind":"mcq","chapter":10,"q":"정렬 기준(키)이 동일한 항목들의 **원래 순서(상대적 순서)가 정렬 후에도 그대로 유지**되어야 할 때 사용할 수 있는 C++ 표준 알고리즘은 무엇입니까?","choices":["`std::sort`","`std::stable_sort`","`std::reverse`","`std::find`"],"correct":1,"why":"`std::stable_sort`는 비교 기준상 동등한 항목끼리의 **상대적 순서**를 보존하는 안정 정렬(Stable Sort)을 제공합니다. 일반 `std::sort`는 그 순서를 보존한다고 보장하지 않습니다.","wrong":[{"n":1,"title":"일반 정렬의 안정성 착각","body":"`std::sort`는 키가 같은 요소의 상대적 순서를 유지할 의무가 없습니다."},{"n":3,"title":"정렬과 뒤집기 혼동","body":"`std::reverse`는 구간의 순서를 뒤집을 뿐 키로 정렬하지 않습니다."},{"n":4,"title":"탐색 알고리즘","body":"`std::find`는 일치하는 항목을 찾는 알고리즘이지 정렬 알고리즘이 아닙니다."}]},{"id":"Q-12","kind":"mcq","chapter":11,"q":"CSV 데이터에서 `\"상품, 파랑\",300`처럼 따옴표 안에 쉼표가 있는 필드를 **쉼표(`,`)만 기준으로 분리**하면 어떤 문제가 발생합니까?","choices":["문제 없이 정확히 두 필드로 분리됩니다.","따옴표 안의 쉼표까지 구분자로 오해하여 데이터가 잘못 나뉩니다.","파싱할 때 항상 빈 문자열만 반환합니다.","C++20에서는 CSV 파일을 읽을 수 없습니다."],"correct":1,"why":"CSV의 인용 필드 안에 있는 쉼표는 필드 내용의 일부입니다. 문자 `,`만 기준으로 분리하면 레코드 구조가 깨질 수 있으므로 **인용 상태(Quoted Field)** 를 추적해야 합니다.","wrong":[{"n":1,"title":"인용 필드 무시","body":"쉼표만으로 분리하면 `\"상품`과 ` 파랑\"`이 다른 필드가 됩니다."},{"n":3,"title":"파서 동작 일반화","body":"잘못 분리되는 것이지 항상 빈 문자열을 반환하는 것은 아닙니다."},{"n":4,"title":"언어 표준과 파일 포맷 혼동","body":"C++20에서도 파일을 읽고 CSV 규칙을 구현할 수 있습니다."}]},{"id":"Q-13","kind":"written","chapter":2,"q":"C++에서 **정수 나눗셈과 실수 나눗셈**의 차이를 설명하고, 숫자 `5`와 `2`를 피연산자로 사용하여 각각 결과값 `2`와 `2.5`를 얻는 코드를 작성하시오. (C++20 기준)","why":"두 피연산자가 정수이면 정수 나눗셈이 수행되어 0 방향으로 소수 부분을 버립니다. 적어도 한 피연산자가 부동소수점 타입이면 실수 나눗셈이 이루어집니다. `5 / 2`는 `2`, `static_cast<double>(5) / 2` 또는 `5.0 / 2`는 `2.5`입니다.","modelCode":"#include <iostream>\n\nint main() {\n    // 정수 나눗셈: 2\n    int result_int = 5 / 2;\n\n    // 실수 나눗셈: 2.5\n    double result_double = static_cast<double>(5) / 2;\n\n    std::cout << \"정수 나눗셈: \" << result_int << \"\\n\";\n    std::cout << \"실수 나눗셈: \" << result_double << \"\\n\";\n    return 0;\n}","modelOutput":"정수 나눗셈: 2\n실수 나눗셈: 2.5"},{"id":"Q-14","kind":"written","chapter":4,"q":"반복문에서 `i < count`와 `i <= count`의 반복 횟수 차이를 설명하시오. (`count = 3`, `i = 0`에서 시작)","why":"`i < count`는 `0`, `1`, `2`에서 3회 반복합니다. `i <= count`는 `3`까지 포함해 4회 반복합니다. 범위를 하나 더 순회하는 **오프바이원(Off-by-one) 오류**를 피하도록 조건을 확인해야 합니다.","modelCode":"#include <iostream>\n\nint main() {\n    int count = 3;\n    for (int i = 0; i < count; ++i) std::cout << i;\n    std::cout << \"\\n\";\n    for (int i = 0; i <= count; ++i) std::cout << i;\n    std::cout << \"\\n\";\n}","modelOutput":"012\n0123"},{"id":"Q-15","kind":"written","chapter":5,"q":"함수가 기존 객체를 **조회만 하는 경우**와 **원본을 수정하는 경우**, 매개변수로 `const T&`와 `T&`를 각각 사용하는 이유를 설명하시오.","why":"`const T&`는 원본을 복사하지 않고 읽기 전용으로 참조합니다. `T&`는 원본을 수정해야 할 때 사용합니다. 특히 큰 객체에서 복사 비용을 줄일 수 있지만, `int`처럼 작은 타입은 값 전달도 충분히 적절합니다. 클래스 내부의 변경 가능한 멤버 참조를 외부에 그대로 반환하면 불변 조건이 깨질 수 있으므로 주의해야 합니다.","modelCode":"#include <iostream>\n#include <vector>\n\nint sum(const std::vector<int>& values) {\n    int total = 0;\n    for (int value : values) total += value;\n    return total;\n}\n\nvoid add(std::vector<int>& values, int value) {\n    values.push_back(value);\n}\n\nint main() {\n    std::vector<int> values{1, 2};\n    add(values, 3);\n    std::cout << sum(values) << \"\\n\";\n}","modelOutput":"6"},{"id":"Q-16","kind":"written","chapter":7,"q":"`std::vector`에 `push_back()`을 호출한 뒤 기존 원소를 가리키던 포인터나 참조가 **무효화될 수 있는 이유**를 설명하시오.","why":"새 요소를 저장할 용량이 부족하면 `std::vector`가 더 큰 저장 공간을 확보하고 기존 요소를 옮기는 **재할당(Reallocation)** 을 수행합니다. 그 경우 기존 요소를 가리키던 포인터·참조·반복자는 모두 무효화됩니다. 재할당이 일어나지 않으면 기존 요소에 대한 참조는 유지되지만, 이전의 `end()` 반복자는 무효화됩니다.","modelCode":"#include <iostream>\n#include <vector>\n\nint main() {\n    std::vector<int> values{10, 20, 30};\n    int* first = &values[0];\n    auto old_capacity = values.capacity();\n\n    values.push_back(40);\n    if (values.capacity() != old_capacity) {\n        first = &values[0];  // 다시 주소 획득\n    }\n    std::cout << *first << \"\\n\";\n}","modelOutput":"10"},{"id":"Q-17","kind":"written","chapter":8,"q":"`struct`와 `class`의 기본 접근 지정자(Access Specifier) 차이를 설명하고, 어떤 기준으로 나누어 사용하는지 예를 들어 서술하시오.","why":"`struct`의 기본 멤버 접근은 `public`, `class`의 기본 멤버 접근은 `private`입니다. 기능상 큰 차이는 없지만 단순 데이터 묶음에는 `struct`, 상태 변경 규칙과 불변 조건을 보호해야 하는 타입에는 `class`가 자주 사용됩니다.","modelCode":"#include <iostream>\n\nstruct Position {\n    int x{0};\n    int y{0};\n};\n\nclass Counter {\npublic:\n    void add() { ++count_; }\n    int value() const { return count_; }\nprivate:\n    int count_{0};\n};\n\nint main() {\n    Position p{2, 3};\n    Counter c;\n    c.add();\n    std::cout << p.x << \",\" << p.y << \" / \" << c.value() << \"\\n\";\n}","modelOutput":"2,3 / 1"},{"id":"Q-18","kind":"written","chapter":9,"q":"다형적 기본 클래스(Polymorphic Base Class)의 포인터를 통해 파생 객체를 삭제할 때 **가상 소멸자(Virtual Destructor)** 가 필요한 이유를 설명하시오.","why":"일반적으로 파생 객체를 기본 클래스 포인터로 `delete`할 때 기본 클래스 소멸자가 가상이 아니면 **미정의 동작(Undefined Behavior)** 이 발생합니다. 따라서 단순히 파생 클래스 소멸자가 빠지거나 메모리 누수가 발생하는 것으로만 설명하면 불충분합니다. 가상 소멸자를 선언하면 파생 객체와 기본 부분의 소멸이 올바르게 이루어집니다.","modelCode":"#include <iostream>\n#include <memory>\n\nstruct Base {\n    virtual ~Base() { std::cout << \"Base\\n\"; }\n};\n\nstruct Derived : Base {\n    ~Derived() override { std::cout << \"Derived\\n\"; }\n};\n\nint main() {\n    std::unique_ptr<Base> p = std::make_unique<Derived>();\n}","modelOutput":"Derived\nBase"},{"id":"Q-19","kind":"written","chapter":10,"q":"코드별 발생 횟수를 집계하면서 결과는 **코드 오름차순**으로 출력해야 합니다. 적절한 STL 컨테이너를 선택하고 이유를 설명하시오.","why":"`std::map<std::string, int>`는 키가 정렬된 순서로 유지되므로 별도 정렬 없이 순회할 수 있습니다. 삽입·검색·수정은 일반적으로 `O(log N)`입니다. `std::unordered_map`을 사용해 평균적으로 빠르게 집계한 뒤 키를 별도 정렬하는 대안도 가능합니다.","modelCode":"#include <iostream>\n#include <map>\n#include <string>\n#include <vector>\n\nint main() {\n    std::vector<std::string> codes{\"C02\", \"C01\", \"C02\"};\n    std::map<std::string, int> counts;\n    for (const auto& code : codes) ++counts[code];\n    for (const auto& [code, count] : counts) {\n        std::cout << code << \" \" << count << \"\\n\";\n    }\n}","modelOutput":"C01 1\nC02 2"},{"id":"Q-20","kind":"written","chapter":11,"q":"기존 결과 파일을 갱신하는 보고서 프로그램에서 **중간 실패로 이전 정상 결과가 손상되는 것을 방지할 방법**을 설명하시오.","why":"원본에 바로 기록하지 말고 같은 파일시스템의 임시 파일에 결과를 모두 작성합니다. 스트림 쓰기·닫기 오류를 확인한 뒤 최종 경로로 교체합니다. 이때 `std::filesystem::rename`의 기존 대상 교체 가능 여부와 원자성은 운영체제·파일시스템 조건을 확인해야 합니다. 특히 Windows에서는 대상 파일이 이미 있거나 열려 있을 때 교체가 실패할 수 있으므로, 오류 처리와 복구 정책을 별도로 설계해야 합니다. 단순히 파일 이름을 바꿨다고 전원 차단까지 포함한 완전한 내구성이 보장되는 것은 아닙니다.","modelCode":"#include <filesystem>\n#include <fstream>\n#include <iostream>\n#include <system_error>\n\nint main() {\n    const std::filesystem::path temp = \"report.tmp\";\n    const std::filesystem::path target = \"report.txt\";\n\n    {\n        std::ofstream out(temp, std::ios::trunc);\n        if (!out) return 1;\n        out << \"REPORT OK\\n\";\n        out.flush();\n        if (!out) return 1;\n        out.close();\n        if (!out) return 1;\n    }\n\n    std::error_code ec;\n    std::filesystem::rename(temp, target, ec);\n    if (ec) {\n        std::cerr << \"교체 실패: \" << ec.message() << \"\\n\";\n        return 1;\n    }\n    std::cout << \"저장 완료\\n\";\n}"}];
+
+
+const problemSpecs = {
+  "B-01": {
+    "input": "한 줄에 상품 무게 `W`(g)와 배송 유형 `E`가 공백으로 구분되어 주어집니다.",
+    "output": "최종 배송비를 원 단위 정수로 출력합니다. 입력이 유효하지 않으면 `INVALID`를 출력합니다.",
+    "constraints": [
+      "1 ≤ W ≤ 20,000",
+      "E ∈ {0, 1}",
+      "추가 요금은 500g 단위 올림"
+    ],
+    "sampleIn": "1200 1",
+    "sampleOut": "5500",
+    "note": "초과 무게가 1g만 발생하더라도 추가 요금 500원이 부과됩니다."
+  },
+  "B-02": {
+    "input": "한 줄에 입차 시각과 출차 시각이 `HH:MM HH:MM` 형식으로 주어집니다.",
+    "output": "주차 요금을 원 단위 정수로 출력합니다. 시각이 유효하지 않거나 출차 시각이 늦지 않으면 `INVALID`를 출력합니다.",
+    "constraints": [
+      "00:00~23:59",
+      "당일 출차만 허용",
+      "추가 요금은 10분 단위 올림"
+    ],
+    "sampleIn": "09:00 09:31",
+    "sampleOut": "1500",
+    "note": "시각을 분 단위 정수로 변환하면 주차 시간과 추가 요금을 계산하기 편리합니다."
+  },
+  "B-03": {
+    "input": "첫째 줄에 학생 수 `N`, 둘째 줄에 `N`개의 점수가 공백으로 구분되어 주어집니다.",
+    "output": "`MIN`, `MAX`, `AVG`를 각각 한 줄에 출력합니다. 평균은 소수 첫째 자리까지 표시하며, 잘못된 입력은 `INVALID`로 처리합니다.",
+    "constraints": [
+      "1 ≤ N ≤ 100",
+      "0 ≤ 점수 ≤ 100",
+      "평균은 소수 첫째 자리"
+    ],
+    "sampleIn": "4\n60 100 80 60",
+    "sampleOut": "MIN 60\nMAX 100\nAVG 75.0",
+    "note": "평균을 구할 때는 정수 나눗셈으로 소수 부분이 사라지지 않도록 주의하세요."
+  },
+  "B-04": {
+    "input": "첫째 줄에 상품 수 `N`, 다음 `N`줄에 `코드 가격 재고`가 주어집니다. 마지막 줄에는 검색할 상품 코드가 주어집니다.",
+    "output": "일치하는 상품을 찾으면 `코드 가격 재고`를 한 줄에 출력합니다. 찾지 못하면 `NOT_FOUND`를 출력합니다.",
+    "constraints": [
+      "0 ≤ N ≤ 100",
+      "상품 코드는 공백 없는 문자열",
+      "코드 일치 시 대소문자 구분"
+    ],
+    "sampleIn": "3\nP01 1200 4\nP02 700 0\nP03 2000 9\nP02",
+    "sampleOut": "P02 700 0",
+    "note": "상품의 재고가 0이어도 등록된 상품이라면 검색 결과에 포함됩니다."
+  },
+  "B-05": {
+    "input": "첫째 줄에 도서 제목(공백 없음)과 전체 보유 수량 `T`, 둘째 줄에 명령 수 `N`이 주어집니다. 다음 `N`줄에는 `BORROW` 또는 `RETURN`이 한 줄씩 주어집니다.",
+    "output": "각 명령을 처리한 뒤 `OK 남은수량` 또는 `FAIL 남은수량`을 한 줄씩 출력합니다.",
+    "constraints": [
+      "0 ≤ T ≤ 1,000",
+      "0 ≤ N ≤ 1,000",
+      "대출 수량은 음수가 될 수 없음"
+    ],
+    "sampleIn": "Demo 1\n4\nBORROW\nBORROW\nRETURN\nRETURN",
+    "sampleOut": "OK 0\nFAIL 0\nOK 1\nFAIL 1",
+    "note": "대출이나 반납에 실패해도 이후 명령은 계속 처리합니다. 실패한 명령은 남은 수량에 영향을 주지 않습니다."
+  },
+  "B-06": {
+    "input": "표준 입력으로 로그 파일 경로를 한 줄 받습니다. 파일의 각 행은 `LEVEL|메시지` 형식입니다.",
+    "output": "`INFO`, `WARN`, `ERROR`, `INVALID` 건수를 이 순서대로 한 줄씩 출력합니다. 파일을 열 수 없으면 `OPEN_ERROR`를 출력합니다.",
+    "constraints": [
+      "레벨: INFO / WARN / ERROR",
+      "기타 레벨·구분자 누락은 INVALID",
+      "빈 파일 허용"
+    ],
+    "sampleIn": "표준 입력: events.log\n\n[events.log]\nINFO|boot\nWARN|retry\nERROR|disk\nTRACE|unexpected\ninvalid-line",
+    "sampleOut": "INFO 1\nWARN 1\nERROR 1\nINVALID 2",
+    "note": "입출력 예시에 표시된 `[events.log]`는 파일 내용을 구분하기 위한 제목이며, 실제 로그 파일에 포함되지 않습니다."
+  },
+  "A-01": {
+    "input": "한 줄에 원금 `P`(원)와 환불 비율 `R`(%)이 주어집니다.",
+    "output": "환불액을 원 단위 정수로 출력합니다. 범위를 벗어난 입력에는 `INVALID`를 출력합니다.",
+    "constraints": [
+      "0 ≤ P ≤ 1,000,000,000",
+      "0 ≤ R ≤ 100",
+      "0.5원 이상은 올림"
+    ],
+    "sampleIn": "1999 15",
+    "sampleOut": "300",
+    "note": "결과가 작은 수이더라도 중간 계산값은 더 클 수 있습니다. 자료형은 최종 결과뿐 아니라 계산 과정까지 고려해 선택하세요."
+  },
+  "A-02": {
+    "input": "첫째 줄에 초기 재고 `S`와 명령 수 `N`이 주어집니다. 다음 `N`줄에는 `SELL 수량` 또는 `RESTOCK 수량`이 주어집니다.",
+    "output": "각 명령의 처리 결과와 처리 후 재고를 `OK 수량` 또는 `FAIL 수량` 형식으로 출력합니다.",
+    "constraints": [
+      "0 ≤ S ≤ 100,000",
+      "1 ≤ 명령 수량 ≤ 100,000",
+      "재고는 0 이상 유지"
+    ],
+    "sampleIn": "10 3\nSELL 4\nSELL 8\nRESTOCK 2",
+    "sampleOut": "OK 6\nFAIL 6\nOK 8",
+    "note": "검증에 실패한 명령은 재고를 바꾸지 않습니다. 값을 복사해 전달하는 방식과 참조 전달의 차이도 확인하세요."
+  },
+  "A-03": {
+    "input": "첫째 줄에 작업 수 `N`, 다음 `N`줄에 작업 ID와 우선순위가 주어집니다.",
+    "output": "정렬된 처리 순서에 따라 작업 ID를 한 줄에 하나씩 출력합니다.",
+    "constraints": [
+      "1 ≤ N ≤ 1,000",
+      "우선순위: 0~10",
+      "같은 우선순위는 먼저 접수된 작업 우선"
+    ],
+    "sampleIn": "4\nT1 2\nT2 5\nT3 2\nT4 5",
+    "sampleOut": "T2\nT4\nT1\nT3",
+    "note": "`std::sort`는 비교 결과가 같은 작업의 원래 순서를 보장하지 않습니다. 동점 처리 조건을 확인하세요."
+  },
+  "A-04": {
+    "input": "첫째 줄에 방문 기록 수 `N`, 다음 `N`줄에 고객 코드가 한 개씩 주어집니다.",
+    "output": "고객 코드 오름차순으로 `코드 방문횟수`를 한 줄씩 출력합니다.",
+    "constraints": [
+      "0 ≤ N ≤ 100,000",
+      "고객 코드: 공백 없는 문자열",
+      "출력 순서: 코드 오름차순"
+    ],
+    "sampleIn": "5\nC02\nC01\nC02\nC03\nC01",
+    "sampleOut": "C01 2\nC02 2\nC03 1",
+    "note": "`std::unordered_map`은 순회 순서를 보장하지 않습니다. 이를 사용했다면 출력 전에 별도 정렬이 필요합니다."
+  },
+  "A-05": {
+    "input": "표준 입력으로 CSV 파일 경로를 받습니다. 파일은 헤더 없이 `상품명,가격` 형식으로 구성됩니다. 인용 필드 안의 쉼표와 연속된 큰따옴표를 지원하지만, 필드 안의 줄바꿈은 다루지 않습니다.",
+    "output": "정상 행은 `상품명|가격`, 오류 행은 `ERROR 행번호 오류코드` 형식으로 한 줄씩 출력합니다.",
+    "constraints": [
+      "한 물리적 줄 = 한 레코드",
+      "0 ≤ 가격 ≤ 1,000,000",
+      "닫히지 않은 인용 필드 거부"
+    ],
+    "sampleIn": "표준 입력: products.csv\n\n[products.csv]\n\"Pencil, Blue\",300\n\"He said \"\"Hi\"\"\",500\n\"Broken,200",
+    "sampleOut": "Pencil, Blue|300\nHe said \"Hi\"|500\nERROR 3 UNCLOSED_QUOTE",
+    "note": "이 문제에서는 제시된 CSV 규칙만 처리하면 됩니다. 필드 안의 줄바꿈 등 다른 CSV 형식은 고려하지 않습니다."
+  },
+  "C-01": {
+    "input": "`capacity.txt`에는 참가 정원 `C`가 저장되어 있습니다. `registrations.csv`에는 신청자의 이름과 이메일이 기록되어 있으며, 첫 줄의 헤더는 없습니다.",
+    "output": "처리 결과를 `accepted.csv`, `waitlist.csv`, `rejected.csv`에 각각 저장합니다. 표준 출력에는 참가 확정(`ACCEPTED`), 대기(`WAITLIST`), 거부(`REJECTED`) 건수를 출력합니다.",
+    "constraints": [
+      "0 ≤ C ≤ 1,000",
+      "동일 이메일은 첫 번째 유효 신청만 인정",
+      "이메일: @ 1개, 양옆 비어 있지 않음, 공백 없음"
+    ],
+    "sampleIn": "[capacity.txt]\n2\n\n[registrations.csv]\nMina,mina@demo.com\nJun,jun@demo.com\nMina Again,mina@demo.com\nHana,hana@demo.com\n,none@demo.com",
+    "sampleOut": "ACCEPTED 2\nWAITLIST 1\nREJECTED 2\n\n[rejected.csv]\n3,DUPLICATE\n5,MISSING_FIELD",
+    "note": "이메일은 과제에서 정한 간단한 형식만 검사하며, 국제 표준을 따르는 완전한 이메일 주소 검증은 요구하지 않습니다."
+  },
+  "C-02": {
+    "input": "`readings.csv`에는 헤더 없이 `장치 ID,순번,측정값`이 한 줄씩 저장되어 있습니다.",
+    "output": "`devices.csv`에는 `장치 ID,유효 기록 수,마지막 측정값,상태`를 기록합니다. `rejected.csv`에는 `원본 행 번호,오류 코드`를 저장합니다.",
+    "constraints": [
+      "장치 ID는 공백 없는 문자열",
+      "순번: 양의 정수",
+      "측정값: 0~100",
+      "마지막 값 ≥ 80 → WARN"
+    ],
+    "sampleIn": "[readings.csv]\nA01,1,72\nB02,1,86\nA01,2,83\nA01,2,50\nB02,0,81",
+    "sampleOut": "[devices.csv]\nA01,2,83,WARN\nB02,1,86,WARN\n\n[rejected.csv]\n4,BAD_SEQUENCE\n5,BAD_SEQUENCE",
+    "note": "순번은 장치마다 따로 관리합니다. 한 장치에서 거부된 기록이 다른 장치의 판단에 영향을 주어서는 안 됩니다."
+  },
+  "C-03": {
+    "input": "`stock.csv`에는 `상품 ID,초기 재고`, `events.csv`에는 `거래 ID,상품 ID,유형(IN/OUT),수량`이 한 줄씩 저장됩니다.",
+    "output": "`inventory.csv`에는 상품별 최종 재고를 저장합니다. `rejected.csv`에는 거부된 거래의 `원본 행 번호,오류 코드`를 기록합니다.",
+    "constraints": [
+      "거래 순서 유지",
+      "정상 승인된 거래 ID 재등장 시 중복",
+      "거부 거래는 상태를 변경하지 않음"
+    ],
+    "sampleIn": "[stock.csv]\nP01,5\n\n[events.csv]\nE01,P01,OUT,3\nE02,P01,OUT,4\nE01,P01,OUT,3",
+    "sampleOut": "[inventory.csv]\nP01,2\n\n[rejected.csv]\n2,INSUFFICIENT_STOCK\n3,DUPLICATE_EVENT",
+    "note": "거부된 거래는 재고를 변경하지 않으며, 해당 거래 ID도 사용한 것으로 처리하지 않습니다."
+  },
+  "R-01": {
+    "input": "orders.csv: 주문 ID,주문 금액. events.csv: 이벤트 ID,주문 ID,PAY/REFUND,금액. 두 파일 모두 헤더 없는 UTF-8 텍스트로 제공됩니다.",
+    "output": "settlement.csv(주문 ID,주문 금액,순결제액,미정산액)와 rejected.csv(파일명,원본 행번호,오류코드)를 생성합니다. 전체 합계와 건수도 출력합니다.",
+    "constraints": [
+      "주문 ID 오름차순 결과",
+      "이벤트 순서대로 적용",
+      "원 단위 정수 및 범위 검사",
+      "동일 입력 → 동일 출력"
+    ],
+    "sampleIn": "[orders.csv]\nA01,10000\n\n[events.csv]\nE01,A01,PAY,7000\nE02,A01,REFUND,2000\nE01,A01,PAY,7000",
+    "sampleOut": "[settlement.csv]\nA01,10000,5000,5000\n\n[rejected.csv]\nevents.csv,3,DUPLICATE_EVENT",
+    "note": "기록의 신뢰성을 회복하는 것이 목표입니다. 먼저 정확하게 재현되는 기준 구현을 만들고, 그다음 데이터 크기를 늘려 병목을 측정합니다."
+  }
+};
+const esc = value=>String(value??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');
+const levelLabels={basic:'Basic',advanced:'Advanced',challenge:'Challenge',radiant:'Radiant'};
+let active='GUIDE',filter='all',search='',mode='quiz';
+function matching(){return problems.filter(p=>(filter==='all'||p.level===filter)&&(!search||[p.id,p.title,p.lead,p.scenario,levelLabels[p.level]].join(' ').toLowerCase().includes(search.toLowerCase())))}
+function nav(){const el=document.getElementById('problemNavigation');const guide=`<div class="tierhead"><span>START</span><span>GUIDE</span></div><button type="button" class="side-link ${active==='GUIDE'?'active':''}" data-id="GUIDE"><span class="n">GUIDE</span><span class="t">작성 가이드</span></button>`;el.innerHTML=guide+Object.keys(levelLabels).map(level=>{const items=problems.filter(p=>p.level===level);return `<div class="tierhead"><span>${levelLabels[level].toUpperCase()}</span><span>${items.length}</span></div>${items.map(p=>`<button type="button" class="side-link ${p.id===active?'active':''}" data-id="${p.id}"><span class="n">${esc(p.id)}</span><span class="t">${esc(p.title)}</span></button>`).join('')}`}).join('');el.querySelectorAll('[data-id]').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.id!=='GUIDE'){filter='all';search='';document.getElementById('search').value='';syncFilters();}openProblem(b.dataset.id)}))}
+function renderGuide(){const total=problems.length;document.getElementById('crumb').textContent='Problems · Guide';document.getElementById('pageCounter').textContent=`Guide / ${total}`;document.getElementById('previous').disabled=true;document.getElementById('next').disabled=matching().length===0;document.getElementById('problemHost').innerHTML=`<article class="sheet guide-sheet" id="currentSheet"><div class="sheet-top"></div><div class="sheet-content"><div class="sheet-meta"><span>C++ FUNDAMENTALS · SUMMARY PART 01</span><span class="right">PROBLEM GUIDE</span></div><header class="problem-header"><div class="problem-no"><strong>G</strong><small>GUIDE</small></div><div class="header-titles"><div class="division">Problems — 작성 가이드</div><h2>문제를 읽고 구현하는 방법</h2></div><div class="cpp-mark"><img src="${cppLogoData}" alt="C++ logo"></div></header><div class="summary">지금까지 Chapter 01부터 11까지 학습한 핵심 내용을 유기적으로 연결해 보는 종합 연습 자료입니다. 퀴즈로 개념을 가볍게 점검한 뒤, Basic부터 Radiant 단계까지 차근차근 문제를 풀어보세요.</div><div class="guide-grid"><section class="guide-card"><h3>문제 풀이 단계</h3><ol class="guide-list"><li><strong>상황 및 목표 파악</strong> — 구현해야 하는 최종 결과물과 요구사항을 먼저 정의합니다.</li><li><strong>입출력 설계</strong> — 데이터 형식과 자료형, 적절한 저장 구조를 결정합니다.</li><li><strong>제약 조건 분석</strong> — 예외 상황, 오류 입력, 경계값(Boundary Case)을 따로 메모해 검증 사항을 정리합니다.</li><li><strong>수동 트레이싱</strong> — 예제 입력을 손으로 추적하며 로직을 검증한 뒤 구현을 시작합니다.</li></ol></section><section class="guide-card"><h3>C++ 코드 작성 가이드라인 <span class="guide-en">Coding Standards</span></h3><ul class="guide-list"><li><code>-std=c++20 -Wall -Wextra -Wpedantic</code> 옵션을 적용합니다.</li><li><code>using namespace std;</code> 등 <code>using namespace</code> 지시문은 사용하지 않고, 표준 라이브러리 이름에 <code>std::</code>를 명시합니다.</li><li>출력 형식은 문제에서 제시한 내용과 정확히 일치시킵니다.</li><li>입력값의 유효성을 먼저 확인하고, 검증 실패 시 처리 방식을 명확히 구현합니다.</li></ul></section></div><div class="guide-levels"><strong>Problems 구성</strong><div class="guide-level-chips"><span><b>Basic</b> 기초 구현</span><span><b>Advanced</b> 설계와 판단</span><span><b>Challenge</b> 현실 문제 적용</span><span><b>Radiant</b> 종합 의뢰</span></div></div><div class="guide-tip"><strong>추천 학습 가이드.</strong> 먼저 퀴즈를 통해 핵심 개념을 점검한 뒤 본 문제(Problems)로 진입하는 것을 권장합니다. 특히 본 문제를 풀 때, 공개된 예제 통과에만 만족하지 말고 <strong>의도적인 오류 입력값</strong>이나 <strong>경계값(Boundary Case)</strong>을 직접 구성하여 코드의 견고함을 검증해 보세요.</div></div><footer class="sheet-footer"><div class="footer-inner"><span>SUMMARY PART 01 · PROBLEM GUIDE</span><span>GUIDE</span></div></footer></article>`;nav();}
+
+const implementationGuides = {
+  "A-01": [
+    {
+      "t": "계산에 필요한 자료형",
+      "d": "원금과 비율은 정수로 받되, 중간 곱셈이 `int` 범위를 넘을 수 있는지 확인하세요.",
+      "code": "long long amount = 1999;\nlong long rate = 15;\nlong long scaled = amount * rate;"
+    },
+    {
+      "t": "반올림 처리",
+      "d": "정수 나눗셈을 하기 전 소수 부분을 어떻게 반영할지 생각해 보세요.",
+      "code": "// 반올림 계산 예시\n// (scaled + 50) / 100"
+    },
+    {
+      "t": "경계값 확인",
+      "d": "0%·100%, 최대 원금, 소수 부분이 정확히 0.5원인 경우를 확인하세요."
+    }
+  ],
+  "A-02": [
+    {
+      "t": "값 전달과 참조 전달",
+      "d": "원본 재고를 수정하는 함수에는 참조 매개변수가 필요합니다. 값 전달 방식과 결과를 비교해 보세요.",
+      "code": "bool sell(int& stock, int amount) {\n    if (amount <= 0 || amount > stock) return false;\n    // 조건을 만족할 때만 stock 변경\n    return true;\n}"
+    },
+    {
+      "t": "실패 시 상태 유지",
+      "d": "판매나 입고 명령의 조건을 모두 검사한 뒤 재고를 변경하세요."
+    },
+    {
+      "t": "명령별 결과 비교",
+      "d": "성공·실패한 명령을 이어서 실행하며 원본 재고가 예상대로 유지되는지 확인하세요."
+    }
+  ],
+  "A-04": [
+    {
+      "t": "집계 방법 결정",
+      "d": "고객 코드별 방문 횟수를 저장할 컨테이너를 정하고, 조회 속도와 순회 순서를 함께 고려하세요.",
+      "code": "std::map<std::string, int> visits;\n++visits[\"C02\"];\n++visits[\"C01\"];"
+    },
+    {
+      "t": "출력 순서 점검",
+      "d": "`std::map`은 키 오름차순으로 순회할 수 있지만 `std::unordered_map`은 별도 정렬이 필요합니다."
+    }
+  ],
+  "A-05": [
+    {
+      "t": "인용 상태 구분",
+      "d": "쉼표를 만났을 때 인용 필드 안인지 확인하세요. 인용 필드 안의 쉼표는 데이터를 나누지 않습니다.",
+      "code": "bool inside_quotes = false;\nfor (char ch : line) {\n    if (ch == '\"') {\n        // 인용 상태 확인\n    }\n}"
+    },
+    {
+      "t": "연속된 큰따옴표 처리",
+      "d": "인용 필드 안의 `\"\"`를 문자 하나로 해석하려면 다음 문자도 확인해야 합니다."
+    },
+    {
+      "t": "오류 행 이후의 처리",
+      "d": "잘못된 행에서 오류를 출력하더라도 다음 행의 처리를 중단하지 않도록 작성하세요."
+    }
+  ],
+  "C-01": [
+    {
+      "t": "검증과 중복 확인",
+      "d": "유효하지 않은 신청이 중복 검사에 영향을 주지 않도록, 이메일 형식을 검증한 후 중복 여부를 확인하세요.",
+      "code": "std::unordered_set<std::string> seen;\n// 검증을 통과한 이메일만 seen에 등록"
+    },
+    {
+      "t": "처리 결과 확인",
+      "d": "참가 확정·대기·거부 건수의 합이 원본 신청 기록의 전체 건수와 일치하는지 확인하세요."
+    }
+  ],
+  "C-03": [
+    {
+      "t": "거래 적용 전 검사",
+      "d": "상품 존재 여부, 거래 ID, 수량, 현재 재고를 확인한 뒤 상태를 변경하세요.",
+      "code": "if (quantity > current_stock) {\n    // 거부 처리; 재고는 유지\n}"
+    },
+    {
+      "t": "거부 거래의 영향 확인",
+      "d": "처리에 실패한 거래가 재고나 거래 ID 중복 검사에 남지 않도록 확인하세요."
+    }
+  ],
+  "B-01": [
+    {
+      "t": "입력 범위 확인",
+      "d": "무게와 배송 유형이 허용 범위에 있는지 먼저 확인하세요. 유효하지 않으면 요금을 계산하지 않습니다."
+    },
+    {
+      "t": "초과 무게 계산",
+      "d": "1,000g을 넘는 부분만 따로 구하고, 500g 단위로 올림하는 방법을 생각해 보세요."
+    }
+  ],
+  "B-02": [
+    {
+      "t": "시각 검증",
+      "d": "입력 형식과 시·분의 범위를 확인한 뒤, 두 시각을 분 단위로 변환하세요."
+    },
+    {
+      "t": "추가 요금 계산",
+      "d": "이용 시간에서 기본 30분을 제외한 뒤 10분 단위로 계산해 보세요."
+    }
+  ],
+  "B-03": [
+    {
+      "t": "첫 점수로 초기화",
+      "d": "최솟값과 최댓값의 초깃값을 어떻게 정할지 생각해 보세요. 학생이 한 명이어도 결과가 나와야 합니다."
+    },
+    {
+      "t": "평균 형식 확인",
+      "d": "합계를 누적한 뒤 평균을 구하세요. 소수 첫째 자리 출력과 정수 나눗셈을 구분해야 합니다."
+    }
+  ],
+  "B-04": [
+    {
+      "t": "상품 정보 묶기",
+      "d": "코드·가격·재고를 구조체로 묶어 저장한 뒤 코드와 일치하는 항목을 찾으세요."
+    },
+    {
+      "t": "검색 실패 처리",
+      "d": "검색하지 못한 경우에도 안전하게 결과를 반환할 수 있도록 함수의 반환 방식을 정하세요."
+    }
+  ],
+  "B-05": [
+    {
+      "t": "유효한 상태 정하기",
+      "d": "남은 수량이 항상 0 이상이고 전체 보유 수량 이하가 되도록 변경 함수를 구성하세요."
+    },
+    {
+      "t": "명령 실패 처리",
+      "d": "대출·반납이 불가능한 경우에는 수량을 바꾸지 않고 `FAIL`을 출력하세요."
+    }
+  ],
+  "B-06": [
+    {
+      "t": "파일 열기와 읽기",
+      "d": "파일 열기에 실패한 경우를 먼저 처리하세요. 파일이 열렸다면 한 줄씩 읽으면 됩니다."
+    },
+    {
+      "t": "레벨 분리와 집계",
+      "d": "첫 번째 `|`를 기준으로 레벨을 구분하고, 인식할 수 없는 행은 `INVALID`에 포함하세요."
+    }
+  ],
+  "A-03": [
+    {
+      "t": "비교 기준 정하기",
+      "d": "우선순위는 내림차순이지만, 같은 우선순위의 접수 순서는 유지해야 합니다."
+    },
+    {
+      "t": "정렬 결과 검증",
+      "d": "동점 작업을 여러 개 넣어 `std::sort`와 `std::stable_sort`의 보장 사항을 비교해 보세요."
+    }
+  ],
+  "C-02": [
+    {
+      "t": "장치별 상태 관리",
+      "d": "마지막으로 승인된 순번과 측정값을 장치 ID별로 따로 저장하세요."
+    },
+    {
+      "t": "검증 후 상태 갱신",
+      "d": "순번과 측정값이 모두 유효할 때만 상태를 변경합니다. 거부된 기록은 다음 순번 검사에 영향을 주면 안 됩니다."
+    }
+  ]
+};
+
+function renderImplementationGuide(p) {
+  const steps = implementationGuides[p.id];
+  if (!steps) return '';
+  return `<details class="implementation-guide" data-guide-level="${esc(p.level)}"><summary>구현 가이드</summary><div class="hint-body"><ol class="hint-steps">${steps.map((step, index) => `<li><span class="step-label">STEP ${String(index+1).padStart(2,'0')}</span><div class="hint-step-content"><strong>${esc(step.t)}</strong><p>${rich(step.d)}</p>${step.code?`<pre class="hint-code"><code>${esc(step.code)}</code></pre>`:''}</div></li>`).join('')}</ol></div></details>`;
+}
+
+
+function renderRadiantIO(){
+  return `<div class="radiant-io">
+  <section class="radiant-panel"><div class="radiant-panel-kicker">INPUT</div><p>두 파일 모두 헤더가 없는 UTF-8 텍스트 파일입니다. 한 줄에 한 레코드가 들어 있습니다.</p>
+    <div class="radiant-file"><h4><code>orders.csv</code> <span>주문 원본 데이터</span></h4><p><strong>구조:</strong> <code>주문 ID,주문 금액</code></p><ul><li><strong>주문 ID</strong> — 주문을 식별하는 문자열(String)</li><li><strong>주문 금액</strong> — 원 단위의 양의 정수(Integer, &gt; 0)</li></ul></div>
+    <div class="radiant-file"><h4><code>events.csv</code> <span>결제·환불 이벤트 로그</span></h4><p><strong>구조:</strong> <code>이벤트 ID,주문 ID,유형,금액</code></p><ul><li><strong>이벤트 ID</strong> — 이벤트를 식별하는 문자열(String)</li><li><strong>주문 ID</strong> — 대상 주문 ID</li><li><strong>유형</strong> — <code>PAY</code> 또는 <code>REFUND</code></li><li><strong>금액</strong> — 원 단위의 양의 정수(Integer, &gt; 0)</li></ul></div>
+  </section>
+  <section class="radiant-panel"><div class="radiant-panel-kicker">OUTPUT</div>
+    <div class="radiant-file"><h4><code>settlement.csv</code> <span>정산 결과 보고서</span></h4><p><strong>구조:</strong> <code>주문 ID,주문 금액,순결제액,미정산액</code></p><ul><li>주문 ID 오름차순으로 출력합니다.</li><li>미정산액 = 주문 금액 − 순결제액</li></ul></div>
+    <div class="radiant-file"><h4><code>rejected.csv</code> <span>오류 및 거부 로그</span></h4><p><strong>구조:</strong> <code>파일명,원본 행 번호,오류 코드</code></p><ul><li>파일명, 행 번호의 오름차순으로 출력합니다.</li><li>파일명은 <code>orders.csv</code> 또는 <code>events.csv</code>이며, 행 번호는 1부터 시작합니다.</li></ul></div>
+    <div class="radiant-file"><h4>표준 출력 <span>Console Summary</span></h4><ul><li>전체 순결제액 합계(원)</li><li>미정산 주문 수 — 순결제액이 주문 금액보다 적은 주문 수</li><li>오류 및 거부 행의 총 건수</li></ul></div>
+  </section></div>`;
+}
+function renderRadiantDeliverables(p){
+  return `<section class="radiant-extra"><h3>납품 항목 및 참고 사항</h3><ul><li><strong>목표:</strong> 기록의 신뢰성을 회복합니다. 재현 가능한 기준 구현을 완성한 뒤 입력 규모를 늘려 병목을 측정합니다.</li><li><strong>납품 파일:</strong> 정산 프로그램 소스 코드, <code>settlement.csv</code>, <code>rejected.csv</code></li><li><strong>문서 자료:</strong> 표준 오류 코드 정의서, 10만 행 성능 비교 메모(실행 시간·메모리 사용량 및 알고리즘 선택 근거)</li></ul></section>
+  <section class="radiant-extra radiant-verification"><h3>검증 사항 <span>Verification</span></h3><ul>${p.checks.map(c=>`<li>${rich(c)}</li>`).join('')}</ul></section>`;
+}
+
+function renderProblem(){if(active==='GUIDE'){renderGuide();return;}const p=problems.find(x=>x.id===active);if(!p)return;const s=problemSpecs[p.id];const matches=matching();document.getElementById('crumb').textContent=levelLabels[p.level]+' · '+p.id;document.getElementById('pageCounter').textContent=`${matches.indexOf(p)+1} / ${matches.length}`;document.getElementById('previous').disabled=false;document.getElementById('next').disabled=matches.indexOf(p)>=matches.length-1;
+ const conceptLinks=p.concepts.map(c=>`<a class="ref" href="${chapterUrl(c.c)}" target="_blank" rel="noopener noreferrer"><strong>Chapter ${String(c.c).padStart(2,'0')}</strong><span>${esc(c.topic)} ↗</span></a>`).join('');
+ const narrow=p.level==='radiant';
+ const headerMark = narrow ? `<div class="problem-no radiant-gem" aria-label="Radiant R01"><svg class="gem-art" viewBox="0 0 120 120" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><defs>
+ <linearGradient id="gem-base" x1=".05" y1=".02" x2=".94" y2=".96"><stop offset="0" stop-color="#a7e5ff"/><stop offset=".18" stop-color="#3e93d5"/><stop offset=".38" stop-color="#e9fbff"/><stop offset=".56" stop-color="#528ed2"/><stop offset=".77" stop-color="#a09de4"/><stop offset="1" stop-color="#194e9a"/></linearGradient>
+ <linearGradient id="gem-core" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#15447c"/><stop offset=".45" stop-color="#073968"/><stop offset="1" stop-color="#1767a2"/></linearGradient>
+ <linearGradient id="gem-ice" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff"/><stop offset=".42" stop-color="#8dcafa"/><stop offset=".7" stop-color="#d2bcff"/><stop offset="1" stop-color="#4ebddd"/></linearGradient>
+ <radialGradient id="gem-shine"><stop offset="0" stop-color="#fff" stop-opacity=".78"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+ </defs>
+ <path d="M21 2H97L118 27V92L92 118H26L2 94V27Z" fill="url(#gem-base)" stroke="#efffff" stroke-width="2.6"/>
+ <path d="M21 2L47 22L29 52L2 27Z" fill="#e8faff" opacity=".84"/><path d="M21 2H97L72 22H47Z" fill="#fff" opacity=".68"/><path d="M97 2L118 27L91 52L72 22Z" fill="#c6e8ff" opacity=".84"/>
+ <path d="M2 27L29 52L15 87L2 94Z" fill="#337fca"/><path d="M118 27L91 52L103 88L118 92Z" fill="#e5faff"/><path d="M2 94L15 87L58 105L26 118Z" fill="#b4eaff"/><path d="M118 92L103 88L58 105L92 118Z" fill="#8b9fdf"/><path d="M26 118L58 105L92 118Z" fill="#e6f8ff"/>
+ <path d="M47 22H72L91 52L80 92L58 105L29 88L29 52Z" fill="url(#gem-core)" stroke="#b5e5ff" stroke-width=".85"/>
+ <path d="M29 52L47 22L58 36L45 61Z" fill="#3b80b8" opacity=".64"/><path d="M72 22L91 52L76 60L58 36Z" fill="#9fc6ff" opacity=".5"/><path d="M29 88L45 61L58 105Z" fill="#1a5a99" opacity=".75"/><path d="M76 60L80 92L58 105Z" fill="#92c9f6" opacity=".34"/>
+ <path d="M5 25L48 4M74 4L113 29M4 94L25 115M93 114L116 91" stroke="#fff" stroke-opacity=".76" stroke-width="1.5" fill="none"/>
+ <path d="M12 18L18 29L29 35L18 41L12 52L6 41L-4 35L6 29Z" fill="url(#gem-ice)" opacity=".54"/>
+ <circle cx="29" cy="24" r="30" fill="url(#gem-shine)" opacity=".6"/>
+ </svg><span class="gem-spark" aria-hidden="true"></span><strong class="gem-title">R01</strong></div>` : `<div class="problem-no"><strong>${esc(p.id.replace('-',''))}</strong></div>`;
+ const rightMark = '';
+ document.getElementById('problemHost').innerHTML=`<article class="sheet ${narrow?'radiant-sheet':''}" data-level="${p.level}" id="currentSheet"><div class="sheet-top"></div><div class="sheet-content"><div class="sheet-meta"><span>C++ FUNDAMENTALS · SUMMARY PART 01</span><span class="right">${esc(levelLabels[p.level].toUpperCase())} / PROBLEMS</span></div><header class="problem-header">${headerMark}<div class="header-titles"><div class="division">${esc(levelLabels[p.level])} ${narrow?' — 의뢰서':''}</div><h2>${esc(p.title)}</h2></div>${rightMark}</header>
+ <div class="section-label">${narrow?'의뢰 배경':'상황 및 배경'}</div><div class="statement">${p.scenario.split(/\n\n/).map(part=>`<p>${rich(part)}</p>`).join('')}</div><div class="section-label">${narrow?'요구사항 및 작업 범위 <span class="section-english">Requirements &amp; Scope</span>':'구현 조건'}</div><ol class="tasks">${p.tasks.map(task=>`<li>${rich(task)}</li>`).join('')}</ol>
+ ${narrow?renderRadiantIO():`<div class="io-grid"><div class="io"><div class="io-kicker">INPUT</div><p>${rich(s.input)}</p></div><div class="io"><div class="io-kicker">OUTPUT</div><p>${rich(s.output)}</p></div></div>`}
+ <div class="sample-heading"><span>입출력 예시</span><small>SAMPLE INPUT / OUTPUT</small></div><div class="sample-grid"><div class="sample-card"><div class="sample-label">INPUT</div><pre>${esc(s.sampleIn)}</pre></div><div class="sample-card"><div class="sample-label">OUTPUT</div><pre>${esc(s.sampleOut)}</pre></div></div>${narrow?'':`<div class="note"><strong>NOTE</strong><span>${esc(s.note)}</span></div>`}
+ ${narrow?renderRadiantDeliverables(p):''}
+ ${renderImplementationGuide(p)}<div class="folds">${narrow?'':`<details><summary>검증 사항</summary><div class="fold-body"><ul>${p.checks.map(c=>`<li>${rich(c)}</li>`).join('')}</ul></div></details>`}<details><summary>관련 개념</summary><div class="fold-body"><div class="refs">${conceptLinks}</div></div></details></div>
+ </div><footer class="sheet-footer"><div class="footer-inner"><span>SUMMARY PART 01 · CHAPTER 01—11</span><span>${esc(p.id)} / ${esc(levelLabels[p.level].toUpperCase())}</span></div></footer></article>`;
+ nav();}
+function openProblem(id){active=id;renderProblem();if(mode!=='problems')switchMode('problems')}
+function update(){let m=matching();if(!m.length){document.getElementById('problemHost').innerHTML='<div class="empty">조건에 맞는 문제가 없습니다.</div>';document.getElementById('pageCounter').textContent='0 / 0';document.getElementById('previous').disabled=true;document.getElementById('next').disabled=true;return}if(active==='GUIDE'){renderGuide();return}if(!m.some(p=>p.id===active))active=m[0].id;renderProblem()}
+function syncFilters(){document.querySelectorAll('#problemFilters button').forEach(b=>b.classList.toggle('active',b.dataset.level===filter))}
+document.querySelectorAll('#problemFilters button').forEach(b=>b.addEventListener('click',()=>{filter=b.dataset.level;syncFilters();const first=matching()[0];if(first && (active==='GUIDE' || !matching().some(p=>p.id===active)))active=first.id;update()}));
+document.getElementById('search').addEventListener('input',e=>{search=e.target.value.trim();update()});
+document.getElementById('previous').addEventListener('click',()=>{let m=matching(),i=m.findIndex(p=>p.id===active);if(active==='GUIDE')return;if(i>0)openProblem(m[i-1].id);else if(i===0)openProblem('GUIDE')});
+document.getElementById('next').addEventListener('click',()=>{let m=matching(),i=m.findIndex(p=>p.id===active);if(active==='GUIDE'){if(m.length)openProblem(m[0].id);return;}if(i<m.length-1)openProblem(m[i+1].id)});
+document.getElementById('printCurrent').addEventListener('click',()=>window.print());
+function switchMode(next){mode=next;document.getElementById('problemsView').style.display=next==='problems'?'':'none';document.getElementById('quizView').style.display=next==='quiz'?'block':'none';document.getElementById('modeProblems').classList.toggle('active',next==='problems');document.getElementById('modeQuiz').classList.toggle('active',next==='quiz');document.getElementById('sideNavTitle').textContent=next==='problems'?'PROBLEM INDEX':'REVIEW';document.getElementById('problemNavigation').style.display=next==='problems'?'':'none';window.scrollTo({top:0,behavior:'instant'})}
+document.getElementById('modeProblems').addEventListener('click',()=>switchMode('problems'));
+document.getElementById('modeQuiz').addEventListener('click',()=>switchMode('quiz'));
+
+function rich(value){
+  return esc(value).replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
+}
+function quizCard(q){
+  const answer = q.kind==='mcq' ? `<p><strong>정답: ${q.correct+1}번 — ${rich(q.choices[q.correct])}</strong></p>` : '';
+  const wrong = q.wrong?.length ? `<div class="wrong-explanations"><h4>오답 해설</h4>${q.wrong.map(w=>`<div class="wrong-row"><strong>${w.n}번 · ${esc(w.title)}</strong><p>${rich(w.body)}</p></div>`).join('')}</div>` : '';
+  const code = q.modelCode ? `<div class="model-code"><div class="code-caption">예시 코드 <span>C++</span></div><pre><code>${esc(q.modelCode)}</code></pre>${q.modelOutput?`<div class="code-caption">실행 결과</div><pre class="model-output">${esc(q.modelOutput)}</pre>`:''}</div>` : '';
+  return `<article class="quiz-item" id="${q.id}" data-kind="${q.kind}"><div class="quiz-index">${esc(q.id)} · ${q.kind==='mcq'?'객관식':'주관식·서술형'} / CHAPTER ${String(q.chapter).padStart(2,'0')}</div><h3>${rich(q.q)}</h3>${q.code?`<pre><code>${esc(q.code)}</code></pre>`:''}${q.kind==='mcq'?`<ol class="quiz-options">${q.choices.map((x,i)=>`<li><label class="quiz-choice"><input type="radio" name="${q.id}" value="${i}" aria-label="${q.id} ${i+1}번"><span class="choice-no">${i+1}.</span><span class="choice-text">${rich(x)}</span></label></li>`).join('')}</ol>`:`<textarea aria-label="${q.id} 답안" placeholder="답안 작성"></textarea>`}<details><summary>정답 및 해설</summary><div class="fold-body">${answer}<p>${rich(q.why)}</p>${wrong}${code}<p class="quiz-reference"><a href="${chapterUrl(q.chapter)}" target="_blank" rel="noopener noreferrer">Chapter ${String(q.chapter).padStart(2,'0')} README ↗</a></p></div></details></article>`;
+}
+document.getElementById('quizList').innerHTML=quiz.map(quizCard).join('');
+document.querySelectorAll('[data-quiz]').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('[data-quiz]').forEach(x=>x.classList.toggle('active',x===b));
+  document.querySelectorAll('.quiz-item').forEach(x=>x.style.display=b.dataset.quiz==='all'||x.dataset.kind===b.dataset.quiz?'':'none');
+}));
+// Native radio buttons do not support unchecking themselves. Remember the pre-click
+// value and toggle explicitly; keyboard selection is handled too.
+function updateQuizStyles(name){
+  document.querySelectorAll(`input[name="${name}"]`).forEach(input=>{
+    input.closest('.quiz-choice').classList.toggle('checked',input.checked);
+  });
+}
+document.querySelectorAll('.quiz-choice').forEach(label=>{
+  label.addEventListener('pointerdown',()=>{const input=label.querySelector('input');input.dataset.previouslyChecked=input.checked?'1':'0';});
+});
+document.querySelectorAll('.quiz-choice input').forEach(input=>{
+  input.addEventListener('pointerdown',function(){this.dataset.previouslyChecked=this.checked?'1':'0';});
+  input.addEventListener('keydown',function(ev){if(ev.key===' '||ev.key==='Enter')this.dataset.previouslyChecked=this.checked?'1':'0';});
+  input.addEventListener('click',function(){
+    const wasSelected=this.dataset.previouslyChecked==='1';
+    if(wasSelected)this.checked=false;
+    document.querySelectorAll(`input[name="${this.name}"]`).forEach(r=>{
+      r.dataset.previouslyChecked=r.checked?'1':'0';
+    });
+    updateQuizStyles(this.name);
+  });
+  input.addEventListener('change',function(){
+    // Change can occur through keyboard navigation; synchronize selection state.
+    document.querySelectorAll(`input[name="${this.name}"]`).forEach(r=>{
+      r.dataset.previouslyChecked=r.checked?'1':'0';
+    });
+    updateQuizStyles(this.name);
+  });
+});
+
+nav();renderProblem();switchMode('quiz');
+</script>
+</body>
+</html>
