@@ -17,3 +17,6 @@ python solutions/advanced_05_urban_metro/reference_solution.py
 5. 그래프와 CSV가 같은 노선 필터를 사용하도록 연결합니다.
 
 이 파일의 계산 규칙은 프로젝트 README의 데이터 검증 및 계산 기준을 따릅니다. 출력 그림은 `figures/projects/`에 생성된 예시와 비교할 수 있습니다.
+
+---
+[← Project README](../../projects/advanced_05_urban_metro/README.md) · [← Chapter 09](../../README.md)

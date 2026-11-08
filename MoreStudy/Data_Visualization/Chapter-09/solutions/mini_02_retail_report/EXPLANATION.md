@@ -16,3 +16,6 @@ python solutions/mini_02_retail_report/reference_solution.py
 4. 요약 CSV와 그래프를 비교합니다.
 
 이 파일의 계산 규칙은 프로젝트 README의 데이터 검증 및 계산 기준을 따릅니다. 출력 그림은 `figures/projects/`에 생성된 예시와 비교할 수 있습니다.
+
+---
+[← Project README](../../projects/mini_02_retail_report/README.md) · [← Chapter 09](../../README.md)

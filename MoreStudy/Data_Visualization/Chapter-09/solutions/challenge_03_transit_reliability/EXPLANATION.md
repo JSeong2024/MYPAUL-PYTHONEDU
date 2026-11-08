@@ -19,3 +19,6 @@ python solutions/challenge_03_transit_reliability/reference_solution.py
 7. 정상·잘못된 입력·값 변경·부분 조회 시나리오를 통과시킵니다.
 
 이 파일의 계산 규칙은 프로젝트 README의 데이터 검증 및 계산 기준을 따릅니다. 출력 그림은 `figures/projects/`에 생성된 예시와 비교할 수 있습니다.
+
+---
+[← Project README](../../projects/challenge_03_transit_reliability/README.md) · [← Chapter 09](../../README.md)

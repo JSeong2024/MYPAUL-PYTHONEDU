@@ -17,3 +17,6 @@ python solutions/advanced_01_weather_dashboard/reference_solution.py
 5. 누락 구간이 유지된 다중 선 그래프와 CSV를 저장합니다.
 
 이 파일의 계산 규칙은 프로젝트 README의 데이터 검증 및 계산 기준을 따릅니다. 출력 그림은 `figures/projects/`에 생성된 예시와 비교할 수 있습니다.
+
+---
+[← Project README](../../projects/advanced_01_weather_dashboard/README.md) · [← Chapter 09](../../README.md)

@@ -17,3 +17,6 @@ python solutions/advanced_02_customer_behavior/reference_solution.py
 5. 고객군별 매출과 참여율을 CSV·그래프로 검증합니다.
 
 이 파일의 계산 규칙은 프로젝트 README의 데이터 검증 및 계산 기준을 따릅니다. 출력 그림은 `figures/projects/`에 생성된 예시와 비교할 수 있습니다.
+
+---
+[← Project README](../../projects/advanced_02_customer_behavior/README.md) · [← Chapter 09](../../README.md)

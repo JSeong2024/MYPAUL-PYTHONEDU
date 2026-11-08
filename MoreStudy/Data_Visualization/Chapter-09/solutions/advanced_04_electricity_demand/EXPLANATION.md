@@ -17,3 +17,6 @@ python solutions/advanced_04_electricity_demand/reference_solution.py
 5. `complete/partial`과 확정값 유무를 CSV 및 추이 그래프에 반영합니다.
 
 이 파일의 계산 규칙은 프로젝트 README의 데이터 검증 및 계산 기준을 따릅니다. 출력 그림은 `figures/projects/`에 생성된 예시와 비교할 수 있습니다.
+
+---
+[← Project README](../../projects/advanced_04_electricity_demand/README.md) · [← Chapter 09](../../README.md)
