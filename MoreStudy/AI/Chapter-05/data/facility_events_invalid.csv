@@ -1,0 +1,4 @@
+event_id,zone,hour,temperature_c,vibration_mm_s,alert_label
+EV001,central,5,24.0,1.697,0
+EV002,south,10,,2.183,0
+EV003,north,15,25.09,2.703,0

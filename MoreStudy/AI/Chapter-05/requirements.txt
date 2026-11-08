@@ -1,0 +1,5 @@
+# CPU 환경 기본 실습. 플랫폼별 PyTorch 설치는 공식 안내 참조.
+torch>=2.2,<3
+numpy>=1.26
+pandas>=2.0
+matplotlib>=3.8
