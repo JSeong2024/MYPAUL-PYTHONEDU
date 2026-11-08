@@ -1,29 +1,24 @@
 #include <iostream>
-#include <limits>
-#include <print>
 
 int main() {
     int selection{};
 
     do {
-        std::println("1. Show device status");
-        std::println("0. Exit");
-        std::cout << "Select: " << std::flush;
+        std::cout << "1. Show status\n"
+                  << "0. Exit\n"
+                  << "Select: " << std::flush;
 
         if (!(std::cin >> selection)) {
-            if (std::cin.eof()) {
-                return 0;
-            }
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::println("Invalid input");
-            continue;
+            std::cerr << "Error: integer input required.\n";
+            return 1;
         }
 
         if (selection == 1) {
-            std::println("Device: READY");
+            std::cout << "Status: READY\n";
         } else if (selection != 0) {
-            std::println("Unknown menu item");
+            std::cout << "Unknown selection\n";
         }
     } while (selection != 0);
+
+    std::cout << "Goodbye\n";
 }

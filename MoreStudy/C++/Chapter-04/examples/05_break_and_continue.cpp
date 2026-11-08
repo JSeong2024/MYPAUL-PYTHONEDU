@@ -1,17 +1,14 @@
-#include <array>
-#include <print>
+#include <iostream>
 
 int main() {
-    constexpr std::array readings{-1, 10, 25, 150, 30};
-
-    for (const int reading : readings) {
+    for (int reading{-2}; reading <= 6; reading += 2) {
         if (reading < 0) {
             continue;
         }
-        if (reading > 100) {
-            std::println("Threshold exceeded: {}", reading);
+        if (reading > 4) {
+            std::cout << "Limit reached\n";
             break;
         }
-        std::println("Accepted: {}", reading);
+        std::cout << "Accepted: " << reading << '\n';
     }
 }
