@@ -6,7 +6,6 @@
 - **실습 언어:** Python 3.11 이상 권장
 - **주요 도구:** NumPy, Pandas, Matplotlib, scikit-learn
 - **실습 데이터:** 교육용 가상 날씨·센서 자료, scikit-learn 내장 붓꽃·손글씨 숫자 데이터셋
-- **실행 조건:** CPU로 실행 가능하며 GPU나 별도의 AI API 키가 필요하지 않습니다.
 
 <details>
 <summary><strong>선행 학습 목록</strong></summary>
