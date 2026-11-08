@@ -1,0 +1,5 @@
+station_id,station_name,zone
+WS-01,North,A
+WS-02,South,B
+WS-03,East,A
+WS-04,West,B

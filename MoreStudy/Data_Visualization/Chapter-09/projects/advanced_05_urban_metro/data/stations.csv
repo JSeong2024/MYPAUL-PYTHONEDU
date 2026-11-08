@@ -1,0 +1,7 @@
+station_id,station_name,line
+M-01,Central,L1
+M-02,Museum,L1
+M-03,CityHall,L1
+M-04,River,L2
+M-05,Campus,L2
+M-06,Airport,L2

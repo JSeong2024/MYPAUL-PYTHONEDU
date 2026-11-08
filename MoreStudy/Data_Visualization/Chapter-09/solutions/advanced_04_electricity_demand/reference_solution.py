@@ -1,41 +1,32 @@
-"""Reference implementation — Advanced 04 — Regional Electricity Demand. Synthetic educational data."""
-from __future__ import annotations
-import json
-import sys
+"""Advanced 04: hourly MW and full-day MWh; incomplete days stay partial."""
 from pathlib import Path
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-import numpy as np
+import sys
+sys.path.insert(0,str(Path(__file__).resolve().parents[2]))
 import pandas as pd
+import numpy as np
+from core.utils import arguments,load,numeric,save,figure_start,finish
 
-ROOT = Path(__file__).resolve().parents[2]
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
-from core.analytics import electricity_summary
-
-OUTPUT = ROOT / 'output' / 'advanced_04_electricity_demand'
-
-
-def build_report(output_dir: Path = OUTPUT) -> dict:
-    output_dir.mkdir(parents=True,exist_ok=True)
-    result = electricity_summary()
-    good, bad, daily = result
-    bad.to_csv(output_dir/'excluded_rows.csv',index=False)
-    daily.to_csv(output_dir/'daily_summary.csv',index=False)
-    fig,axes=plt.subplots(2,1,figsize=(11,7),layout='constrained')
-    for region,g in good.groupby('region'):
-        axes[0].plot(g.timestamp_kst,g.demand_mw,label=region,alpha=.8,linewidth=.7)
-    axes[0].set(title='Hourly Power Demand (KST)',ylabel='Demand (MW)')
-    axes[0].legend(ncol=4)
-    for region,g in daily.groupby('region'):
-        axes[1].plot(pd.to_datetime(g.date_kst),g.mean_demand_mw,label=region)
-    axes[1].set(title='Daily Mean Demand',ylabel='Mean demand (MW)')
-    fig.savefig(output_dir/'overview.png',dpi=140);plt.close(fig)
-    metrics={'valid_rows':len(good),'excluded_rows':len(bad),'regions':int(good.region.nunique())}
-    (output_dir/'report.json').write_text(json.dumps(metrics,ensure_ascii=False,indent=2),encoding='utf-8')
-    return metrics
-
-
-if __name__=='__main__':
-    print(json.dumps(build_report(),ensure_ascii=False,indent=2))
+def extras(p):p.add_argument('--region',default='',help='region ID, empty=all')
+def run():
+ args=arguments('Regional Electricity Demand Analysis','advanced_04_electricity_demand',extras)
+ ref=load(args.data/'regions.csv',['region_id','region_name'])
+ if ref.region_id.duplicated().any():raise ValueError('duplicate region')
+ if args.region and args.region not in set(ref.region_id):raise ValueError('unknown region filter')
+ raw=load(args.data/'demand.csv',['reading_id','timestamp_utc','region_id','demand_mw'])
+ raw['demand_mw']=numeric(raw.demand_mw)
+ raw['timestamp_kst']=pd.to_datetime(raw.timestamp_utc,utc=True,errors='coerce').dt.tz_convert('Asia/Seoul')
+ duplicate=raw.reading_id.duplicated(keep=False)|raw.duplicated(['region_id','timestamp_kst'],keep=False)
+ bad=duplicate|raw.demand_mw.isna()|raw.demand_mw.lt(0)|~raw.region_id.isin(ref.region_id)|raw.timestamp_kst.isna()
+ audit=raw.loc[bad,['reading_id','region_id']].copy();audit['reason']='invalid_or_duplicate_reading';save(audit,args.output/'audit.csv')
+ df=raw.loc[~bad].copy();df['local_date']=df.timestamp_kst.dt.strftime('%Y-%m-%d');df['hour']=df.timestamp_kst.dt.hour
+ if args.region:df=df[df.region_id.eq(args.region)]
+ summary=df.groupby(['region_id','local_date'],as_index=False).agg(hour_count=('hour','nunique'),mean_demand_mw=('demand_mw','mean'),energy_observed_mwh=('demand_mw','sum'))
+ summary['status']=np.where(summary.hour_count.eq(24),'complete','partial')
+ summary['energy_confirmed_mwh']=summary.energy_observed_mwh.where(summary.status.eq('complete'))
+ save(summary,args.output/'daily_energy.csv')
+ fig,ax=figure_start(11,5)
+ for region,part in df.groupby('region_id'):
+  hourly=part.sort_values('timestamp_kst');ax.plot(hourly.timestamp_kst, hourly.demand_mw,label=region,linewidth=1)
+ ax.set_ylabel('Demand (MW)');ax.set_xlabel('Observation time (Asia/Seoul)');ax.set_title('Regional hourly demand');ax.legend()
+ finish(fig,args.output/'dashboard.png');print(f'PASS advanced_04: {len(df)} valid hourly readings')
+if __name__=='__main__':run()

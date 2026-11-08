@@ -1,0 +1,4 @@
+service_id,service_name
+api-search,Search
+api-orders,Orders
+api-pay,Payments

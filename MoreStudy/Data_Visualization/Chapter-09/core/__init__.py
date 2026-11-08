@@ -1,1 +1,1 @@
-"""Data processing functions for independent testing."""
+"""Chapter 09 shared I/O and visualization helpers."""
