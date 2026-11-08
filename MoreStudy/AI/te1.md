@@ -348,35 +348,43 @@ CENTER_1 5.0000 0.0000
 
 ## Advanced
 
-### A-01. Visitor Congestion Classification — 혼잡도 판단 기준
+### A-01. Visitor Congestion Classification — 혼잡도 판단 및 최적 임계값 탐색
 
-**관련 개념:** [Chapter 03](../Chapter-03/README.md) · Logistic Regression · Threshold · [Chapter 04](../Chapter-04/README.md) · Precision · Recall · F1
+**관련 개념:** [Chapter 03](../Chapter-03/README.md) · Logistic Regression · Decision Threshold · [Chapter 04](../Chapter-04/README.md) · Confusion Matrix · Precision · Recall · F1-Score · Model Evaluation
 
 #### 문제 설명
 
-지역 문화시설은 방문객 수와 근무 인원 등을 이용해 특정 시간대의 혼잡 여부를 예측합니다. 운영팀은 혼잡 상황을 놓치지 않는 것이 중요하지만, 잘못된 혼잡 경보가 지나치게 많아지는 것도 원하지 않습니다.
+지역 문화시설은 방문객 수와 근무 인원 등의 데이터를 활용하여 특정 시간대의 혼잡 여부를 예측하는 분류 모델을 운영하고 있습니다. 운영팀의 정책에 따라 혼잡 상황을 놓치지 않는 것(Recall 중시)과 불필요한 오경보를 줄이는 것(Precision 중시) 사이의 균형을 맞추는 것이 중요합니다.
 
-기존 모델은 클래스 1(혼잡)에 대한 점수를 제공합니다. Validation Data에서 Threshold를 비교하고, 확정한 Threshold로 독립적인 Test Data를 평가하는 프로그램을 작성하세요.
+본 과제에서는 모델이 출력한 클래스 1(혼잡)에 대한 예측 점수(`score`)를 바탕으로, 검증 데이터(Validation Data)를 통해 최적의 결정 임계값(Threshold)을 탐색하고, 확정된 임계값을 독립적인 테스트 데이터(Test Data)에 적용하여 최종 성능을 평가 및 리포팅하는 프로그램을 작성하시오.
 
-#### 구현 요구사항
+#### 요구 사항
 
-1. `record_id`, `actual`, `score`가 기록된 Validation·Test CSV를 읽습니다. `actual`은 0 또는 1이며 `score`는 0 이상 1 이하입니다.
-2. Validation Data에서 Threshold 후보 `[0.30, 0.50, 0.70]`의 F1을 계산합니다.
-3. F1이 가장 높은 Threshold를 선택합니다. 동점일 경우 **더 큰 Threshold** 를 선택합니다.
-4. 선택한 Threshold로 Test Data를 한 번만 평가하고 TP·FP·FN·TN, Precision·Recall·F1을 기록합니다.
-5. `threshold_report.csv`에는 후보별 Validation F1과 선택 여부를, `test_report.txt`에는 최종 Threshold 및 Test 지표를 기록합니다.
+1. **데이터 로드:** `record_id`, 실제 레이블(`actual`, `0` 또는 `1`), 예측 점수(`score`, `0 이상 1 이하`)가 포함된 검증용 및 테스트용 CSV 파일을 읽어 들입니다.
+2. **검증 데이터 평가:** 임계값 후보군인 `[0.30, 0.50, 0.70]` 각각에 대해 검증 데이터셋에서의 $F_1$-Score를 계산합니다.
+3. **최적 임계값 선정:** $F_1$-Score가 가장 높은 임계값을 선택합니다. 만약 동일한 최고 $F_1$-Score를 기록하는 후보가 여러 개인 경우, **더 큰 임계값**을 우선적으로 선택합니다.
+4. **테스트 평가:** 선정된 최적의 임계값으로 테스트 데이터셋을 단 한 번 평가하여 혼동 행렬 지표(`TP, FP, FN, TN`)와 성능 지표(`Precision, Recall, F1-Score`)를 기록합니다.
+5. **결과 리포트 출력:** 
+   - `threshold_report.csv`: 임계값 후보별 검증 $F_1$-Score와 최적선택 여부(`True`/`False`) 기록
+   - `test_report.txt`: 최종 선택된 Threshold 및 Test 데이터에 대한 혼동 행렬 및 주요 성능 지표 기록
 
-#### 입력
+#### 입력 파일 규격 및 무결성 검증
 
-- `validation_scores.csv`: `record_id,actual,score`
-- `test_scores.csv`: 동일한 열 구조
-- 두 파일 모두 UTF-8, 헤더가 있으며 같은 `record_id`가 여러 번 나타나서는 안 됩니다.
+- **데이터 파일:**
+  - `validation_scores.csv`: `record_id,actual,score`
+  - `test_scores.csv`: 동일한 열 구조 (실제 레이블 `actual ∈ {0, 1}`, 예측 점수 `0 ≤ score ≤ 1`)
+- **공통 제약 조건:** 두 파일 모두 **UTF-8 인코딩**, **헤더 존재**, 그리고 `record_id`의 **중복 불가** 조건(`unique`)을 엄격히 만족해야 합니다.
 
-유효하지 않은 값, 누락된 열, 중복 ID가 발견되면 해당 파일의 이름과 오류 원인을 보고하고 평가를 중단합니다.
+> ⚠️ **오류 처리 정책:** 누락된 열, 허용 범위를 벗어난 유효하지 않은 값, 또는 중복된 `record_id`가 단 하나라도 발견될 경우, 즉시 해당 파일의 이름과 구체적인 오류 원인을 출력하고 평가 프로세스를 안전하게 중단(Abort)합니다.
 
-#### 출력
+#### 출력 파일 규격
 
-파일 두 개를 생성합니다. 출력 파일에서는 Threshold 오름차순, 숫자는 소수 넷째 자리까지 표시합니다.
+총 2개의 결과 파일을 생성하며, 모든 수치 데이터는 **소수점 넷째 자리**까지 반올림하여 기록합니다.
+
+1. **`threshold_report.csv`**
+   - 임계값(Threshold) 후보군을 **오름차순**으로 정렬하여 각 후보별 검증 $F_1$-Score와 최적 선택 여부(`True`/`False`)를 기록합니다.
+2. **`test_report.txt`**
+   - 최종 선정된 최적 Threshold 값과, 해당 Threshold를 테스트 데이터에 적용하여 산출한 혼동 행렬 지표(`TP, FP, FN, TN`) 및 주요 성능 지표를 기록합니다.
 
 **예제 입력** (`validation_scores.csv`)
 
@@ -397,51 +405,96 @@ threshold,validation_f1,selected
 0.70,0.0000,0
 ```
 
-이 예제에서 선택된 Threshold는 `0.30`입니다. Test 결과는 별도의 `test_scores.csv` 값에 따라 달라지므로 특정 F1을 고정하지 않습니다.
+해당 예제에서 선택된 Threshold는 `0.30`입니다. Test 결과는 별도의 `test_scores.csv` 값에 따라 달라지므로 특정 F1을 고정하지 않습니다.
 
-#### 검증 항목
+#### 검증 항목 (Edge Cases)
 
-- Threshold와 Score가 같은 경계값 처리
-- F1 동점 시 더 큰 Threshold 선택
-- Test 점수로 Threshold를 다시 선택하지 않았는지 확인
-- Actual Label이 모두 한 클래스인 상황과 잘못된 CSV 값 처리
+- **경계값 일치 (`Score == Threshold`):** 예측 점수가 임계값과 정확히 일치하는 샘플들이 올바르게 양성(`1`) 클래스로 분류되는지 확인
+- **$F_1$-Score 동점 처리:** 동일한 최고 $F_1$-Score를 기록하는 임계값 후보가 여러 개 존재할 때, **더 큰 값**의 임계값이 우선 선택되는지 엄격히 검증
+- **데이터 유출(Data Leakage) 방지:** Validation 단계에서 탐색·확정된 최적 Threshold가 Test 단계에서 변경되거나 재적용되지 않고 독립적으로 유지되는지 확인
+- **극한 데이터 및 무결성 예외:** 실제 레이블(`actual`)이 단 하나의 클래스로만 구성된 극단적 상황이나, 잘못된 형식·범위의 CSV 값이 입력되었을 때 프로그램이 안전하게 에러를 처리하는지 확인
 
 <details>
 <summary><strong>구현 가이드</strong></summary>
 
-1. Threshold별 계산을 하나의 함수로 구성하세요.
-2. Validation 단계에서 `f1_score`를 사용하거나 TP·FP·FN으로 직접 계산할 수 있습니다.
-3. Threshold를 확정한 이후에는 Test 점수를 이용해 설정을 변경하지 마세요.
+**STEP 1. 지표 연산 모듈화 (Modularize Metrics):** 
+   - 특정 Threshold를 기준으로 예측 레이블을 생성(`score >= threshold`)하고, `TP`, `FP`, `FN`, `TN`을 집계하여 $F_1$-Score를 반환하는 공용 함수를 정의합니다.
+   - Validation과 Test 단계 모두 이 단일 함수를 호출하여 평가 로직의 중복을 막고 일관성을 유지합니다.
+   - 참고용 코드 조각(Code Snippet):
+     ```python
+     def evaluate_metrics(actuals, scores, threshold):
+       preds = (scores >= threshold).astype(int)
+       tp = ((actuals == 1) & (preds == 1)).sum()
+       fp = ((actuals == 0) & (preds == 1)).sum()
+       fn = ((actuals == 1) & (preds == 0)).sum()
+       tn = ((actuals == 0) & (preds == 0)).sum()
+
+       denom = 2 * tp + fp + fn
+       f1 = (2 * tp / denom) if denom > 0 else 0.0
+       return tp, fp, fn, tn, f1
+     ```
+
+**STEP 2. 최적 Threshold 탐색 및 동점 처리 (Selection & Tie-breaking):**
+   - 후보군 `[0.30, 0.50, 0.70]`을 **오름차순**으로 순회하며 검증 $F_1$-Score를 계산합니다.
+   - 최고 $F_1$-Score를 갱신할 때 엄격한 대소 비교(`>`)를 사용하되, **동점인 경우 더 큰 임계값**이 선택되도록 조건식(`f1 >= best_f1`)을 설계합니다.
+   - 참고용 코드 조각(Code Snippet):
+     ```python
+     candidates = [0.30, 0.50, 0.70]
+     best_threshold = -1.0
+     best_f1 = -1.0
+
+     for th in sorted(candidates):
+       _, _, _, _, val_f1 = evaluate_metrics(val_actual, val_score, th)
+       # 동점 시 더 큰 값을 선택하기 위해 '>=' 적용
+       if val_f1 >= best_f1:
+         best_f1 = val_f1
+         best_threshold = th
+     ```
+
+**STEP 3. 데이터 유출 방지 및 독립 평가 파이프라인 (Independent Evaluation):**
+   - Validation 데이터로 최종 확정된 `best_threshold`는 상수로 고정합니다.
+   - Test 데이터셋 평가 시에는 탐색 과정을 거치지 않고, 확정된 `best_threshold`를 바로 적용하여 단 한 번의 평가(`evaluate_metrics` 호출)만 수행한 뒤 지정된 형식으로 리포트를 출력합니다.
 
 </details>
 
 ---
 
-### A-02. Water Consumption Prediction — 수도 사용량 예측
+### A-02. Water Consumption Prediction — 수도 사용량 예측 및 성능 비교
 
-**관련 개념:** [Chapter 02](../Chapter-02/README.md) · Linear Regression · Scaling · [Chapter 04](../Chapter-04/README.md) · Baseline · MAE · Residual · Temporal Split
+**관련 개념:** [Chapter 02](../Chapter-02/README.md) · Linear Regression · Feature Scaling · [Chapter 04](../Chapter-04/README.md) · Baseline · MAE · RMSE · Residual · Temporal Split
 
 #### 문제 설명
 
-건물 관리팀은 다음 날의 수도 사용량을 예측해 설비 운영 계획에 활용합니다. 기온과 건물 이용 인원, 주말 여부는 사용량과 관련이 있지만 시간에 따른 변화가 있기 때문에 임의의 행 분할만으로 평가해서는 안 됩니다.
+건물 관리팀은 기온, 건물 이용 인원, 주말 여부 등의 환경 및 운영 데이터를 활용하여 다음 날의 수도 사용량(`consumption_m3`)을 예측하는 회귀 모델을 운영하고자 합니다. 수도 사용량 데이터는 시간의 흐름에 따른 트렌드가 존재하므로, 무작위 행 분할(Random Split)이 아닌 시간 순서를 고려한 분할 방식을 적용해야 합니다.
 
-과거 데이터로 Regression 모델을 학습하고, Baseline과 비교한 결과를 보고하세요.
+본 과제에서는 시계열 특성을 반영하여 데이터를 분할한 뒤, 훈련 데이터로 Ridge 회귀 모델을 학습시키고, 하이퍼파라미터 튜닝을 거쳐 단순 평균 예측(Baseline) 모델과 성능을 비교·평가하는 프로그램을 작성하시오.
 
-#### 구현 요구사항
+#### 요구 사항
 
-1. 날짜 기준 오름차순으로 정렬하고 과거 60%, 이후 20%, 마지막 20%를 Train·Validation·Test로 나눕니다. 행 수가 나누어떨어지지 않으면 Train과 Validation은 각각 `floor(0.6N)`, `floor(0.2N)`개이고, 나머지를 Test에 배정합니다.
-2. `temperature_c`, `occupants`, `is_weekend`를 Feature로 사용하고 `consumption_m3`를 Target으로 지정합니다. `date` 자체는 Feature로 넣지 않습니다.
-3. Training Target 평균을 예측하는 Baseline과 `StandardScaler` + `Ridge` 모델을 비교합니다.
-4. Ridge의 `alpha` 후보 `[0.1, 1.0, 10.0]`를 Validation MAE로 비교합니다. 동점일 경우 작은 `alpha`를 선택합니다.
-5. 확정된 설정으로 Test의 MAE·RMSE를 구하고, `date`, `actual`, `predicted`, `residual`을 포함한 결과 CSV를 생성합니다. Residual은 `actual - predicted`로 정의합니다.
+1. **시계열 데이터 분할 (Temporal Split):** 
+   - 데이터를 날짜(`date`) 기준 오름차순으로 정렬합니다.
+   - 전체 샘플 수 `N`을 기준으로 과거 `60%`를 Train, 이후 `20%`를 Validation, 마지막 `20%`를 Test 데이터로 분할합니다.
+   - 데이터 수가 정확히 나누어떨어지지 않는 경우, Train과 Validation은 각각 `floor(0.6 * N)`, `floor(0.2 * N)` 개로 설정하고 남은 잔여 샘플은 모두 Test에 배정합니다.
+2. **특징(Feature) 및 타겟(Target) 정의:**
+   - 예측 모델의 입력(Feature)으로 `temperature_c`, `occupants`, `is_weekend` 세 개의 열을 사용하고, 타겟(Target)으로 `consumption_m3`를 지정합니다. `date` 자체는 피처에서 제외합니다.
+3. **베이스라인 및 모델 파이프라인 구축:**
+   - 훈련 데이터 타겟의 평균값을 예측값으로 사용하는 단순 베이스라인(Baseline) 모델을 정의합니다.
+   - 수치형 피처의 정규화를 위한 `StandardScaler`와 선형 회귀 모델인 `Ridge`를 결합한 파이프라인을 구축합니다.
+4. **하이퍼파라미터 튜닝 (Validation 평가):**
+   - Ridge 모델의 규제 계수 `alpha` 후보군인 `[0.1, 1.0, 10.0]` 각각에 대해 Validation 데이터셋의 MAE(Mean Absolute Error)를 측정하여 최적의 값을 탐색합니다.
+   - 만약 동일한 최고 성능을 기록하는 `alpha` 후보가 여러 개인 경우, **더 작은 `alpha`**를 우선적으로 선택합니다.
+5. **테스트 평가 및 결과 리포트 생성:**
+   - 확정된 최적의 모델 설정을 바탕으로 Test 데이터셋에 대한 최종 성능 지표(MAE, RMSE)를 산출합니다.
+   - 평가 결과로서 `date`, 실제값(`actual`), 예측값(`predicted`), 그리고 잔차(`residual = actual - predicted`)를 포함하는 결과 CSV 파일을 생성합니다.
 
 #### 입력
 
-`daily_water.csv`: `date,temperature_c,occupants,is_weekend,consumption_m3`
-
-- 날짜는 `YYYY-MM-DD` 형식이며 중복되지 않습니다.
-- `is_weekend`는 0 또는 1, `occupants`는 0 이상의 정수입니다.
-- 최소 30개 행을 사용하며, 모든 수치 값은 유한해야 합니다.
+- **데이터 파일:** `daily_water.csv` (`date,temperature_c,occupants,is_weekend,consumption_m3`)
+- **데이터 제약 조건:**
+  - 날짜(`date`)는 `YYYY-MM-DD` 형식이며 중복되지 않습니다.
+  - `is_weekend`는 `0` 또는 `1`, `occupants`는 `0` 이상의 정수입니다.
+  - 모든 수치 값(기온, 수도 사용량 등)은 유한한 실수 또는 정수여야 합니다.
+  - 평가는 최소 30개 행 이상의 데이터셋을 대상으로 수행합니다.
 
 **예제 입력 일부**
 
@@ -454,56 +507,165 @@ date,temperature_c,occupants,is_weekend,consumption_m3
 
 #### 출력
 
-- `model_comparison.csv`: `model,validation_mae` (Baseline과 Ridge 후보별 결과)
-- `test_predictions.csv`: `date,actual,predicted,residual` (Test 날짜 오름차순)
-- `report.txt`: 선택한 `alpha`, Test MAE, Test RMSE, Test Baseline MAE, 모델·Baseline 비교 결과
+프로그램 실행 결과로 총 3개의 파일이 생성되어야 하며, 모든 수치 지표는 소수점 넷째 자리까지 반올림하여 기록합니다.
 
-제시된 세 행만으로 모델을 학습하지 않습니다. 실제 평가는 최소 30행의 전체 입력에 대해 수행합니다.
+1. **`model_comparison.csv` (`model,validation_mae`)**
+   - 단순 평균 예측(Baseline) 모델과 Ridge 하이퍼파라미터 `alpha` 후보군별(예: `alpha=0.1, 1.0, 10.0`) Validation MAE 성능 결과를 기록합니다.
+2. **`test_predictions.csv` (`date,actual,predicted,residual`)**
+   - Test 데이터셋에 속한 각 날짜(`date`)별 실제값(`actual`), 예측값(`predicted`), 그리고 잔차(`residual = actual - predicted`)를 기록합니다. (Test 날짜 기준 **오름차순 정렬**)
+3. **`report.txt`**
+   - 최종 선택된 `alpha` 값, Test 데이터셋에 대한 모델의 MAE·RMSE, Baseline MAE, 그리고 모델과 Baseline 간의 성능 비교 결과를 텍스트 형식으로 요약하여 기록합니다.
 
-#### 검증 항목
+**(※ 참고: 채점 및 평가는 최소 30행 이상의 전체 데이터셋을 대상으로 수행되며, 예제 입력 데이터만으로 학습 및 평가가 진행되지 않습니다.)**
 
-- 날짜 순서를 유지한 분할 및 세 구간의 중복 여부
-- Scaling과 모델 학습이 Validation·Test Target을 참조하지 않는지 확인
-- Validation에서 선택한 `alpha`를 Test 점수로 다시 바꾸지 않는지 확인
-- Residual의 부호, 출력 순서, MAE·RMSE 계산 확인
+#### 검증 항목 (Edge Cases & Validation Rules)
+
+- **시계열 분할 무결성 (Temporal Split Integrity):** 날짜(`date`) 기준 오름차순 정렬 후 Train(60%), Validation(20%), Test(20%) 세 구간으로 순서에 맞게 엄격히 분할되었으며, 구간 간 데이터의 누락이나 중복(Overlap)이 발생하지 않는지 확인
+- **데이터 유출 방지 (No Data Leakage):** 특징 스케일링(`StandardScaler`) 및 모델 학습 시 Validation과 Test 데이터셋의 정보(타겟 통계량 등)가 일절 참조되거나 학습에 영향을 주지 않는지 확인 (특히 스케일러는 Train 데이터를 기준으로만 `fit` 되어야 함)
+- **독립적 하이퍼파라미터 선정 (Independent Model Selection):** Validation 데이터셋을 통해 탐색·확정된 최적의 `alpha` 값이 Test 데이터셋의 성능에 의해 변경되거나 재선택되지 않고 독립적으로 고정되는지 확인
+- **잔차 및 지표 산출 정합성 (Residual & Metrics Verification):** 
+  - 잔차(`residual`)가 명세된 공식(`actual - predicted`)과 정확한 부호 및 값으로 계산되는지 검증
+  - `test_predictions.csv` 내 레코드가 Test 날짜 기준 오름차순으로 올바르게 정렬되어 있는지 확인
+  - MAE 및 RMSE 지표가 수식에 맞게 오차 없이 산출되었는지 검증
 
 <details>
 <summary><strong>구현 가이드</strong></summary>
 
-1. CSV를 날짜로 정렬한 뒤 위치 기준으로 구간을 나누세요.
-2. `Pipeline([('scaler', StandardScaler()), ('model', Ridge(...))])`을 사용할 수 있습니다.
-3. Test 결과를 확인하기 전에 모델 선택을 끝내고 Baseline 기준도 Training Target으로 고정하세요.
+**STEP 1. 시계열 데이터 로드 및 Temporal Split 분할**
+   - 데이터를 읽어 들인 후 날짜(`date`) 컬럼을 기준으로 오름차순 정렬합니다.
+   - 전체 행 수 `N`을 기준으로 Train(60%), Validation(20%), Test(20%) 구간으로 분할합니다. 정확히 나누어떨어지지 않을 경우, `floor(0.6 * N)`과 `floor(0.2 * N)` 공식을 적용하고 잔여 샘플은 Test에 배정합니다.
+     ```python
+     # 힌트: 날짜 정렬 및 위치 기반 분할 예시
+     import pandas as pd
 
+     df = pd.read_csv("daily_water.csv")
+     df["date"] = pd.to_datetime(df["date"])
+     df = df.sort_values("date").reset_index(drop=True)
+
+     n = len(df)
+     train_end = int(n * 0.6)
+     val_end = train_end + int(n * 0.2)
+
+     train_df = df.iloc[:train_end]
+     val_df = df.iloc[train_end:val_end]
+     test_df = df.iloc[val_end:]
+
+**STEP 2. 파이프라인 구축 및 Baseline 설정**
+   - 사이킷런의 `Pipeline`을 활용하여 `StandardScaler`와 `Ridge` 회귀 모델을 하나로 묶습니다.
+   - Baseline 모델은 훈련 데이터 타겟(`consumption_m3`)의 평균값으로 고정하여 예측 오차(MAE)의 기준점으로 삼습니다.
+     ```python
+     from sklearn.linear_model import Ridge
+     from sklearn.pipeline import Pipeline
+     from sklearn.preprocessing import StandardScaler
+   
+     # 피처 및 타겟 정의
+     features = ["temperature_c", "occupants", "is_weekend"]
+     target = "consumption_m3"
+   
+     # Baseline 예측값 (Train Target의 평균)
+     baseline_pred = train_df[target].mean()
+     ```
+
+**STEP 3. 하이퍼파라미터 탐색 및 최적 `alpha` 선정 (동점 처리 고려)**
+   - `alpha` 후보군(`[0.1, 1.0, 10.0]`)을 순회하며 파이프라인을 훈련 데이터로 학습시키고, Validation 데이터에 대한 MAE를 측정합니다.
+   - 성능이 동점일 경우 **더 작은 `alpha`**를 우선 선택하도록 조건식을 구성하고, 모델 결정을 완료합니다.
+     ```python
+     from sklearn.metrics import mean_absolute_error
+   
+     alphas = [0.1, 1.0, 10.0]
+     best_alpha = None
+     best_mae = float("inf")
+   
+     for alpha in alphas:
+       pipe = Pipeline([
+           ("scaler", StandardScaler()),
+           ("model", Ridge(alpha=alpha)),
+       ])
+       pipe.fit(train_df[features], train_df[target])
+       val_preds = pipe.predict(val_df[features])
+   
+       # Validation MAE 계산
+       val_mae = mean_absolute_error(val_df[target], val_preds)
+   
+       # 동점 시 더 작은 alpha 선택을 위해 '<' 적용 (오름차순 순회 시 첫 번째로 작은 값이 유지됨)
+       if val_mae < best_mae:
+         best_mae = val_mae
+         best_alpha = alpha
+     ```
+
+**STEP 4. 최종 모델 평가 및 결과 리포트 파일 생성**
+   - 탐색을 통해 확정된 최적의 `alpha`로 최종 파이프라인을 학습시키고, Test 데이터셋에 대한 예측 및 성능 지표(MAE, RMSE)를 산출합니다.
+   - 잔차(`residual = actual - predicted`)를 계산하고, 요구되는 3개의 파일(`model_comparison.csv`, `test_predictions.csv`, `report.txt`)로 결과물을 각각 저장합니다.
+     ```python
+     import numpy as np
+     from sklearn.metrics import mean_absolute_error
+   
+     # 최적 alpha로 최종 모델 학습
+     final_pipe = Pipeline([
+         ("scaler", StandardScaler()),
+         ("model", Ridge(alpha=best_alpha)),
+     ])
+     final_pipe.fit(train_df[features], train_df[target])
+   
+     # Test 예측 및 지표 계산
+     test_preds = final_pipe.predict(test_df[features])
+     test_actuals = test_df[target].values
+   
+     test_mae = mean_absolute_error(test_actuals, test_preds)
+     test_rmse = np.sqrt(np.mean((test_actuals - test_preds) ** 2))
+   
+     # Test Baseline MAE 계산
+     baseline_test_preds = np.full_like(test_actuals, baseline_pred)
+     baseline_test_mae = mean_absolute_error(test_actuals, baseline_test_preds)
+   
+     # 잔차 계산 및 test_predictions.csv 저장 (날짜 오름차순)
+     test_result_df = test_df[["date"]].copy()
+     test_result_df["actual"] = test_actuals
+     test_result_df["predicted"] = test_preds
+     test_result_df["residual"] = test_actuals - test_preds
+     test_result_df.to_csv("test_predictions.csv", index=False)
+     ```
+     
 </details>
 
 ---
 
-### A-03. Unlabeled Usage Pattern Analysis — 이용 패턴 군집화
+### A-03. Unlabeled Usage Pattern Analysis — 비지도 학습 기반 이용 패턴 군집화
 
-**관련 개념:** [Chapter 03](../Chapter-03/README.md) · KMeans · DBSCAN · Feature Scaling · Cluster Profile · Noise
+**관련 개념:** [Chapter 03](../Chapter-03/README.md) · KMeans · DBSCAN · Feature Scaling · Cluster Profile · Noise Handling
 
 #### 문제 설명
 
-공유 공간의 방문 기록에는 이용자의 유형을 나타내는 정답 Label이 없습니다. 운영팀은 방문 빈도, 체류 시간, 저녁 이용 비율을 참고해 공간 운영 패턴을 찾고자 합니다.
+공유 공간의 방문 기록 데이터에는 사용자의 유형을 사전에 정의하는 정답 레이블(Label)이 존재하지 않습니다. 운영팀은 방문 빈도(`weekly_visits`), 체류 시간(`avg_minutes`), 저녁 이용 비율(`evening_ratio`) 등의 지표를 활용하여 숨겨진 사용자 이용 패턴을 발견하고자 합니다.
 
-KMeans와 DBSCAN으로 데이터를 분석하고, 두 방법의 결과를 그대로 우열 비교하지 않고 특징을 설명하는 보고서를 작성하세요.
+본 과제에서는 비지도 학습 알고리즘인 KMeans와 DBSCAN을 각각 적용하여 데이터를 군집화하고, 두 알고리즘의 특성 차이를 이해하며, 각 군집의 통계적 프로파일을 분석하여 공간 운영 전략 수립을 위한 보고서를 작성하는 프로그램을 구현하시오.
 
-#### 구현 요구사항
+#### 요구 사항
 
-1. `weekly_visits`, `avg_minutes`, `evening_ratio`의 결측값과 범위를 검사합니다. 유효하지 않은 행은 `invalid_rows.csv`에 별도로 기록하고 분석에서는 제외합니다.
-2. 유효한 Feature에 `StandardScaler`를 적용합니다.
-3. `KMeans(n_clusters=3, random_state=42, n_init=10)`와 `DBSCAN(eps=0.6, min_samples=5)`를 각각 실행합니다.
-4. 두 모델에 대해 Cluster 크기와 원본 단위의 Feature별 평균을 계산합니다. DBSCAN의 Label `-1`은 Noise로 별도 집계합니다.
-5. `cluster_assignments.csv`, `cluster_profiles.csv`, `report.md`를 작성합니다. KMeans와 DBSCAN의 Cluster ID가 같은 의미가 아니라는 점을 보고서에 명시합니다.
+1. **데이터 무결성 검증 및 전처리:**
+   - `weekly_visits`, `avg_minutes`, `evening_ratio` 피처의 결측값 및 유효하지 않은 범위(예: 음수 값, 비율의 허용 범위를 벗어난 값 등)를 엄격히 검사합니다.
+   - 규칙을 위반한 비정상 행(Invalid rows)은 별도의 `invalid_rows.csv` 파일로 저장하고, 이후 군집화 분석 대상에서 제외합니다.
+2. **특징 스케일링 (Feature Scaling):**
+   - 정제된 유효 데이터의 피처들에 `StandardScaler`를 적용하여 각 변수의 스케일을 정규화합니다.
+3. **군집화 모델 실행:**
+   - `KMeans(n_clusters=3, random_state=42, n_init=10)` 모델을 실행하여 지정된 수의 군집으로 할당합니다.
+   - `DBSCAN(eps=0.6, min_samples=5)` 모델을 실행하여 밀도 기반 군집화를 수행합니다.
+4. **군집 프로파일링 및 통계 집계:**
+   - 두 모델 각각에 대해 각 군집의 크기(샘플 수)와 원본 데이터 단위 기준 Feature별 평균값을 계산합니다.
+   - 특히 DBSCAN 결과에서 노이즈(Noise)를 나타내는 레이블(`-1`)은 별도의 그룹으로 분리하여 집계합니다.
+5. **결과물 출력 및 보고서 작성:**
+   - `cluster_assignments.csv`(개별 샘플별 KMeans 및 DBSCAN 군집 할당 결과), `cluster_profiles.csv`(군집별 통계 프로파일), `report.md`(분석 결과 보고서)를 생성합니다.
+   - 보고서 작성 시, KMeans와 DBSCAN의 Cluster ID는 알고리즘 구조상 동일한 의미나 대응 관계를 갖지 않음을 명시하고 두 모델의 특성을 비교·설명합니다.
 
 #### 입력
 
-`space_usage.csv`: `record_id,weekly_visits,avg_minutes,evening_ratio`
-
-- `weekly_visits`: 0 이상의 정수
-- `avg_minutes`: 0 이상의 유한 실수
-- `evening_ratio`: 0 이상 1 이하
-- 유효한 Sample은 최소 30개여야 하며, 30개 미만이면 분석을 중단합니다.
+- **데이터 파일:** `space_usage.csv` (`record_id,weekly_visits,avg_minutes,evening_ratio`)
+- **데이터 제약 조건:**
+  - `record_id`: 고유 식별자 (문자열 또는 정수)
+  - `weekly_visits`: `0` 이상의 정수 (주간 방문 횟수)
+  - `avg_minutes`: `0` 이상의 유한한 실수 (평균 체류 시간)
+  - `evening_ratio`: `0` 이상 `1` 이하의 실수 (저녁 시간대 이용 비율)
+  - **최소 샘플 요건:** 무결성 검증을 통과한 유효한 샘플 수는 **최소 30개 이상**이어야 하며, 30개 미만일 경우 예외를 발생시키거나 분석 프로세스를 즉시 중단해야 합니다.
 
 **예제 입력 일부**
 
@@ -514,42 +676,113 @@ S02,7,32,0.82
 S03,3,102,0.38
 ```
 
-#### 출력
+#### 출력 파일 규격
 
-- `cluster_assignments.csv`: `record_id,kmeans_cluster,dbscan_cluster` (원본 유효 행 순서)
-- `cluster_profiles.csv`: `method,cluster_id,sample_count,mean_weekly_visits,mean_avg_minutes,mean_evening_ratio`
-- `invalid_rows.csv`: `row_number,error_code` (없으면 헤더만 출력)
-- `report.md`: Cluster별 이용 특징, DBSCAN Noise 수, 알고리즘별 차이 및 해석상 한계
+프로그램 실행 결과로 총 4개의 파일이 생성되어야 하며, 모든 수치 지표(평균값 등)는 소수점 넷째 자리까지 반올림하여 기록합니다.
 
-Cluster 번호와 평균값은 입력 데이터의 전체 분포에 따라 달라지므로 예제 세 행만으로 고정하지 않습니다.
+1. **`cluster_assignments.csv` (`record_id,kmeans_cluster,dbscan_cluster`)**
+   - 무결성 검증을 통과한 원본 유효 행의 순서(`record_id`)를 유지한 채, 각 샘플이 KMeans와 DBSCAN에서 각각 할당받은 군집 번호(Cluster ID)를 기록합니다. (DBSCAN 노이즈는 `-1`로 표기)
+2. **`cluster_profiles.csv` (`method,cluster_id,sample_count,mean_weekly_visits,mean_avg_minutes,mean_evening_ratio`)**
+   - 두 알고리즘(`kmeans`, `dbscan`)별 각 군집 및 노이즈 그룹의 샘플 수(`sample_count`)와, 원본 단위 데이터 기준 Feature별 평균 통계량을 요약하여 기록합니다.
+3. **`invalid_rows.csv` (`row_number,error_code`)**
+   - 무결성 검증 규칙(결측값, 허용 범위를 벗어난 값 등)을 위반한 비정상 행의 원본 파일 내 행 번호와 에러 코드를 기록합니다. (위반 행이 존재하지 않을 경우, 헤더만 출력합니다.)
+4. **`report.md`**
+   - 각 군집별 이용 패턴의 주요 특징, DBSCAN 알고리즘에서 발생한 노이즈(Noise) 데이터의 수, 그리고 두 알고리즘 간 군집 구조의 차이점 및 해석상 한계를 서술한 마크다운 형식의 보고서를 작성합니다.
 
-#### 검증 항목
+*(※ 주의: 군집 번호와 통계 평균값은 전체 데이터셋의 분포에 따라 동적으로 결정되므로, 예제 입력 데이터만으로 결과를 미리 고정하여 하드코딩하지 않도록 주의합니다.)*
 
-- 비정상 행이 Scaling과 Clustering에 포함되지 않는지 확인
-- DBSCAN Noise를 유효 Sample 집계에서 누락하지 않는지 확인
-- 유효 Sample 수와 KMeans Cluster별 Count의 합이 일치하는지 확인
-- Cluster ID를 실제 이용자 유형의 정답 Label로 오해하지 않는지 확인
+#### 검증 항목 (Edge Cases & Validation Rules)
+
+- **비정상 행 완벽 격리 (Exclusion of Invalid Rows):** 무결성 검증 단계에서 포착된 비정상 행(`invalid_rows.csv` 대상)이 피처 스케일링(`StandardScaler`)이나 군집화 모델 학습·할당 과정에 일절 포함되지 않고 안전하게 격리되는지 확인
+- **DBSCAN 노이즈 집계 누락 방지 (Noise Handling):** DBSCAN 알고리즘 수행 결과 노이즈로 판별된 샘플(`cluster_id = -1`)이 군집 프로파일링(`cluster_profiles.csv`) 과정에서 누락되지 않고 별도의 그룹으로 정확히 집계되는지 검증
+- **샘플 수 무결성 일치 (Sample Count Integrity):** 전체 유효 샘플 수(무결성 검증 통과 데이터 수)와 KMeans 군집별 샘플 수의 총합(`sample_count` 합계)이 정확히 일치하는지 확인
+- **비지도 학습 해석의 유의성 (Unsupervised Interpretation Guard):** 도출된 Cluster ID를 사전에 정의된 절대적인 '정답 레이블(Ground Truth)'이나 실제 이용자 유형의 고정된 실체로 오인하지 않고, 각 알고리즘의 구조적 특성에 기반한 상대적 군집으로 올바르게 해석하는지 검증
 
 <details>
 <summary><strong>구현 가이드</strong></summary>
 
-1. Feature의 유효성 검사를 먼저 수행하세요.
-2. `fit_predict()` 결과는 원본 유효 행과 같은 순서로 기록하세요.
-3. Cluster Profile은 Scaling된 값이 아닌 원본 단위에서 계산해야 운영팀이 해석하기 쉽습니다.
+**STEP 1. 데이터 무결성 검증 및 비정상 행 격리**
+   - `weekly_visits`, `avg_minutes`, `evening_ratio` 피처의 결측값 및 허용 범위 위반 여부를 검사하는 로직을 작성합니다.
+   - 규칙을 위반한 행은 `invalid_rows.csv`에 기록하고, 정상 행만 추출하여 유효 샘플 수(최소 30개)를 검증합니다.
+     ```python
+     import pandas as pd
+   
+     df = pd.read_csv("space_usage.csv")
+     invalid_rows = []
+     valid_indices = []
+   
+     for idx, row in df.iterrows():
+       row_num = idx + 2  # CSV 헤더 고려
+       # TODO: 결측치 확인 및 유효 범위 조건식 완성
+       # (weekly_visits >= 0, avg_minutes >= 0, 0 <= evening_ratio <= 1)
+       if False:  # 조건식 수정 필요
+         invalid_rows.append({"row_number": row_num, "error_code": "INVALID_VALUE"})
+       else:
+         valid_indices.append(idx)
+   
+     invalid_df = pd.DataFrame(invalid_rows)
+     invalid_df.to_csv("invalid_rows.csv", index=False)
+   
+     valid_df = df.iloc[valid_indices].reset_index(drop=True)
+     # TODO: 유효 샘플 수가 30개 미만일 경우 예외 발생 또는 분석 중단 로직 작성
+     ```
 
+**STEP 2. 특징 스케일링 (Feature Scaling)**
+   - Clustering의 거리 계산 왜곡을 방지하기 위해 정제된 유효 데이터로부터 피처를 추출하고 스케일링을 수행합니다.
+     ```python
+     from sklearn.preprocessing import StandardScaler
+   
+     features = ["weekly_visits", "avg_minutes", "evening_ratio"]
+     
+     # TODO: StandardScaler 객체 생성 및 fit_transform을 통한 유효 피처 스케일링 구현
+     scaler = None
+     scaled_features = None
+     ```
+**STEP 3. 군집화 모델 실행 및 할당 결과 기록**
+   - 지정된 파라미터로 `KMeans`와 `DBSCAN`을 각각 실행하고, 원본 유효 행의 순서와 일치하도록 군집 할당 결과를 수집하여 저장합니다.
+     ```python
+     from sklearn.cluster import DBSCAN, KMeans
+   
+     # TODO: KMeans 객체 생성 및 학습·예측 수행 (n_clusters=3, random_state=42, n_init=10)
+     kmeans_labels = None
+   
+     # TODO: DBSCAN 객체 생성 및 학습·예측 수행 (eps=0.6, min_samples=5)
+     dbscan_labels = None
+   
+     # TODO: 원본 유효 행의 record_id와 군집 할당 결과를 포함하는 DataFrame 생성 후 cluster_assignments.csv 저장
+     assignments_df = valid_df[["record_id"]].copy()
+     # assignments_df["kmeans_cluster"] = ...
+     # assignments_df["dbscan_cluster"] = ...
+     ```
+
+**STEP 4. 원본 단위 군집 프로파일링 및 리포트 작성**
+   - 운영팀이 해석하기 쉽도록 스케일링된 값이 아닌 **원본 데이터 단위(`valid_df`)**에서 군집별 샘플 수와 Feature별 평균값을 계산합니다. (DBSCAN의 노이즈 `-1` 포함)
+   - 집계된 프로파일을 `cluster_profiles.csv`로 저장하고, 알고리즘별 특성과 차이를 기술한 `report.md` 작성의 기초 자료로 활용합니다.
+     ```python
+     import pandas as pd
+   
+     profiles = []
+   
+     # TODO: KMeans 각 군집별(노이즈 또는 레이블별) sample_count 및 원본 feature 평균 계산 로직 작성
+     # TODO: DBSCAN 각 군집 및 노이즈(-1)별 sample_count 및 원본 feature 평균 계산 로직 작성
+   
+     # TODO: 결과를 DataFrame으로 변환하고 소수점 넷째 자리 반올림 후 cluster_profiles.csv 저장
+     ```
 </details>
 
 ---
 
-### A-04. Misleading Validation Score — 잘못된 평가 흐름 수정
+### A-04. Misleading Validation Score — 데이터 유출(Data Leakage) 및 잘못된 평가 흐름 교정
 
 **관련 개념:** [Chapter 02](../Chapter-02/README.md) · Data Leakage · [Chapter 04](../Chapter-04/README.md) · Pipeline · Cross-Validation · Hyperparameter Tuning
 
 #### 문제 설명
 
-한 개발자가 모델 성능을 높이기 위해 KNN의 이웃 수를 조정했습니다. 보고된 Cross-Validation Score는 높았지만, 코드에서는 전체 데이터로 Scaling을 수행한 뒤 Training과 Test를 나누고 있습니다. Test 결과도 Hyperparameter를 선택하는 과정에서 여러 번 확인했습니다.
+어느 개발자가 머신러닝 모델의 성능을 극대화하기 위해 K-Nearest Neighbors(KNN) 알고리즘의 이웃 수(`n_neighbors`)를 반복적으로 튜닝하였습니다. 보고서상 교차 검증(Cross-Validation) 점수는 매우 높게 측정되었으나, 실제 구현된 소스 코드를 면밀히 검토한 결과 몇 가지 치명적인 평가 오류가 발견되었습니다.
 
-다음 평가 코드를 검토하고, 동일한 실수를 반복하지 않도록 처리 순서를 수정하세요.
+첫째, 전체 데이터셋을 대상으로 특징 스케일링(`StandardScaler`)을 먼저 수행한 뒤 학습용 데이터와 평가용 데이터로 분할하여 **데이터 유출(Data Leakage)**이 발생했습니다. 둘째, 하이퍼파라미터 탐색 및 최적 모델 선정 과정에서 평가용 데이터셋(Test Set)의 성능을 여러 차례 참조하여 사실상 테스트 데이터가 모델 학습 과정에 오염(Contamination)되었습니다.
+
+본 과제에서는 위 사례와 같은 치명적인 평가 오류의 원인을 분석하고, 사이킷런의 `Pipeline`과 올바른 데이터 분할·교차 검증 원칙을 적용하여 데이터 유출을 방지하는 안전한 평가 파이프라인을 구축하시오.
 
 **문제가 있는 코드**
 
@@ -571,99 +804,221 @@ search.fit(X_train, y_train)
 
 #### 구현 요구사항
 
-1. 코드에서 발생하는 평가 절차상의 문제를 두 가지 이상 찾아 설명합니다.
-2. 원본 `X`, `y`를 Train·Test로 먼저 분할합니다. 이 문제의 데이터는 독립 Sample로 구성된 이진 분류이며 클래스별 Sample이 충분하다고 가정합니다.
-3. `StandardScaler`와 `KNeighborsClassifier`를 `Pipeline`으로 구성하고, `GridSearchCV`로 `n_neighbors` 후보를 비교합니다.
-4. 선택된 설정을 고정한 뒤 독립적인 Test Data에서 Accuracy와 Balanced Accuracy를 한 번 평가합니다.
-5. `audit_report.md`에 기존 코드의 문제, 수정 코드의 처리 순서, 평가에 사용한 데이터의 역할을 명시합니다.
+1. **평가 절차 오류 분석:** 기존 코드에서 발생하는 머신러닝 평가 절차상 및 통계적 오류(데이터 유출 및 테스트 세트 오염 등)를 두 가지 이상 식별하고 구체적으로 설명합니다.
+2. **데이터 분할 우선 원칙 준수:** 원본 데이터(`X`, `y`)를 모델 학습 및 전처리 이전에 `train_test_split`을 통해 훈련 세트와 테스트 세트로 선분할합니다. (단, 본 문제는 독립 샘플로 구성된 이진 분류 데이터셋이며 클래스별 샘플이 충분하다고 가정)
+3. **파이프라인 및 교차 검증 적용:** `StandardScaler`와 `KNeighborsClassifier`를 `Pipeline`으로 결합하고, `GridSearchCV`를 활용하여 교차 검증(`CV`) 폴드 내에서 전처리가 독립적으로 수행되도록 구성하여 `n_neighbors` 후보를 탐색합니다.
+4. **최종 테스트 평가 단회성 보장:** 하이퍼파라미터 튜닝 및 모델 선택 과정에서 테스트 세트를 일절 참조하지 않고 완전히 격리한 뒤, 최적화가 완료된 최종 모델에 대해 독립된 테스트 데이터에서 정확도(`Accuracy`)와 균형 정확도(`Balanced Accuracy`)를 **단 한 번만** 평가합니다.
+5. **감사 보고서 작성 (`audit_report.md`):** 기존 코드의 구조적 문제점, 수정된 파이프라인의 처리 순서 및 데이터 흐름, 그리고 평가 과정에서 각 데이터셋(Train/Validation/Test)이 수행하는 역할과 통제 방안을 마크다운 보고서로 서술합니다.
 
-#### 입력
+#### 입력 데이터 규격 및 제약 사항
 
-- 변수 `X`: Shape `(N, D)`인 숫자형 Feature 배열
-- 변수 `y`: Shape `(N,)`인 이진 Target 배열
-- `N ≥ 100`, `D ≥ 2`, 클래스별 Sample 수는 5-Fold CV를 수행할 만큼 충분합니다.
+- **입력 변수:**
+  - `X`: Shape `(N, D)`인 실수형 독립 변수(Feature) 배열
+  - `y`: Shape `(N,)`인 이진 분류 타겟(Target) 배열 (`0` 또는 `1`)
+- **데이터 규격 조건:**
+  - 샘플 수 $N \ge 100$, 피처 차원 $D \ge 2$
+  - 각 클래스별 샘플 수는 5-Fold 교차 검증(`cv=5`)을 안정적으로 수행하기에 충분한 수량을 확보하고 있습니다.
+- **실습/테스트 데이터 생성 안내:**
+  - 독립된 가상 검증용 데이터셋이 필요한 경우, 아래의 사이킷런 유틸리티 함수를 활용하여 생성할 수 있습니다.
+    ```python
+    from sklearn.datasets import make_classification
 
-검증용 데이터가 필요하면 `sklearn.datasets.make_classification(n_samples=400, n_features=5, n_informative=3, n_redundant=0, random_state=42)`를 사용할 수 있습니다.
+    X, y = make_classification(
+        n_samples=400,
+        n_features=5,
+        n_informative=3,
+        n_redundant=0,
+        random_state=42,
+    )
+    ```
 
-#### 출력
+#### 출력 파일 규격
 
-- `best_params.json`: 선택된 `n_neighbors`와 평균 Cross-Validation Accuracy
-- `test_metrics.json`: 최종 Test Accuracy·Balanced Accuracy
-- `audit_report.md`: 발견한 문제와 수정 이유
+프로그램 실행 결과로 총 3개의 파일이 생성되어야 하며, 모든 성능 수치 및 지표는 소수점 넷째 자리까지 반올림하여 기록합니다.
 
-모델 성능의 고정된 목표 숫자는 없습니다. **평가 절차를 올바르게 분리했는지** 가 이 문제의 핵심입니다.
+1. **`best_params.json`**
+   - 하이퍼파라미터 튜닝을 통해 최적으로 선정된 `n_neighbors` 값과 해당 모델의 평균 교차 검증 정확도(`mean_cv_accuracy`)를 기록합니다.
+   - **JSON 예시 구조:**
+     ```json
+     {
+       "best_n_neighbors": 5,
+       "mean_cv_accuracy": 0.8525
+     }
+     ```
+2. **`test_metrics.json`**
+   - 완전히 격리된 테스트 세트를 활용하여 단 한 번 평가한 최종 성능 지표인 정확도(`test_accuracy`)와 균형 정확도(`test_balanced_accuracy`)를 기록합니다.
+   - **JSON 예시 구조:**
+     ```json
+     {
+       "test_accuracy": 0.8625,
+       "test_balanced_accuracy": 0.8600
+     }
+     ```
+3. **`audit_report.md`**
+   - 기존 코드에서 발생한 구조적 평가 오류(전체 데이터 스케일링으로 인한 데이터 유출, 테스트 세트 반복 참조 등), 이를 바로잡기 위한 `Pipeline` 도입 및 데이터 분할 순서 수정 이유, 그리고 평가 과정에서 각 데이터셋(Train/Test)이 수행한 역할에 대한 검증 보고서를 마크다운 형식으로 작성합니다.
 
-#### 검증 항목
+*(※ 주의: 본 과제는 특정 고정 성능 목표치의 달성 여부를 채점하는 것이 아니라, **데이터 유출을 원천 차단하고 평가 단계를 엄격하게 분리한 올바른 머신러닝 평가 파이프라인 흐름**을 구현했는지를 중점적으로 검증합니다.)*
 
-- `StandardScaler.fit()`이 Test Data 및 각 CV Fold의 Validation Data를 참조하지 않는지 확인
-- Test 결과를 보고 후보를 다시 변경하지 않는지 확인
-- Pipeline에서 `model__n_neighbors`가 올바르게 설정되는지 확인
-- 동일한 `random_state`에서 일관된 분할을 사용하는지 확인
+#### 검증 항목 (Edge Cases & Validation Rules)
+
+- **데이터 유출 차단 검증:** `StandardScaler.fit()` 등의 전처리기 학습이 테스트 세트(Test Data)나 교차 검증 각 폴드(CV Fold)의 검증 데이터 영역을 일절 참조하거나 오염시키지 않고, 오직 훈련 데이터 내부에서만 독립적으로 수행되는지 확인
+- **테스트 데이터 격리 원칙:** 하이퍼파라미터 튜닝 및 모델 선택 과정에서 테스트 세트의 평가 결과를 피드백 루프로 사용하여 후보 모델을 재선택하거나 수정하는 부적절한 탐색 행위가 원천 차단되었는지 확인
+- **파이프라인 파라미터 매핑 정합성:** `GridSearchCV`의 `param_grid` 설정 시 `Pipeline` 내에 정의된 컴포넌트 명칭과 파라미터가 올바르게 연결(예: 네이밍 규격에 맞는 `n_neighbors` 탐색 설정)되어 정상적으로 작동하는지 검증
+- **재현성 확보:** 데이터 분할(`train_test_split`) 및 모델 학습 과정에서 무작위성이 개입되는 모든 단계에 동일한 `random_state`가 적용되어 일관된 데이터 분할과 재현 가능한 결과가 보장되는지 확인
 
 <details>
 <summary><strong>구현 가이드</strong></summary>
 
-1. `train_test_split()`을 모든 데이터 변환보다 먼저 호출하세요.
-2. `Pipeline`의 각 단계 이름을 정하고 `GridSearchCV`에는 `model__n_neighbors`를 전달하세요.
-3. `search.best_estimator_`는 최적 설정으로 Training Data에 다시 학습된 모델입니다. 최종 Test Data를 사용해 별도로 설정을 조정하지 마세요.
+**STEP 1. 데이터 분할 우선 수행 (Data Leakage 방지)**
+   - 모델 학습 및 전처리(스케일링 등)를 수행하기 전에, 전체 원본 데이터 `X`와 `y`를 `train_test_split()`을 통해 훈련 세트와 테스트 세트로 먼저 분할합니다.
+     ```python
+     from sklearn.model_selection import train_test_split
+   
+     # TODO: X와 y를 train_test_split으로 분할 (test_size=0.2, random_state=42, stratify=y)
+     X_train, X_test, y_train, y_test = None, None, None, None
+     ```
+**STEP 2. Pipeline 구성 및 GridSearchCV 설정**
+   - `StandardScaler`와 `KNeighborsClassifier`를 `Pipeline`으로 결합하고, 교차 검증 폴드 내부에서 전처리가 독립적으로 수행되도록 합니다.
+   - `GridSearchCV`를 통해 탐색할 하이퍼파라미터 그리드를 설정합니다. (예: `model__n_neighbors`)
+     ```python
+     from sklearn.model_selection import GridSearchCV
+     from sklearn.neighbors import KNeighborsClassifier
+     from sklearn.pipeline import Pipeline
+     from sklearn.preprocessing import StandardScaler
+   
+     # TODO: StandardScaler와 KNeighborsClassifier를 포함하는 Pipeline 구성 (예: 단계명 'model' 사용)
+     pipeline = Pipeline([("scaler", StandardScaler()), ("model", None)])
+   
+     # TODO: param_grid 설정 (예: {"model__n_neighbors": [3, 5, 7]})
+     param_grid = {}
+   
+     # TODO: GridSearchCV 객체 생성 (estimator=pipeline, param_grid=param_grid, cv=5)
+     search = None
+     ```
 
+**STEP 3. 훈련 데이터 기반 하이퍼파라미터 튜닝 및 최적 파라미터 저장**
+   - 훈련 데이터(`X_train`, `y_train`)를 대상으로 `GridSearchCV`를 학습시켜 최적의 하이퍼파라미터를 탐색합니다.
+   - 탐색된 최적의 `n_neighbors` 값과 최고 교차 검증 평균 정확도를 추출하여 `best_params.json`으로 저장합니다.
+     ```python
+     import json
+   
+     # TODO: search.fit(X_train, y_train)을 통한 하이퍼파라미터 튜닝 수행
+   
+     # TODO: search.best_params_와 search.best_score_를 가져와 딕셔너리 구성 및 best_params.json 저장
+     best_params = {
+         "best_n_neighbors": None,  # 최적 n_neighbors 값 추출
+         "mean_cv_accuracy": None,  # 최고 교차 검증 정확도 (소수점 넷째 자리 반올림)
+     }
+   
+     with open("best_params.json", "w", encoding="utf-8") as f:
+       json.dump(best_params, f, ensure_ascii=False, indent=4)
+     ```
+##### STEP 4. 최종 테스트 평가 수행 및 감사 보고서 작성
+   - 튜닝 과정에서 완전히 격리했던 테스트 세트(`X_test`, `y_test`)를 대상으로 최종 모델(`search.best_estimator_`)의 성능을 단 한 번 평가합니다.
+   - 정확도(`accuracy_score`)와 균형 정확도(`balanced_accuracy_score`)를 계산하여 `test_metrics.json`으로 저장하고, 기존 코드의 문제점과 개선 내역을 담은 `audit_report.md`를 작성합니다.
+     ```python
+     import json
+     from sklearn.metrics import accuracy_score, balanced_accuracy_score
+   
+     # TODO: search.best_estimator_를 사용하여 X_test 예측 수행
+     y_pred = None
+   
+     # TODO: accuracy_score 및 balanced_accuracy_score 계산 (소수점 넷째 자리 반올림)
+     test_accuracy = None
+     test_balanced_accuracy = None
+   
+     test_metrics = {
+         "test_accuracy": test_accuracy,
+         "test_balanced_accuracy": test_balanced_accuracy,
+     }
+   
+     with open("test_metrics.json", "w", encoding="utf-8") as f:
+       json.dump(test_metrics, f, ensure_ascii=False, indent=4)
+   
+     # TODO: 기존 코드의 문제점(Data Leakage, Test 세트 오염), Pipeline 도입 이유, 데이터 역할을 기술한 audit_report.md 작성
+     report_content = """# 머신러닝 평가 흐름 감사 보고서 (Audit Report)
+   
+      ## 1. 기존 코드의 평가 절차상 문제점
+      - ...
+      
+      ## 2. 수정된 파이프라인 및 데이터 유출 방지 대책
+      - ...
+      
+      ## 3. 데이터셋별 역할 분담
+      - **Train Set**: ...
+      - **Validation Set (CV)**: ...
+      - **Test Set**: ...
+      """
+   
+     with open("audit_report.md", "w", encoding="utf-8") as f:
+       f.write(report_content)
+     ```
+  
 </details>
 
 ---
 
 ## Professional
 
-### P-01. Warranty Repair Triage — 보증수리 접수 우선순위
+### P-01. Warranty Repair Triage — 데이터 유출 방지와 그룹 분할을 적용한 보증수리 우선순위 모델링
 
 **관련 개념:** [Chapter 01](../Chapter-01/README.md) · Human Review · [Chapter 03](../Chapter-03/README.md) · Logistic Regression · [Chapter 04](../Chapter-04/README.md) · Imbalanced Evaluation · F2 · Group-Aware Split · Threshold
 
 #### 문제 설명
 
-가전제품 수리센터에는 매일 여러 건의 보증수리 신청이 접수됩니다. 일부 신청은 실제 고장으로 판정되지만, 단순 사용 안내만으로 해결되는 사례도 있습니다. 센터는 **실제 고장 가능성이 높은 접수를 우선 검토** 하려고 합니다.
+가전제품 수리센터에는 매일 수많은 보증수리 접수가 유입되지만, 한정된 인력으로 인해 **하루 최대 3건**의 접수만 우선 검토할 수 있습니다. 접수 건 중 상당수는 단순 사용 미숙이나 안내만으로 해결되는 반면, 실제 하드웨어 고장 판정으로 이어지는 고부가가치 케이스는 제한적입니다. 센터는 실제 고장 확률이 높은 접수를 정확히 선별하여 운영 효율성을 극대화하고자 합니다.
 
-기존 접수 기록에는 동일 제품의 반복 신청이 포함되어 있습니다. 또한 실제 고장 판정과 최종 수리비는 현장 점검이 끝난 후에야 확인할 수 있습니다. 이 값들을 접수 시점의 예측 Feature로 사용하면 평가 결과가 왜곡됩니다.
+그러나 제공된 히스토리 데이터에는 머신러닝 실무에서 흔히 범하는 치명적인 구조적 오류가 내포되어 있습니다. 
+첫째, 동일 제품에 대한 반복 신청 이력이 포함되어 있어 일반적인 무작위 분할(Random Split) 시 학습 데이터와 테스트 데이터 간의 **그룹 유출(Group Leakage)**이 발생합니다. 
+둘째, 현장 점검 이후에만 확정되는 '실제 고장 판정 결과'와 '최종 수리 비용' 등의 **후행 지표(Post-Inspection Features)**가 접수 시점의 예측 Feature에 혼입되어 심각한 **데이터 유출(Data Leakage)**을 유발하고 있습니다.
 
-하루에 검토할 수 있는 신청은 최대 3건입니다. 학습·평가 절차와 운영용 우선순위 목록을 함께 설계하세요.
+본 과제에서는 그룹 구조를 고려한 데이터 분할 전략을 수립하고, 사후 정보 유출을 원천 차단한 예측 모델을 구축한 뒤, 제한된 운영 자원(일일 최대 3건 검토)과 클래스 불균형을 고려한 최적의 판정 임계값(Threshold) 및 평가 체계를 설계하시오.
 
 #### 제공 데이터
 
-`historical_claims.csv` (학습 및 평가용):
+분석 및 운영을 위해 두 개의 데이터셋 파일(`historical_claims.csv`, `incoming_claims.csv`)이 제공되며, 모두 UTF-8 인코딩의 CSV 형식입니다.
 
-| 열 | 의미 | 예측 시점 사용 |
-|---|---|---|
-| `claim_id` | 접수 번호 | 결과 연결용 식별자 |
-| `received_date` | 접수일 | 분할·운영 날짜 |
-| `unit_id` | 제품 고유 번호 | Group 분할 |
-| `age_months` | 제품 사용 개월 수 | 가능 |
-| `alarm_count_30d` | 최근 30일 오류 알림 횟수 | 가능 |
-| `prior_claim_count` | 해당 접수 이전의 누적 수리 신청 수 | 가능 |
-| `confirmed_failure` | 점검 후 실제 고장 여부(0/1) | **Target 전용** |
-| `final_repair_cost` | 점검 후 확정된 수리비 | **사용 금지** |
+1. **`historical_claims.csv` (학습 및 검증용 히스토리 데이터)**
+   - 모델 학습, 교차 검증 및 성능 평가에 사용되는 과거 수리 접수 이력 데이터입니다.
+   
+| 열 이름 | 의미 | 데이터 사용 가이드 / 제약 사항 |
+| :--- | :--- | :--- |
+| `claim_id` | 접수 번호 | 각 접수를 식별하는 고유 식별자 |
+| `received_date` | 접수일 | 데이터 분할 기준 및 시계열 흐름 파악용 |
+| `unit_id` | 제품 고유 번호 | **그룹 분할(Group-Aware Split) 기준** (동일 제품의 반복 신청 격리) |
+| `age_months` | 제품 사용 개월 수 | 예측 모델의 입력 특징(`Feature`)으로 사용 가능 |
+| `alarm_count_30d` | 최근 30일 오류 알림 횟수 | 예측 모델의 입력 특징(`Feature`)으로 사용 가능 |
+| `prior_claim_count` | 해당 접수 이전의 누적 수리 신청 수 | 예측 모델의 입력 특징(`Feature`)으로 사용 가능 |
+| `confirmed_failure` | 점검 후 실제 고장 여부 (0 또는 1) | 모델 학습 및 평가를 위한 **타겟(Target) 전용** |
+| `final_repair_cost` | 점검 후 확정된 수리비 | **사용 금지 (사후 정보 유출 방지를 위해 Feature 및 Target으로 일절 활용 불가)** |
 
-`incoming_claims.csv` (운영용): `claim_id,received_date,unit_id,age_months,alarm_count_30d,prior_claim_count` — Target이 없습니다.
+2. **`incoming_claims.csv` (운영 예측 대상 데이터)**
+   - 실제 운영 환경에서 타겟 변수(`confirmed_failure`)와 사후 정보(`final_repair_cost`)가 배제된 채 유입되는 신규 접수 데이터입니다.
+   - 구성 컬럼: `claim_id, received_date, unit_id, age_months, alarm_count_30d, prior_claim_count`
 
-두 파일 모두 UTF-8 CSV이며 헤더가 있습니다. `unit_id`가 같은 Sample은 같은 제품에서 발생한 기록입니다.
+> ⚠️ **주의 사항:** `unit_id`가 동일한 샘플들은 동일 기기에서 발생한 연쇄 기록이므로, 무작위 분할 시 데이터 유출을 유발합니다. 반드시 그룹 구조를 반영한 분할 방식을 적용해야 합니다.
 
-#### 구현 요구사항
+#### 요구사항
 
-1. 필수 Feature 누락과 범위 오류를 검사합니다. 유효하지 않은 행은 명확한 오류 이유와 함께 별도로 관리합니다. `age_months`, `alarm_count_30d`, `prior_claim_count`는 0 이상의 정수입니다.
-2. 기존 데이터를 **제품 단위로** Train 60%·Validation 20%·Test 20%에 가깝게 나눕니다. 비율은 고유 제품 수 기준이며, 제품 ID가 세 구간에 중복되어서는 안 됩니다. `GroupShuffleSplit(random_state=42)` 등을 사용할 수 있습니다.
-3. `DummyClassifier(strategy='most_frequent')`를 Baseline으로, `StandardScaler`와 `LogisticRegression(max_iter=1000)`을 연결한 Pipeline을 후보로 사용합니다.
-4. Validation에서 Threshold `[0.35, 0.50, 0.65]`의 F2를 계산해 가장 높은 값을 선택합니다. 동점이라면 **더 높은 Threshold** 를 선택합니다. Train·Validation에서 실제 고장이 한 클래스뿐이어서 모델 학습 또는 F2 평가가 불가능하면 이유를 보고하고 중단합니다.
-5. 선택한 Threshold를 적용해 Test의 Precision·Recall·F2·Confusion Matrix를 기록합니다. Test 결과로 Threshold를 다시 변경하지 않습니다.
-6. 운영 데이터에는 동일 모델의 점수를 적용합니다. Threshold 이상인 접수만 날짜별로 **점수 내림차순, 동점이면 `claim_id` 오름차순** 으로 정렬하고 하루 최대 3건까지 검토 목록에 등록합니다. 나머지는 `NOT_SELECTED`로 기록합니다.
-7. 보고서에 **모델 Threshold 기준의 Test 성능** 과 **하루 3건 제한이 적용된 운영 선택 결과** 를 별도로 제시합니다. 두 기준을 같은 지표로 혼동하지 않습니다.
+1. **데이터 정합성 검증 및 전처리:** 필수 Feature 누락 여부 및 값의 범위 오류를 검사합니다 (`age_months`, `alarm_count_30d`, `prior_claim_count`는 모두 0 이상의 정수). 유효하지 않은 레코드는 별도로 분리하고 명확한 오류 사유를 기록합니다.
+2. **그룹 인식 데이터 분할 (Group-Aware Split):** 제품 단위(`unit_id`)를 기준으로 Train 60%·Validation 20%·Test 20% 비율에 가깝게 분할합니다. 동일한 제품이 서로 다른 세 구간에 중복으로 포함되어서는 안 됩니다 (`GroupShuffleSplit(random_state=42)` 등 활용).
+3. **베이스라인 및 예측 모델 구성:** `DummyClassifier(strategy='most_frequent')`를 베이스라인 모델로 설정하고, `StandardScaler`와 `LogisticRegression(max_iter=1000)`을 결합한 `Pipeline`을 메인 후보 모델로 구축합니다.
+4. **임계값(Threshold) 최적화 및 예외 처리:** Validation 세트에서 임계값 후보 `[0.35, 0.50, 0.65]`에 따른 $F_2$ 점수를 비교하여 가장 높은 값을 선택합니다. 동점 발생 시 **더 높은 임계값**을 우선 선택합니다. 단, 특정 분할에서 타겟 클래스가 단일 클래스로만 구성되어 학습 또는 $F_2$ 계산이 불가능한 경우, 해당 사유를 명시하고 프로세스를 중단합니다.
+5. **독립 테스트 세트 평가:** 최적화된 임계값을 Test 세트에 적용하여 정밀도(`Precision`), 재현율(`Recall`), $F_2$ 점수, 그리고 혼동 행렬(`Confusion Matrix`)을 산출합니다. Test 결과에 기반하여 임계값을 재조정하는 행위는 엄격히 금지됩니다.
+6. **운영 데이터 추론 및 우선순위 선정:** 신규 운영 데이터(`incoming_claims.csv`)에 동일한 모델과 최적 임계값을 적용합니다. 임계값 이상인 접수를 대상으로 날짜별 **예측 점수 내림차순, 동점 시 `claim_id` 오름차순**으로 정렬한 뒤, 하루 최대 3건까지 검토 목록에 등록하고 나머지는 `NOT_SELECTED`로 처리합니다.
+7. **평가 결과 리포팅 분리:** 최종 보고서에 **모델 임계값 기준의 Test 성능 지표**와 **일일 3건 제한이 적용된 실제 운영 선택 결과**를 명확히 구분하여 서술하며, 두 평가 기준의 지표를 혼동하여 기술하지 않습니다.
 
 #### 입력 및 출력
 
-**입력:** `historical_claims.csv`, `incoming_claims.csv`
+**입력 파일:**
+- `historical_claims.csv`: 과거 수리 접수 이력 (학습 및 검증용)
+- `incoming_claims.csv`: 신규 운영 접수 데이터 (타겟 변수 및 사후 정보 제외)
 
-**출력:**
-
-- `evaluation.json`: 분할별 고유 제품·Sample 수, Baseline 점수, 선택 Threshold, Test Metrics
-- `daily_review_queue.csv`: `received_date,rank,claim_id,failure_score` — 선택된 신청만 날짜·순위 오름차순
-- `incoming_decisions.csv`: `claim_id,decision` — `SELECTED` 또는 `NOT_SELECTED`, 입력 순서 유지
-- `report.md`: Feature 선택, Leakage 점검, 운영 제약, 제한 사항
+**출력 파일:**
+- **`evaluation.json`**: 데이터 분할별 고유 제품 수 및 샘플 수, 베이스라인 성능, 최적 선정 임계값(Threshold), 그리고 독립 Test 세트 평가 지표를 기록한 JSON 파일
+- **`daily_review_queue.csv`**: `received_date,rank,claim_id,failure_score` — 검토 대상으로 최종 선정된 접수 건에 한해 날짜별, 순위 오름차순(`rank` 1~3)으로 정렬된 운영 검토 큐 파일
+- **`incoming_decisions.csv`**: `claim_id,decision` — 모든 신규 운영 접수 건에 대한 판정 결과 (`SELECTED` 또는 `NOT_SELECTED`), 원본 입력 순서 및 행 개수 유지
+- **`report.md`**: Feature 선택 사유, 정보 유출(Data Leakage) 및 그룹 분할 점검 내역, 일일 3건 제한 등의 운영 제약 사항, 그리고 주요 제한 사항을 서술한 마크다운 보고서
 
 **예제 운영 점수** — Threshold가 `0.50`으로 결정된 경우
 
@@ -685,61 +1040,102 @@ received_date,rank,claim_id,failure_score
 2026-10-12,3,C03,0.74
 ```
 
-`C04`는 Threshold는 통과했지만 하루 검토 한도 때문에 선택되지 않았고, `C05`는 Threshold보다 낮습니다.
+- `C01`, `C02`, `C03`, `C04`는 모두 임계값(`0.50`)을 상회하여 기준을 충족했습니다. 이 중 점수가 높은 상위 3건(`C01`, `C02`, `C03`)이 일일 최대 검토 한도에 따라 최종 선정되었습니다.
+- `C04`: 임계값(`0.50`)은 통과하였으나, 일일 최대 검토 한도(3건) 제약으로 인해 최종 선택 목록에서 제외되었습니다.
+- `C05`: 예측 점수(`0.44`)가 임계값 미달이므로 제외되었습니다.
 
-#### 검증 항목
+#### 검증 항목 (Validation Criteria)
 
-- 동일 제품의 접수 기록이 서로 다른 평가 구간에 포함되지 않는지 확인
-- `confirmed_failure`, `final_repair_cost`가 Feature에 들어가지 않는지 확인
-- Threshold 동점, 점수 동점, Threshold 미달, 하루 최대 3건의 검토 한도가 정확하게 적용되는지 검증
-- Test 평가 이후 운영 목록을 만들 때 Test Label을 사용하지 않는지 확인
-- 3건 제한을 적용하기 전후 결과를 구분하는지 확인
+- **그룹 분할 무결성 검증:** 동일한 제품(`unit_id`)의 접수 기록이 Train, Validation, Test 등 서로 다른 평가 구간에 중복 분할되지 않고 완전히 격리되었는지 확인
+- **정보 유출 차단 검증:** 사후 지표인 `confirmed_failure`와 `final_repair_cost`가 예측 Feature 세트에 일절 포함되지 않았는지 검증
+- **임계값 및 운영 제약 정합성 검증:** 
+  - Threshold 동점 발생 시 더 높은 임계값 선택 규칙 준수 여부
+  - 예측 점수 동점 발생 시 `claim_id` 오름차순 정렬 규칙 준수 여부
+  - Threshold 미달 건의 제외 처리 적정성
+  - 일일 최대 3건의 검토 한도가 날짜별로 정확히 적용되는지 확인
+- **운영 추론 독립성 검증:** 운영 검토 목록(`daily_review_queue.csv`) 및 판정 결과 생성 시 Test 타겟(Label) 정보를 일절 참조하거나 사용하지 않는지 확인
+- **평가 및 운영 결과 분리 검증:** 모델 임계값 기준의 순수 Test 성능 지표와 3건의 일일 제한이 적용된 실제 운영 선택 결과가 혼동되지 않고 명확히 구분되어 산출되었는지 확인
 
 <details>
 <summary><strong>구현 가이드</strong></summary>
 
-1. `unit_id` 기준의 분할을 먼저 구현하고 세 구간의 교집합이 비어 있는지 검사하세요.
-2. 허용된 숫자형 Feature만 Pipeline에 전달하세요.
-3. Validation의 F2로 Threshold를 선택한 뒤 Test 지표를 기록하세요.
-4. 운영 데이터에서는 예측 점수와 일일 검토 용량을 별개의 규칙으로 처리하세요.
+**STEP 1. 제품 단위 그룹 분할 및 데이터 정합성 검증**
+   - `unit_id`를 기준으로 Train(60%)·Validation(20%)·Test(20%) 세트를 분할하고, 세 구간 간의 제품 ID 교집합이 완전히 비어 있는지(`empty`) 엄격히 검증합니다.
+   - 허용된 입력 Feature(`age_months`, `alarm_count_30d`, `prior_claim_count`) 외의 사후 정보나 타겟 변수가 파이프라인에 유입되지 않도록 정합성을 검사합니다.
+     ```python
+     import pandas as pd
+     from sklearn.model_selection import GroupShuffleSplit
+   
+     df = pd.read_csv("historical_claims.csv")
+   
+     # TODO: 필수 Feature 정수 범위 검사 및 유효하지 않은 레코드 분리
+   
+     # TODO: GroupShuffleSplit을 활용한 Train / Validation / Test 분할 및 제품 ID 교집합 검증
+     ```
 
+**STEP 2. 모델 학습, 임계값 최적화 및 운영 추론 수행**
+   - 베이스라인 모델(`DummyClassifier`)과 `StandardScaler`, `LogisticRegression`을 결합한 `Pipeline`을 구성하여 학습을 진행합니다.
+   - Validation 세트에서 임계값 후보 `[0.35, 0.50, 0.65]`에 따른 $F_2$ 점수를 평가하여 최적의 임계값를 선택합니다 (동점 시 더 높은 임계값 선택).
+   - 확정된 임계값으로 Test 세트 성능을 측정(`evaluation.json`)하고, 신규 운영 데이터(`incoming_claims.csv`)에 적용하여 일일 최대 3건 제한 및 정렬 규칙에 맞는 운영 검토 큐를 생성합니다.
+     ```python
+     import json
+     import pandas as pd
+     from sklearn.dummy import DummyClassifier
+     from sklearn.linear_model import LogisticRegression
+     from sklearn.metrics import f2_score
+     from sklearn.pipeline import Pipeline
+     from sklearn.preprocessing import StandardScaler
+   
+     # TODO: DummyClassifier 및 StandardScaler + LogisticRegression Pipeline 정의 및 학습
+   
+     # TODO: Validation 세트에서 임계값 [0.35, 0.50, 0.65]별 F2 계산 및 최적 임계값 선정
+   
+     # TODO: Test 세트 평가 및 evaluation.json 저장
+   
+     # TODO: incoming_claims.csv 예측, 임계값 필터링, 일일 최대 3건 제한(점수 내림차순, claim_id 오름차순) 적용 후 CSV 출력
+     ```
 </details>
 
 ---
 
-### P-02. Municipal Waste Demand Prediction — 지역별 수거량 예측
+### P-02. Municipal Waste Demand Prediction — 시계열 분할과 잔차 분석을 활용한 지역별 주간 폐기물 수거량 수요 예측
 
 **관련 개념:** [Chapter 02](../Chapter-02/README.md) · Regression · [Chapter 04](../Chapter-04/README.md) · Temporal Split · Baseline · Residual Analysis · Hyperparameter Selection
 
 #### 문제 설명
 
-지방자치단체는 구역별 다음 주 폐기물 수거량을 예측해 차량과 인력을 배치하려고 합니다. 데이터에는 지난주 실제 수거량과 다음 주의 예정 행사 수 등이 포함됩니다.
+지방자치단체는 효율적인 차량 배차와 인력 운용을 위해 각 행정 구역별 **다음 주 폐기물 수거량**을 정확히 예측하고자 합니다. 제공되는 데이터에는 과거 주차별 실제 수거량 이력뿐만 아니라, 다음 주에 예정된 지역 행사 수 및 환경 변수들이 포함되어 있습니다.
 
-수거량이 적은 구역과 많은 구역의 오차를 같은 크기로 취급할 것인지도 고민해야 합니다. 평균 오차가 낮아도 특정 구역에서 반복적으로 큰 오차가 발생하면 실제 배차 업무에는 문제가 생길 수 있습니다.
+그러나 본 과제 설계 시 두 가지 핵심 과제를 해결해야 합니다.
+첫째, 미래의 정보가 과거 학습 과정에 유출되지 않도록 시간 흐름을 엄격히 반영한 **시계열 분할(Temporal Split)** 을 적용해야 합니다.
+둘째, 단순한 전체 평균 오차(RMSE/MAE) 축소에만 매몰될 경우, 수거량이 적은 구역과 많은 구역 간의 스케일 차이로 인해 특정 대규모 구역에서 반복적인 과대·과소 예측 오류가 발생하여 실제 배차 현장에 혼선이 빚어질 수 있습니다. 
 
-과거 주차의 정보만 사용해 다음 주 수거량을 예측하고, 구역별 오류까지 분석하는 프로젝트를 설계하세요.
+본 과제에서는 과거 주차의 정보만을 활용하여 다음 주 수거량을 예측하는 회귀 모델을 구축하고, 구역별 예측 잔차(Residual) 분석을 통해 모델의 안정성과 실무 적합성을 함께 검증하시오.
 
 #### 제공 데이터
 
-`weekly_waste.csv`: `zone_id,forecast_week,last_week_kg,planned_events,holiday_days,next_week_kg`
+분석 및 예측 모델 학습을 위해 단일 데이터셋 파일인 `weekly_waste.csv`가 제공되며, UTF-8 인코딩의 CSV 형식입니다. 각 행은 특정 구역(`zone_id`)과 주차(`forecast_week`)의 조합을 나타내며, 중복 없이 유일합니다. 데이터셋은 최소 15개 이상의 서로 다른 주차(`forecast_week`)에 걸친 시계열 이력을 포함합니다.
 
-- `forecast_week`: 예측 대상 주의 시작일(월요일)
-- `last_week_kg`: 예측 대상 주 **직전 주** 의 실제 수거량
-- `planned_events`: 예측 대상 주에 계획된 행사 수(예측 시점에 이미 확정된 일정)
-- `holiday_days`: 예측 대상 주의 공휴일 수(사전에 확인 가능한 값)
-- `next_week_kg`: 예측 대상 주가 끝난 후 확인된 **Target**
+| 열 이름 | 의미 | 데이터 사용 가이드 / 제약 사항 |
+| :--- | :--- | :--- |
+| `zone_id` | 행정 구역 고유 식별자 | 구역별 특성 및 공간적 단위 파악용 |
+| `forecast_week` | 예측 대상 주의 시작일 (월요일) | **시계열 분할(Temporal Split) 및 순서 정렬 기준** |
+| `last_week_kg` | 직전 주 실제 수거량 (kg) | 시계열 래그(Lag) 특성으로 모델의 입력 Feature로 사용 가능 |
+| `planned_events` | 예정된 행사 수 | 예측 대상 주에 계획된 행사 수 (예측 시점 사전 확정 값, Feature 사용 가능) |
+| `holiday_days` | 공휴일 수 | 예측 대상 주의 공휴일 수 (사전 확인 가능 값, Feature 사용 가능) |
+| `next_week_kg` | 다음 주 실제 수거량 (kg) | 모델 학습 및 평가를 위한 **타겟(Target) 전용** (0 이상의 유한한 실수) |
 
-각 구역과 주의 조합은 유일하며, `next_week_kg`는 0 이상의 유한한 실수입니다. 데이터는 `forecast_week`가 서로 다른 주 최소 15개를 포함한다고 가정합니다.
+> ⚠️ **주의 사항:** 미래의 정보가 학습 과정에 유입되는 것을 방지하기 위해, 데이터 분할 시 무작위 분할이 아닌 `forecast_week` 기준의 **시간 순서형 분할(Temporal Split)** 을 엄격히 적용해야 합니다.
 
-#### 구현 요구사항
+#### 요구사항
 
-1. 날짜 형식, 중복 구역·주 조합, 음수 수거량 및 비정상 입력을 검사합니다.
-2. 구역별 Sample을 섞지 않고 **고유한 주차를 날짜 순서로** Train 60%, Validation 20%, Test 나머지 20%로 나눕니다. 구간의 비율은 고유 `forecast_week` 수를 기준으로 하며, `floor(0.6W)`·`floor(0.2W)`를 사용합니다.
-3. `last_week_kg`, `planned_events`, `holiday_days`를 Feature로 사용합니다. `zone_id`는 구역별 결과 분류에만 사용하며 모델의 입력 Feature에는 넣지 않습니다. `next_week_kg`는 Target입니다.
-4. Baseline은 `last_week_kg`를 그대로 예측합니다. 후보 모델은 `StandardScaler` + `Ridge`이며 `alpha` 후보는 `[0.1, 1.0, 10.0]`입니다.
-5. Ridge 후보 중 Validation MAE가 가장 낮은 `alpha`를 선택합니다. 동점이라면 작은 `alpha`를 선택합니다. Baseline은 모델 후보 선택에 사용하지 않고 비교 기준으로 유지합니다. 선택을 끝낸 뒤 Test에서 Baseline과 Ridge 모델의 MAE·RMSE를 비교합니다.
-6. `zone_id`별 Test MAE와 Residual의 평균을 계산합니다. 실제 값보다 **적게 예측한 사례** 중 `actual - predicted`가 가장 큰 상위 5건도 별도로 표시합니다.
-7. 보고서에는 전체 성능과 구역별 성능이 다르게 보일 수 있는 이유, 수거량 과소 예측이 운영에 미치는 영향을 기술합니다.
+1. **데이터 정합성 및 무결성 검증:** 날짜 형식 유효성, 동일 구역·주차(`zone_id`, `forecast_week`) 조합의 중복 여부, 그리고 음수 수거량 등 비정상 입력 데이터를 검사하고 정제합니다.
+2. **시계열 기반 데이터 분할 (Temporal Split):** 구역별 샘플을 무작위로 섞지 않고, 고유 주차(`forecast_week`)의 전체 개수($W$)를 기준으로 시간 순서에 따라 Train 60%(`floor(0.6W)`), Validation 20%(`floor(0.2W)`), Test(나머지 20%) 비율로 엄격히 분할합니다. 세 구간 간 주차가 중복되어서는 안 됩니다.
+3. **Feature 및 Target 정의:** 직전 주 수거량(`last_week_kg`), 예정 행사 수(`planned_events`), 공휴일 수(`holiday_days`)를 모델의 입력 Feature로 사용합니다. `zone_id`는 구역별 성능 분석 및 그룹화에만 활용하며 모델의 직접적인 입력 Feature로는 제외합니다. `next_week_kg`는 타겟(Target)으로 설정합니다.
+4. **베이스라인 및 회귀 모델 구성:** 직전 주 수거량을 그대로 예측하는 방식(`last_week_kg` Persistence)을 베이스라인 모델로 설정합니다. 후보 모델로는 `StandardScaler`와 `Ridge` 회귀 모델을 결합한 파이프라인을 구축하며, 규제 강도(`alpha`) 후보군은 `[0.1, 1.0, 10.0]`으로 설정합니다.
+5. **하이퍼파라미터 최적화 및 비교 평가:** Validation 세트에서 MAE(Mean Absolute Error)가 가장 낮은 `alpha`를 최적 파라미터로 선택합니다 (동점 시 더 작은 `alpha` 우선 선택). 베이스라인은 모델 선택 과정에 개입하지 않으며, 최종 Test 세트에서 베이스라인과 Ridge 모델의 MAE 및 RMSE 성능을 비교 평가합니다.
+6. **구역별 잔차 분석 및 과소 예측 추출:** `zone_id`별 Test MAE 및 잔차(Residual) 평균을 산출합니다. 특히 실제 수거량이 예측값보다 큰 **과소 예측 사례** 중 `actual - predicted` 편차가 가장 큰 상위 5건을 별도로 식별하고 기록합니다.
+7. **결과 리포팅 및 운영 영향 분석:** 전체 지표와 구역별 세부 성능 간의 괴리가 발생하는 이유를 분석하고, 폐기물 수거량 과소 예측이 실제 현장 배차 및 인력 운영에 미치는 운영적 리스크와 시사점을 보고서에 기술합니다.
 
 #### 입력 및 출력
 
@@ -763,49 +1159,82 @@ Z01,2026-06-08,455,1,0,448
 
 Baseline은 각 행에서 `[420, 310, 455]`를 예측합니다. 이 세 행은 형식 확인용이며, 제시된 일부 데이터만으로 Train·Validation·Test를 구성하지 않습니다.
 
-#### 검증 항목
+#### 검증 항목 (Validation Criteria)
 
-- 같은 `forecast_week`의 여러 구역 기록이 서로 다른 평가 구간으로 갈라지지 않는지 확인
-- Target과 예측 시점에 확정되지 않은 자료를 Feature에 넣지 않는지 확인
-- 주차를 섞어 분할하거나 Test에서 `alpha`를 다시 조정하지 않았는지 확인
-- `actual - predicted`의 부호에 따라 과소·과대 예측을 올바르게 구분하는지 확인
-- 전체 MAE가 개선되어도 일부 구역에서 오차가 커질 수 있는지 분석
+- **시계열 주차 분할 무결성 검증:** 고유 주차(`forecast_week`)를 기준으로 순차 분할을 수행할 때, 동일 주차 내의 여러 구역 데이터가 서로 다른 평가 구간(Train·Validation·Test)으로 무작위 분산되지 않고 주차 단위로 온전히 격리되었는지 확인
+- **정보 유출 차단 검증:** 타겟 변수(`next_week_kg`) 및 예측 시점에 사전에 확정되지 않은 미래의 정보가 입력 Feature 세트에 일절 포함되지 않았는지 검증
+- **분할 및 튜닝 독립성 검증:** 주차별 데이터를 무작위로 섞어 분할하지 않았으며, 독립 Test 세트의 결과를 바탕으로 하이퍼파라미터(`alpha`)를 재조정하거나 모델을 수정하지 않았는지 확인
+- **잔차 부호 정합성 검증:** `actual - predicted` 연산 시 잔차의 부호 규칙을 올바르게 적용하여 과소 예측(Under-prediction)과 과대 예측(Over-prediction)을 정확하게 판별 및 분리하는지 확인
+- **구역별 편차 및 오차 트레이드오프 분석:** 전체 평균 지표(MAE)가 개선되었음에도 불구하고 특정 구역에서 대규모 오차가 발생하는 원인을 분석하고, 지역별 특성에 따른 모델의 일반화 성능 편차를 타당하게 설명하는지 검증
 
 <details>
 <summary><strong>구현 가이드</strong></summary>
 
-1. 먼저 고유 `forecast_week` 목록을 정렬하고 주차 집합으로 Train·Validation·Test를 만드세요.
-2. Baseline의 Test 예측값은 각 행의 `last_week_kg`입니다. Training Target 평균을 사용하는 Baseline과 다르므로 문제에서 정의한 기준을 유지하세요.
-3. 각 구역의 Test Sample 수와 MAE를 함께 기록해야 적은 Sample로 나온 값도 해석할 수 있습니다.
+**STEP 1. 데이터 정합성 검증 및 시계열 기반 주차 분할 (Temporal Split)**
+   - 누락값, 음수 수거량, 비정상 날짜 형식 등 무결성 저해 요소를 검사하고 정제하며, 동일한 행정 구역(`zone_id`)과 주차(`forecast_week`) 조합의 중복 여부를 엄격히 검증합니다.
+   - 미래 정보 유출(Data Leakage)을 원천 차단하기 위해 무작위 분할을 배제하고, 전체 고유 주차($W$)의 시간 순서를 기준으로 Train(60%)·Validation(20%)·Test(나머지 20%) 구간을 주차 단위로 온전히 격리하여 분할합니다.
+   
+   ```python
+   import numpy as np
+   import pandas as pd
+   
+   # 데이터 로드
+   df = pd.read_csv("weekly_waste.csv")
+   
+   # TODO: 날짜 형식 유효성 검사, 중복 레코드 제거 및 음수 수거량 정제
+   
+   # TODO: 고유 forecast_week 기준 시간 순서형 Temporal Split 구현 (Train 60%, Val 20%, Test 20%)
+   ```
+
+**STEP 2. Ridge 모델 학습, 하이퍼파라미터 튜닝 및 구역별 잔차 분석**
+   - `zone_id`를 직접적인 입력 피처에서 제외하고, 허용된 피처(`last_week_kg`, `planned_events`, `holiday_days`)와 타겟(`next_week_kg`)을 정의합니다. `StandardScaler`와 `Ridge`(`alpha` 후보: `[0.1, 1.0, 10.0]`)를 결합한 파이프라인을 구축하여 Validation 세트의 MAE 기준으로 최적의 `alpha`를 선정합니다.
+   - 독립된 Test 세트에서 베이스라인(`last_week_kg` Persistence)과 최적 Ridge 모델의 성능(MAE, RMSE)을 비교 평가하고, 구역별 잔차 분석을 통해 과소 예측(`actual - predicted`) 상위 5건을 추출한 뒤 최종 결과 파일 및 보고서를 생성합니다.
+   
+   ```python
+   from sklearn.compose import ColumnTransformer
+   from sklearn.linear_model import Ridge
+   from sklearn.metrics import mean_absolute_error, mean_squared_error
+   from sklearn.pipeline import Pipeline
+   from sklearn.preprocessing import StandardScaler
+   
+   features = ["last_week_kg", "planned_events", "holiday_days"]
+   target = "next_week_kg"
+   
+   # TODO: Validation 세트를 활용한 최적 alpha(0.1, 1.0, 10.0) 튜닝 및 Ridge 파이프라인 학습
+   
+   # TODO: Test 세트에 대한 Baseline(직전 주 수거량) 및 최적 Ridge 모델 예측 수행
+   
+   # TODO: 구역별(zone_id) MAE 및 잔차 산출, 과소 예측 상위 5건 식별 후 결과 파일 및 리포트 저장
+   ```
 
 </details>
 
 ---
 
-### P-03. Workspace Utilization Strategy — 공간 운영 패턴 분석
+### P-03. 공유 오피스 공간 이용 패턴 군집화 및 안정성 검증
 
-**관련 개념:** [Chapter 03](../Chapter-03/README.md) · Unsupervised Learning · KMeans · Cluster Profile · [Chapter 04](../Chapter-04/README.md) · Evaluation Reliability
+#### 문제 배경 및 개요
 
-#### 문제 설명
+공유 오피스 운영사는 공간별 예약률과 취소율 데이터를 바탕으로 이용 패턴을 세분화하여 운영 효율성을 극대화하고자 합니다. 현재 사전에 정의된 공간 유형 레이블(Label)이 부재한 상태이므로, 비지도 학습(Unsupervised Learning)을 통한 데이터 주도형 공간 군집화가 요구됩니다.
 
-공유 오피스 운영사는 여러 공간의 예약률과 취소율을 분석하고 있습니다. 공간별 이용 형태를 구분해 운영 방식을 개선하려고 하지만, 미리 정해진 유형 Label은 없습니다.
+그러나 단순한 클러스터링 결과 도출만으로는 실무적인 의사결정으로 이어지기 어렵습니다. 운영팀이 즉각적인 공간 운영 전략을 수립하기 위해서는 **각 군집의 정성적·정량적 특성(Cluster Profile)을 명확히 해석**할 수 있어야 하며, 알고리즘 초기화(Initialization) 변화에 따른 **군집 결과의 안정성(Reliability)과 신뢰도**가 뒷받침되어야 합니다.
 
-운영팀은 단순히 Cluster 번호를 얻는 것으로는 의사결정을 할 수 없습니다. 어떤 공간에서 이용 패턴이 비슷한지, 다른 초기화에서도 비슷한 결과가 나타나는지, 도출된 그룹에 어떤 운영 변경을 적용할 수 있는지가 필요합니다.
+본 과제에서는 KMeans 알고리즘을 활용해 공간 이용 패턴을 군집화하고, 군집별 프로파일링 분석 및 평가 신뢰도 검증을 거쳐 실무에 즉시 적용 가능한 공간 운영 최적화 전략을 도출합니다.
 
 #### 제공 데이터
 
 `workspace_usage.csv`: `room_id,week_start,weekly_bookings,avg_session_min,evening_ratio,cancel_ratio`
 
-각 행은 한 공간의 일주일 기록입니다. 비율 열은 0~1, 예약 수와 평균 이용 시간은 0 이상입니다. `room_id`와 `week_start`의 조합은 유일합니다. 유효 Sample은 최소 50개입니다.
+각 행은 특정 공간의 주차별 이용 기록입니다. 비율 관련 열은 0에서 1 사이의 값을 가지며, 주간 예약 수와 평균 이용 시간은 0 이상의 실수입니다. `room_id`와 `week_start`의 조합은 중복 없이 유일하며, 데이터셋은 최소 50개 이상의 유효 레코드를 포함합니다.
 
-#### 구현 요구사항
+#### 요구사항
 
-1. 범위 오류·결측값·중복 행을 검사하고 제외한 행의 이유를 기록합니다.
-2. `weekly_bookings`, `avg_session_min`, `evening_ratio`, `cancel_ratio`를 StandardScaler로 변환합니다.
-3. `KMeans(n_clusters=3, n_init=10)`을 `random_state` `[7, 21, 42]`에서 각각 실행합니다.
-4. 모든 실행 결과를 **같은 유효 Sample 순서에서** 비교하고, 각 실행 쌍의 Adjusted Rand Index(ARI)를 계산합니다. Cluster ID의 숫자 자체는 비교 기준으로 사용하지 않습니다.
-5. 기준 결과는 `random_state=42`로 정합니다. 이 결과의 Cluster별 Sample 수, 원본 단위 Feature 평균, 공간별 배정 건수를 계산합니다.
-6. 운영 변경안을 세 개 작성합니다. 각 변경안에는 관찰한 Cluster 특징, 제안 이유, 적용 후 확인할 지표가 포함되어야 합니다. 결과가 불안정하다면 그 한계를 보고합니다.
+1. **데이터 정합성 및 무결성 검증:** 음수, 허용 범위를 벗어난 비율 값, 결측값, 그리고 동일 공간·주차(`room_id`, `week_start`) 조합의 중복 여부를 검사하고 정제하며, 제외된 행에 대한 사유를 명시합니다.
+2. **Feature 표준화:** `weekly_bookings`, `avg_session_min`, `evening_ratio`, `cancel_ratio`를 추출하여 `StandardScaler`를 통해 평균 0, 분산 1의 스케일로 정규화합니다.
+3. **KMeans 군집화 반복 실행:** `n_clusters=3`, `n_init=10`으로 설정된 `KMeans` 모델을 `random_state` 각각 `[7, 21, 42]`에서 순차적으로 실행합니다.
+4. **군집 안정성(ARI) 검증:** 동일한 유효 샘플 순서를 기준으로, 서로 다른 `random_state` 실행 결과 간의 Adjusted Rand Index(ARI)를 계산하여 군집 할당의 안정성을 평가합니다. (단, 클러스터 번호 자체는 임의로 부여되므로 순수 매핑 결과로만 비교)
+5. **기준 클러스터 프로파일링:** `random_state=42`를 기준 모델로 설정하고, 각 군집별 샘플 수, 원본 단위 Feature 평균 값, 그리고 공간별(room_id) 배정 분포를 산출합니다.
+6. **운영 전략 도출 및 한계 분석:** 프로파일링 결과를 바탕으로 구체적인 공간 운영 변경안 3가지를 제안합니다. 각 제안에는 관찰된 클러스터 특징, 제안 근거, 적용 후 성과 측정 지표가 포함되어야 하며, 초기화 조건에 따른 안정성 한계가 있을 경우 이를 함께 보고합니다.
 
 #### 입력 및 출력
 
@@ -831,18 +1260,45 @@ M01,2026-09-14,20,48,0.70,0.08
 
 #### 검증 항목
 
-- ARI를 동일한 Sample에 대한 서로 다른 Cluster 할당 결과로 계산했는지 확인
-- Cluster 번호가 서로 바뀌어도 ARI 해석이 올바른지 확인
-- 정답 Label이 없는 문제에서 Accuracy를 사용하지 않는지 확인
-- 운영 제안을 Cluster별 실제 특징과 연결했는지 확인
-- 공간별 반복 기록이 있다는 사실을 결과 해석에서 고려했는지 확인
+* **ARI 연산 무결성 검증:** Adjusted Rand Index(ARI)를 동일한 유효 샘플 순서를 기준으로 서로 다른 `random_state` 간의 클러스터 할당 결과에 올바르게 적용하여 산출했는지 확인
+* **라벨 순서 독립성 검증:** 클러스터 번호(ID)가 임의로 스위칭되더라도 ARI가 두 할당 결과 간의 구조적 일치도를 올바르게 측정하는지 확인
+* **평가 지표 적절성 검증:** 정답 레이블(Label)이 존재하지 않는 비지도 학습 문제에서 부적절한 지도 학습 지표(예: Accuracy) 대신 군집화 평가 지표를 올바르게 채택했는지 확인
+* **운영 제안 타당성 검증:** 도출된 운영 변경안이 각 클러스터의 정량적 프로파일 및 실제 이용 특징과 논리적으로 긴밀하게 연결되어 있는지 확인
+* **패널 데이터 특성 반영 검증:** 동일 공간(`room_id`)에 대한 시계열·반복 기록의 존재를 인식하고, 공간별 배정 분포 및 패턴 해석 시 이를 적절히 고려했는지 확인
 
 <details>
 <summary><strong>구현 가이드</strong></summary>
 
-1. `fit_predict()`의 출력을 동일한 유효 Sample 순서로 저장하세요.
-2. `adjusted_rand_score(labels_a, labels_b)`로 초기화에 따른 결과의 일치 정도를 살펴볼 수 있습니다.
-3. ARI가 높더라도 Cluster가 운영상 유용하다는 사실까지 자동으로 증명되는 것은 아닙니다. 평균·분포와 실제 업무 목적을 함께 확인하세요.
+**STEP 1. 데이터 무결성 검증, 스케일링 및 KMeans 군집 안정성(ARI) 검증**
+   - 허용 범위를 벗어난 값, 결측값, 중복 행을 엄격히 검사·정제하고, 분석 대상 Feature(`weekly_bookings`, `avg_session_min`, `evening_ratio`, `cancel_ratio`)를 `StandardScaler`로 표준화합니다.
+   - `KMeans(n_clusters=3, n_init=10)` 모델을 `random_state` `[7, 21, 42]` 조건에서 각각 수행하고, 동일한 유효 샘플 순서를 기준으로 실행 결과 간 Adjusted Rand Index(ARI)를 계산하여 초기화에 따른 군집 할당의 안정성을 평가합니다.
+   
+   ```python
+   import numpy as np
+   import pandas as pd
+   from sklearn.cluster import KMeans
+   from sklearn.metrics import adjusted_rand_score
+   from sklearn.preprocessing import StandardScaler
+   
+   # 데이터 로드
+   df = pd.read_csv("workspace_usage.csv")
+   
+   # TODO: 범위 오류, 결측값, 중복 행 검사 및 정제 (제외 사유 기록)
+   
+   # TODO: StandardScaler를 활용한 Feature 정규화 수행
+   
+   # TODO: random_state [7, 21, 42]에 따른 KMeans 실행 및 ARI 기반 군집 안정성 검증
+   ```
+
+**STEP 2. 기준 클러스터 프로파일링 및 공유 오피스 운영 전략 도출**
+   - `random_state=42`를 기준 모델로 선정하여 각 클러스터별 샘플 수, 원본 단위 Feature 평균 값, 그리고 공간별(`room_id`) 배정 분포를 산출하여 정성적·정량적 특성(Cluster Profile)을 해석합니다.
+   - 프로파일링 결과를 바탕으로 관찰된 특징, 제안 이유, 성과 측정 지표가 포함된 구체적인 공간 운영 변경안 3가지를 도출하고, 초기화 조건에 따른 군집 안정성의 한계를 함께 보고합니다.
+   
+   ```python
+   # TODO: random_state=42 기준 클러스터 프로파일링 (샘플 수, 원본 단위 Feature 평균, 공간별 배정 분포 산출)
+   
+   # TODO: 클러스터별 특성 분석 및 3가지 운영 변경안 작성 (한계 보고 포함)
+   ```
 
 </details>
 
@@ -850,45 +1306,45 @@ M01,2026-09-14,20,48,0.70,0.08
 
 ## Challenge
 
-### C-01. Equipment Failure Model Audit — 설비 고장 예측 시스템 감사
+### C-01. 제조 설비 고장 예측 시스템 감사 및 데이터 누수 검증 (Equipment Failure Model Audit)
 
-**관련 개념:** [Chapter 02](../Chapter-02/README.md) · Data Leakage · [Chapter 04](../Chapter-04/README.md) · GroupKFold · Generalization · Error Analysis · Pipeline
+#### 문제 배경 및 개요
 
-#### 문제 설명
+제조 시설의 설비 고장 예측 모델이 내부 검증 단계에서는 우수한 성능을 기록했으나, 신규 설비 도입 시 실제 고장 탐지율이 급감하는 치명적인 문제가 발생했습니다.
 
-제조 시설에서 사용하던 설비 고장 예측 모델은 내부 평가에서 높은 점수를 기록했습니다. 그러나 새로운 설비에 적용하자 실제 고장을 놓치는 사례가 크게 늘어났습니다.
+개발 로그 분석 결과, 동일 설비(`equipment_id`)의 시계열 측정 기록이 Train과 Test 세트에 무작위로 분산(Data Splitting Leakage)되어 있었으며, 입력 Feature에 **고장 발생 이후에 기록되어야 하는 '수리 처리 코드(Post-failure Maintenance Code)'** 와 같은 미래 정보가 포함된 심각한 데이터 누수(Data Leakage) 정황이 포착되었습니다.
 
-개발 기록을 조사하던 운영팀은 동일 설비의 여러 측정 기록이 Train과 Test에 섞였을 가능성을 발견했습니다. 또한 입력 Feature 목록에는 **고장이 확인된 후 기록되는 수리 처리 코드** 가 포함되어 있었습니다.
-
-기존 구현의 문제를 재현한 뒤, 어떤 원인이 성능을 과대평가했는지 근거를 제시하고 평가 절차를 복구하세요. 모델을 무조건 복잡하게 만드는 것이 목표는 아닙니다.
+본 과제에서는 기존 모델의 과대평가(Overestimation) 원인을 코드 수준에서 재현 및 분석하고, 그룹 구조를 반영한 올바른 교차 검증(`GroupKFold`) 체계와 정합성이 확보된 Feature 파이프라인을 구축하여 모델의 진정한 일반화 성능을 복구하는 것을 목표로 합니다.
 
 #### 제공 데이터
 
-`equipment_history.csv`: 다음 열이 포함됩니다.
+`equipment_history.csv`: 제조 설비의 센서 측정 이력 및 고장 여부가 포함된 단일 데이터셋 파일입니다. 동일한 설비(`device_id`)에 대한 다수의 시계열 측정 기록이 존재하며, 데이터셋은 최소 30대 이상의 서로 다른 설비 이력을 포함합니다. 일부 레코드에는 결측값이나 유효하지 않은 Feature 값이 포함되어 있을 수 있습니다.
 
-| 열 | 설명 | 사용 방식 |
-|---|---|---|
-| `record_id` | 측정 번호 | 결과 연결용 |
-| `device_id` | 설비 ID | Group 분할 기준 |
-| `observed_at` | 측정 시각 | 기록 시점 점검 |
-| `temperature_c` | 측정 시점의 온도 | Feature |
-| `vibration_rms` | 측정 시점의 진동값 | Feature |
-| `load_pct` | 측정 시점의 부하율(0~100) | Feature |
-| `days_since_service` | 마지막 정비 이후 경과일 | Feature |
-| `failure_next_14d` | 측정 뒤 14일 안에 발생한 고장(0/1) | Target |
-| `final_repair_code` | 고장 확인 후 기록한 수리 코드 | **사용 금지** |
+| 열 이름 | 의미 | 데이터 사용 가이드 / 제약 사항 |
+| :--- | :--- | :--- |
+| `record_id` | 측정 레코드 고유 번호 | 결과 매핑 및 레코드 식별용 |
+| `device_id` | 설비 고유 식별자 | **Group 교차 검증 분할 기준 (GroupKFold)** |
+| `observed_at` | 측정 시각 | 시계열 흐름 및 기록 시점 정합성 점검용 |
+| `temperature_c` | 측정 시점의 온도 (°C) | 모델 입력 Feature |
+| `vibration_rms` | 측정 시점의 진동값 (RMS) | 모델 입력 Feature |
+| `load_pct` | 측정 시점의 부하율 (0~100) | 모델 입력 Feature |
+| `days_since_service` | 마지막 정비 이후 경과일 | 모델 입력 Feature |
+| `failure_next_14d` | 측정 시점 이후 14일 이내 고장 여부 (0/1) | **머신러닝 모델 학습 및 평가 타겟 (Target)** |
+| `final_repair_code` | 고장 확인 후 기록되는 수리 코드 | ⚠️ **사용 금지 (사후 정보 유출 Feature 원천 차단 대상)** |
 
-동일 `device_id`가 여러 번 등장하며, 데이터에는 최소 30대의 설비가 포함되어 있습니다. 결측·유효하지 않은 Feature 값도 일부 존재할 수 있습니다.
+#### 요구사항
 
-#### 구현 요구사항
-
-1. **기존 평가 재현:** 전체 데이터를 무작위로 분할한 경우의 점수를 계산하고, 해당 과정에서 동일 설비가 Train·Test에 겹치는지 확인합니다. 기존 방식의 오류를 조사하기 위한 실험임을 명시합니다.
-2. **Feature Audit:** 각 열의 확보 시점을 검토하고 `final_repair_code` 및 Target이 Feature에 섞이지 않도록 차단합니다. 허용된 열의 목록을 코드에 명시합니다.
-3. **Group-Based Evaluation:** 설비 ID 기준으로 Train·Validation·Test를 분할합니다. 비율은 고유 설비 수 기준 약 60%·20%·20%이고, 동일 설비가 여러 구간에 속하지 않아야 합니다.
-4. **Pipeline 복구:** 숫자형 결측값은 Training Data의 중앙값으로 대체하고 StandardScaler 및 Logistic Regression으로 연결합니다. 모든 전처리의 `fit()`은 해당 Training 구간에만 수행합니다.
-5. **평가:** Majority Baseline과 복구 모델의 Accuracy·Recall·Balanced Accuracy·F1을 비교합니다. 각 평가 구간에 실제 양성이 없다면 해당 지표의 정의와 보고 방식을 명시합니다.
-6. **원인 분석:** 행 단위 분할과 Group 분할의 점수 차이, Feature Leakage 여부, 설비별 오류 분포를 근거로 어떤 평가 결과가 실제 도입 목표에 더 적합한지 설명합니다. 점수가 반드시 특정 수치만큼 떨어져야 한다고 가정하지 않습니다.
-7. **회귀 테스트:** 다음 항목을 자동 확인하는 테스트를 작성합니다. (a) Group 교집합이 비어 있음 (b) 금지된 Feature가 학습에 들어가지 않음 (c) Training Data 밖에서 Scaling·Imputation을 학습하지 않음 (d) 동일 `random_state`에서 분할 재현 가능.
+1. **기존 과대평가 재현 및 문제 진단:** 전체 데이터를 무작위로 분할한 취약한 베이스라인 파이프라인을 구축하여 과대평가된 성능을 측정하고, 동일 설비(`device_id`)가 Train·Test 세트에 동시에 포함되는지(Data Splitting Leakage) 구조적으로 확인합니다.
+2. **Feature 감사 및 누수 원천 차단:** 각 열의 데이터 생성 및 획득 시점을 엄격히 검토하여, 사후 정보인 `final_repair_code` 및 타겟 관련 변수가 입력 Feature 세트에 포함되지 않도록 차단합니다. 모델 학습에 허용된 정상 Feature 목록을 코드에 명시적으로 정의합니다.
+3. **그룹 기반 교차 분할(Group-Based Split):** 무작위 분할을 배제하고 고유 설비(`device_id`)를 기준으로 Train 60%, Validation 20%, Test 20% 비율의 그룹 분할을 수행하여, 동일 설비의 기록이 여러 구간에 겹치지 않고 온전히 격리되도록 보장합니다.
+4. **누수 없는 파이프라인(Leakage-Free Pipeline) 구축:** 결측값 처리(Training 세트 기준 중앙값 대치), `StandardScaler`, 그리고 `Logistic Regression`을 결합한 파이프라인을 구축합니다. 스케일러와 임퓨터를 포함한 모든 전처리 파라미터의 `fit()`은 반드시 해당 Training 구간 내에서만 수행되어야 합니다.
+5. **다각도 모델 평가 및 비교:** Majority Baseline과 오류가 복구된 로지스틱 회귀 모델의 Accuracy, Recall, Balanced Accuracy, F1 Score를 비교 평가합니다. 특정 평가 구간에 실제 양성 클래스가 부재할 경우의 예외 처리 원칙 및 보고 방식을 명시합니다.
+6. **성능 격차 원인 분석 및 리포팅:** 무작위 분할과 그룹 분할 간의 성능 차이, Feature Leakage의 영향, 그리고 설비별 오류 분포를 정량·정성적 근거로 분석하여 실제 현장 도입 관점에서 어떤 평가 체계가 타당한지 서술합니다. (단, 성능 하락 폭에 대한 인위적인 가정은 배제)
+7. **회귀 테스트(Regression Test) 구현:** 파이프라인의 무결성을 자동으로 검증하는 테스트 코드를 작성합니다. 
+   - (a) Train·Validation·Test 간 설비 ID(`device_id`) 교집합이 완전히 비어 있는지 확인
+   - (b) 금지된 Feature가 모델 학습 입력에 포함되지 않았는지 확인
+   - (c) Training 구간 외부에서 전처리(`fit`)가 누출되지 않았는지 검증
+   - (d) 동일 `random_state` 설정 시 데이터 분할 결과가 완벽히 재현되는지 확인
 
 #### 입력 및 출력
 
@@ -913,53 +1369,58 @@ Test  device_id = {D03, D04}
 
 #### 검증 항목
 
-- 허용된 Feature를 명시적으로 선택하고 결과가 나온 뒤 금지 열을 다시 사용하지 않는지 확인
-- 유효하지 않은 입력이 학습에 포함되는지 여부와 처리 기준의 일관성
-- 행 단위 무작위 분할과 설비별 분할을 구분해 보고했는지 확인
-- Test 점수를 좋게 만들기 위해 분할이나 Hyperparameter를 반복 변경하지 않았는지 확인
-- 수정 전의 높은 점수가 실제 새 설비 성능을 입증하는 근거가 될 수 없는 이유를 논리적으로 설명
+* **Feature 허용 범위 및 사후 누수 차단 검증:** 모델 학습 시 허용된 Feature만 명시적으로 선택되었으며, 성능 확인 이후에도 금지된 열(`final_repair_code` 등)이 재유입되지 않았는지 확인
+* **데이터 무결성 및 정제 일관성 검증:** 비정상적·유효하지 않은 입력값이 모델 학습에 포함되는지 여부를 점검하고, 결측치 및 이상치 처리 기준이 파이프라인 전체에 일관되게 적용되었는지 확인
+* **분할 방식에 따른 성능 격차 비교 검증:** 행 단위 무작위 분할과 설비 기준(`device_id`) 그룹 분할의 결과를 명확히 구분하여 보고하고, 각 방식이 모델 성능에 미친 영향을 논리적으로 분석했는지 확인
+* **평가 절차 독립성 및 과적합 방지 검증:** 독립된 Test 세트의 결과를 바탕으로 분할 조건이나 하이퍼파라미터를 반복적으로 수정하여 과적합을 유도하지 않았는지 확인
+* **과대평가 원인 규명 및 일반화 타당성 검증:** 수정 전 취약한 파이프라인에서 나타난 과도하게 높은 성능이 왜 신규 설비 환경에서 실제 성능을 입증하는 근거가 될 수 없는지 구조적·논리적으로 설명했는지 확인
 
 <details>
 <summary><strong>구현 가이드</strong></summary>
 
-1. 우선 데이터의 열 목록과 각 열을 얻을 수 있는 시점을 확인하세요. 이름이 숫자로 인코딩되어 있어도 예측 이후에 만들어진 값이라면 Feature로 사용할 수 없습니다.
-2. `GroupShuffleSplit`으로 설비를 서로 다른 구간에 배정할 수 있습니다. 각 단계에서 Group 교집합이 비어 있는지 검사하세요.
-3. `SimpleImputer`·`StandardScaler`·`LogisticRegression`을 하나의 Pipeline으로 구성하세요.
-4. 모델 개선과 평가 설계의 복구를 구분해 기록하세요. 점수 하락이 오히려 더 신뢰할 수 있는 평가로의 변화일 수 있습니다.
+**STEP 1. 피처 감사(Feature Audit) 및 사후 정보 유출 차단**
+   - 데이터셋의 전체 열 목록과 각 변수의 생성 시점을 면밀히 검토하여, 설비 고장 예측 시점 이후에 만들어지거나 수집되는 사후 정보(예: `final_repair_code` 등)를 철저히 식별하고 입력 Feature 세트에서 원천 배제합니다.
+   - 변수명이 숫자로 인코딩되어 있더라도 시점상 미래의 정보라면 학습에 포함되지 않도록 허용된 Feature 목록을 엄격히 정의합니다.
+
+**STEP 2. 그룹 기반 분할(Group-Based Split) 및 누수 없는 파이프라인(Pipeline) 구축**
+   - `GroupShuffleSplit` 등을 활용하여 고유 설비(`device_id`) 기준으로 데이터를 분할하고, 각 단계에서 Train·Validation·Test 세트 간의 설비 ID 교집합이 완벽히 공백인지(Data Leakage 방지) 검사합니다.
+   - `SimpleImputer`, `StandardScaler`, `LogisticRegression`을 하나의 `Pipeline`으로 결합하여, 결측치 대치 및 스케일링 등의 전처리가 오직 Training 데이터 구간 내에서만 학습(fit)되도록 파이프라인의 무결성을 보장합니다.
+
+**STEP 3. 모델 평가 절차 복구 및 성능 변화 분석**
+   - 단순한 알고리즘 성능 개선과 평가 설계의 구조적 복구를 명확히 구분하여 기록합니다.
+   - 수정 후 점수가 하락하더라도, 이것이 취약한 과대평가에서 벗어나 실제 신규 설비 환경을 신뢰성 있게 대변하는 올바른 평가 체계로의 전환임을 논리적으로 분석하고 리포팅합니다.
 
 </details>
 
 ---
 
-### C-02. Library Demand Forecast Recovery — 방문객 예측 시스템 복구
+### C-02. 도서관 방문객 예측 시스템 복구 및 피처 정합성 검증 (Library Demand Forecast Recovery)
 
-**관련 개념:** [Chapter 02](../Chapter-02/README.md) · Feature Consistency · Regression · [Chapter 04](../Chapter-04/README.md) · Error Analysis · Temporal Evaluation · Pipeline
+#### 문제 배경 및 개요
 
-#### 문제 설명
+도서관 방문객 예측 모델은 일일 운영 인력 배치를 최적화하기 위해 과거 방문 기록을 활용합니다. 그러나 최근 데이터 제공 시스템이 개편된 이후, 특정 날짜에서 예측값이 비정상적으로 폭발하거나 데이터 파싱 단계에서 프로세스가 중단되는 치명적인 오류가 발생했습니다.
 
-도서관 방문객 예측 프로그램은 과거 방문 기록을 이용해 다음 날의 운영 인력을 배치합니다. 최근 데이터 제공 시스템이 변경된 뒤부터 특정 날짜의 예측이 지나치게 커지거나, 입력 파일을 읽는 도중 프로그램이 중단되는 문제가 발생했습니다.
+원인 조사 결과, ① 온도 측정 단위의 변경(기존 섭씨 `temperature_c`에서 화씨 `temperature_f`로의 변동), ② 필수 필드의 누락(결측값), ③ 동일 일자에 대한 중복 레코드 유입 등 데이터 정합성(Feature Consistency)을 훼손하는 요인들이 복합적으로 작용했음이 확인되었습니다.
 
-조사 결과 이전 파일에서는 온도가 섭씨(`temperature_c`)였지만 새 파일에서는 화씨(`temperature_f`)로 제공되고 있습니다. 일부 행에는 필수 값이 누락되어 있으며 같은 날짜가 중복 전송되기도 합니다.
-
-데이터 형식 변경을 인식하고 정상 행만 예측에 사용하도록 프로그램을 복구하세요. 잘못된 입력을 임의의 값으로 바꿔 결과를 만들어서는 안 됩니다.
+본 과제에서는 추정이나 임의의 보간(Imputation)으로 유효하지 않은 입력을 억지로 메우는 비정상적 처리를 배제하고, 데이터 포맷 및 단위 변화를 엄격히 감지하여 정합성이 확보된 유효 행만을 선별·반영하는 강건한(Robust) 회귀 예측 파이프라인 및 시간 순서 기반 평가 체계를 복구합니다.
 
 #### 제공 데이터
 
-- `history_v1.csv`: `date,temperature_c,scheduled_events,is_weekend,visitors_next_day`
-- `incoming_v2.csv`: `date,temperature_f,scheduled_events,is_weekend`
+- `history_v1.csv`: 모델 학습용 과거 이력 데이터셋 (최소 120일 이상의 일자별 기록 포함, 날짜(`date`)는 중복 없이 유일함)
+  - 주요 열: `date`(날짜), `temperature_c`(섭씨 온도), `scheduled_events`(예정 행사 수), `is_weekend`(주말 여부), `visitors_next_day`(익일 방문객 수 - **Target**)
+- `incoming_v2.csv`: 실시간 예측 대상 데이터셋 (업무 시작 전 확보된 기상 예보 온도 및 행사 정보 포함)
+  - 주요 열: `date`(날짜), `temperature_f`(화씨 온도), `scheduled_events`(예정 행사 수), `is_weekend`(주말 여부)
 
-`history_v1.csv`에는 최소 120일의 기록이 있으며 날짜는 유일합니다. `visitors_next_day`는 Target입니다. `incoming_v2.csv`에는 예측 대상 날짜에 **그 날짜의 업무 시작 전에 확보된** 날씨 예보 온도와 예정 행사 수가 기록되어 있다고 가정합니다.
+#### 요구사항
 
-#### 구현 요구사항
-
-1. 입력 버전별 Schema를 명시합니다. `history_v1`은 `temperature_c`, `incoming_v2`는 `temperature_f`를 사용하며, 명시되지 않은 다른 열 이름으로 자동 추측하지 않습니다.
-2. 화씨 온도는 `temperature_c = (temperature_f - 32) × 5/9`로 변환합니다. `temperature_f`는 유한한 실수이며, 빈 값은 필수 Feature 누락으로 처리합니다.
-3. `scheduled_events`는 0 이상의 정수, `is_weekend`는 0 또는 1입니다. 필수 필드가 누락되거나 범위 밖인 행은 예측하지 않고 `rejected_rows.csv`에 오류 코드를 남깁니다.
-4. 같은 날짜의 입력이 중복되면 **첫 번째 유효 행만 유지** 합니다. 무효 행은 해당 날짜를 점유하지 않습니다. 이후의 유효 중복 행은 `DUPLICATE_DATE`로 거부합니다.
-5. 기존 History를 날짜순 Train 60%·Validation 20%·Test 나머지로 분리합니다. Baseline은 Training Target 평균이며, 후보 모델은 `StandardScaler` + `Ridge(alpha=1.0)`입니다. Validation에서는 두 방법의 MAE를 비교하지만 Test 결과로 모델을 다시 선택하지 않습니다.
-6. 선택한 모델은 테스트를 통과한 뒤에만 새로운 입력에 적용합니다. 새로운 입력에서 예측 가능한 행과 거부된 행을 별도로 출력합니다.
-7. 정상 입력에 대해서는 예측 날짜, 변환된 섭씨 온도, 예상 방문객 수를 저장합니다. 예측 결과는 실수로 유지하며 파일 출력 시 소수 둘째 자리까지 표시합니다.
-8. `recovery_report.md`에 오류 원인, 정상 행 처리 여부, 과거 Test 성능, 새 입력에서의 거부 건수 및 복구 검증 결과를 작성합니다.
+1. **입력 버전별 명시적 스키마 정의:** `history_v1`은 섭씨 온도(`temperature_c`), `incoming_v2`는 화씨 온도(`temperature_f`) 스키마를 각각 고유하게 적용하며, 정의되지 않은 열 이름을 임의로 추측하거나 자동 대체하지 않습니다.
+2. **온도 단위 변환 및 유효성 검증:** 화씨 온도는 공식 $C = (F - 32) \times 5/9$를 적용하여 섭씨로 변환합니다. `temperature_f`는 유한한 실수여야 하며, 결측값 발생 시 필수 Feature 누락으로 판정합니다.
+3. **도메인 제약 조건 및 예외 처리:** `scheduled_events`는 0 이상의 정수, `is_weekend`는 0 또는 1의 바이너리 값이어야 합니다. 필수 필드 누락 또는 허용 범위를 벗어난 비정상 행은 예측 대상에서 배제하고, 오류 코드와 함께 `rejected_rows.csv`에 기록합니다.
+4. **날짜 중복 정합성 정책:** 동일 날짜(`date`)의 입력 데이터가 중복 유입될 경우, 최초의 유효 행만 정상 채택합니다. 무효 행은 날짜 슬롯을 점유하지 않으며, 이후 유효한 중복 행은 `DUPLICATE_DATE` 코드로 거부합니다.
+5. **시계열 분할 및 모델 검증 체계:** 과거 히스토리 데이터를 시간 순서대로 Train 60%, Validation 20%, Test 나머지 비율로 분할합니다. Training Target 평균을 Baseline으로 설정하고, `StandardScaler`와 `Ridge(alpha=1.0)` 파이프라인의 후보 모델 성능(MAE)을 Validation 세트로 비교·선택하되, Test 결과로 모델을 재선택하지 않습니다.
+6. **안전성 기반 추론 파이프라인:** 검증 단계를 통과한 최종 모델에만 신규 인입 데이터를 투입하며, 예측 수행 가능 행과 거부된 행을 엄격히 분리하여 출력합니다.
+7. **예측 결과 포맷팅:** 정상 입력에 대해 예측 날짜, 변환된 섭씨 온도, 예상 방문객 수(실수 유지 및 파일 저장 시 소수점 둘째 자리 포맷팅)를 정확히 출력합니다.
+8. **종합 리포트 작성 (`recovery_report.md`):** 데이터 오류 원인 분석, 정상 행 처리 현황, 과거 Test 성능 결과, 신규 인입 데이터의 거부 건수 및 복구 검증 결과를 포함한 종합 감사 리포트를 작성합니다.
 
 #### 입력 및 출력
 
@@ -1002,22 +1463,24 @@ source_line,error_code
 
 #### 검증 항목
 
-- `77°F → 25°C`, `68°F → 20°C` 변환 확인
-- 무효 행이 중복 날짜를 먼저 점유하지 않는지 확인
-- 무효 행을 0이나 평균값으로 조용히 대체하지 않는지 확인
-- 온도 단위 변경 전후에 Feature의 의미가 일관되게 유지되는지 확인
-- 기존 Test 성능과 새 입력에 대한 예측 결과를 혼동하지 않는지 확인
-- 복구 실패 시 정상 예측 파일을 무분별하게 덮어쓰지 않도록 처리하는지 확인
+* **온도 단위 변환 정밀도 검증:** 화씨-섭씨 변환 공식(예: $77^\circ\text{F} \to 25^\circ\text{C}$, $68^\circ\text{F} \to 20^\circ\text{C}$)이 수치 오차 없이 정확히 적용되었는지 확인
+* **날짜 중복 점유 정책 검증:** 비정상(무효) 행이 선행 유입되었더라도 날짜 슬롯을 먼저 점유하지 않으며, 최초의 유효 행만 정상 채택되고 후속 유효 행이 `DUPLICATE_DATE`로 올바르게 거부되는지 확인
+* **무허가 대치 및 보간 차단 검증:** 결측값이나 범위 이탈 등 무효 행을 임의의 값(예: 0, 평균값 등)으로 조용히 대치하거나 변조하지 않고 엄격하게 거부 처분하는지 확인
+* **Feature 의미론적 일관성 검증:** 온도 단위 변환(섭씨/화씨) 전후에 걸쳐 Feature가 도메인 관점에서 동일한 물리적 의미와 척도를 일관되게 유지하는지 확인
+* **평가 단계와 인입 예측의 분리 검증:** 과거 히스토리 기반의 Test 세트 성능 평가와 신규 인입 데이터에 대한 실시간 예측 결과를 혼동하지 않고 명확히 구분하여 다루는지 확인
+* **출력 보호 및 원자적 갱신 검증:** 복구 및 검증 과정 실패 시 기존의 신뢰할 수 있는 정상 예측 결과 파일을 무분별하게 덮어쓰거나 유실시키지 않도록 안전하게 보호하는지 확인
 
-<details>
-<summary><strong>구현 가이드</strong></summary>
+**STEP 1. 스키마 버전 감지, 정규화 및 행 번호 추적 설계**
+   - 입력 파일 읽기 단계에서 명시적인 스키마 버전(`history_v1`과 `incoming_v2`)을 안전하게 구분하고, 온도 단위를 비롯한 변수들을 공통 Feature 구조로 정규화합니다.
+   - 원본 데이터의 행 번호(Row Index)를 철저히 보존하여, 유효성 검증 과정에서 발생하는 이상치나 오류 항목의 위치를 `rejected_rows.csv` 상에서 정확히 추적할 수 있도록 설계합니다.
 
-1. 파일을 읽는 단계에서 Schema 버전을 구분하고 공통 Feature 이름으로 정규화하세요.
-2. 원본 행 번호를 보존하면 오류 목록의 위치를 추적할 수 있습니다.
-3. 유효성 검사와 중복 확인을 끝낸 뒤에만 예측 대상을 모델에 전달하세요.
-4. 기존 데이터로 Train·Validation·Test 절차를 검증한 다음, 새로운 버전의 입력을 처리하세요. 새로운 입력에는 정답 Target이 없으므로 Accuracy나 MAE를 계산하지 않습니다.
+**STEP 2. 엄격한 유효성 검사, 단위 변환 및 중복 날짜 정합성 관리**
+   - 화씨 온도를 섭씨 공식($C = (F - 32) \times 5/9$)으로 정밀하게 변환하고, 0 이상의 행사 수 및 주말 바이너리 값 등 도메인 제약 조건을 검증하여 무효 행을 임의 대치 없이 엄격하게 거부합니다.
+   - 동일 날짜 중복 입력 시 최초의 유효 행만 정상 채택하며, 무효 행이 날짜 슬롯을 먼저 점유하지 않도록 차단하고 후속 유효 중복 행은 `DUPLICATE_DATE` 코드로 처리합니다.
 
-</details>
+**STEP 3. 시계열 모델 검증 체계 구축 및 안전성 기반 실시간 추론**
+   - 기존 히스토리 데이터를 시간 순서대로 분할하여 Baseline과 Ridge 회귀 모델의 검증(Validation 및 Test) 성능 평가 절차를 완결한 뒤, 검증을 통과한 최종 모델만 신규 인입 데이터 추론에 투입합니다.
+   - 정답 Target이 존재하지 않는 신규 입력에 대해 예측 가능 행과 거부된 행을 명확히 분리 출력하고, 최종 예측 결과 포맷팅(소수점 둘째 자리) 및 종합 감사 리포트(`recovery_report.md`)를 작성합니다.
 
 ---
 
