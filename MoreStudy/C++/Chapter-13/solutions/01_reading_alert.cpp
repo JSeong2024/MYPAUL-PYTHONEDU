@@ -1,15 +1,13 @@
-#include <print>
+#include <cmath>
+#include <concepts>
+#include <iostream>
 
-struct Reading {
-    double value;
-    bool valid;
-};
-
-[[nodiscard]] bool is_alert(const Reading& reading, double threshold) {
-    return reading.valid && reading.value > threshold;
+template <std::floating_point T>
+[[nodiscard]] bool reading_alert(T value, T limit) {
+    return std::isfinite(value) && std::isfinite(limit) && value >= limit;
 }
-
+#ifndef CH13_LIBRARY_ONLY
 int main() {
-    std::println("High: {}", is_alert({31.5, true}, 30.0));
-    std::println("Invalid: {}", is_alert({40.0, false}, 30.0));
+    std::cout << std::boolalpha << reading_alert(85.0, 80.0) << '\n';
 }
+#endif

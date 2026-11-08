@@ -1,8 +1,8 @@
 #include "telemetry/pipeline.hpp"
 #include <array>
-#include <stdexcept>
 #include <cmath>
 #include <limits>
+#include <stdexcept>
 #include <vector>
 
 struct Temperature {
@@ -16,13 +16,12 @@ struct Pressure {
     [[nodiscard]] float value() const noexcept { return measured; }
     [[nodiscard]] bool valid() const noexcept { return true; }
 };
-
 static_assert(telemetry::ReadingLike<Temperature>);
 static_assert(telemetry::ReadingLike<Pressure>);
 static_assert(!telemetry::ReadingLike<int>);
 
-void expect(bool condition, const char* description) {
-    if (!condition) throw std::runtime_error(description);
+void expect(bool condition) {
+    if (!condition) throw std::runtime_error("pipeline test failed");
 }
 
 int main() {
@@ -30,24 +29,23 @@ int main() {
         Temperature{28.0, true}, Temperature{999.0, false},
         Temperature{34.0, true}, Temperature{32.0, true}
     };
-    const auto summary = telemetry::summarize(batch);
-    expect(summary.has_value(), "test assertion failed");
-    expect(summary->count == 3, "test assertion failed");
-    expect(summary->minimum == 28.0, "test assertion failed");
-    expect(summary->maximum == 34.0, "test assertion failed");
-    expect(std::abs(summary->average - 94.0 / 3.0) < 1e-12, "test assertion failed");
+    const auto result = telemetry::summarize(batch);
+    expect(result.has_value());
+    expect(result->count == 3);
+    expect(result->minimum == 28.0 && result->maximum == 34.0);
+    expect(std::abs(result->average - 94.0/3.0) < 1e-12);
 
     const std::vector<Temperature> empty;
-    expect(!telemetry::summarize(empty).has_value(), "test assertion failed");
-    const std::array all_invalid{Temperature{9.0, false}};
-    expect(!telemetry::summarize(all_invalid).has_value(), "test assertion failed");
-    const std::array nan_batch{
+    expect(!telemetry::summarize(empty));
+    const std::array invalid{Temperature{9.0, false}};
+    expect(!telemetry::summarize(invalid));
+    const std::array nan_values{
         Temperature{std::numeric_limits<double>::quiet_NaN(), true},
         Temperature{5.0, true}
     };
-    const auto finite = telemetry::summarize(nan_batch);
-    expect(finite && finite->count == 1 && finite->minimum == 5.0, "test assertion failed");
+    auto finite = telemetry::summarize(nan_values);
+    expect(finite && finite->count == 1 && finite->average == 5.0);
     const std::array pressures{Pressure{100.0f}, Pressure{102.0f}};
-    const auto pressure = telemetry::summarize(pressures);
-    expect(pressure && pressure->average == 101.0, "test assertion failed");
+    auto pressure = telemetry::summarize(pressures);
+    expect(pressure && pressure->average == 101.0);
 }

@@ -1,25 +1,23 @@
-#include <print>
+#include <iostream>
 
-struct CelsiusTag {};
-struct KilopascalTag {};
+struct DistanceTag {};
+struct TimeTag {};
 
-template <typename Tag, typename T>
+template <typename Tag>
 class Quantity {
 public:
-    explicit constexpr Quantity(T value) : value_(value) {}
-    [[nodiscard]] constexpr T value() const { return value_; }
-    [[nodiscard]] constexpr Quantity operator+(Quantity other) const {
+    explicit Quantity(int value) : value_(value) {}
+    [[nodiscard]] int value() const noexcept { return value_; }
+    [[nodiscard]] Quantity operator+(const Quantity& other) const {
         return Quantity{value_ + other.value_};
     }
 private:
-    T value_;
+    int value_{};
 };
-
+#ifndef CH13_LIBRARY_ONLY
 int main() {
-    const Quantity<CelsiusTag, double> a{21.0};
-    const Quantity<CelsiusTag, double> b{1.5};
-    const Quantity<KilopascalTag, double> pressure{101.3};
-    std::println("Temperature: {}", (a + b).value());
-    std::println("Pressure: {}", pressure.value());
-    // a + pressure; // 타입이 달라 컴파일 실패
+    const Quantity<DistanceTag> first{10};
+    const Quantity<DistanceTag> second{15};
+    std::cout << (first + second).value() << '\n';
 }
+#endif

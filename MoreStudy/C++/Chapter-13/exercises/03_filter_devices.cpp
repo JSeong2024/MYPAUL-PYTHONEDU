@@ -1,18 +1,27 @@
 #include <algorithm>
-#include <print>
+#include <iostream>
+#include <ranges>
 #include <string>
 #include <vector>
 
 struct Device {
     std::string id;
-    int priority;
+    int reading;
+    bool active;
 };
 
-int main() {
-    std::vector<Device> devices{{"motor", 2}, {"camera", 3}, {"radar", 1}, {"lidar", 4}};
-    // TODO 1: std::ranges::sort + Projection으로 우선순위 내림차순 정렬.
-    // TODO 2: std::views::filter로 우선순위 3 이상만 선택.
-    // TODO 3: 독립적인 vector<Device> 생성 (ranges::to 또는 ranges::copy).
-    const std::vector<Device> selected{}; // TODO: 교체
-    std::println("Selected: {}", selected.size());
+[[nodiscard]] std::vector<Device> selected_devices(const std::vector<Device>& source,
+                                                    int threshold) {
+    // TODO: active == true 이고 reading >= threshold인 장치만 선택
+    // TODO: 결과를 id 오름차순으로 정렬 (projection 또는 comparator)
+    (void)source;
+    (void)threshold;
+    return {};
 }
+
+#ifndef CH13_LIBRARY_ONLY
+int main() {
+    const std::vector<Device> data{{"B", 80, true}, {"A", 90, true}, {"C", 99, false}};
+    for (const auto& d : selected_devices(data, 80)) std::cout << d.id << '\n';
+}
+#endif

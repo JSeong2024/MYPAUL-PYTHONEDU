@@ -1,13 +1,12 @@
 #include <concepts>
-#include <print>
+#include <iostream>
 
-template <typename... T>
-    requires (std::convertible_to<T, double> && ...)
-[[nodiscard]] constexpr double sum_samples(T... values) {
-    return (0.0 + ... + static_cast<double>(values));
+template <std::integral... Ts>
+[[nodiscard]] long long sum_all(Ts... values) {
+    return (0LL + ... + static_cast<long long>(values));
 }
 
 int main() {
-    std::println("Total: {}", sum_samples(3, 4.5, 2));
-    std::println("Empty total: {}", sum_samples());
+    std::cout << "Total: " << sum_all(4, 7, 9) << '\n';
+    std::cout << "Empty: " << sum_all() << '\n';
 }

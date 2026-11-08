@@ -1,27 +1,27 @@
 #include <algorithm>
-#include <iterator>
-#include <print>
+#include <iostream>
 #include <ranges>
 #include <string>
 #include <vector>
 
 struct Device {
     std::string id;
-    int priority;
+    int reading;
+    bool active;
 };
 
-int main() {
-    std::vector<Device> devices{{"motor", 2}, {"camera", 3}, {"radar", 1}, {"lidar", 4}};
-    std::ranges::sort(devices, std::ranges::greater{}, &Device::priority);
-    auto filtered = devices | std::views::filter([](const Device& item) {
-        return item.priority >= 3;
-    });
-#ifdef __cpp_lib_ranges_to_container
-    const auto selected = filtered | std::ranges::to<std::vector<Device>>();
-#else
-    std::vector<Device> selected;
-    std::ranges::copy(filtered, std::back_inserter(selected));
-#endif
-    std::println("Selected: {}", selected.size());
-    for (const auto& item : selected) std::println("{}: {}", item.id, item.priority);
+[[nodiscard]] std::vector<Device> selected_devices(const std::vector<Device>& source,
+                                                    int threshold) {
+    std::vector<Device> output;
+    for (const auto& device : source) {
+        if (device.active && device.reading >= threshold) output.push_back(device);
+    }
+    std::ranges::sort(output, {}, &Device::id);
+    return output;
 }
+#ifndef CH13_LIBRARY_ONLY
+int main() {
+    const std::vector<Device> data{{"B", 80, true}, {"A", 90, true}, {"C", 99, false}};
+    for (const auto& d : selected_devices(data, 80)) std::cout << d.id << '\n';
+}
+#endif

@@ -1,20 +1,17 @@
-#include <concepts>
-#include <print>
-#include <string_view>
+#include <cmath>
+#include <iostream>
+#include <type_traits>
 
 template <typename T>
-void log_measurement(const T& value) {
-    if constexpr (std::integral<T>) {
-        std::println("Count: {}", value);
-    } else if constexpr (std::floating_point<T>) {
-        std::println("Measurement: {:.2f}", value);
+[[nodiscard]] T clean_reading(T value) {
+    if constexpr (std::is_floating_point_v<T>) {
+        return std::isfinite(value) ? value : T{};
     } else {
-        std::println("Text: {}", std::string_view{value});
+        return value;
     }
 }
 
 int main() {
-    log_measurement(7);
-    log_measurement(23.456);
-    log_measurement(std::string_view{"ready"});
+    std::cout << "Integer: " << clean_reading(12) << '\n';
+    std::cout << "Invalid double: " << clean_reading(std::nan("")) << '\n';
 }

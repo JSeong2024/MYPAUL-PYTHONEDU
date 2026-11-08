@@ -1,24 +1,19 @@
 #include <charconv>
-#include <concepts>
-#include <expected>
-#include <print>
+#include <iostream>
+#include <optional>
 #include <string_view>
 #include <system_error>
 
-template <std::integral T>
-    requires (!std::same_as<T, bool>)
-[[nodiscard]] std::expected<T, std::errc> parse_integer(std::string_view text) {
-    T value{};
-    const auto [end, error] = std::from_chars(text.data(), text.data() + text.size(), value);
-    if (error != std::errc{}) return std::unexpected(error);
-    if (end != text.data() + text.size())
-        return std::unexpected(std::errc::invalid_argument);
+[[nodiscard]] std::optional<int> parse_port(std::string_view text) {
+    if (text.empty()) return std::nullopt;
+    int value{};
+    const auto [end, error] = std::from_chars(text.data(), text.data()+text.size(), value);
+    if (error != std::errc{} || end != text.data()+text.size() ||
+        value < 1 || value > 65535) return std::nullopt;
     return value;
 }
-
+#ifndef CH13_LIBRARY_ONLY
 int main() {
-    const auto good = parse_integer<int>("2048");
-    const auto bad = parse_integer<int>("10ms");
-    std::println("Parsed: {}", good.value_or(-1));
-    std::println("Rejected: {}", !bad);
+    std::cout << parse_port("8080").value_or(-1) << '\n';
 }
+#endif

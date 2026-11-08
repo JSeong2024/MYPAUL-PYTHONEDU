@@ -1,21 +1,19 @@
-#include <concepts>
-#include <expected>
-#include <print>
+#include <charconv>
+#include <iostream>
+#include <optional>
 #include <string_view>
 #include <system_error>
 
-// TODO: from_chars를 사용해 정수로 변환, 일부만 소비된 문자열은 실패 처리.
-// bool은 from_chars 정수 오버로드 지원 대상이 아니므로 제외.
-template <std::integral T>
-    requires (!std::same_as<T, bool>)
-[[nodiscard]] std::expected<T, std::errc> parse_integer(std::string_view text) {
+[[nodiscard]] std::optional<int> parse_port(std::string_view text) {
+    // TODO: 빈 문자열과 숫자가 아닌 문자열을 거부
+    // TODO: std::from_chars 변환 후 끝까지 소비했는지 확인
+    // TODO: 1..65535 범위만 인정
     (void)text;
-    return std::unexpected(std::errc::invalid_argument); // TODO: 교체
+    return std::nullopt;
 }
 
+#ifndef CH13_LIBRARY_ONLY
 int main() {
-    const auto good = parse_integer<int>("2048");
-    const auto bad = parse_integer<int>("10ms");
-    std::println("Parsed: {}", good.value_or(-1));
-    std::println("Rejected: {}", !bad);
+    std::cout << parse_port("8080").value_or(-1) << '\n';
 }
+#endif

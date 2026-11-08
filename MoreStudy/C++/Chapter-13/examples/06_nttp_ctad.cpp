@@ -1,22 +1,16 @@
 #include <array>
 #include <cstddef>
-#include <print>
-#include <string>
-#include <type_traits>
-#include <utility>
+#include <iostream>
 
-// 고정 데이터 윈도우: 측정값 N개를 배열로 보유.
 template <typename T, std::size_t N>
-struct Window {
-    static_assert(N > 0);
-    std::array<T, N> values{};
-    [[nodiscard]] constexpr std::size_t size() const noexcept { return N; }
-};
+[[nodiscard]] T sum_fixed(const std::array<T, N>& items) {
+    T sum{};
+    for (const auto& item : items) sum += item;
+    return sum;
+}
 
 int main() {
-    Window<int, 3> readings{{10, 20, 30}};
-    std::pair device{std::string{"motor-A"}, 120}; // CTAD
-    static_assert(std::is_same_v<decltype(device.second), int>);
-    std::println("Window size: {}", readings.size());
-    std::println("{}: {} RPM", device.first, device.second);
+    const std::array numbers{2, 4, 6}; // CTAD: std::array<int, 3>
+    std::cout << "Size: " << numbers.size() << '\n';
+    std::cout << "Sum: " << sum_fixed(numbers) << '\n';
 }

@@ -1,29 +1,16 @@
 #include <concepts>
-#include <print>
-#include <string>
-#include <string_view>
+#include <iostream>
 
-// name()의 반환값이 string_view로 바뀔 수 있는 장치만 허용.
-template <typename T>
-concept NamedDevice = requires(const T& device) {
-    { device.name() } -> std::convertible_to<std::string_view>;
-};
+template <std::integral T>
+[[nodiscard]] bool is_even(T value) { return value % 2 == 0; }
 
-struct Motor {
-    std::string label{"motor-A"};
-    [[nodiscard]] std::string_view name() const noexcept { return label; }
-};
-struct AnonymousDevice { int id{1}; };
-
-static_assert(NamedDevice<Motor>);
-static_assert(!NamedDevice<AnonymousDevice>);
-
-template <NamedDevice T>
-void print_device(const T& device) {
-    std::println("Device: {}", device.name());
+template <std::floating_point T>
+[[nodiscard]] T midpoint(T left, T right) {
+    return left + (right - left) / T{2};
 }
 
 int main() {
-    print_device(Motor{});
-    // print_device(AnonymousDevice{}); // 제약 조건 불충족
+    std::cout << std::boolalpha << "Even: " << is_even(12) << '\n';
+    std::cout << "Midpoint: " << midpoint(1.0, 3.0) << '\n';
+    // is_even(2.5); // std::integral 제약을 만족하지 않아 컴파일되지 않음
 }

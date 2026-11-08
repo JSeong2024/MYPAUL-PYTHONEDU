@@ -1,24 +1,26 @@
-#include <print>
+#include <iostream>
 
-struct CelsiusTag {};
-struct KilopascalTag {};
+struct DistanceTag {};
+struct TimeTag {};
 
-// TODO: Tag와 T를 받는 Quantity 클래스를 정의.
-// - explicit 생성자
-// - value() const
-// - 같은 Tag/T끼리만 가능한 operator+
-
-template <typename Tag, typename T>
-struct Quantity {
-    T measurement;
-    explicit Quantity(T value) : measurement(value) {}
-    [[nodiscard]] T value() const { return measurement; }
-    // TODO: operator+ 구현
+template <typename Tag>
+class Quantity {
+public:
+    explicit Quantity(int value) : value_(value) {}
+    [[nodiscard]] int value() const noexcept { return value_; }
+    [[nodiscard]] Quantity operator+(const Quantity& other) const {
+        // TODO: 같은 Tag의 Quantity끼리만 더한 결과 반환
+        (void)other;
+        return Quantity{0};
+    }
+private:
+    int value_{};
 };
 
+#ifndef CH13_LIBRARY_ONLY
 int main() {
-    Quantity<CelsiusTag, double> a{21.0};
-    Quantity<CelsiusTag, double> b{1.5};
-    // TODO: a + b를 사용하여 22.5 출력
-    std::println("Temperature: {}", a.value() + b.value());
+    const Quantity<DistanceTag> first{10};
+    const Quantity<DistanceTag> second{15};
+    std::cout << (first + second).value() << '\n';
 }
+#endif

@@ -1,7 +1,6 @@
 #include "telemetry/pipeline.hpp"
 #include "telemetry/report.hpp"
 #include <array>
-#include <print>
 #include <vector>
 
 struct TemperatureReading {
@@ -20,12 +19,11 @@ struct PressureReading {
 int main() {
     const std::array temperatures{
         TemperatureReading{28.0, true}, TemperatureReading{32.0, false},
-        TemperatureReading{34.0, true}, TemperatureReading{31.9, true}
+        TemperatureReading{34.0, true}, TemperatureReading{32.0, true}
     };
     const std::vector pressures{
-        PressureReading{100.0f, true}, PressureReading{101.0f, true}
+        PressureReading{100.0f, true}, PressureReading{102.0f, true}
     };
-
     if (const auto summary = telemetry::summarize(temperatures))
         telemetry::report("Temperature", *summary);
     if (const auto summary = telemetry::summarize(pressures))

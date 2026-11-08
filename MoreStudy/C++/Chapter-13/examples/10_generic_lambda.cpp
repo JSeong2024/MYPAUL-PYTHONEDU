@@ -1,12 +1,10 @@
 #include <algorithm>
-#include <array>
-#include <print>
+#include <iostream>
+#include <vector>
 
 int main() {
-    const std::array readings{14, 30, 27, 42};
-    const int threshold{28};
-    const auto count = std::ranges::count_if(readings, [threshold](const auto& value) {
-        return value >= threshold;
-    });
-    std::println("Alerts: {}", count);
+    const std::vector readings{8, 19, 32, 7};
+    const auto over_ten = [](const auto& value) { return value > 10; };
+    const auto count = std::ranges::count_if(readings, over_ten);
+    std::cout << "Above 10: " << count << '\n';
 }
