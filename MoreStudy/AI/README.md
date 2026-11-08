@@ -2,6 +2,12 @@
   <img src="banner_AI.png" width="50%" alt="Artificial Intelligence Class Banner">
 </p>
 
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/Google_Colab-F9AB00?style=flat&logo=googlecolab&logoColor=white" alt="Google Colab">
+  <img src="https://img.shields.io/badge/Jupyter_Notebook-F37626?style=flat&logo=jupyter&logoColor=white" alt="Jupyter Notebook">
+</p>
+
 # Artificial Intelligence
 
 Python을 기반으로 인공지능(Artificial Intelligence, AI)의 기본 원리부터 머신러닝(Machine Learning), 딥러닝(Deep Learning), 생성형 AI와 모델 활용까지 단계적으로 학습하는 자료입니다. 모델을 사용하는 방법뿐 아니라 **데이터에서 무엇을 학습하는지, 예측 결과를 어떻게 평가하는지, 어떤 한계가 있는지**를 이해하는 데 중점을 둡니다.
