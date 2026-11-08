@@ -19,41 +19,23 @@
 
 | Section | Topic |
 |:---:|---|
-
 | [6.1](#section-6-1) | Arrays & Strings — 데이터 묶음과 문자열 |
-
 | [6.2](#section-6-2) | Fixed-Size Arrays — `std::array` |
-
 | [6.3](#section-6-3) | Dynamic Arrays — `std::vector` |
-
 | [6.4](#section-6-4) | Indexing & Bounds Checking |
-
 | [6.5](#section-6-5) | Iteration & Aggregation |
-
 | [6.6](#section-6-6) | Search & Sorting |
-
 | [6.7](#section-6-7) | Non-Owning Views — `std::span` |
-
 | [6.8](#section-6-8) | Multidimensional Data |
-
 | [6.9](#section-6-9) | String Operations — `std::string` |
-
 | [6.10](#section-6-10) | Line Input — `std::getline()` |
-
 | [6.11](#section-6-11) | String Views — `std::string_view` |
-
 | [6.12](#section-6-12) | Numeric Parsing — `std::from_chars()` |
-
 | [6.13](#section-6-13) | Delimited Text |
-
 | [6.14](#section-6-14) | UTF-8 & Text Length |
-
 | [6.15](#section-6-15) | Container Selection & C-Style Arrays |
-
 | [6.16](#section-6-16) | Coding Practice |
-
 | [6.17](#section-6-17) | Mini Project — Sensor Batch Report |
-
 | [6.18](#section-6-18) | Quiz & Summary |
 
 ## Getting Started
