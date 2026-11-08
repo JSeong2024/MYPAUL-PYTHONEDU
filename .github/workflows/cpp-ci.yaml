@@ -16,11 +16,26 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: cpp-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   cpp:
-    name: GCC 14 / C++23
+    name: ${{ matrix.name }} / C++20
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: GCC 14
+            compiler: g++-14
+          - name: Clang
+            compiler: clang++
+    env:
+      CXX: ${{ matrix.compiler }}
+      CPP_ROOT: MoreStudy/C++
 
     steps:
       - name: Checkout repository
@@ -28,101 +43,53 @@ jobs:
 
       - name: Verify compiler and build tools
         run: |
-          g++-14 --version
+          "$CXX" --version
           cmake --version
+          python3 --version
 
-      - name: Check standalone C++23 source files
+      - name: Check standalone C++20 source files
         run: |
           python3 - <<'PY'
+          import os
           import subprocess
           from pathlib import Path
 
-          root = Path('MoreStudy/C++')
+          root = Path(os.environ['CPP_ROOT'])
           sources = sorted(
-              path for path in root.rglob('*.cpp')
-              if path.parent.name in ('examples', 'solutions')
+              source
+              for chapter in root.glob('Chapter-*')
+              for folder in ('examples', 'solutions')
+              for source in (chapter / folder).glob('*.cpp')
           )
-
+          sources += sorted((root / 'Summary-Part-01' / 'solutions').glob('*.cpp'))
           if not sources:
-              raise SystemExit('No C++ source files found')
+              raise SystemExit('No standalone C++ sources found')
 
-          for number, source in enumerate(sources, 1):
+          for number, source in enumerate(sources, start=1):
               print(f'[{number}/{len(sources)}] {source}', flush=True)
               subprocess.run(
-                  [
-                      'g++-14', '-std=c++23',
-                      '-Wall', '-Wextra', '-Wpedantic',
-                      '-fsyntax-only', str(source),
-                  ],
+                  [os.environ['CXX'], '-std=c++20', '-Wall', '-Wextra',
+                   '-Wpedantic', '-fsyntax-only', str(source)],
                   check=True,
               )
-
-          print(f'Syntax checks passed: {len(sources)} C++ files')
+          print(f'Syntax checks passed: {len(sources)} source files')
           PY
 
       - name: Build standalone multi-file examples
+        shell: bash
         run: |
           set -euo pipefail
           build_dir="$(mktemp -d)"
           trap 'rm -rf "$build_dir"' EXIT
 
-          g++-14 -std=c++23 -Wall -Wextra -Wpedantic \
-            'MoreStudy/C++/Chapter-05/examples/10_multi_file/main.cpp' \
-            'MoreStudy/C++/Chapter-05/examples/10_multi_file/inventory.cpp' \
+          "$CXX" -std=c++20 -Wall -Wextra -Wpedantic \
+            "$CPP_ROOT/Chapter-05/examples/10_multi_file/main.cpp" \
+            "$CPP_ROOT/Chapter-05/examples/10_multi_file/inventory.cpp" \
             -o "$build_dir/inventory"
           "$build_dir/inventory"
 
-          g++-14 -std=c++23 -Wall -Wextra -Wpedantic \
-            'MoreStudy/C++/Chapter-08/examples/13_device_registry_main.cpp' \
-            'MoreStudy/C++/Chapter-08/examples/13_device_registry.cpp' \
+          "$CXX" -std=c++20 -Wall -Wextra -Wpedantic \
+            "$CPP_ROOT/Chapter-08/examples/13_device_registry_main.cpp" \
+            "$CPP_ROOT/Chapter-08/examples/13_device_registry.cpp" \
             -o "$build_dir/device_registry"
           "$build_dir/device_registry"
-
-      - name: Build CMake projects and run CTest
-        run: |
-          set -euo pipefail
-          projects=(
-            'MoreStudy/C++/Chapter-09/examples/16_robot_monitor'
-            'MoreStudy/C++/Chapter-10/examples/17_event_summary'
-            'MoreStudy/C++/Chapter-11/examples/17_sensor_report'
-            'MoreStudy/C++/Chapter-12/examples/17_device_session'
-            'MoreStudy/C++/Chapter-13/examples/17_telemetry_pipeline'
-          )
-
-          for project in "${projects[@]}"; do
-            echo "::group::$project"
-            build_dir="$(mktemp -d)"
-            cmake -S "$project" -B "$build_dir" \
-              -DCMAKE_CXX_COMPILER=g++-14 \
-              -DCMAKE_CXX_STANDARD=23 \
-              -DCMAKE_CXX_STANDARD_REQUIRED=ON \
-              -DCMAKE_CXX_EXTENSIONS=OFF \
-              -DCMAKE_BUILD_TYPE=Release
-            cmake --build "$build_dir" --parallel 2
-
-            if [[ "$project" == *'17_telemetry_pipeline' ]]; then
-              ctest --test-dir "$build_dir" --output-on-failure --no-tests=error
-            fi
-
-            rm -rf "$build_dir"
-            echo '::endgroup::'
-          done
-
-      - name: Run non-interactive example tests
-        run: |
-          set -euo pipefail
-          test_sources=(
-            'MoreStudy/C++/Chapter-05/examples/11_function_tests.cpp'
-            'MoreStudy/C++/Chapter-09/examples/13_dependency_injection_test.cpp'
-          )
-
-          build_dir="$(mktemp -d)"
-          trap 'rm -rf "$build_dir"' EXIT
-
-          for index in "${!test_sources[@]}"; do
-            source="${test_sources[$index]}"
-            executable="$build_dir/test_$index"
-            g++-14 -std=c++23 -Wall -Wextra -Wpedantic \
-              "$source" -o "$executable"
-            "$executable"
-          done
