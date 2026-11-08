@@ -14,9 +14,9 @@ def run() -> None:
     # TODO 1: iris.data / iris.target을 확인합니다.
     # TODO 2: 학습(80%)과 평가(20%) 데이터로 나눕니다.
     # TODO 3: StandardScaler + KNN(n_neighbors=5)를 학습합니다.
-    # TODO 4: 정답률·오분류 건수·혼동행렬을 계산합니다.
+    # TODO 4: Accuracy·오분류 건수·혼동행렬을 계산합니다.
     # TODO 5: 결과를 그림으로 저장합니다.
-    print(f"샘플: {len(iris.target)}개, 특징: {iris.data.shape[1]}개")
+    print(f"샘플: {len(iris.target)}개, 특성: {iris.data.shape[1]}개")
     raise NotImplementedError("TODO 1~5")
 
 

@@ -17,7 +17,7 @@ def review_decision(max_votes: np.ndarray, threshold: float) -> np.ndarray:
 
 def run() -> None:
     digits = load_digits()
-    # TODO 1: 특징(64차원)과 정답(0~9)을 분리합니다.
+    # TODO 1: Feature(64차원)와 Label(0~9)을 분리합니다.
     # TODO 2: 80:20 층화 분할하고 KNN(이웃 5개)을 학습합니다.
     # TODO 3: predict_proba()의 최대 이웃 투표 비율을 구합니다.
     # TODO 4: 기준 0.8 미만은 REVIEW, 나머지는 AUTO로 분리합니다.

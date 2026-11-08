@@ -1,4 +1,4 @@
-"""Chapter 01 교육용 가상 CSV를 결정적으로 생성합니다."""
+"""Chapter 01 실습용 합성 CSV를 결정적으로 생성합니다."""
 from pathlib import Path
 import numpy as np
 import pandas as pd

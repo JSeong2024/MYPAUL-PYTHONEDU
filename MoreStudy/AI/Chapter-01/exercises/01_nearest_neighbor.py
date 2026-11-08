@@ -1,4 +1,4 @@
-"""Coding Practice 01 — 가장 가까운 참고 사례의 정답을 구합니다."""
+"""Coding Practice 01 — 가장 가까운 학습 샘플의 Label을 반환합니다."""
 import numpy as np
 
 

@@ -1,4 +1,4 @@
-"""Example 01. 가장 가까운 참고 사례를 찾아 분류해 봅니다."""
+"""Example 01. 가장 가까운 학습 샘플을 이용해 Label을 예측합니다."""
 import numpy as np
 
 
