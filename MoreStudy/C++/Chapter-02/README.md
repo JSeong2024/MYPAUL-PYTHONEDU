@@ -888,4 +888,4 @@ auto value = 23.5;
 
 ---
 
-[← C++ 목차](../README.md#contents)
+[← C++ 목차](../README.md#part-1--c-fundamentals)
