@@ -1,14 +1,13 @@
-#include <cstdint>
-#include <print>
+#include <iostream>
 
 int main() {
-    constexpr std::uint32_t serial_baud{115'200};
-    constexpr int retry_limit{3};
-    constexpr double max_distance_m{2.5};
-    constexpr std::uint8_t status_mask{0b0000'0101};
+    int sampling_rate_hz{1'000};
+    int status_mask{0b0000'0101};
+    int color_value{0xFF};
+    double distance_m{2.5};
 
-    std::println("Serial baud: {}", serial_baud);
-    std::println("Retries: {}", retry_limit);
-    std::println("Maximum distance: {:.1f} m", max_distance_m);
-    std::println("Status mask: {}", static_cast<unsigned int>(status_mask));
+    std::cout << "Sampling rate: " << sampling_rate_hz << " Hz\n";
+    std::cout << "Status mask: " << status_mask << '\n';
+    std::cout << "Color value: " << color_value << '\n';
+    std::cout << "Distance: " << distance_m << " m\n";
 }

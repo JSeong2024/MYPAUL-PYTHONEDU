@@ -1,18 +1,18 @@
-#include <print>
+#include <iostream>
 #include <string>
 
 int main() {
-    using std::println;
-
-    bool ready{true};
-    char channel{'A'};
-    int sample_count{12};
+    char channel{'B'};
+    int count{24};
+    long long total{1'000'000};
+    float ratio{0.5F};
     double temperature_c{23.75};
-    std::string sensor_name{"Temperature-01"};
+    std::string label{"Thermal sensor"};
 
-    println("Sensor: {}", sensor_name);
-    println("Channel: {}", channel);
-    println("Ready: {}", ready);
-    println("Samples: {}", sample_count);
-    println("Temperature: {:.2f} C", temperature_c);
+    std::cout << "Channel: " << channel << '\n';
+    std::cout << "Count: " << count << '\n';
+    std::cout << "Total: " << total << '\n';
+    std::cout << "Ratio: " << ratio << '\n';
+    std::cout << "Temperature: " << temperature_c << " C\n";
+    std::cout << "Label: " << label << '\n';
 }
