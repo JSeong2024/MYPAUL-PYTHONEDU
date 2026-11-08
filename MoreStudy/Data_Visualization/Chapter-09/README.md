@@ -43,7 +43,7 @@
 <a id="section-9-1"></a>
 ## 9.1. Project Overview
 
-이번 장에서 완성할 결과물은 데이터 자체뿐 아니라 **데이터의 유효성·수집 범위·지표의 분모·시각화의 단위·재현성**을 함께 설명해야 합니다. 아래 원칙을 각 프로젝트에서 반복해서 확인합니다.
+이번 장에서 완성할 결과물은 데이터 자체뿐 아니라 **데이터의 유효성·수집 범위·지표의 분모·시각화의 단위·재현성**을 함께 표현해야 합니다. 아래 원칙을 각 프로젝트에서 반복해서 확인합니다.
 
 - **Data Contract:** 어떤 열과 값이 필요한지, 잘못된 값은 어떻게 처리할지 정의합니다.
 - **Observation Grain:** 한 행이 하루·주문·시간·요청 중 무엇을 나타내는지 확인합니다.
@@ -86,8 +86,6 @@ python -m pip install -r requirements.txt
 | [Advanced 04 — Regional Electricity Demand Analysis](./projects/advanced_04_electricity_demand/README.md) | 누락된 시간의 일별 에너지를 확정할 수 있나요? | MW/MWh, 24시간 완전성 |
 | [Advanced 05 — Urban Transportation Dashboard](./projects/advanced_05_urban_metro/README.md) | 기록 누락과 실제 승객 0명을 어떻게 구분하나요? | 예정 운행시간, 노선 필터, 인터랙티브 차트 |
 
-Advanced 문제는 각 README에서 **STEP별 구현 가이드와 필요한 경우에만 열리는 코드 힌트**를 제공합니다. 자세한 구현은 `solutions/`에서 확인할 수 있습니다.
-
 <a id="section-9-5"></a>
 ## 9.5. Challenge Problems
 
@@ -101,14 +99,10 @@ Advanced 문제는 각 README에서 **STEP별 구현 가이드와 필요한 경�
   <img src="figures/projects/challenge_03_transit_reliability.png" width="88%" alt="Challenge 03 — City Transit Reliability Platform 분석 결과">
 </p>
 
-Challenge 03은 본 장의 통합 프로젝트입니다. 최종 결과에 필요한 파일은 Audit Log, Coverage, Station/Daily/Hourly Summary, Incident Comparison, PNG, HTML, Summary JSON, Manifest입니다. 기본 제공 데이터의 결과는 **672 예정 / 664 유효 / 8 누락 / 원본 8행 제외**입니다. 자세한 입력 계약은 프로젝트 README에 있습니다.
-
 <a id="section-9-6"></a>
 ## 9.6. Examples & Comprehensive Quiz
 
-먼저 프로젝트에 필요한 계산 예제를 확인합니다. 이어지는 Quiz에서는 Chapter 01~08의 시각화 개념과 도구를 새로운 상황에 적용합니다.
-
-**Example 01 — P95 선형 보간**
+**Example 01 — P95 선형 보간(Linear Interpolation, Lerp)**
 
 ```python
 import pandas as pd
@@ -117,9 +111,9 @@ latency = pd.Series([100, 200, 300])
 print(latency.quantile(0.95, interpolation="linear"))  # 290.0
 ```
 
-값 세 개를 정렬한 뒤 인덱스 1.9의 위치를 선형 보간하므로 P95는 290ms입니다. 이 보간은 **시간대별 누락 데이터를 임의로 채우는 작업이 아닙니다**.
+값 세 개를 정렬한 뒤 인덱스 1.9의 위치를 linear interpolation 하므로 P95는 290ms입니다. Lerp는 **시간대별 누락 데이터를 임의로 채우는 작업이 아닙니다**.
 
-**Example 02 — 결측과 0의 차이**
+**Example 02 — 결측(Missing)과 0의 차이**
 
 ```python
 import pandas as pd
@@ -129,11 +123,11 @@ print(boardings.notna().sum())  # 2: 유효 관측 수
 print(boardings.sum())         # 12.0: 관측된 인원 합계
 ```
 
-첫 항목은 실제로 관측된 0명이고, 두 번째 항목은 기록이 없음을 의미합니다. 예정 슬롯 수가 3일 때 관측 완전성은 2/3입니다.
+첫 번째 항목은 실제 측정값이 0명인 경우이고, 두 번째 항목은 데이터 수집 기록 자체가 누락된 상태(Missing)를 의미합니다. 예를 들어 전체 예정 슬롯 수가 3개일 때, 유효한 관측이 이루어진 슬롯이 2개라면 관측 완전성(Observation Completeness)은 2/3가 됩니다.
 
 ### Quiz — Chapter 01~08 Comprehensive Review
 
-Chapter 01~08에서 학습한 **시각화 원칙·통계적 해석·Matplotlib·Seaborn·시계열·Plotly·Streamlit**을 종합적으로 점검합니다. 기존 Chapter의 Quiz와 다른 데이터 및 상황을 사용했습니다.
+Chapter 01~08에서 학습한 **시각화 원칙·통계적 해석·Matplotlib·Seaborn·시계열·Plotly·Streamlit**을 종합적으로 점검합니다.
 
 - **객관식 7문제:** 상황에 적합한 시각화와 표현 방법 판단
 - **주관식 4문제:** 그래프 설계, 분포 해석, 분석 결과 설명
@@ -227,7 +221,7 @@ Pearson 상관계수는 0에 가깝습니다. 이 데이터에 대한 가장 타
 
 **정답: D**
 
-x가 -2에서 0으로 이동할 때 y가 감소하고, 0에서 2로 이동할 때 다시 증가합니다. 좌우가 대칭이므로 **Pearson 상관계수는 실제로 0**이지만, 산점도에는 `y = x²` 형태의 명확한 패턴이 있습니다. Pearson 상관계수는 **선형 관계**의 방향과 강도를 요약하므로 산점도 확인을 대체할 수 없습니다.
+$x$가 $-2$에서 $0$으로 이동할 때 $y$는 감소하다가, $0$에서 $2$ 구간에서는 다시 증가하는 비선형 관계를 나타냅니다. 이러한 대칭적 구조에서는 **Pearson 상관계수가 0**으로 산출되지만, 산점도에는 $y = x^2$ 형태의 뚜렷한 포물선 패턴이 나타납니다. 이는 Pearson 상관계수가 두 변수 사이의 **선형 관계의 방향과 강도**를 나타내는 지표이기 때문이며, 상관계수만으로 변수 간의 모든 관계를 판단할 수 없음을 보여줍니다.
 
 </details>
 
