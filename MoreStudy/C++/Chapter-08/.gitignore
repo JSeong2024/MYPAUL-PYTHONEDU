@@ -1,0 +1,10 @@
+# Local build outputs
+*.exe
+*.out
+*.obj
+*.o
+*.ilk
+*.pdb
+*.dSYM/
+build/
+__pycache__/

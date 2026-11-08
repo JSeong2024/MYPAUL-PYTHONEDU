@@ -1,47 +1,45 @@
-#include <print>
-#include <string>
-#include <utility>
+#include <iostream>
 
 class Battery {
 public:
-    [[nodiscard]] bool consume(int percentage) noexcept {
-        if (percentage <= 0 || percentage > remaining_) {
-            return false;
-        }
-        remaining_ -= percentage;
-        return true;
+    explicit Battery(int charge) noexcept
+        : percent_{charge >= 0 && charge <= 100 ? charge : 0} {}
+
+    [[nodiscard]] bool consume(int amount) noexcept {
+        // TODO: 범위 검증 후 배터리를 소모하고, 부족하면 기존 값을 유지하세요.
+        (void)amount;
+        return false;
     }
 
-    [[nodiscard]] int remaining() const noexcept { return remaining_; }
+    [[nodiscard]] int percent() const noexcept { return percent_; }
 
 private:
-    int remaining_{100};
+    int percent_{};
 };
 
 class Robot {
 public:
-    explicit Robot(std::string id) : id_{std::move(id)} {}
+    explicit Robot(int charge) noexcept : battery_{charge} {}
 
-    [[nodiscard]] bool travel(int distance_m) noexcept {
-        // TODO: 1~1000m만 허용, 5m 이동마다 배터리 1% 소모(올림)
-        // 배터리가 부족하면 이동하지 않고 잔량을 유지
-        (void)distance_m;
+    [[nodiscard]] bool move(int meters) noexcept {
+        // TODO: 1~1000m만 허용하고, 5m당 배터리 1%를 올림 계산하세요.
+        (void)meters;
         return false;
     }
 
     [[nodiscard]] int battery_percent() const noexcept {
-        return battery_.remaining();
+        return battery_.percent();
     }
 
 private:
-    std::string id_;
     Battery battery_;
 };
 
 int main() {
-    Robot robot{"ROBOT-A"};
-    const bool short_trip = robot.travel(25);
-    const bool long_trip = robot.travel(1'000);
-    std::println("Short: {}, long: {}, battery: {}%",
-                 short_trip, long_trip, robot.battery_percent());
+    Robot robot{100};
+    const bool short_move{robot.move(25)};
+    const bool long_move{robot.move(1'000)};
+    std::cout << std::boolalpha << "Short: " << short_move
+              << ", long: " << long_move
+              << ", battery: " << robot.battery_percent() << "%\n";
 }

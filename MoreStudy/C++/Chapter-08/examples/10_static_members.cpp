@@ -1,4 +1,4 @@
-#include <print>
+#include <iostream>
 
 class Connection {
 public:
@@ -17,11 +17,11 @@ private:
 };
 
 int main() {
-    std::println("Before: {}", Connection::active_count());
+    std::cout << "Before: " << Connection::active_count() << '\n';
     {
         Connection first;
         Connection second;
-        std::println("Inside: {}", Connection::active_count());
+        std::cout << "Inside: " << Connection::active_count() << '\n';
     }
-    std::println("After: {}", Connection::active_count());
+    std::cout << "After: " << Connection::active_count() << '\n';
 }

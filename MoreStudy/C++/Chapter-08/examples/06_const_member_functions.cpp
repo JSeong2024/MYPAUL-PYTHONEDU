@@ -1,4 +1,4 @@
-#include <print>
+#include <iostream>
 
 class SampleCounter {
 public:
@@ -10,7 +10,7 @@ private:
 };
 
 void print_count(const SampleCounter& counter) {
-    std::println("Samples: {}", counter.count());
+    std::cout << "Samples: " << counter.count() << '\n';
 }
 
 int main() {

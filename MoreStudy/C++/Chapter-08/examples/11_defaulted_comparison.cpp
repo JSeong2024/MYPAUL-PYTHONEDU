@@ -1,4 +1,4 @@
-#include <print>
+#include <iostream>
 
 struct DeviceKey {
     int rack{};
@@ -11,6 +11,7 @@ int main() {
     const DeviceKey a{2, 7};
     const DeviceKey b{2, 7};
     const DeviceKey c{2, 8};
-    std::println("a == b: {}", a == b);
-    std::println("a == c: {}", a == c);
+    std::cout << std::boolalpha;
+    std::cout << "a == b: " << (a == b) << '\n';
+    std::cout << "a == c: " << (a == c) << '\n';
 }

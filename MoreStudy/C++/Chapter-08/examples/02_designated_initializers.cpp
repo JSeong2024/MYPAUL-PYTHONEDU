@@ -1,5 +1,5 @@
 #include <cstdint>
-#include <print>
+#include <iostream>
 
 struct PacketHeader {
     std::uint32_t message_id{};
@@ -11,8 +11,10 @@ int main() {
     const PacketHeader header{
         .message_id = 42,
         .payload_bytes = 128,
-        .encrypted = true,
+        .encrypted = true
     };
-    std::println("Packet {}: {} bytes, encrypted: {}",
-                 header.message_id, header.payload_bytes, header.encrypted);
+    std::cout << std::boolalpha;
+    std::cout << "Packet " << header.message_id << ": "
+              << header.payload_bytes << " bytes, encrypted: "
+              << header.encrypted << '\n';
 }

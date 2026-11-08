@@ -1,4 +1,4 @@
-#include <print>
+#include <iostream>
 #include <string>
 #include <utility>
 
@@ -13,7 +13,7 @@ public:
         : name_{std::move(name)}, channel_{channel} {}
 
     void print() const {
-        std::println("{} on channel {}", name_, channel_);
+        std::cout << name_ << " on channel " << channel_ << '\n';
     }
 
 private:
@@ -24,6 +24,7 @@ private:
 int main() {
     const RetryOptions options{};
     const Device sensor{"LIDAR", 2};
-    std::println("Retries: {}, delay: {} ms", options.attempts, options.delay_ms);
+    std::cout << "Retries: " << options.attempts
+              << ", delay: " << options.delay_ms << " ms\n";
     sensor.print();
 }

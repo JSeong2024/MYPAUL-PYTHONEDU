@@ -1,18 +1,22 @@
-#include <print>
+#include <cmath>
+#include <iostream>
 #include <string>
 
 struct DeviceProfile {
     std::string name;
-    int power_w{};
+    double power_w{};
     bool online{};
+
+    [[nodiscard]] bool valid() const noexcept {
+        return !name.empty() && std::isfinite(power_w) &&
+               power_w >= 0.0 && power_w <= 2'000.0;
+    }
 };
 
-[[nodiscard]] bool valid_profile(const DeviceProfile& profile) {
-    return !profile.name.empty() && profile.power_w >= 0 &&
-           profile.power_w <= 2'000;
-}
-
 int main() {
-    const DeviceProfile device{"Vacuum-A", 850, true};
-    std::println("Valid: {}", valid_profile(device));
+    const DeviceProfile first{"Vacuum-A", 850.0, true};
+    const DeviceProfile second{"", 850.0, false};
+    std::cout << std::boolalpha
+              << "Valid: " << first.valid()
+              << ", invalid: " << second.valid() << '\n';
 }

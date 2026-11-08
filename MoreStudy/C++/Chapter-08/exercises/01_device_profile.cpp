@@ -1,19 +1,22 @@
-#include <print>
+#include <cmath>
+#include <iostream>
 #include <string>
 
 struct DeviceProfile {
     std::string name;
-    int power_w{};
+    double power_w{};
     bool online{};
+
+    [[nodiscard]] bool valid() const noexcept {
+        // TODO: 이름이 비어 있지 않고, 전력이 유한한 0~2000 W인지 확인하세요.
+        return false;
+    }
 };
 
-[[nodiscard]] bool valid_profile(const DeviceProfile& profile) {
-    // TODO: 이름이 비어 있지 않고, 소비 전력이 0~2000W인 경우에만 true 반환
-    (void)profile;
-    return false;
-}
-
 int main() {
-    const DeviceProfile device{"Vacuum-A", 850, true};
-    std::println("Valid: {}", valid_profile(device));
+    const DeviceProfile first{"Vacuum-A", 850.0, true};
+    const DeviceProfile second{"", 850.0, false};
+    std::cout << std::boolalpha
+              << "Valid: " << first.valid()
+              << ", invalid: " << second.valid() << '\n';
 }

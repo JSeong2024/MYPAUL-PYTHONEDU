@@ -1,4 +1,4 @@
-#include <print>
+#include <iostream>
 #include <string>
 
 struct SensorReading {
@@ -9,6 +9,7 @@ struct SensorReading {
 
 int main() {
     const SensorReading reading{"TEMP-A", 23.5, true};
-    std::println("{}: {:.1f} C (online: {})",
-                 reading.device_id, reading.temperature_c, reading.online);
+    std::cout << std::boolalpha;
+    std::cout << reading.device_id << ": " << reading.temperature_c
+              << " C (online: " << reading.online << ")\n";
 }

@@ -1,51 +1,45 @@
-#include <cmath>
-#include <optional>
-#include <print>
-#include <vector>
+#include <iostream>
 
-class SensorLog {
+class Battery {
 public:
-    [[nodiscard]] bool add(double value) {
-        if (!std::isfinite(value)) {
+    explicit Battery(int percent) noexcept : percent_{percent} {}
+
+    [[nodiscard]] bool consume(int amount) noexcept {
+        if (amount < 0 || amount > percent_) {
             return false;
         }
-        samples_.push_back(value);
+        percent_ -= amount;
         return true;
     }
 
-    [[nodiscard]] std::optional<double> average() const noexcept {
-        if (samples_.empty()) {
-            return std::nullopt;
+    [[nodiscard]] int percent() const noexcept { return percent_; }
+
+private:
+    int percent_{};
+};
+
+class Robot {
+public:
+    explicit Robot(int charge) noexcept : battery_{charge} {}
+
+    [[nodiscard]] bool move(int meters) noexcept {
+        if (meters <= 0 || meters > 100) {
+            return false;
         }
-        double total{};
-        for (const double value : samples_) {
-            total += value;
-        }
-        return total / static_cast<double>(samples_.size());
+        return battery_.consume((meters + 4) / 5);
+    }
+
+    [[nodiscard]] int battery_percent() const noexcept {
+        return battery_.percent();
     }
 
 private:
-    std::vector<double> samples_;
-};
-
-class Monitor {
-public:
-    [[nodiscard]] bool record(double value) { return log_.add(value); }
-    [[nodiscard]] std::optional<double> average() const noexcept { return log_.average(); }
-
-private:
-    SensorLog log_;
+    Battery battery_;
 };
 
 int main() {
-    Monitor monitor;
-    const bool first = monitor.record(20.0);
-    const bool second = monitor.record(24.0);
-    if (!first || !second) {
-        std::println("Invalid sample");
-        return 1;
-    }
-    if (const auto avg = monitor.average()) {
-        std::println("Average: {:.1f} C", *avg);
-    }
+    Robot robot{30};
+    const bool moved{robot.move(25)};
+    std::cout << std::boolalpha << "Moved: " << moved
+              << ", battery: " << robot.battery_percent() << "%\n";
 }

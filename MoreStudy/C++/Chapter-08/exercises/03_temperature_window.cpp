@@ -1,14 +1,23 @@
-#include <expected>
-#include <print>
-#include <string>
+#include <cmath>
+#include <iostream>
+#include <optional>
 
 class TemperatureWindow {
 public:
-    [[nodiscard]] static std::expected<TemperatureWindow, std::string>
-    create(double lower, double upper);
+    [[nodiscard]] static std::optional<TemperatureWindow>
+    create(double lower, double upper) noexcept {
+        // TODO: 유한한 범위이며 lower <= upper일 때만 객체를 반환하세요.
+        (void)lower;
+        (void)upper;
+        return std::nullopt;
+    }
 
     [[nodiscard]] bool contains(double value) const noexcept {
-        return lower_ <= value && value <= upper_;
+        // TODO: 유한한 값이 [lower_, upper_]에 속하는지 확인하세요.
+        (void)value;
+        (void)lower_;
+        (void)upper_;
+        return false;
     }
 
 private:
@@ -19,19 +28,8 @@ private:
     double upper_{};
 };
 
-std::expected<TemperatureWindow, std::string>
-TemperatureWindow::create(double lower, double upper) {
-    // TODO: 모든 경계값이 유한하고 lower <= upper인지 검증
-    (void)lower;
-    (void)upper;
-    return std::unexpected("TODO");
-}
-
 int main() {
-    const auto window = TemperatureWindow::create(18.0, 28.0);
-    if (!window) {
-        std::println("Error: {}", window.error());
-        return 1;
-    }
-    std::println("23 C allowed: {}", window->contains(23.0));
+    const auto window = TemperatureWindow::create(15.0, 25.0);
+    std::cout << std::boolalpha << "23 C allowed: "
+              << (window && window->contains(23.0)) << '\n';
 }

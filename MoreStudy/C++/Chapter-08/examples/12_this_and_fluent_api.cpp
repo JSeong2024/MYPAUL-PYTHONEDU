@@ -1,5 +1,5 @@
 #include <algorithm>
-#include <print>
+#include <iostream>
 
 class AlarmConfig {
 public:
@@ -25,5 +25,6 @@ private:
 int main() {
     AlarmConfig config;
     config.set_threshold(65).enable(true);
-    std::println("Alarm at 70: {}", config.triggered(70));
+    std::cout << std::boolalpha
+              << "Alarm at 70: " << config.triggered(70) << '\n';
 }

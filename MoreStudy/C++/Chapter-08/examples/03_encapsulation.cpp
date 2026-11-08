@@ -1,4 +1,4 @@
-#include <print>
+#include <iostream>
 
 class Motor {
 public:
@@ -13,13 +13,14 @@ public:
     [[nodiscard]] int rpm() const noexcept { return rpm_; }
 
 private:
-    int rpm_{0};
+    int rpm_{};
 };
 
 int main() {
     Motor motor;
-    const bool accepted = motor.set_rpm(1'500);
-    const bool rejected = motor.set_rpm(4'000);
-    std::println("Accepted: {}, rejected: {}, RPM: {}",
-                 accepted, rejected, motor.rpm());
+    const bool accepted{motor.set_rpm(1'500)};
+    const bool rejected{motor.set_rpm(4'000)};
+    std::cout << std::boolalpha << "Accepted: " << accepted
+              << ", rejected: " << rejected
+              << ", RPM: " << motor.rpm() << '\n';
 }

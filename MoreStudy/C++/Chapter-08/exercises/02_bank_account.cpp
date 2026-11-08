@@ -1,20 +1,21 @@
 #include <cstdint>
-#include <print>
+#include <iostream>
+#include <limits>
 
 class BankAccount {
 public:
     explicit BankAccount(std::int64_t opening_cents) noexcept
         : balance_cents_{opening_cents >= 0 ? opening_cents : 0} {}
 
-    [[nodiscard]] bool deposit(std::int64_t amount_cents) noexcept {
-        // TODO: 양수만 허용하고 정수 오버플로를 방지하면서 입금
-        (void)amount_cents;
+    [[nodiscard]] bool deposit(std::int64_t cents) noexcept {
+        // TODO: 양수 입금만 허용하고, int64_t 오버플로를 검사하세요.
+        (void)cents;
         return false;
     }
 
-    [[nodiscard]] bool withdraw(std::int64_t amount_cents) noexcept {
-        // TODO: 양수이고 현재 잔액 이내인 경우에만 출금
-        (void)amount_cents;
+    [[nodiscard]] bool withdraw(std::int64_t cents) noexcept {
+        // TODO: 양수 출금만 허용하고, 잔액보다 큰 출금을 거절하세요.
+        (void)cents;
         return false;
     }
 
@@ -28,8 +29,9 @@ private:
 
 int main() {
     BankAccount account{10'000};
-    const bool deposited = account.deposit(2'500);
-    const bool withdrawn = account.withdraw(4'000);
-    std::println("Deposit: {}, withdraw: {}, balance: {} cents",
-                 deposited, withdrawn, account.balance_cents());
+    const bool deposited{account.deposit(2'500)};
+    const bool withdrawn{account.withdraw(4'000)};
+    std::cout << std::boolalpha << "Deposit: " << deposited
+              << ", withdraw: " << withdrawn
+              << ", balance: " << account.balance_cents() << " cents\n";
 }

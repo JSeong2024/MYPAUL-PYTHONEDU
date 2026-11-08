@@ -1,25 +1,26 @@
-#include <algorithm>
-#include <print>
+#include <iostream>
+#include <string>
+#include <utility>
 
-class RetryPolicy {
+class Sensor {
 public:
-    RetryPolicy() : RetryPolicy(3, 250) {}
+    explicit Sensor(std::string name) : Sensor{std::move(name), 100} {}
 
-    RetryPolicy(int attempts, int delay_ms) noexcept
-        : attempts_{std::clamp(attempts, 1, 10)},
-          delay_ms_{std::clamp(delay_ms, 0, 5'000)} {}
+    Sensor(std::string name, int threshold)
+        : name_{std::move(name)}, threshold_{threshold} {}
 
-    [[nodiscard]] int attempts() const noexcept { return attempts_; }
-    [[nodiscard]] int delay_ms() const noexcept { return delay_ms_; }
+    void print() const {
+        std::cout << name_ << ": threshold " << threshold_ << '\n';
+    }
 
 private:
-    int attempts_{};
-    int delay_ms_{};
+    std::string name_;
+    int threshold_{};
 };
 
 int main() {
-    const RetryPolicy defaults;
-    const RetryPolicy custom{20, 600};
-    std::println("Default: {} times, {} ms", defaults.attempts(), defaults.delay_ms());
-    std::println("Custom: {} times, {} ms", custom.attempts(), custom.delay_ms());
+    const Sensor first{"Temperature"};
+    const Sensor second{"Vibration", 80};
+    first.print();
+    second.print();
 }

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef MORESTUDY_CPP_CHAPTER_08_DEVICE_REGISTRY_HPP
+#define MORESTUDY_CPP_CHAPTER_08_DEVICE_REGISTRY_HPP
 
 #include <cstddef>
 #include <string>
@@ -14,3 +15,5 @@ public:
 private:
     std::vector<std::string> ids_;
 };
+
+#endif
