@@ -1,24 +1,34 @@
 #include <iostream>
-#include <print>
 #include <string>
 #include <vector>
 
 int main() {
-    // 첫 줄: 장치 개수 N(1~20)
-    // 다음 N줄: 장치명(공백 포함 가능, 1~60바이트)
-    // 마지막 줄: 조회할 장치명
     int count{};
-    if (!(std::cin >> count) || count < 1 || count > 20) {
-        std::println(stderr, "Invalid device count");
+    if (!(std::cin >> count) || count < 1 || count > 10) {
+        std::cerr << "Error: invalid input.\n";
         return 1;
     }
-
-    std::string ignored;
-    std::getline(std::cin, ignored);  // 개수 뒤 줄바꿈 제거
+    std::string remainder;
+    std::getline(std::cin, remainder);
+    if (!remainder.empty()) {
+        std::cerr << "Error: invalid input.\n";
+        return 1;
+    }
     std::vector<std::string> devices;
-
-    // TODO: getline()으로 이름을 저장하고 입력 오류를 검증함.
-    // TODO: 마지막 줄의 이름을 찾아 1부터 시작하는 위치를 출력함.
-    // 출력: Found: 이름 (index N) / Not found
-    std::println("TODO: implement device lookup");
+    for (int i = 0; i < count; ++i) {
+        std::string device;
+        if (!std::getline(std::cin, device) || device.empty()) {
+            std::cerr << "Error: invalid input.\n";
+            return 1;
+        }
+        devices.push_back(device);
+    }
+    std::string target;
+    if (!std::getline(std::cin, target) || target.empty()) {
+        std::cerr << "Error: invalid input.\n";
+        return 1;
+    }
+    // TODO: target과 정확히 같은 이름을 가진 첫 장치의 1부터 시작하는 위치 출력
+    // TODO: 찾지 못하면 Not found 출력
+    return 0;
 }

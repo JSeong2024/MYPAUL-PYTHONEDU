@@ -1,41 +1,38 @@
 #include <iostream>
-#include <print>
 #include <string>
-#include <utility>
 #include <vector>
 
 int main() {
     int count{};
-    if (!(std::cin >> count) || count < 1 || count > 20) {
-        std::println(stderr, "Invalid device count");
+    if (!(std::cin >> count) || count < 1 || count > 10) {
+        std::cerr << "Error: invalid input.\n";
         return 1;
     }
-
-    std::string ignored;
-    std::getline(std::cin, ignored);
-
+    std::string remainder;
+    std::getline(std::cin, remainder);
+    if (!remainder.empty()) {
+        std::cerr << "Error: invalid input.\n";
+        return 1;
+    }
     std::vector<std::string> devices;
-    devices.reserve(static_cast<std::size_t>(count));
     for (int i = 0; i < count; ++i) {
-        std::string name;
-        if (!std::getline(std::cin, name) || name.empty() || name.size() > 60) {
-            std::println(stderr, "Invalid device name");
+        std::string device;
+        if (!std::getline(std::cin, device) || device.empty()) {
+            std::cerr << "Error: invalid input.\n";
             return 1;
         }
-        devices.push_back(std::move(name));
+        devices.push_back(device);
     }
-
-    std::string query;
-    if (!std::getline(std::cin, query) || query.empty() || query.size() > 60) {
-        std::println(stderr, "Invalid query");
+    std::string target;
+    if (!std::getline(std::cin, target) || target.empty()) {
+        std::cerr << "Error: invalid input.\n";
         return 1;
     }
-
     for (std::size_t i = 0; i < devices.size(); ++i) {
-        if (devices[i] == query) {
-            std::println("Found: {} (index {})", devices[i], i + 1);
+        if (devices[i] == target) {
+            std::cout << "Found: " << devices[i] << " (index " << i + 1 << ")\n";
             return 0;
         }
     }
-    std::println("Not found");
+    std::cout << "Not found\n";
 }

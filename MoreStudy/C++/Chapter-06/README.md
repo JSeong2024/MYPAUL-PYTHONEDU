@@ -1,206 +1,239 @@
 # Chapter 06. Arrays & Strings
 
-배열과 문자열의 저장 방식, 요소 접근, 반복 처리, 검색 및 변환을 다룹니다. 고정 크기 배열과 동적 배열을 구분하고, 문자열 입력과 외부 데이터 처리 시 필요한 안전성도 함께 살펴봅니다.
+배열(Array)과 문자열(String)을 사용하여 여러 값을 저장하고 탐색·정렬·변환하는 방법을 학습합니다. 고정 크기 배열과 동적 배열의 차이, 안전한 인덱스 접근, 문자열의 분리 및 정수 변환, C++20의 `std::span`을 다룹니다.
 
-본 자료는 **C++23(ISO/IEC 14882:2024)** 을 기준으로 작성되었습니다. 예제는 GCC 14 이상 또는 C++23 표준 라이브러리 지원이 충분한 개발 환경을 권장합니다.
+해당 자료는 **C++20(ISO/IEC 14882:2020)** 을 바탕으로 제작되었습니다. C++17에서 도입된 기능을 함께 사용하며, C++23의 관련 기능은 필요할 때 별도로 소개합니다.
+
+<details>
+<summary>선행 학습</summary>
+
+- [Chapter 01. Getting Started with C++](../Chapter-01/) — 표준 입출력, `std::string`, `std::getline()`
+- [Chapter 02. Variables & Data Types](../Chapter-02/) — 자료형, `auto`, 형변환, 표현 범위
+- [Chapter 03. Operators & Conditions](../Chapter-03/) — 조건식, 오류 처리, 논리 연산
+- [Chapter 04. Loops](../Chapter-04/) — 반복문, 누적 계산, 중첩 반복
+- [Chapter 05. Functions](../Chapter-05/) — 함수, 참조 매개변수, `std::string_view`, 람다
+
+</details>
 
 ## Contents
 
 | Section | Topic |
 |:---:|---|
-| 6.1 | 배열과 문자열의 역할 |
-| 6.2 | 고정 크기 배열 — `std::array` |
-| 6.3 | 가변 크기 배열 — `std::vector` |
-| 6.4 | 인덱스와 안전한 요소 접근 |
-| 6.5 | 반복 처리, 검색, 정렬 및 집계 |
-| 6.6 | 연속 데이터의 뷰 — `std::span` |
-| 6.7 | 다차원 배열과 격자 데이터 |
-| 6.8 | 문자열 저장과 조작 — `std::string` |
-| 6.9 | 공백을 포함한 문자열 입력 — `std::getline` |
-| 6.10 | 소유하지 않는 문자열 — `std::string_view` |
-| 6.11 | 문자열을 숫자로 변환 — `std::from_chars` |
-| 6.12 | UTF-8과 문자열 길이 |
-| 6.13 | 구분자로 구성된 데이터 처리 |
-| 6.14 | C 스타일 배열과 메모리 관리 |
-| 6.15 | 컨테이너 선택 및 성능 고려 |
-| 6.16 | Coding Practice |
-| 6.17 | Quiz & Summary |
+
+| [6.1](#section-6-1) | Arrays & Strings — 데이터 묶음과 문자열 |
+
+| [6.2](#section-6-2) | Fixed-Size Arrays — `std::array` |
+
+| [6.3](#section-6-3) | Dynamic Arrays — `std::vector` |
+
+| [6.4](#section-6-4) | Indexing & Bounds Checking |
+
+| [6.5](#section-6-5) | Iteration & Aggregation |
+
+| [6.6](#section-6-6) | Search & Sorting |
+
+| [6.7](#section-6-7) | Non-Owning Views — `std::span` |
+
+| [6.8](#section-6-8) | Multidimensional Data |
+
+| [6.9](#section-6-9) | String Operations — `std::string` |
+
+| [6.10](#section-6-10) | Line Input — `std::getline()` |
+
+| [6.11](#section-6-11) | String Views — `std::string_view` |
+
+| [6.12](#section-6-12) | Numeric Parsing — `std::from_chars()` |
+
+| [6.13](#section-6-13) | Delimited Text |
+
+| [6.14](#section-6-14) | UTF-8 & Text Length |
+
+| [6.15](#section-6-15) | Container Selection & C-Style Arrays |
+
+| [6.16](#section-6-16) | Coding Practice |
+
+| [6.17](#section-6-17) | Mini Project — Sensor Batch Report |
+
+| [6.18](#section-6-18) | Quiz & Summary |
+
+## Getting Started
+
+다음 명령어는 **`Chapter-06/` 디렉터리**에서 실행하는 경우를 기준으로 합니다.
+
+**GCC**
+
+```bash
+g++ -std=c++20 -Wall -Wextra -Wpedantic examples/01_fixed_array.cpp -o arrays
+./arrays
+```
+
+**Clang**
+
+```bash
+clang++ -std=c++20 -Wall -Wextra -Wpedantic examples/01_fixed_array.cpp -o arrays
+./arrays
+```
+
+**MSVC — Visual Studio Developer Command Prompt**
+
+```bat
+cl /nologo /std:c++20 /W4 /EHsc /permissive- /utf-8 examples\01_fixed_array.cpp /Fe:arrays.exe
+arrays.exe
+```
+
+Windows PowerShell에서는 `./arrays` 대신 `.\arrays.exe`로 실행합니다. 컴파일러 설정은 [Chapter 01](../Chapter-01/)에서 확인할 수 있습니다.
+
+**학습 목표**
+
+1. `std::array`와 `std::vector`를 구분하고 요소를 안전하게 관리할 수 있습니다.
+2. 반복문과 표준 알고리즘으로 값을 집계·검색·정렬할 수 있습니다.
+3. `std::span`과 `std::string_view`의 비소유(Non-Owning) 특성을 설명할 수 있습니다.
+4. 문자열 검색·분할·숫자 변환에서 잘못된 입력을 검증할 수 있습니다.
+5. 데이터의 구조와 사용 목적에 맞게 저장 타입을 선택할 수 있습니다.
 
 ---
 
-## 6.1. 배열과 문자열의 역할
+<a id="section-6-1"></a>
+## 6.1. Arrays & Strings — 데이터 묶음과 문자열
 
-동일한 종류의 값을 여러 개 처리할 때 배열을 사용합니다. 예를 들어 온도 센서의 최근 측정값, 장치 목록, 영상의 픽셀 데이터 등을 개별 변수로 관리하면 반복 처리와 범위 검증이 어려워집니다.
+배열(Array)은 같은 자료형의 여러 요소(Element)를 하나의 이름으로 관리하는 자료구조입니다. 센서 값 세 개를 `first`, `second`, `third`처럼 따로 저장하면 모든 값에 동일한 작업을 적용하기 불편합니다. 배열을 사용하면 반복문으로 순회하거나 함수에 묶어서 전달할 수 있습니다.
 
-```cpp
-int first{21};
-int second{24};
-int third{19};
-```
+문자열(String)은 여러 문자로 이루어진 텍스트를 표현합니다. C++의 `std::string`은 저장 공간을 직접 관리하지만, `std::string_view`는 다른 곳에 저장된 문자열을 읽기 위한 뷰(View)입니다.
 
-배열을 사용하면 데이터를 하나의 객체로 관리하고 반복문과 표준 알고리즘을 적용할 수 있습니다.
-
-```cpp
-#include <array>
-
-std::array<int, 3> readings{21, 24, 19};
-```
-
-문자열은 텍스트 데이터에 특화된 객체입니다. 장치 이름, 로그 메시지, 사용자 입력, 프로토콜 명령어 등을 표현할 때 사용합니다.
-
-| 자료형 | 역할 | 크기 | 요소 소유 여부 |
+| 타입 | 용도 | 요소 개수 | 데이터 소유 |
 |---|---|---|---|
-| `std::array<T, N>` | 고정 개수의 동일 자료형 요소 | 컴파일 시점에 결정 | 소유 |
-| `std::vector<T>` | 실행 중 늘어나거나 줄어드는 요소 | 실행 시점에 변경 가능 | 소유 |
-| `std::span<T>` | 연속된 요소들의 범위 참조 | 고정/동적 범위 지원 | 소유하지 않음 |
-| `std::string` | 변경 가능한 문자열 | 실행 시점에 변경 가능 | 소유 |
-| `std::string_view` | 읽기 전용 문자열 범위 참조 | 실행 시점에 결정 | 소유하지 않음 |
+| `std::array<T, N>` | 고정 개수의 요소 | 선언 시 결정 | O |
+| `std::vector<T>` | 실행 중 개수가 바뀌는 요소 | 실행 중 변경 | O |
+| `std::span<T>` | 연속된 배열의 범위 전달 | 실행 중 확인 가능 | X |
+| `std::string` | 텍스트 저장 및 수정 | 실행 중 변경 | O |
+| `std::string_view` | 읽기 전용 문자열 접근 | 실행 중 확인 가능 | X |
 
-**기본 원칙:** 데이터의 소유권(Ownership)을 갖는 객체와, 데이터를 소유하지 않고 참조하는 뷰(View)를 구분합니다. View를 사용할 때는 원본 객체의 수명(Lifetime)을 보장해야 합니다.
+**소유(Ownership)** 는 객체가 해당 데이터를 관리한다는 뜻입니다. **비소유 뷰(Non-Owning View)** 는 데이터를 복사하지 않고 참조하는 방식이므로, 원본이 사라지거나 저장 위치가 바뀌면 사용할 수 없게 될 수 있습니다. 객체 수명과 메모리 주소는 Chapter 07에서 더 자세히 다룹니다.
 
----
+<a id="section-6-2"></a>
+## 6.2. Fixed-Size Arrays — `std::array`
 
-## 6.2. 고정 크기 배열 — `std::array`
+`std::array<T, N>`은 **요소의 자료형 `T`와 개수 `N`이 정해진 배열**입니다. 예를 들어 센서 채널이 네 개로 고정되어 있다면 `std::array<int, 4>`가 적합합니다.
 
-`std::array<T, N>`은 요소의 수가 고정되어 있을 때 사용합니다. 센서 채널 수, 장치별 고정 파라미터, 색상 채널처럼 요소 개수가 설계상 일정한 데이터에 적합합니다.
+`#include <array>`는 `std::array`를 사용할 때 필요한 표준 헤더입니다.
 
 ```cpp
-#include <array>
-
-std::array<int, 4> channels{10, 20, 30, 40};
+std::array<int, 4> readings{21, 24, 19, 23};
 ```
 
-- **`int`:** 배열 요소의 자료형
-- **`4`:** 요소 개수. 컴파일 시점에 결정
-- **`channels.size()`:** 요소 개수 조회
-- **`channels[0]`:** 첫 번째 요소 접근. 인덱스 검사 없음
-- **`channels.at(0)`:** 범위를 검사하며 요소 접근
+| 구문 | 의미 |
+|---|---|
+| `readings.size()` | 요소 개수 `4` |
+| `readings[0]` | 첫 번째 요소 `21` (범위 검사 없음) |
+| `readings.at(1)` | 두 번째 요소 `24` (범위 검사 있음) |
+| `readings.front()` | 첫 번째 요소 |
+| `readings.back()` | 마지막 요소 |
 
-배열의 첫 번째 요소 인덱스는 `0`, 마지막 요소 인덱스는 `size() - 1`입니다. `std::array`의 크기는 생성한 뒤 변경할 수 없습니다.
+인덱스(Index)는 **0부터 시작**하므로 크기가 4일 때 유효한 인덱스는 `0, 1, 2, 3`입니다. 배열을 생성한 후 요소값은 변경할 수 있지만 요소 개수는 변경할 수 없습니다.
 
-**예제 코드 — [01_std_array.cpp](./examples/01_std_array.cpp)**
+**예제 코드 — [01_fixed_array.cpp](./examples/01_fixed_array.cpp)**
 
 ```cpp
-#include <algorithm>
 #include <array>
-#include <print>
+#include <iostream>
 
 int main() {
-    constexpr std::array<int, 5> readings{21, 24, 19, 23, 22};
-    const auto [minimum, maximum] = std::ranges::minmax(readings);
-
-    std::println("Samples: {}", readings.size());
-    std::println("Minimum: {} C", minimum);
-    std::println("Maximum: {} C", maximum);
+    const std::array<int, 4> readings{21, 24, 19, 23};
+    std::cout << "Samples: " << readings.size() << '\n';
+    std::cout << "First: " << readings.front() << '\n';
+    std::cout << "Last: " << readings.back() << '\n';
 }
 ```
 
 **실행 결과**
 
 ```text
-Samples: 5
-Minimum: 19 C
-Maximum: 24 C
+Samples: 4
+First: 21
+Last: 23
 ```
 
-`std::ranges::minmax`는 최솟값과 최댓값을 함께 반환합니다. 이 예제는 고정 크기의 데이터이므로 `std::vector`를 사용할 필요가 없습니다.
+`std::array<int, 0>`처럼 크기가 0인 배열도 선언할 수 있습니다. 그러나 비어 있는 배열에서 `front()`나 `back()`을 호출해서는 안 됩니다.
 
-**주의:** `std::array<int, 0>`도 생성할 수 있지만, `front()`와 `back()`은 비어 있는 배열에서 사용할 수 없습니다.
+<a id="section-6-3"></a>
+## 6.3. Dynamic Arrays — `std::vector`
 
----
+`std::vector<T>`는 요소를 연속된 저장 공간에 보관하면서 필요할 때 개수를 늘리거나 줄일 수 있는 **동적 배열(Dynamic Array)** 입니다. 실행 전에 데이터 개수를 정확히 알 수 없는 측정 결과나 목록에 적합합니다.
 
-## 6.3. 가변 크기 배열 — `std::vector`
+`#include <vector>`는 `std::vector`를 선언하고 사용하는 데 필요한 헤더입니다.
 
-`std::vector<T>`는 요소 개수가 실행 중 달라지는 배열입니다. 센서 수집 데이터, 검색 결과, 사용자 목록처럼 데이터의 개수를 미리 알 수 없을 때 사용합니다.
+| 멤버 함수 | 기능 | 요소 개수 변화 |
+|---|---|:---:|
+| `size()` | 현재 존재하는 요소 수 반환 | X |
+| `capacity()` | 현재 확보된 저장 공간의 수용 가능 요소 수 반환 | X |
+| `reserve(n)` | 최소 `n`개를 위한 용량 확보 | X |
+| `resize(n)` | 요소 수를 `n`으로 조정 | O |
+| `push_back(value)` | 맨 뒤에 새 요소 하나 추가 | O |
 
-**예제 코드 — [02_std_vector.cpp](./examples/02_std_vector.cpp)**
+`reserve(100)`은 100개의 요소를 만드는 것이 아닙니다. `size()`는 여전히 기존 값이므로, 저장 공간만 확보한 상태에서 `values[0]`을 읽으면 안 됩니다.
+
+**예제 코드 — [02_dynamic_vector.cpp](./examples/02_dynamic_vector.cpp)**
 
 ```cpp
-#include <print>
+#include <iostream>
 #include <vector>
 
 int main() {
-    std::vector<int> samples;
-    samples.reserve(4);
-
-    for (const int value : {12, 15, 13, 18}) {
-        samples.push_back(value);
-    }
-
-    std::println("Size: {}", samples.size());
-    for (const int sample : samples) {
-        std::println("Reading: {}", sample);
-    }
+    std::vector<int> readings;
+    readings.reserve(5);
+    readings.push_back(12);
+    readings.push_back(18);
+    readings.push_back(15);
+    std::cout << "After reserve and insert: " << readings.size() << '\n';
+    readings.resize(4);
+    std::cout << "After resize: " << readings.size() << '\n';
+    std::cout << "Fourth: " << readings.at(3) << '\n';
 }
 ```
 
 **실행 결과**
 
 ```text
-Size: 4
-Reading: 12
-Reading: 15
-Reading: 13
-Reading: 18
+After reserve and insert: 3
+After resize: 4
+Fourth: 0
 ```
 
-### `size`, `capacity`, `reserve`, `resize`
+이 예제에서 `resize(4)`로 새로 추가된 `int` 요소 하나는 0으로 초기화됩니다. `vector`에 요소를 추가하면서 공간을 재할당(Reallocation)하면 예전에 해당 요소를 가리키던 참조·반복자 등이 무효가 될 수 있습니다.
 
-이 네 가지는 서로 다릅니다.
+<a id="section-6-4"></a>
+## 6.4. Indexing & Bounds Checking
 
-| API | 의미 | 실제 요소 개수 변경 |
-|---|---|:---:|
-| `size()` | 현재 존재하는 요소 수 | X |
-| `capacity()` | 재할당(Reallocation) 없이 담을 수 있는 요소 수 | X |
-| `reserve(n)` | 최소 `n`개를 담을 수 있는 저장 공간 확보 | X |
-| `resize(n)` | 요소 수를 `n`개로 조정 | O |
-| `push_back(value)` | 요소 하나를 끝에 추가 | O |
+`container[index]`는 일반적으로 자동 범위 검사를 수행하지 않습니다. 잘못된 인덱스로 접근하면 **미정의 동작(Undefined Behavior, UB)** 이 발생할 수 있습니다. 미정의 동작은 항상 오류 메시지가 나오는 현상을 뜻하지 않으며, 실행 결과를 신뢰할 수 없다는 의미입니다.
 
-```cpp
-std::vector<int> values;
-values.reserve(100);
-// values.size() == 0. values[0]에 접근하면 안 됨.
+`at(index)`는 범위를 검사합니다. 인덱스가 잘못되면 `std::out_of_range` 예외(Exception)를 발생시킵니다. 예외는 정상 실행 흐름에서 벗어난 문제를 호출자에게 전달하는 기능이며 `try`·`catch`로 처리할 수 있습니다.
 
-values.resize(3);
-// values.size() == 3. int 요소는 0으로 초기화됨.
-```
+| 새로운 헤더 | 역할 |
+|---|---|
+| `<stdexcept>` | `std::out_of_range` 등 표준 예외 타입 제공 |
+| `<cstddef>` | 인덱스·크기 표현에 자주 쓰이는 `std::size_t` 제공 (`std::size_t`는 이전 Chapter에서 학습) |
 
-`reserve()`는 메모리 Reallocation 횟수를 줄이기 위한 기능이지, 요소를 생성하는 기능이 아닙니다. 실제 요소를 채울 때는 `push_back()`을 사용하거나 `resize()`로 먼저 크기를 설정해야 합니다.
+`std::size_t`는 음수가 아닌 크기와 인덱스를 나타내는 부호 없는 정수 타입입니다. 예제에서는 `std::array`가 필요한 크기 타입을 관련 헤더를 통해 제공하지만, 코드에서 `std::size_t`를 직접 사용할 때는 `<cstddef>`를 명시적으로 포함하는 것이 명확합니다.
 
-요소 추가 과정에서 내부 저장 공간이 이동하면 기존 요소를 가리키던 **포인터·참조·반복자(Iterator)**가 더 이상 유효하지 않을 수 있습니다. 이를 무효화(Invalidation)라고 합니다. 주소를 오래 보관해야 하는 설계라면 컨테이너의 특성을 먼저 검토해야 합니다.
-
----
-
-## 6.4. 인덱스와 안전한 요소 접근
-
-외부 입력을 배열 인덱스로 사용하거나 요소가 없을 수 있는 위치에 접근할 때는 범위를 확인해야 합니다.
-
-| 접근 방법 | 범위 검사 | 범위 초과 시 |
-|---|---|---|
-| `container[index]` | 없음 | 미정의 동작(Undefined Behavior, UB) 발생 가능 |
-| `container.at(index)` | 있음 | `std::out_of_range` 예외 발생 |
-| `container.front()` | 없음 | 비어 있는 컨테이너에서는 사용 불가 |
-| `container.back()` | 없음 | 비어 있는 컨테이너에서는 사용 불가 |
-
-**예제 코드 — [03_safe_access.cpp](./examples/03_safe_access.cpp)**
+**예제 코드 — [03_checked_access.cpp](./examples/03_checked_access.cpp)**
 
 ```cpp
 #include <array>
-#include <print>
+#include <iostream>
 #include <stdexcept>
 
 int main() {
     const std::array<int, 3> voltages{12, 24, 48};
-    const std::size_t requested_index{3};
+    const std::size_t index{3};
 
-    if (requested_index >= voltages.size()) {
-        std::println("Index {} is out of range", requested_index);
+    if (index >= voltages.size()) {
+        std::cout << "Index out of range: " << index << '\n';
     }
-
     try {
-        std::println("Voltage: {}", voltages.at(requested_index));
+        const int value = voltages.at(index);
+        std::cout << "Voltage: " << value << '\n';
     } catch (const std::out_of_range&) {
-        std::println("Access rejected by at()");
+        std::cout << "at() rejected the index\n";
     }
 }
 ```
@@ -208,178 +241,231 @@ int main() {
 **실행 결과**
 
 ```text
-Index 3 is out of range
-Access rejected by at()
+Index out of range: 3
+at() rejected the index
 ```
 
-일반적인 실무 코드에서는 범위를 미리 검증하고, API 계약상 예외가 필요한 경우 `at()`을 활용합니다. `at()`이 있다고 해서 입력값 검증 전체가 불필요해지는 것은 아닙니다.
+이 코드는 오류가 예상되는 위치에서 `at()`과 `catch`를 비교하기 위한 예제입니다. 실제 입력을 처리할 때는 우선 `index < container.size()`인지 검사하여 잘못된 접근을 방지할 수 있습니다. 예외 처리 설계는 심화 Chapter에서 다룹니다.
 
----
+<a id="section-6-5"></a>
+## 6.5. Iteration & Aggregation
 
-## 6.5. 반복 처리, 검색, 정렬 및 집계
+배열을 순회하면 합계(Sum), 최솟값(Minimum), 최댓값(Maximum), 평균(Mean) 등을 계산할 수 있습니다. Chapter 04의 범위 기반 `for` 문을 그대로 활용합니다.
 
-배열에서 반복문을 이용하면 합계·평균·최댓값 등을 계산할 수 있습니다. 다만 널리 사용되는 작업은 표준 알고리즘으로 작성하는 편이 의도를 명확히 표현할 수 있습니다.
+평균을 계산할 때 두 정수끼리 나누면 소수 부분이 사라집니다. 하나를 `double`로 변환해야 소수 결과를 얻습니다. 출력 자릿수를 조절하는 `<iomanip>`의 `std::fixed`, `std::setprecision()`은 Chapter 02에서 다뤘습니다.
 
-| 작업 | 대표 API | 헤더 |
-|---|---|---|
-| 정렬 | `std::ranges::sort` | `<algorithm>` |
-| 조건별 개수 | `std::ranges::count_if` | `<algorithm>` |
-| 특정 값 검색 | `std::ranges::find` | `<algorithm>` |
-| 정렬된 범위 검색 | `std::ranges::binary_search` | `<algorithm>` |
-| 합계 | `std::accumulate` | `<numeric>` |
+빈 배열에는 첫 번째 요소가 없으므로, `front()`로 최솟값·최댓값을 초기화할 때는 배열에 값이 하나 이상 있는지 확인해야 합니다.
 
-**예제 코드 — [04_algorithms.cpp](./examples/04_algorithms.cpp)**
-
-```cpp
-#include <algorithm>
-#include <numeric>
-#include <print>
-#include <vector>
-
-int main() {
-    std::vector<int> delays_ms{42, 18, 31, 18, 55};
-    const long long total = std::accumulate(delays_ms.begin(), delays_ms.end(), 0LL);
-    const auto slow = std::ranges::count_if(delays_ms, [](int value) {
-        return value >= 40;
-    });
-
-    std::ranges::sort(delays_ms);
-    std::println("Total: {} ms", total);
-    std::println("Slow samples: {}", slow);
-    std::println("Has 31 ms: {}", std::ranges::binary_search(delays_ms, 31));
-    std::println("Sorted first: {} ms", delays_ms.front());
-}
-```
-
-**실행 결과**
-
-```text
-Total: 164 ms
-Slow samples: 2
-Has 31 ms: true
-Sorted first: 18 ms
-```
-
-- `std::accumulate(..., 0LL)`은 누적값의 초기 타입을 `long long`으로 지정하여 정수 합산의 범위를 넓힙니다. 입력값에 따라 `long long` 범위도 확인해야 합니다.
-- `std::ranges::binary_search`는 **정렬 조건을 만족하는 데이터**에서 사용해야 합니다. 정렬되지 않은 배열에서 바로 호출하면 올바른 결과를 보장할 수 없습니다.
-- 알고리즘의 시간 복잡도(Time Complexity)는 자료구조와 전제 조건에 따라 달라집니다. 일반적인 비교 정렬은 `O(n log n)`, 정렬된 범위의 이진 탐색은 `O(log n)`입니다.
-
----
-
-## 6.6. 연속 데이터의 View — `std::span`
-
-함수가 배열 전체를 복사하거나 특정 컨테이너 타입에 의존할 필요가 없다면 `std::span`을 사용할 수 있습니다. `std::span<T>`는 원본 데이터를 소유하지 않고 연속 메모리(Contiguous Memory)에 저장된 요소 범위를 참조합니다.
-
-**예제 코드 — [05_std_span.cpp](./examples/05_std_span.cpp)**
+**예제 코드 — [04_accumulate_readings.cpp](./examples/04_accumulate_readings.cpp)**
 
 ```cpp
 #include <array>
+#include <iomanip>
+#include <iostream>
+
+int main() {
+    const std::array<int, 5> samples{8, 12, 14, 10, 16};
+    int total{};
+    int minimum{samples.front()};
+    int maximum{samples.front()};
+    for (const int sample : samples) {
+        total += sample;
+        if (sample < minimum) minimum = sample;
+        if (sample > maximum) maximum = sample;
+    }
+    const double average = static_cast<double>(total) / samples.size();
+    std::cout << "Total: " << total << '\n';
+    std::cout << "Min: " << minimum << '\n';
+    std::cout << "Max: " << maximum << '\n';
+    std::cout << std::fixed << std::setprecision(2);
+    std::cout << "Average: " << average << '\n';
+}
+```
+
+**실행 결과**
+
+```text
+Total: 60
+Min: 8
+Max: 16
+Average: 12.00
+```
+
+이 예제는 크기가 5로 정해진 배열을 사용하므로 비어 있지 않습니다. 측정값의 개수나 범위를 외부에서 입력받는 경우에는 빈 배열, 정수 누적 합계의 오버플로, 잘못된 값 등을 추가로 검증해야 합니다.
+
+<a id="section-6-6"></a>
+## 6.6. Search & Sorting
+
+정렬(Sorting)은 값을 일정한 순서로 재배치하는 작업이고, 검색(Searching)은 특정 값 또는 조건을 만족하는 요소를 찾는 작업입니다. 단순한 반복문으로 직접 구현할 수도 있지만, C++ 표준 라이브러리의 알고리즘을 사용하면 의도를 명확하게 나타낼 수 있습니다.
+
+| 헤더 | 제공 기능 | 예시 |
+|---|---|---|
+| `<algorithm>` | 정렬·검색·조건 집계 | `std::ranges::sort`, `std::ranges::count_if` |
+| `<numeric>` | 수치 계산·누적 합계 | `std::accumulate` |
+
+`std::ranges` 알고리즘은 **C++20**에서 도입된 범위(Range) 기반 알고리즘입니다. 반복자(Iterator)를 직접 두 개 전달하는 대신 컨테이너 자체를 인수로 전달할 수 있습니다. 반복자는 요소를 순서대로 가리키며 이동하는 도구로, `begin()`과 `end()`는 해당 범위의 시작과 끝을 나타냅니다.
+
+`std::ranges::binary_search`는 데이터가 **검색 기준에 맞게 정렬되어 있어야** 올바르게 사용할 수 있습니다.
+
+**예제 코드 — [05_sort_search.cpp](./examples/05_sort_search.cpp)**
+
+```cpp
+#include <algorithm>
+#include <iostream>
+#include <numeric>
+#include <vector>
+
+int main() {
+    std::vector<int> delays{42, 18, 31, 18, 55};
+    const auto high = std::ranges::count_if(delays, [](int value) { return value >= 40; });
+    const long long total = std::accumulate(delays.begin(), delays.end(), 0LL);
+    std::ranges::sort(delays);
+    std::cout << "Total: " << total << '\n';
+    std::cout << "Slow: " << high << '\n';
+    std::cout << std::boolalpha;
+    std::cout << "Has 31: " << std::ranges::binary_search(delays, 31) << '\n';
+    std::cout << "First sorted: " << delays.front() << '\n';
+}
+```
+
+**실행 결과**
+
+```text
+Total: 164
+Slow: 2
+Has 31: true
+First sorted: 18
+```
+
+`std::ranges::count_if(delays, ...)`에 전달한 람다는 Chapter 05에서 다룬 조건 함수입니다. `std::accumulate(..., 0LL)`의 `0LL`은 `long long` 정수 리터럴이므로 누적 계산 타입을 `long long`으로 선택하도록 합니다. 다만 큰 값이 계속 누적되면 이 타입도 오버플로될 수 있습니다.
+
+대표적인 작업량은 전체 순회 `O(n)`, 비교 정렬 `O(n log n)`, 정렬된 범위의 이진 검색 `O(log n)`입니다. 여기서 `n`은 요소 개수이며, 자세한 성능 분석은 별도 알고리즘 학습 과정과 연결됩니다.
+
+<a id="section-6-7"></a>
+## 6.7. Non-Owning Views — `std::span`
+
+`std::span<T>`은 **C++20에서 도입된 연속 데이터 뷰(Contiguous View)** 입니다. 기존 배열의 요소를 복사하지 않고, 시작 위치와 요소 개수를 함께 전달할 때 사용합니다.
+
+`#include <span>`은 `std::span`을 사용하기 위한 표준 헤더입니다.
+
+- `std::span<int>`: 원본 요소를 수정할 수 있는 뷰
+- `std::span<const int>`: 원본 요소를 변경하지 않고 읽는 뷰
+
+`std::array`와 `std::vector`는 각자 데이터를 소유하지만, `std::span`은 **데이터를 소유하지 않습니다.** 따라서 뷰를 사용하는 동안 원본의 수명이 유지되어야 하고, 원본 `vector`에 대한 크기 변경·재할당 뒤에는 이전 뷰의 유효성을 다시 확인해야 합니다.
+
+**예제 코드 — [06_span_view.cpp](./examples/06_span_view.cpp)**
+
+```cpp
+#include <array>
+#include <iostream>
 #include <span>
 #include <vector>
 
-[[nodiscard]] long long total_samples(std::span<const int> samples) {
-    long long total{};
-    for (const int value : samples) {
-        total += value;
-    }
+[[nodiscard]] int sum_readings(std::span<const int> readings) {
+    int total{};
+    for (const int value : readings) total += value;
     return total;
 }
 
 int main() {
-    std::array<int, 3> fixed{10, 20, 30};
-    std::vector<int> dynamic{5, 15};
-
-    // 같은 함수에 서로 다른 컨테이너 전달
-    const auto fixed_total = total_samples(fixed);
-    const auto dynamic_total = total_samples(dynamic);
+    const std::array<int, 3> fixed{10, 20, 30};
+    const std::vector<int> dynamic{4, 6};
+    std::cout << "Array total: " << sum_readings(fixed) << '\n';
+    std::cout << "Vector total: " << sum_readings(dynamic) << '\n';
 }
 ```
 
-전체 실행 코드는 링크된 예제 파일에서 확인할 수 있습니다. 원본을 수정하는 함수에는 `std::span<int>`, 읽기만 하는 함수에는 `std::span<const int>`를 사용합니다.
+**실행 결과**
 
-- **장점:** 배열 데이터를 복사하지 않고, 길이 정보와 함께 함수에 전달
-- **제약:** 메모리를 소유하지 않으므로 원본 객체가 살아 있어야 함
-- **주의:** `std::vector`의 크기 변경이나 Reallocation 이후에는 기존 `span`이 유효하지 않게 될 수 있음
+```text
+Array total: 60
+Vector total: 10
+```
 
-`std::span`은 **Contiguous Memory**를 전제로 합니다. 모든 종류의 컨테이너에 적용할 수 있는 것은 아닙니다.
+같은 `sum_readings()` 함수가 `std::array`와 `std::vector`를 모두 받을 수 있는 것이 장점입니다. 단, 모든 컨테이너의 데이터가 연속 저장되는 것은 아니므로 `std::span`을 모든 종류의 컨테이너에 적용할 수 있는 것은 아닙니다.
 
----
+<a id="section-6-8"></a>
+## 6.8. Multidimensional Data
 
-## 6.7. 다차원 배열과 격자 데이터
+행(Row)과 열(Column)을 가진 격자는 2차원 배열로 표현할 수 있습니다. 고정된 크기의 경우 `std::array<std::array<int, C>, R>`처럼 배열 안에 배열을 저장할 수 있습니다.
 
-센서 매트릭스, 픽셀, 지도, 보드판처럼 행과 열이 있는 데이터는 다차원 배열로 표현할 수 있습니다.
+```cpp
+std::array<std::array<int, 3>, 2> grid{{
+    {0, 1, 0},
+    {1, 0, 0}
+}};
+```
 
-**예제 코드 — [06_grid.cpp](./examples/06_grid.cpp)**
+`grid.at(1).at(0)`은 두 번째 행의 첫 번째 요소입니다. 행과 열도 모두 0부터 시작합니다. 중첩 반복문에서는 바깥 반복이 행, 안쪽 반복이 각 행의 열을 담당합니다.
+
+**예제 코드 — [07_two_dimensional_array.cpp](./examples/07_two_dimensional_array.cpp)**
 
 ```cpp
 #include <array>
+#include <iostream>
 
-constexpr std::array grid{
-    std::array{0, 1, 0, 0},
-    std::array{0, 1, 1, 0},
-    std::array{0, 0, 0, 0},
-};
-
-// grid[row][col] 형식으로 접근
-const int cell = grid.at(1).at(2);  // 1
+int main() {
+    const std::array grid{
+        std::array{0, 1, 0, 0},
+        std::array{1, 0, 0, 1},
+        std::array{0, 0, 1, 0},
+    };
+    int blocked{};
+    for (const auto& row : grid) {
+        for (const int cell : row) {
+            if (cell == 1) ++blocked;
+        }
+    }
+    std::cout << "Rows: " << grid.size() << '\n';
+    std::cout << "Columns: " << grid.front().size() << '\n';
+    std::cout << "Blocked: " << blocked << '\n';
+    std::cout << "Cell (1, 3): " << grid.at(1).at(3) << '\n';
+}
 ```
 
-**전체 예제 실행 결과**
+**실행 결과**
 
 ```text
-Rows: 3, Columns: 4
-Blocked cells: 3
-Cell (1, 2): 1
+Rows: 3
+Columns: 4
+Blocked: 4
+Cell (1, 3): 1
 ```
 
-각 행과 열의 크기가 고정된 경우 `std::array<std::array<T, C>, R>`를 사용할 수 있습니다. 크기가 동적으로 변경되는 경우에는 `std::vector<std::vector<T>>`도 가능하지만, 행별 할당이 별도로 발생할 수 있습니다.
+실행 중 크기가 달라지는 격자에는 `std::vector<std::vector<int>>` 등을 사용할 수 있지만 행별 저장 공간이 따로 구성될 수 있습니다. 실제로 연속된 1차원 메모리가 필요하다면 인덱스를 `row * width + col`로 계산하는 방식도 있으며, 이때는 행·열 범위와 곱셈 결과를 검사해야 합니다.
 
-성능이나 하드웨어 인터페이스를 고려해야 한다면 2차원 데이터를 **1차원 연속 저장 공간**으로 표현하는 방법도 사용합니다.
+<a id="section-6-9"></a>
+## 6.9. String Operations — `std::string`
 
-```cpp
-#include <vector>
+`std::string`은 문자열 데이터를 소유하고 관리하는 표준 라이브러리 타입입니다. Chapter 01에서는 입력·출력에 활용했으며, 이번에는 문자열 내부를 검색하고 수정하는 방법을 배웁니다.
 
-const std::size_t width{4};
-const std::size_t height{3};
-std::vector<int> pixels(width * height, 0);
+| 멤버 함수 | 역할 | 특징 |
+|---|---|---|
+| `size()` | 문자열 크기 | 바이트 수이며 UTF-8 글자 수가 아닐 수 있음 |
+| `empty()` | 비어 있는지 검사 | 길이가 0이면 `true` |
+| `find(text)` | 부분 문자열의 시작 위치 검색 | 없으면 `std::string::npos` |
+| `substr(pos, count)` | 부분 문자열 복사 | 새 `std::string` 생성 |
+| `starts_with(text)` | 특정 문자열로 시작하는지 검사 | C++20 |
+| `ends_with(text)` | 특정 문자열로 끝나는지 검사 | C++20 |
 
-const std::size_t row{1};
-const std::size_t col{2};
-pixels.at(row * width + col) = 255;
-```
+`std::string::npos`는 검색 결과가 없다는 뜻을 나타내는 특별한 값입니다. `find()` 결과를 인덱스로 사용하기 전 반드시 검색 성공 여부를 확인해야 합니다.
 
-`row * width + col`은 행 우선(Row-Major) 배치에서 좌표를 인덱스로 변환하는 공식입니다. 외부 좌표를 사용할 때는 `row < height`, `col < width`를 먼저 검증해야 하며, 실제 할당 전에는 `width * height`의 오버플로(Overflow)도 고려해야 합니다.
-
----
-
-## 6.8. 문자열 저장과 조작 — `std::string`
-
-`std::string`은 문자열 데이터와 저장 공간을 소유합니다. 문자열을 생성하고 수정하거나 다른 객체로 전달할 때 기본적으로 사용하는 타입입니다.
+**예제 코드 — [08_string_methods.cpp](./examples/08_string_methods.cpp)**
 
 ```cpp
-#include <string>
-
-std::string device_name{"Motor-A"};
-device_name += "-Front";
-```
-
-**예제 코드 — [07_string_operations.cpp](./examples/07_string_operations.cpp)**
-
-```cpp
-#include <print>
+#include <iostream>
 #include <string>
 
 int main() {
-    const std::string device_id{"SENSOR-ROOM-07"};
-
-    std::println("Prefix: {}", device_id.starts_with("SENSOR-"));
-    std::println("Contains ROOM: {}", device_id.contains("ROOM"));
-    std::println("Suffix: {}", device_id.ends_with("-07"));
-
-    const auto delimiter = device_id.find('-');
-    if (delimiter != std::string::npos) {
-        std::println("Category: {}", device_id.substr(0, delimiter));
-    }
+    std::string device{"SENSOR-ROOM-07"};
+    std::cout << std::boolalpha;
+    std::cout << "Prefix: " << device.starts_with("SENSOR-") << '\n';
+    std::cout << "Suffix: " << device.ends_with("-07") << '\n';
+    std::cout << "Contains ROOM: " << (device.find("ROOM") != std::string::npos) << '\n';
+    const auto first_dash = device.find('-');
+    std::cout << "Category: " << device.substr(0, first_dash) << '\n';
+    device += "-A";
+    std::cout << "Updated: " << device << '\n';
 }
 ```
 
@@ -387,332 +473,278 @@ int main() {
 
 ```text
 Prefix: true
-Contains ROOM: true
 Suffix: true
+Contains ROOM: true
 Category: SENSOR
+Updated: SENSOR-ROOM-07-A
 ```
 
-| 함수 | 동작 | 비고 |
-|---|---|---|
-| `size()` | 문자열의 바이트 수 조회 | UTF-8 글자 수와 다를 수 있음 |
-| `empty()` | 비어 있는 문자열 여부 | 길이가 0인지 검사 |
-| `find(text)` | 부분 문자열의 시작 위치 검색 | 실패 시 `std::string::npos` |
-| `substr(pos, count)` | 부분 문자열 복사본 생성 | `std::string` 반환 |
-| `starts_with(text)` | 접두 문자열 검사 | C++20 |
-| `ends_with(text)` | 접미 문자열 검사 | C++20 |
-| `contains(text)` | 부분 문자열 포함 여부 검사 | **C++23** |
+이 예제의 `Contains ROOM`은 `find("ROOM") != std::string::npos`로 검사합니다. **C++23**에서는 `device.contains("ROOM")`로 더 간결하게 표현할 수 있지만, `contains()`는 C++20의 기본 문자열 기능이 아니므로 기본 예제에서는 사용하지 않습니다.
 
-`contains()`는 C++23의 표준 문자열 기능입니다. 기존 `find() != std::string::npos`와 목적은 비슷하지만 포함 여부를 직접 표현한다는 장점이 있습니다.
+<a id="section-6-10"></a>
+## 6.10. Line Input — `std::getline()`
 
----
+입력 연산자 `std::cin >> name`은 일반적으로 공백에서 입력을 구분하므로 `LiDAR Front`를 입력하면 `LiDAR`까지만 읽습니다. 반면 `std::getline(std::cin, name)`은 줄바꿈 전까지의 한 줄을 읽기 때문에 공백을 포함한 문자열을 받을 수 있습니다.
 
-## 6.9. 공백을 포함한 문자열 입력 — `std::getline`
+입력 실패나 파일 끝(EOF)에 도달한 경우 `std::getline()`은 실패 상태로 평가됩니다. 문자열이 비어 있는지 별도로 검사하면 필수 입력값을 확인할 수 있습니다.
 
-`std::cin >> name`은 일반적으로 공백에서 입력을 구분합니다. 공백이 포함된 장치명이나 파일 경로를 입력받으려면 `std::getline()`을 사용합니다.
-
-**예제 코드 — [08_getline.cpp](./examples/08_getline.cpp)**
+**예제 코드 — [09_line_input.cpp](./examples/09_line_input.cpp)**
 
 ```cpp
 #include <iostream>
-#include <print>
 #include <string>
 
 int main() {
-    std::cout << "Device name: " << std::flush;
-    std::string name;
-
-    if (!std::getline(std::cin, name) || name.empty() || name.size() > 80) {
-        std::println(stderr, "Invalid device name");
+    std::string device;
+    std::cout << "Device: " << std::flush;
+    if (!std::getline(std::cin, device) || device.empty()) {
+        std::cerr << "Error: device name required.\n";
         return 1;
     }
-
-    std::println("Registered: {}", name);
+    std::cout << "Registered: " << device << '\n';
 }
 ```
 
-**실행 예시**
+**실행 결과**
 
 ```text
-Device name: LiDAR Front Left
+Device: LiDAR Front Left
 Registered: LiDAR Front Left
 ```
 
-### `operator>>`와 `getline()`을 함께 사용하는 경우
+예시는 사용자가 `LiDAR Front Left`를 입력했을 때의 터미널 표시입니다. 테스트에서는 프롬프트 뒤에 입력 에코가 포함되지 않는 환경을 기준으로 출력 자체만 검증합니다.
 
-정수를 `std::cin >> count`로 입력한 다음 `getline()`을 호출하면, 정수 뒤의 줄바꿈이 먼저 읽힐 수 있습니다.
+**주의:** `std::cin >> count`로 숫자를 읽은 직후 `getline()`을 사용하면 남아 있는 개행 문자가 읽힐 수 있습니다. 이때 숫자 입력을 한 줄 전체로 제한했다면 `std::getline(std::cin, remainder)`로 남은 줄을 읽거나, 처음부터 모든 입력을 한 줄씩 처리해 파싱할 수 있습니다. 단순히 `ignore()`를 무조건 호출하면 이미 필요한 문자가 소실될 수도 있으므로 입력 형식을 먼저 정의해야 합니다.
 
-```cpp
-int count{};
-std::cin >> count;
+<a id="section-6-11"></a>
+## 6.11. String Views — `std::string_view`
 
-std::string ignored;
-std::getline(std::cin, ignored);  // 같은 줄에 남은 내용을 제거
+`std::string_view`는 **문자열을 복사하지 않고 읽는 뷰**로, Chapter 05에서 함수의 매개변수로 사용했습니다. `std::string`과 달리 내부 문자 데이터를 직접 소유하지 않으므로 뷰를 보관하는 동안 원본이 유효해야 합니다.
 
-std::string name;
-std::getline(std::cin, name);     // 다음 줄의 이름 입력
-```
+`#include <string_view>`는 `std::string_view`를 선언·사용할 때 필요한 헤더입니다.
 
-이 방법은 **개수만 한 줄에 입력하는 형식**을 전제로 합니다. 한 줄에 여러 데이터를 섞어 입력받는 프로그램에서는 입력 형식을 명확히 정의하거나, 한 줄 전체를 읽어 개별 항목으로 파싱(Parsing)하는 편이 안전합니다.
+| 구문 | 반환 타입 | 원본 데이터 복사 |
+|---|---|---|
+| `std::string::substr(...)` | `std::string` | O |
+| `std::string_view::substr(...)` | `std::string_view` | X |
 
-또한 입력 검증을 길이만으로 끝내지 않습니다. 실제 서비스에서 허용할 문자, 공백, 중복 여부 등은 요구사항에 따라 결정해야 합니다.
+반환한 뷰가 원본의 일부를 계속 가리키는지 확인해야 하며, 지역 임시 문자열의 수명이 끝난 뒤 해당 문자열을 가리키는 뷰를 사용해서는 안 됩니다.
 
----
-
-## 6.10. 소유하지 않는 문자열 — `std::string_view`
-
-`std::string_view`는 문자 데이터를 복사하거나 소유하지 않는(Non-Owning) **읽기 전용 View**를 표현합니다. 단순 검색, 접두어 확인, 짧은 함수 호출 인수 등에 적합합니다.
-
-**예제 코드 — [09_string_view.cpp](./examples/09_string_view.cpp)**
+**예제 코드 — [10_string_view.cpp](./examples/10_string_view.cpp)**
 
 ```cpp
+#include <iostream>
 #include <string>
 #include <string_view>
 
 [[nodiscard]] std::string_view category_of(std::string_view identifier) {
-    const auto delimiter = identifier.find(':');
-    if (delimiter == std::string_view::npos) {
-        return {};
-    }
-    return identifier.substr(0, delimiter);
+    const auto separator = identifier.find(':');
+    if (separator == std::string_view::npos) return {};
+    return identifier.substr(0, separator);
 }
 
 int main() {
-    const std::string identifier{"MOTOR:FRONT-LEFT"};
-    const std::string_view category = category_of(identifier);
-    // identifier의 수명 내에서만 category를 사용해야 함.
+    const std::string owned{"MOTOR:FRONT-LEFT"};
+    const std::string_view category = category_of(owned);
+    std::cout << "Category: " << category << '\n';
 }
 ```
 
-**전체 예제 실행 결과**
+**실행 결과**
 
 ```text
 Category: MOTOR
 ```
 
-`std::string_view::substr()`는 문자열을 복사하지 않고 원본 데이터의 일부를 참조하는 새 View를 반환합니다. 반면 `std::string::substr()`는 일반적으로 새 `std::string` 객체를 반환합니다.
+`category_of()`가 `std::string_view`를 반환하더라도 호출자의 `owned` 문자열은 계속 살아 있으므로 안전하게 출력할 수 있습니다. 반대로 사라진 임시 `std::string`을 가리키는 뷰는 댕글링 뷰(Dangling View)가 될 수 있습니다.
 
-### Lifetime 관련 주의사항
+<a id="section-6-12"></a>
+## 6.12. Numeric Parsing — `std::from_chars()`
+
+외부에서 읽은 `"42"`는 숫자 42가 아니라 숫자로 보이는 **문자열**입니다. 정수로 계산하려면 문자열의 문자들을 실제 정수값으로 변환(Parsing)해야 합니다.
+
+`std::from_chars()`는 **C++17**에서 도입된 숫자 변환 함수입니다. 문자열 범위와 결과 변수에 대한 접근을 받아, 변환이 끝난 위치와 오류 상태를 반환합니다. 공백을 자동으로 무시하지 않으며, 정수 변환에서 선행 `+` 기호도 허용하지 않습니다.
+
+| 헤더 | 역할 |
+|---|---|
+| `<charconv>` | `std::from_chars()` 등 문자와 숫자 간 변환 기능 |
+| `<system_error>` | 변환 결과의 `std::errc` 오류 코드 타입 |
 
 ```cpp
-// 잘못된 예: 임시 std::string이 문장 끝에서 소멸함.
-std::string_view invalid = std::string{"temporary"};
-
-// 안전한 예: 원본 문자열을 별도로 보관함.
-const std::string owned{"persistent"};
-std::string_view valid = owned;
+const auto [next, error] = std::from_chars(first, last, value);
 ```
 
-`invalid`처럼 원본 객체의 Lifetime이 끝난 뒤에도 메모리를 참조하는 상태를 댕글링 뷰(Dangling View)라고 합니다. 이 View를 통해 문자에 접근하면 UB가 발생할 수 있습니다. 또한 `std::vector`나 `std::string`을 변경한 뒤에는 이전 View가 여전히 유효한지 확인해야 합니다.
+`next`는 변환이 끝난 위치이고 `error`는 변환 성공 여부를 나타냅니다. **부분 변환을 잘못 인정하지 않으려면** `error == std::errc{}`와 `next == last`를 함께 검사해야 합니다.
 
-**함수 설계 기준:** 문자열 내용을 읽기만 하는 짧은 함수에서는 `std::string_view`를 고려하되, 반환값으로 View를 돌려준다면 호출자가 원본의 Lifetime을 보장해야 합니다.
-
----
-
-## 6.11. 문자열을 숫자로 변환 — `std::from_chars`
-
-센서, 설정 파일, 명령어 처리에서는 텍스트 숫자를 실제 정수로 변환해야 합니다. `std::from_chars`는 **할당 및 예외 없이 변환 결과와 입력 소비 위치를 확인할 수 있는 API**입니다.
-
-**예제 코드 — [10_from_chars.cpp](./examples/10_from_chars.cpp)**
+**예제 코드 — [11_from_chars.cpp](./examples/11_from_chars.cpp)**
 
 ```cpp
 #include <charconv>
-#include <expected>
+#include <iostream>
 #include <string_view>
+#include <system_error>
 
-[[nodiscard]] std::expected<int, std::string_view>
-parse_percentage(std::string_view input) {
-    int value{};
-    const auto [end, error] = std::from_chars(
-        input.data(), input.data() + input.size(), value);
+[[nodiscard]] bool parse_int(std::string_view text, int& value) {
+    const char* first = text.data();
+    const char* last = first + text.size();
+    const auto [next, error] = std::from_chars(first, last, value);
+    return error == std::errc{} && next == last;
+}
 
-    if (error != std::errc{} || end != input.data() + input.size()) {
-        return std::unexpected("not an integer");
+int main() {
+    for (const std::string_view text : {"42", "42ms", "-7"}) {
+        int result{};
+        if (parse_int(text, result)) {
+            std::cout << "Accepted: " << result << '\n';
+        } else {
+            std::cout << "Rejected: " << text << '\n';
+        }
     }
-    if (value < 0 || value > 100) {
-        return std::unexpected("out of range (0..100)");
-    }
-    return value;
 }
 ```
 
-**전체 예제 실행 결과**
+**실행 결과**
 
 ```text
-85 -> 85
-85% -> error: not an integer
-120 -> error: out of range (0..100)
+Accepted: 42
+Rejected: 42ms
+Accepted: -7
 ```
 
-변환 결과 검증에는 두 가지 조건이 필요합니다.
+`42ms`는 처음의 `42`까지 변환될 수 있지만 `next`가 마지막 위치와 다르므로 거부됩니다. 앞뒤 공백을 허용하려면 먼저 허용할 공백 문자의 범위를 정의하고 제거한 뒤 변환하는 과정이 필요합니다.
 
-1. `error == std::errc{}` — 숫자 변환 성공 여부
-2. `end == input.data() + input.size()` — 입력 전체를 소비했는지 확인
+<a id="section-6-13"></a>
+## 6.13. Delimited Text
 
-`"85%"`에서 `%`가 남더라도 부분 변환은 성공할 수 있으므로 두 조건을 모두 검사해야 합니다. 정수용 `from_chars`는 기본적으로 선행 공백이나 `+` 부호를 허용하지 않습니다. 필요하다면 Parsing 전에 입력 형식에 맞춰 별도로 처리해야 합니다.
+구분자(Delimiter)는 텍스트의 여러 필드를 나누는 문자입니다. 예를 들어 `ROOM-01|OK`를 `|`로 나누면 장치명과 상태값을 분리할 수 있습니다.
 
-`std::expected`는 Chapter 05에서 학습한 기능입니다. 여기에서는 변환 성공값과 오류 메시지를 구분하는 용도로 사용합니다.
+단순 분리만으로는 데이터가 유효하다고 판단할 수 없습니다. **구분자가 없거나 너무 많지 않은지, 빈 필드는 없는지, 각 필드의 값이 허용 범위에 있는지**를 검사해야 합니다.
 
----
-
-## 6.12. UTF-8과 문자열 길이
-
-`std::string`은 바이트 시퀀스(Byte Sequence)를 보관합니다. UTF-8로 인코딩된 한국어, 이모지 등의 문자는 하나의 문자가 여러 바이트로 저장될 수 있습니다.
-
-**예제 코드 — [11_utf8_bytes.cpp](./examples/11_utf8_bytes.cpp)**
+**예제 코드 — [12_delimited_fields.cpp](./examples/12_delimited_fields.cpp)**
 
 ```cpp
-#include <print>
+#include <iostream>
+#include <string>
+#include <string_view>
+
+[[nodiscard]] bool split_record(std::string_view text,
+                                std::string_view& device,
+                                std::string_view& status) {
+    const auto separator = text.find('|');
+    if (separator == std::string_view::npos || separator == 0 ||
+        separator + 1 == text.size() || text.find('|', separator + 1) != std::string_view::npos) {
+        return false;
+    }
+    device = text.substr(0, separator);
+    status = text.substr(separator + 1);
+    return true;
+}
+
+int main() {
+    for (const std::string_view record : {"ROOM-01|OK", "ROOM-02|WARN|EXTRA"}) {
+        std::string_view device;
+        std::string_view status;
+        if (split_record(record, device, status)) {
+            std::cout << device << ": " << status << '\n';
+        } else {
+            std::cout << "Rejected: " << record << '\n';
+        }
+    }
+}
+```
+
+**실행 결과**
+
+```text
+ROOM-01: OK
+Rejected: ROOM-02|WARN|EXTRA
+```
+
+이 예제는 `|`가 정확히 한 개이고 양쪽 값이 비어 있지 않은지만 검사합니다. 상태값을 `OK` 또는 `WARN`으로 제한하려면 별도의 검증을 추가해야 합니다. 인용 부호, 이스케이프 및 줄바꿈 규칙이 있는 **CSV·JSON 전체 형식의 파서**로 이 간단한 분리 코드를 그대로 사용해서는 안 됩니다.
+
+<a id="section-6-14"></a>
+## 6.14. UTF-8 & Text Length
+
+문자열의 `size()`는 메모리에 저장된 **바이트(Byte) 단위의 길이**를 반환합니다. UTF-8은 영문 ASCII 문자는 보통 1바이트로, 한글 음절은 보통 3바이트로 인코딩합니다. 따라서 **바이트 수와 눈에 보이는 글자 수는 서로 다를 수 있습니다.**
+
+| 구분 | 의미 |
+|---|---|
+| Bit(비트) | 0 또는 1을 나타내는 정보 단위 |
+| Byte(바이트) | C++에서 `char` 한 개의 크기. `CHAR_BIT` 비트로 구성 |
+| Code Point(코드 포인트) | 유니코드 문자를 식별하는 번호 |
+| Grapheme Cluster(문자소 클러스터) | 사용자에게 하나의 글자처럼 보이는 문자 단위 |
+
+일반적인 PC 환경에서 1바이트는 8비트지만, C++이 모든 플랫폼에서 8비트를 강제하는 것은 아닙니다. `<climits>`에 정의된 `CHAR_BIT`로 해당 실행 환경의 바이트당 비트 수를 확인할 수 있습니다.
+
+**예제 코드 — [13_utf8_bytes.cpp](./examples/13_utf8_bytes.cpp)**
+
+```cpp
+#include <climits>
+#include <iostream>
 #include <string>
 
 int main() {
-    const std::string text{"A\xED\x95\x9C"}; // UTF-8의 A + 한
-    std::println("Bytes: {}", text.size());
-    std::println("First ASCII byte: {}", text.front());
+    const std::string ascii{"ABC"};
+    const std::string korean{"가"}; // UTF-8 소스 및 실행 문자 인코딩 가정
+    std::cout << "Bits per byte: " << CHAR_BIT << '\n';
+    std::cout << "ASCII bytes: " << ascii.size() << '\n';
+    std::cout << "Korean bytes (UTF-8): " << korean.size() << '\n';
 }
 ```
 
 **실행 결과**
 
 ```text
-Bytes: 4
-First ASCII byte: A
+Bits per byte: 8
+ASCII bytes: 3
+Korean bytes (UTF-8): 3
 ```
 
-| 개념 | 설명 |
-|---|---|
-| 바이트 수 | `std::string::size()`가 반환하는 값 |
-| 코드 포인트(Code Point) 수 | UTF-8을 해석하여 얻는 Unicode Code Point의 수 |
-| 사용자에게 보이는 글자 수 | 결합 문자·이모지 시퀀스 등을 고려한 문자소 클래스터(Grapheme Cluster) 수 |
+이 실행 결과는 UTF-8 소스·실행 문자 인코딩과 8비트 바이트 환경을 가정합니다. 다른 플랫폼이나 문자 인코딩에서는 결과가 달라질 수 있습니다. UTF-8 문자열의 `text[i]`는 글자 하나가 아니라 **바이트 하나**이므로 임의의 인덱스로 잘라내면 문자가 깨질 수 있습니다. 정확한 사용자 표시 글자 수 계산에는 전문적인 유니코드 처리 기능이 필요할 수 있습니다.
 
-이 예제는 4바이트지만 Code Point는 2개입니다. 실제 화면에 보이는 Grapheme Cluster까지 정확히 계산하려면 Unicode 텍스트 처리 라이브러리(예: ICU)나 플랫폼의 문자 처리 기능이 필요할 수 있습니다.
+<a id="section-6-15"></a>
+## 6.15. Container Selection & C-Style Arrays
 
-**주의:** UTF-8 문자열에서 `text[i]`로 접근하면 글자 하나가 아니라 **바이트 하나**를 읽습니다. 임의 위치에서 잘라내면 UTF-8 문자의 중간 바이트를 분리할 수 있습니다.
-
----
-
-## 6.13. 구분자(Delimiter)로 구성된 데이터 처리
-
-장치 로그나 간단한 설정값에는 Delimiter로 연결된 레코드가 사용될 수 있습니다. 예를 들어 아래 형식은 장치 ID, 온도, 상태를 `|`로 구분합니다.
-
-```text
-ROOM-01|23|OK
-```
-
-이런 입력은 문자열을 분할한 뒤 각 필드의 형식과 범위를 개별 검증해야 합니다.
-
-**예제 코드 — [12_record_parser.cpp](./examples/12_record_parser.cpp)**
+C++에는 표준 라이브러리 컨테이너뿐 아니라 C 스타일 배열(C-Style Array)도 존재합니다.
 
 ```cpp
-const auto first = line.find('|');
-const auto second = line.find('|', first + 1);
-
-const auto id = line.substr(0, first);
-const auto number = line.substr(first + 1, second - first - 1);
-const auto status = line.substr(second + 1);
+int raw[3]{10, 20, 30};
 ```
 
-위 부분은 구조를 설명하기 위한 발췌 코드입니다. 실제 실행 파일에서는 Delimiter 존재 여부, 필드 수, 정수 형식, 온도 범위, 상태값을 검증한 뒤 분리합니다.
-
-**실행 결과**
-
-```text
-ROOM-01: 23 C (OK)
-Rejected: invalid temperature
-```
-
-Parsing 함수가 반환하는 `SensorRecord`는 장치명과 상태값을 `std::string`으로 **복사하여 소유**합니다. 원본 문자열이 사라진 후에도 결과 객체를 안전하게 저장할 수 있도록 설계한 것입니다.
-
-이 예제는 단순 Delimiter 기반 프로토콜 전용입니다. 인용 부호와 이스케이프 규칙이 있는 실제 CSV, JSON 등을 다룰 때는 해당 형식의 규격에 맞는 파서를 사용해야 합니다.
-
----
-
-## 6.14. C 스타일 배열(C-Style Array)과 메모리 관리
-
-C++에서도 다음과 같은 C-Style Array를 사용할 수 있습니다.
-
-```cpp
-int values[3]{10, 20, 30};
-```
-
-하지만 배열을 함수에 전달할 때 크기 정보가 쉽게 소실될 수 있습니다.
-
-```cpp
-void process(const int* data, std::size_t size);
-```
-
-위와 같은 인터페이스 대신 C++ 코드에서는 연속 데이터의 범위를 나타내는 `std::span<const int>`를 고려할 수 있습니다.
-
-```cpp
-void process(std::span<const int> values);
-```
-
-C-Style Array가 항상 잘못된 것은 아닙니다. C 언어 API, 특정 하드웨어 SDK, 외부 라이브러리와의 호환성이 필요할 수 있습니다. 다만 일상적인 C++ 코드에서는 다음 원칙을 권장합니다.
-
-- **고정 크기 데이터:** `std::array`
-- **가변 크기 데이터:** `std::vector`
-- **소유하지 않는 연속 데이터 인수:** `std::span`
-- **외부 C API 연동:** 명시적인 포인터와 길이, Ownership 규칙 확인
-
-메모리 주소와 포인터의 동작 원리는 Chapter 07에서 자세히 다룹니다.
-
----
-
-## 6.15. 컨테이너 선택 및 성능 고려
-
-### 어떤 타입을 사용할까?
+다만 함수에 전달할 때 배열의 크기 정보가 쉽게 사라질 수 있으므로 새 코드를 작성할 때는 크기를 함께 관리하기 편한 `std::array`, `std::vector`, `std::span`을 고려하는 편이 좋습니다. C 라이브러리나 하드웨어 API와 연결해야 하는 경우에는 기존 배열과 포인터 형식이 필요할 수 있으며, 포인터 자체는 Chapter 07에서 자세히 학습합니다.
 
 | 상황 | 우선 고려할 타입 | 이유 |
 |---|---|---|
-| 고정 개수의 센서 채널 | `std::array` | 요소 수가 일정함 |
-| 실행 중 증가하는 측정 데이터 | `std::vector` | 동적 크기와 연속 저장 지원 |
-| 배열을 읽는 함수의 인수 | `std::span<const T>` | 불필요한 복사 방지 |
-| 수정 가능한 여러 요소를 받는 함수 | `std::span<T>` | 데이터 범위를 전달하고 수정 |
-| 소유하고 저장할 텍스트 | `std::string` | Lifetime을 독립적으로 관리 |
-| 짧은 읽기 전용 텍스트 인수 | `std::string_view` | 문자열 복사 방지 |
+| 요소 개수가 고정됨 | `std::array` | 고정 크기, 값 소유 |
+| 요소 개수가 바뀜 | `std::vector` | 크기 변경, 연속 저장 |
+| 연속 데이터를 함수에서 읽기만 함 | `std::span<const T>` | 데이터 복사 없이 요소와 길이 전달 |
+| 저장하거나 수정할 텍스트 | `std::string` | 문자열 직접 소유 |
+| 짧게 읽기만 할 텍스트 | `std::string_view` | 복사 없이 범위 참조 |
 
-### Invalidation 문제
+`std::vector`의 마지막 요소 추가는 평균적으로 **분할 상환(Amortized) `O(1)`** 이지만 용량 확장 시에는 더 큰 비용이 발생할 수 있습니다. 중간 삽입·삭제는 일반적으로 `O(n)`의 이동 비용이 발생합니다. 우선 데이터의 소유, 크기 변경 여부, 접근 방식이 정확한 타입을 선택하는 것이 중요합니다.
 
-**예제 코드 — [13_vector_invalidation.cpp](./examples/13_vector_invalidation.cpp)**
-
-```cpp
-std::vector<int> readings{10, 20};
-const std::size_t selected_index{1};
-
-readings.push_back(30);
-
-if (selected_index < readings.size()) {
-    std::println("Selected reading: {}", readings.at(selected_index));
-}
-```
-
-요소 추가로 메모리에 Reallocation이 발생하면 기존 참조·포인터·Iterator가 유효하지 않게 될 수 있습니다. 위 예제는 이전 참조를 계속 사용하지 않고 인덱스를 이용해 다시 접근합니다. 다만 인덱스도 **삽입·삭제 등으로 요소 순서가 바뀌면 같은 대상을 가리킨다는 보장이 없으므로**, 안정적인 객체 식별이 필요한 경우 별도의 ID 체계를 사용해야 합니다.
-
-### Time Complexity 요약
-
-| 연산 | `std::array` | `std::vector` |
-|---|---|---|
-| 인덱스 접근 | `O(1)` | `O(1)` |
-| 전체 순회 | `O(n)` | `O(n)` |
-| 마지막에 요소 추가 | 지원하지 않음 | 분할 상환(Amortized) `O(1)` |
-| 중간에 요소 삽입/삭제 | 크기 변경 불가 | 일반적으로 `O(n)` |
-
-표의 Amortized는 여러 번의 연산에 걸쳐 비용을 나누어 분석한다는 의미이며, 모든 개별 호출이 `O(1)`이라는 뜻은 아닙니다. 성능은 Time Complexity뿐 아니라 데이터 크기, 캐시 지역성(Cache Locality), Reallocation, 메모리 사용량 등에도 영향을 받습니다. 우선 올바르게 동작하는 구조를 만들고, 실제 병목이 확인되면 측정하여 최적화하는 방식이 좋습니다.
-
----
-
+<a id="section-6-16"></a>
 ## 6.16. Coding Practice
 
-`exercises/`에는 직접 구현할 코드 뼈대를, `solutions/`에는 모범답안을 배치했습니다. 문제의 입력 조건과 출력 형식을 먼저 확인한 뒤 코드를 완성합니다.
+`exercises/`에 미완성 코드를, `solutions/`에 모범답안을 제공합니다. 문제에서 지정한 입력 형식과 출력 결과를 확인한 뒤 직접 구현합니다.
 
-### 6.16.1. Sensor Statistics — 센서 데이터 통계
+| No. | Practice | Exercise | Solution |
+|:---:|---|---|---|
+| 01 | Vector Statistics | [문제 코드](./exercises/01_vector_statistics.cpp) | [정답 코드](./solutions/01_vector_statistics.cpp) |
+| 02 | Device Lookup | [문제 코드](./exercises/02_device_lookup.cpp) | [정답 코드](./solutions/02_device_lookup.cpp) |
+| 03 | Comma-Separated Values | [문제 코드](./exercises/03_comma_separated_values.cpp) | [정답 코드](./solutions/03_comma_separated_values.cpp) |
+| 04 | Grid Border Check | [문제 코드](./exercises/04_grid_border.cpp) | [정답 코드](./solutions/04_grid_border.cpp) |
 
-**요구사항**
+### Exercise 01 — Vector Statistics
 
-1. 첫 번째 정수 `N`을 입력받습니다. (`1 ≤ N ≤ 1000`)
-2. 다음으로 `N`개의 센서 측정값을 입력받습니다. (각 `-1000000`~`1000000`)
-3. 입력 개수 및 값의 범위를 검증합니다.
-4. 측정값의 개수, 최솟값, 최댓값, 평균을 출력합니다.
-5. 평균은 소수 둘째 자리까지 출력합니다.
+1~20개의 센서 측정값을 입력받아 `std::vector`에 저장하고 통계를 출력합니다.
+
+**구현 조건**
+
+- 첫 번째 입력: 정수 `N` (`1~20`)
+- 이어서 정확히 `N`개의 측정값 입력 (각 `-100~100`)
+- 최솟값, 최댓값, 평균을 소수 둘째 자리까지 출력
+- 입력 실패나 범위 초과 시 `std::cerr`에 `Error: invalid input.` 출력 후 오류 종료
 
 **입력**
 
@@ -730,20 +762,17 @@ Max: 25
 Average: 20.00
 ```
 
-- [연습문제 — 01_sensor_statistics.cpp](./exercises/01_sensor_statistics.cpp)
-- [정답 코드 — 01_sensor_statistics.cpp](./solutions/01_sensor_statistics.cpp)
+### Exercise 02 — Device Lookup
 
-**확인할 사항:** 빈 배열에서 최솟값 함수를 호출하지 않도록 입력 개수를 검증하고, 평균 계산에는 정수 나눗셈을 사용하지 않습니다.
+여러 장치 이름 중 원하는 이름과 정확히 일치하는 첫 번째 항목을 찾습니다.
 
-### 6.16.2. Device Lookup — 장치 목록 검색
+**구현 조건**
 
-**요구사항**
-
-1. 장치 개수 `N`을 입력받습니다. (`1 ≤ N ≤ 20`)
-2. 다음 `N`줄에 장치 이름을 입력받습니다. (공백 포함 허용, 1~60바이트)
-3. 마지막 줄에 검색할 장치 이름을 입력받습니다.
-4. 정확하게 일치하는 장치를 찾아 이름과 **1부터 시작하는 위치**를 출력합니다.
-5. 없으면 `Not found`를 출력합니다. 이름 비교는 대소문자를 구분합니다.
+- 장치 개수 `N`: `1~10`
+- 다음 `N`줄: 장치 이름(공백 포함 가능, 빈 문자열 금지)
+- 마지막 줄: 검색할 장치 이름
+- 이름 비교는 대소문자를 구분하며, 중복 이름은 먼저 발견된 위치를 사용
+- 위치는 **1부터 시작**하여 출력하며, 없으면 `Not found` 출력
 
 **입력**
 
@@ -761,20 +790,16 @@ LiDAR Front
 Found: LiDAR Front (index 2)
 ```
 
-- [연습문제 — 02_device_lookup.cpp](./exercises/02_device_lookup.cpp)
-- [정답 코드 — 02_device_lookup.cpp](./solutions/02_device_lookup.cpp)
+### Exercise 03 — Comma-Separated Values
 
-**확인할 사항:** `std::cin >> N` 이후 남아 있는 줄바꿈을 처리하고, 이름에는 `std::getline()`을 사용합니다. 중복된 이름이 있다면 처음 발견한 장치의 위치를 출력합니다.
+한 줄에 쉼표로 구분된 정수 값을 읽어 개수와 합계를 계산합니다.
 
-### 6.16.3. Measurement Parser — 측정 데이터 검증
+**구현 조건**
 
-**요구사항**
-
-1. 한 줄의 쉼표 구분 정수 목록을 입력받습니다.
-2. 측정값은 1~100개이며 각 값은 `-100`~`100`이어야 합니다.
-3. 값 앞뒤의 ASCII 공백은 허용합니다.
-4. 빈 값, 숫자 뒤에 붙은 문자, 범위 밖의 값은 오류로 처리합니다.
-5. 값의 개수, 평균(소수 둘째 자리), 최댓값을 출력합니다.
+- 정수 개수: `1~10`, 각 값은 `-100~100`
+- 값 앞뒤의 ASCII 스페이스(` `)는 허용
+- 빈 필드, 숫자 뒤 문자, 허용 범위 초과는 오류
+- 원소 개수와 합계를 출력. 오류 출력 형식은 `Error: invalid input.`
 
 **입력**
 
@@ -785,27 +810,22 @@ Found: LiDAR Front (index 2)
 **출력**
 
 ```text
-Samples: 4
-Average: 21.25
-Peak: 25
+Count: 4
+Sum: 85
 ```
 
-**오류 입력 예시:** `20,,30`, `20,30ms`, `20,300`
+**오류 사례:** `20,,30`, `20,30ms`, `20,101`, `20,`
 
-- [연습문제 — 03_parse_measurements.cpp](./exercises/03_parse_measurements.cpp)
-- [정답 코드 — 03_parse_measurements.cpp](./solutions/03_parse_measurements.cpp)
+### Exercise 04 — Grid Border Check
 
-**확인할 사항:** `std::string_view`로 필드를 나누고, `std::from_chars`의 변환 결과와 입력 소비 위치를 모두 검사합니다.
+`#`가 장애물이고 `.`이 빈 공간인 격자에서 장애물 수와 외곽 장애물 여부를 확인합니다.
 
-### 6.16.4. Grid Obstacles — 격자 장애물 분석
+**구현 조건**
 
-**요구사항**
-
-1. 첫 줄에서 격자 크기 `W H`를 입력받습니다. (각 `1`~`30`)
-2. 다음 `H`줄에 정확히 `W`개의 `.` 또는 `#` 문자를 입력받습니다.
-3. `.`은 빈 공간, `#`은 장애물입니다.
-4. 전체 장애물 수와 빈 공간 수를 출력합니다.
-5. 격자의 **바깥 테두리**에 장애물이 하나도 없다면 `yes`, 있으면 `no`를 출력합니다.
+- 첫 줄: `width height` (각 `1~20`)
+- 이어서 `height`줄: 길이가 정확히 `width`인 `.` 또는 `#` 문자열
+- 전체 장애물 개수를 세고 상·하·좌·우 테두리에 장애물이 없는지 확인
+- 가로 또는 세로 크기가 `1`인 격자도 올바르게 처리
 
 **입력**
 
@@ -819,91 +839,305 @@ Peak: 25
 **출력**
 
 ```text
-Grid: 4x3
 Blocked: 1
-Free: 11
-All borders clear: yes
+Borders clear: yes
 ```
 
-- [연습문제 — 04_grid_obstacles.cpp](./exercises/04_grid_obstacles.cpp)
-- [정답 코드 — 04_grid_obstacles.cpp](./solutions/04_grid_obstacles.cpp)
+### 실행 및 검증
 
-**확인할 사항:** 입력된 행 수, 열 수, 허용 문자를 검증합니다. 가로·세로 크기가 `1`인 경우에도 테두리 판정이 올바르게 동작해야 합니다.
-
-### 컴파일 및 실행
-
-**GCC** — `Chapter-06/` 폴더에서 실행
+`Chapter-06/` 디렉터리에서 다음 명령어를 실행합니다.
 
 ```bash
-g++ -std=c++23 -Wall -Wextra -Wpedantic -O2 \
-  solutions/01_sensor_statistics.cpp -o sensor_statistics
-./sensor_statistics
+g++ -std=c++20 -Wall -Wextra -Wpedantic solutions/01_vector_statistics.cpp -o vector_statistics
+./vector_statistics
 ```
 
-**Clang** — 지원되는 C++ 표준 라이브러리를 사용하는 환경
+Python 3이 설치되어 있다면 다음 테스트를 실행할 수 있습니다.
 
 ```bash
-clang++ -std=c++23 -Wall -Wextra -Wpedantic -O2 \
-  solutions/01_sensor_statistics.cpp -o sensor_statistics
-./sensor_statistics
+python3 tests/check.py
+python3 tests/check.py --exercise 01
 ```
 
-**MSVC** — Developer Command Prompt
+**첫 번째 명령어**는 예제와 모범답안을 확인하는 용도입니다. **두 번째 명령어**는 직접 수정한 Exercise 01을 검사합니다. 아직 코드를 작성하지 않은 초기 상태에서는 FAIL이 나오는 것이 정상입니다. 테스트는 C++20으로 컴파일한 다음 다양한 입력값으로 표준 출력, 오류 출력, 종료 코드를 검증합니다.
 
-```bat
-cl /nologo /std:c++23preview /W4 /EHsc /permissive- /utf-8 solutions\01_sensor_statistics.cpp /Fe:sensor_statistics.exe
-sensor_statistics.exe
+<a id="section-6-17"></a>
+## 6.17. Mini Project — Sensor Batch Report
+
+장치 이름과 쉼표로 구분된 측정값을 입력받아 **정렬 및 통계 보고서**를 생성하는 콘솔 프로그램입니다. `std::string`, `std::string_view`, `std::vector`, `std::from_chars()`, `std::ranges::sort` 등을 함께 사용합니다.
+
+**파일 구성**
+
+- [실습 코드 — sensor_batch_report.cpp](./project/sensor_batch_report.cpp)
+- [모범답안 — sensor_batch_report.cpp](./solutions/sensor_batch_report.cpp)
+
+**입력 조건**
+
+1. 첫 줄: 장치 이름(비어 있지 않은 문자열, 공백 포함 가능)
+2. 두 번째 줄: 쉼표로 구분한 정수 `1~20`개, 각 `-100~100`
+3. 정수 앞뒤의 ASCII 공백은 허용하지만, 빈 필드·숫자 뒤 문자·범위 밖 값은 거부
+
+**입력**
+
+```text
+LiDAR Front
+18, 22, 19, 24
 ```
 
-MSVC의 C++23 언어 옵션과 개별 표준 라이브러리 지원 범위는 설치된 버전에 따라 달라질 수 있습니다. `/std:c++23`이 제공되는 버전에서는 해당 옵션도 사용할 수 있습니다.
+**실행 예시**
 
----
+```text
+Device: LiDAR Front
+Readings (-100 to 100, comma-separated): 18, 22, 19, 24
 
-## 6.17. Quiz & Summary
+--- Sensor Batch Report ---
+Device: LiDAR Front
+Count: 4
+Minimum: 18
+Maximum: 24
+Average: 20.75
+Sorted: 18, 19, 22, 24
+```
+
+**구현 흐름**
+
+```text
+장치 이름 입력
+      ↓
+쉼표 구분 문자열 입력
+      ↓
+문자열 분할 → 공백 제거 → 정수 전체 변환 및 범위 검사
+      ↓
+벡터에 측정값 저장 → 합계·최솟값·최댓값·평균 계산
+      ↓
+정렬한 목록과 보고서 출력
+```
+
+**완료 기준**
+
+- **문자열 보존:** 공백이 포함된 장치 이름을 온전히 처리합니다.
+- **입력 형식 검증:** 측정값의 개수, 범위, 빈 필드, 숫자 뒤 문자를 검사합니다.
+- **정렬 및 통계:** 음수·중복·단일 측정값에서도 최솟값·최댓값·평균과 오름차순 목록이 정확합니다.
+- **오류 처리:** 장치 이름이 비어 있으면 `Error: invalid device.`, 측정값이 잘못되면 `Error: invalid readings.`를 `std::cerr`로 출력하고 비정상 종료합니다.
+- **빌드:** `g++ -std=c++20`으로 정상 컴파일됩니다.
+
+**컴파일 및 실행**
+
+```bash
+g++ -std=c++20 -Wall -Wextra -Wpedantic project/sensor_batch_report.cpp -o sensor_report
+./sensor_report
+```
+
+**자동 검증**
+
+```bash
+python3 tests/check.py
+python3 tests/check.py --project
+```
+
+**첫 번째 명령어**는 예제와 모범답안을 확인하는 용도입니다. **두 번째 명령어**는 직접 수정한 프로젝트 파일을 검사합니다. 아직 코드를 작성하지 않아 초기 상태에는 FAIL이 나오는 것이 정상입니다.
+
+해당 프로젝트는 한 번 입력받아 보고서를 출력하는 콘솔 프로그램입니다. 입력을 바꾸고 다시 실행하면 변경된 데이터에 맞는 보고서가 생성됩니다.
+
+<a id="section-6-18"></a>
+## 6.18. Quiz & Summary
 
 ### Quiz
 
-1. `std::vector`의 `reserve(100)`을 호출한 직후 요소 100개에 접근할 수 있나요?
-2. `std::array<int, 4>`의 마지막 요소 인덱스는 무엇인가요?
-3. `std::string_view`를 `std::string` 대신 저장할 때 주의할 점은 무엇인가요?
-4. `std::from_chars`가 `"25ms"`의 `25`를 읽은 경우, 추가로 어떤 검증이 필요한가요?
-5. UTF-8 문자열에서 `std::string::size()`가 반환하는 값은 무엇인가요?
+먼저 문제를 풀고, 각 항목의 **정답 및 해설**을 펼쳐 확인합니다.
+
+**Q1. 다음 중 요소 수가 실행 중 변경되는 데이터를 저장하기에 가장 적합한 타입은 무엇인가요?**
+
+A. `std::array`  
+B. `std::vector`  
+C. `std::span`  
+D. `std::string_view`
 
 <details>
-<summary>정답 확인</summary>
+<summary>정답 및 해설</summary>
 
-1. 아니요. `reserve()`는 용량만 확보하며 `size()`를 변경하지 않음.
-2. `3`. 인덱스는 `0`부터 시작함.
-3. 원본 문자열의 Lifetime과 View의 유효성을 보장해야 함.
-4. 변환 종료 위치가 입력의 끝인지 검사해야 함.
-5. 문자열의 바이트 수. 화면에 표시되는 글자 수와 다를 수 있음.
+**정답: B**
+
+`std::vector`는 요소의 추가·삭제로 크기를 변경할 수 있습니다. A는 요소 개수가 고정되고, C와 D는 데이터를 직접 소유하지 않는 뷰이므로 역할이 다릅니다.
+
+</details>
+
+**Q2. `std::array<int, 4>`의 마지막 요소에 접근할 때 사용할 수 있는 인덱스는 무엇인가요?**
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: `3`**
+
+배열 인덱스는 0부터 시작하므로 네 요소의 인덱스는 `0, 1, 2, 3`입니다. `4`는 범위를 벗어납니다.
+
+</details>
+
+**Q3. 비어 있는 `std::vector<int> values;`에 `values.reserve(100);`을 호출했습니다. 직후 `values.size()`의 값은 무엇인가요?**
+
+A. 0  
+B. 1  
+C. 100  
+D. 구현마다 달라짐
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: A**
+
+`reserve()`는 저장 용량만 늘릴 뿐 실제 요소를 생성하지 않습니다. `size()`는 0이고 `values[0]`에도 접근해서는 안 됩니다. `resize(100)`은 요소 수를 100으로 변경합니다.
+
+</details>
+
+**Q4. `container[index]`와 `container.at(index)`의 차이를 설명하세요.**
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답 예시:** `[]`는 범위 검사를 보장하지 않아 잘못된 인덱스로 접근하면 미정의 동작이 발생할 수 있습니다. `at()`은 범위 초과를 검사하고 `std::out_of_range` 예외를 발생시킵니다.
+
+`at()`도 비어 있는 컨테이너를 안전한 값으로 바꿔 주지는 않으므로 적절한 오류 처리가 필요합니다.
+
+</details>
+
+**Q5. 다음 중 `std::ranges::binary_search`에 필요한 전제 조건은 무엇인가요?**
+
+A. 요소 개수가 반드시 짝수여야 합니다.  
+B. 검색 기준에 맞게 정렬되어 있어야 합니다.  
+C. `std::vector`만 사용할 수 있습니다.  
+D. 모든 요소가 달라야 합니다.
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: B**
+
+이진 탐색은 정렬된 범위를 이용해 탐색 범위를 줄입니다. A와 D는 필요 없는 조건이고, C도 틀렸습니다. 적합한 범위와 비교 기준을 만족하면 `std::array` 등에서도 사용할 수 있습니다.
+
+</details>
+
+**Q6. `std::span<const int>`을 사용하는 주된 목적은 무엇인가요?**
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답 예시:** 연속된 원본 데이터를 복사하지 않고 읽기 전용으로 함수에 전달하기 위해 사용합니다. 길이 정보와 함께 접근할 수 있지만 원본 데이터를 소유하지 않습니다.
+
+원본이 사라지거나 재할당되는 경우에는 뷰가 유효하지 않을 수 있습니다.
+
+</details>
+
+**Q7. `std::string`의 `find()`가 부분 문자열을 찾지 못하면 어떤 값을 반환하나요?**
+
+A. `-1`  
+B. `0`  
+C. `std::string::npos`  
+D. `nullptr`
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: C**
+
+검색 실패 여부는 `std::string::npos`와 비교합니다. A의 `-1`은 해당 API가 보장하는 명시적 실패 표현이 아니고, B의 `0`은 문자열 맨 앞에서 찾았을 때의 정상 위치입니다. D는 이 함수가 반환하는 실패 값이 아닙니다.
+
+</details>
+
+**Q8. `std::from_chars()`로 `"25ms"`를 정수로 읽었습니다. 변환이 완전히 성공했는지 추가로 무엇을 검사해야 하나요?**
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답 예시:** 오류 코드가 `std::errc{}`인지 확인하고, 변환 종료 위치 `next`가 입력의 끝 `last`와 일치하는지 확인합니다.
+
+`25ms`는 숫자 `25`까지만 변환될 수 있으므로 오류 코드만 검사하면 잘못된 전체 입력을 허용할 수 있습니다.
+
+</details>
+
+**Q9. UTF-8로 저장된 한글 음절 `"가"`에 대해 일반적인 8비트 바이트 환경에서 `std::string::size()` 결과는 무엇인가요?**
+
+A. 1  
+B. 2  
+C. 3  
+D. 8
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: C**
+
+UTF-8에서 `가`는 3바이트로 인코딩됩니다. `std::string::size()`는 글자 수가 아니라 바이트 수를 반환하므로 3입니다. 이 설명은 UTF-8 인코딩을 전제로 합니다.
+
+</details>
+
+**Q10. 장치 이름이 `"LiDAR Front Left"`처럼 공백을 포함할 때 어떤 입력 방식이 적합한가요?**
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답 예시:** `std::getline(std::cin, device)`를 사용합니다. `std::cin >> device`는 공백을 기준으로 입력을 나누기 때문에 전체 이름을 읽지 못합니다.
+
+그 전에 `std::cin >> count`를 사용했다면 남아 있는 개행 문자도 주의해야 합니다.
+
+</details>
+
+**Q11. `std::string::substr()`와 `std::string_view::substr()`의 차이는 무엇인가요?**
+
+A. 둘 다 항상 새 문자열을 복사합니다.  
+B. 앞쪽은 새 문자열을 만들고, 뒤쪽은 원본의 일부를 가리키는 뷰를 반환합니다.  
+C. 뒤쪽은 원본 문자열의 저장 공간을 소유합니다.  
+D. 앞쪽은 C++23에서만 사용할 수 있습니다.
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: B**
+
+`std::string::substr()`는 새 문자열 값을 반환하지만, `std::string_view::substr()`는 원본 데이터를 복사하지 않는 뷰를 반환합니다. 뷰를 보관할 경우 원본 데이터의 수명을 확인해야 합니다.
+
+</details>
+
+**Q12. 가로 3칸, 세로 1칸의 격자에서 중간 칸이 장애물(`#`)입니다. 바깥 테두리에 장애물이 없는 격자인가요? 이유도 설명하세요.**
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: 아니요.**
+
+세로 크기가 1이면 모든 칸이 동시에 윗변과 아랫변에 놓여 있습니다. 따라서 가운데 칸도 테두리이며, `#`가 하나 있으므로 테두리가 비어 있지 않습니다. 격자의 가로 또는 세로 크기가 1인 경계 사례를 테스트해야 하는 이유입니다.
 
 </details>
 
 ### Summary
 
-- **`std::array`:** 크기가 고정된 데이터의 소유 및 관리
-- **`std::vector`:** 크기가 변하는 연속 데이터의 소유 및 관리
-- **`reserve()` / `resize()`:** 저장 용량 예약과 실제 요소 개수 조정의 차이
-- **범위 검사:** `at()` 또는 명시적인 인덱스 검증을 통한 잘못된 접근 방지
-- **표준 알고리즘:** 정렬, 검색, 집계를 표현하는 재사용 가능한 기능
-- **`std::span`:** 원본 배열을 복사하지 않고 연속된 요소에 접근
-- **`std::string`:** 문자열 데이터를 소유하고 변경하는 객체
-- **`std::string_view`:** 원본의 Lifetime에 의존하는 읽기 전용 문자열 View
-- **`std::getline()`:** 공백을 포함한 한 줄 입력 처리
-- **`std::from_chars`:** 숫자 Parsing 결과와 전체 입력 소비 여부 검증
-- **UTF-8:** 바이트 수, Code Point 수, Grapheme Cluster 수의 차이
+- **`std::array`:** 크기가 정해진 데이터의 저장과 접근
+- **`std::vector`:** 요소 추가·삭제가 가능한 연속 데이터 컨테이너
+- **`reserve()` / `resize()`:** 용량 확보와 실제 요소 개수 변경의 구분
+- **인덱스·범위 검사:** `[]`와 `at()`의 동작 차이, 빈 컨테이너 검사
+- **순회와 집계:** 범위 기반 `for`, 누적 합계, 평균·최솟값·최댓값
+- **표준 알고리즘:** 정렬·검색·조건별 개수 계산, 정렬 전제 조건
+- **`std::span`:** 원본을 소유하지 않는 C++20 연속 데이터 뷰
+- **다차원 배열:** 행·열 인덱스와 중첩 반복 처리
+- **`std::string`:** 텍스트 저장, 검색, 수정 및 부분 문자열 복사
+- **`std::getline()`:** 공백을 포함하는 한 줄 입력
+- **`std::string_view`:** 원본을 복사하지 않는 읽기 전용 문자열 뷰
+- **`std::from_chars()`:** 정수 변환과 전체 입력 소비 여부 검증
+- **UTF-8:** 바이트 수와 화면에 표시되는 글자 수 구분
 
 ### References
 
 - [cppreference — `std::array`](https://en.cppreference.com/w/cpp/container/array)
 - [cppreference — `std::vector`](https://en.cppreference.com/w/cpp/container/vector)
 - [cppreference — `std::span`](https://en.cppreference.com/w/cpp/container/span)
-- [cppreference — `std::string`](https://en.cppreference.com/w/cpp/string/basic_string)
+- [cppreference — `std::basic_string`](https://en.cppreference.com/w/cpp/string/basic_string)
 - [cppreference — `std::string_view`](https://en.cppreference.com/w/cpp/string/basic_string_view)
 - [cppreference — `std::from_chars`](https://en.cppreference.com/w/cpp/utility/from_chars)
-- [cppreference — C++23 compiler support](https://en.cppreference.com/w/cpp/compiler_support/23)
+- [cppreference — Ranges algorithms](https://en.cppreference.com/w/cpp/algorithm/ranges)
+- [cppreference — `std::accumulate`](https://en.cppreference.com/w/cpp/algorithm/accumulate)
+- [cppreference — `CHAR_BIT`](https://en.cppreference.com/w/cpp/types/climits)
+- [C++ Core Guidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)
 
 ---
 
-[← C++ 목차](../README.md) · [Chapter 05 — Functions](../Chapter-05/)
+[← C++ 목차](../README.md#contents)
+
