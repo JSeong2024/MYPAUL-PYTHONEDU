@@ -1,0 +1,8 @@
+# Local build artifacts
+/build/
+*.exe
+*.out
+*.o
+*.obj
+*.pdb
+__pycache__/
