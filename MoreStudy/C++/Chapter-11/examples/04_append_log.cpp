@@ -1,21 +1,11 @@
 #include <fstream>
-#include <print>
-
+#include <iostream>
 int main(int argc, char* argv[]) {
-    if (argc != 2) {
-        std::println(stderr, "Usage: append_log <path>");
-        return 1;
-    }
+    if (argc != 2) { std::cerr << "Usage: append_log <path>\n"; return 1; }
     std::ofstream output{argv[1], std::ios::app};
-    if (!output) {
-        std::println(stderr, "Cannot open log file");
-        return 1;
-    }
-    output << "INFO|robot-01|heartbeat\n";
+    if (!output) { std::cerr << "Cannot open log\n"; return 1; }
+    output << "INFO,started\n";
     output.close();
-    if (!output) {
-        std::println(stderr, "Append failed");
-        return 1;
-    }
-    std::println("Log appended");
+    if (!output) { std::cerr << "Write error\n"; return 1; }
+    std::cout << "Appended event\n";
 }

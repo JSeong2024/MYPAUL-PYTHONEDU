@@ -1,16 +1,16 @@
 #include <fstream>
-#include <print>
+#include <iostream>
+#include <map>
 #include <string>
-
-// 구분자: |  형식: LEVEL|DEVICE|MESSAGE
-// LEVEL: INFO / WARN / ERROR. MESSAGE에는 | 문자가 포함될 수 있음.
-// 빈 필드 또는 알 수 없는 LEVEL을 만나면 비정상 종료.
-int main(int argc, char* argv[]) {
-    if (argc != 2) return 1;
-    std::ifstream input{argv[1]};
-    if (!input) return 1;
-    std::string line;
-    // TODO: 앞의 두 구분자 위치를 찾고 필드 검증
-    // TODO: 레벨별 개수 계산 및 INFO/WARN/ERROR 순서로 출력
-    std::println("TODO");
+int main(int argc,char* argv[]){
+ if(argc!=2){std::cerr<<"Usage: event_log_summary <path>\n";return 1;}
+ std::ifstream file{argv[1]};if(!file){std::cerr<<"Cannot open file\n";return 1;}
+ std::map<std::string,int> counts;
+ std::string line;
+ while(std::getline(file,line)){
+  if(line!="INFO" && line!="WARN" && line!="ERROR"){std::cerr<<"Invalid event\n";return 1;}
+  /* TODO: count the current event */
+ }
+ if(file.bad()){return 1;}
+ for(const auto& [name,count]:counts){std::cout<<name<<": "<<count<<'\n';}
 }

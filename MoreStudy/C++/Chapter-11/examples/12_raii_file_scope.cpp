@@ -1,20 +1,16 @@
 #include <fstream>
-#include <print>
+#include <iostream>
 #include <string>
-
-[[nodiscard]] bool save_message(const char* path, const std::string& message) {
-    std::ofstream output{path, std::ios::trunc};
-    if (!output) return false;
-    output << message << '\n';
-    output.close();
-    return output.good();
-}
-
 int main(int argc, char* argv[]) {
-    if (argc != 2) return 1;
-    if (!save_message(argv[1], "status=ready")) {
-        std::println(stderr, "Save failed");
-        return 1;
+    if (argc != 2) { std::cerr << "Usage: raii_file_scope <path>\n"; return 1; }
+    { std::ofstream output{argv[1]};
+      if (!output) { return 1; }
+      output << "status=ready\n";
+      output.close();
+      if (!output) { return 1; }
     }
-    std::println("Saved");
+    std::ifstream input{argv[1]};
+    std::string line;
+    if (!std::getline(input,line)) { return 1; }
+    std::cout << line << '\n';
 }

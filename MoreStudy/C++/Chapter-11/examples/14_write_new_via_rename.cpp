@@ -1,42 +1,20 @@
 #include <filesystem>
 #include <fstream>
-#include <print>
-#include <string_view>
+#include <iostream>
 #include <system_error>
-
-// 신규 파일 생성 예제. 동시 접근·신뢰할 수 없는 디렉터리에는 적합하지 않음.
-[[nodiscard]] bool save_new(const std::filesystem::path& destination,
-                            std::string_view content) {
-    namespace fs = std::filesystem;
+int main(int argc,char* argv[]) {
+    if (argc != 2) { std::cerr << "Usage: rename_save <path>\n"; return 1; }
+    const std::filesystem::path target{argv[1]};
+    const std::filesystem::path temporary = target.string() + ".tmp";
+    if (std::filesystem::exists(temporary)) { std::cerr << "Temporary file exists\n"; return 1; }
+    { std::ofstream file{temporary};
+      if (!file) { return 1; }
+      file << "reading=24\n";
+      file.close();
+      if (!file) { std::filesystem::remove(temporary); return 1; }
+    }
     std::error_code ec;
-    if (fs::exists(destination, ec) || ec) return false; // 덮어쓰기 금지
-    fs::path temporary = destination;
-    temporary += ".tmp";
-    if (fs::exists(temporary, ec) || ec) return false;
-    {
-        std::ofstream output{temporary, std::ios::binary | std::ios::trunc};
-        if (!output) return false;
-        output.write(content.data(), static_cast<std::streamsize>(content.size()));
-        output.close();
-        if (!output) {
-            fs::remove(temporary, ec);
-            return false;
-        }
-    }
-    fs::rename(temporary, destination, ec);
-    if (ec) {
-        std::error_code cleanup_error;
-        fs::remove(temporary, cleanup_error);
-        return false;
-    }
-    return true;
-}
-
-int main(int argc, char* argv[]) {
-    if (argc != 2) return 1;
-    if (!save_new(argv[1], "mode=automatic\n")) {
-        std::println(stderr, "Save failed (target or temporary file may exist)");
-        return 1;
-    }
-    std::println("Created new file");
+    std::filesystem::rename(temporary,target,ec);
+    if (ec) { std::filesystem::remove(temporary); std::cerr << "Rename failed\n"; return 1; }
+    std::cout << "Saved report\n";
 }

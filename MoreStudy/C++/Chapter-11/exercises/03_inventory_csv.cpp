@@ -1,17 +1,21 @@
+#include <charconv>
 #include <fstream>
+#include <iostream>
 #include <map>
-#include <print>
 #include <string>
-
-// Header: id,quantity. id: 영숫자·_·-, 길이 1~32.
-// quantity: 0~1000000. 중복 id와 잘못된 CSV는 오류.
-// id를 오름차순으로 출력하고 총수량을 출력.
-int main(int argc, char* argv[]) {
-    if (argc != 2) return 1;
-    std::ifstream input{argv[1]};
-    if (!input) return 1;
-    std::map<std::string, int> inventory;
-    // TODO: 헤더 및 데이터 파싱/검증
-    // TODO: 중복 검사, 정렬 출력 및 Total 계산
-    std::println("TODO");
+#include <system_error>
+int main(int argc,char* argv[]){
+ if(argc!=2){std::cerr<<"Usage: inventory_csv <path>\n";return 1;}
+ std::ifstream file{argv[1]};if(!file){std::cerr<<"Cannot open file\n";return 1;}
+ std::map<std::string,int> inventory;std::string line;
+ while(std::getline(file,line)){
+  const auto pos=line.find(',');
+  if(pos==std::string::npos||pos==0||pos+1==line.size()||line.find(',',pos+1)!=std::string::npos){std::cerr<<"Invalid record\n";return 1;}
+  const std::string name=line.substr(0,pos);const std::string number=line.substr(pos+1);
+  int quantity{};const auto parsed=std::from_chars(number.data(),number.data()+number.size(),quantity);
+  if(parsed.ec!=std::errc{}||parsed.ptr!=number.data()+number.size()||quantity<0||quantity>1000||inventory.contains(name)){std::cerr<<"Invalid record\n";return 1;}
+  /* TODO: store the validated record */
+ }
+ if(file.bad()){return 1;}
+ for(const auto& [name,value]:inventory){std::cout<<name<<": "<<value<<'\n';}
 }

@@ -1,25 +1,16 @@
-#include <expected>
 #include <fstream>
-#include <iterator>
-#include <print>
+#include <iostream>
+#include <optional>
 #include <string>
-
-[[nodiscard]] std::expected<std::string, std::string>
-load_text(const std::string& path) {
+std::optional<std::string> first_line(const std::string& path) {
     std::ifstream input{path};
-    if (!input) return std::unexpected("Cannot open input file");
-    std::string contents{std::istreambuf_iterator<char>{input},
-                         std::istreambuf_iterator<char>{}};
-    if (input.bad()) return std::unexpected("Read failed");
-    return contents;
+    std::string line;
+    if (!input || !std::getline(input,line)) { return std::nullopt; }
+    return line;
 }
-
 int main(int argc, char* argv[]) {
-    if (argc != 2) return 1;
-    const auto text = load_text(argv[1]);
-    if (!text) {
-        std::println(stderr, "{}", text.error());
-        return 1;
-    }
-    std::println("Loaded {} bytes", text->size());
+    if (argc != 2) { std::cerr << "Usage: first_line <path>\n"; return 1; }
+    const auto line = first_line(argv[1]);
+    if (!line) { std::cerr << "No first line\n"; return 1; }
+    std::cout << "First line: " << *line << '\n';
 }

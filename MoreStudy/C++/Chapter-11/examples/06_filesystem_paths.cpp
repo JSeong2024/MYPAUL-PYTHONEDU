@@ -1,10 +1,7 @@
 #include <filesystem>
-#include <print>
-
+#include <iostream>
 int main() {
-    namespace fs = std::filesystem;
-    const fs::path file = fs::path{"data"} / "logs" / "robot.csv";
-    std::println("File name: {}", file.filename().string());
-    std::println("Extension: {}", file.extension().string());
-    std::println("Parent: {}", file.parent_path().generic_string());
+    const std::filesystem::path path = std::filesystem::path{"reports"} / "daily" / "result.csv";
+    std::cout << "Filename: " << path.filename().string() << '\n';
+    std::cout << "Extension: " << path.extension().string() << '\n';
 }
