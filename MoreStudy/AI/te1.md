@@ -133,7 +133,7 @@ CHANNEL_MEAN 24.00 11.50
 
 #### 문제 설명
 
-선형 Model(모델) `wx+b`로 입력 `x`의 예측값을 구하고, 정답 `y`와의 오차를 계산합니다. Autograd로 Gradient를 계산해 Parameter(파라미터)를 한 번 갱신하고, 갱신 전의 예측값·Loss·Gradient와 갱신 후의 결과를 지정된 형식으로 출력하십시오. 여러 Epoch에 걸친 학습은 수행하지 않습니다.
+선형 Model(모델) `wx+b`로 입력 `x`의 예측값을 구하고, 정답 `y`와의 오차를 계산합니다. Autograd로 Gradient를 계산해 Parameter(파라미터)를 한 번 갱신하십시오. 갱신 전의 예측값·Loss·Gradient와 갱신한 파라미터·예측값을 지정된 형식으로 출력하십시오. 여러 Epoch에 걸친 학습은 수행하지 않습니다.
 
 ```math
 \hat y=wx+b,\quad L=(\hat y-y)^2
@@ -474,7 +474,7 @@ U004,test,-0.2,-0.3,0
 <details>
 <summary><strong>STEP 2. 학습 반복</strong></summary>
 
-각 Batch에서 Forward, Loss 계산, Gradient 계산, Optimizer 갱신을 순서대로 수행합니다. 평균 Loss를 구할 때는 각 Batch에 포함된 샘플 수를 반영합니다.
+각 Batch에서 Forward, Loss 계산, Gradient 계산, Optimizer를 이용한 파라미터 갱신을 순서대로 수행합니다. 평균 Loss를 구할 때는 각 Batch에 포함된 샘플 수를 반영합니다.
 
 ```python
 for x_batch, y_batch in train_loader:
@@ -540,17 +540,18 @@ E003,validation,47,22,1,114
 E004,test,53,19,0,120
 ```
 
-- `record_id`는 고유해야 하며, `weekend`는 0 또는 1입니다. `occupancy`와 `energy_kwh`는 0 이상의 유한한 실수입니다.
-- 각 분할은 최소 30개 샘플을 포함합니다.
+- 각 데이터 행에는 서로 다른 `record_id`가 부여됩니다.
+- `weekend`는 `0` 또는 `1`이며, `occupancy`와 `energy_kwh`는 `0` 이상의 유한한 실수입니다.
+- 학습·검증·테스트 데이터에는 각각 30개 이상의 샘플이 포함됩니다.
 
 #### 출력 파일 규격
 
 - `training_history.csv`: `candidate,epoch,train_loss,validation_rmse`
-- `comparison.json`: 각 후보의 `optimizer`, `learning_rate`, `best_epoch`, `best_validation_rmse`, 선정된 후보 `selected_candidate`
+- `comparison.json`: 각 후보의 `optimizer`, `learning_rate`, `best_epoch`, `best_validation_rmse` 및 최종 선정된 후보를 나타내는 `selected_candidate`
 - `test_predictions.csv`: `record_id,actual,predicted`
 - `test_metrics.json`: 선정된 모델의 `mae,rmse`
 
-테스트 점수는 후보 선택 기준에 사용할 수 없습니다. 모델 비교 결과를 해석할 때는 학습률도 서로 다르다는 점을 명시합니다.
+모델 선택은 검증 RMSE를 기준으로 수행하며, 테스트 데이터는 최종 성능 평가에만 사용합니다. 또한 모델 비교 결과를 해석할 때는 Optimizer 종류뿐 아니라 학습률 등 다른 설정도 함께 고려해야 합니다.
 
 #### 검증 기준
 
@@ -564,7 +565,7 @@ E004,test,53,19,0,120
 <details>
 <summary><strong>STEP 1. 실험 공통 조건 준비</strong></summary>
 
-모든 후보가 동일한 초기 상태와 전처리 기준을 사용하도록 준비합니다. 모델 상태는 참조가 아닌 별도 사본으로 보관합니다.
+두 후보가 동일한 초기 Weight와 전처리 기준을 사용하도록 준비합니다. 초기 모델의 `state_dict`는 학습 과정에서 변경되지 않도록 별도의 복사본으로 보관합니다.
 
 ```python
 torch.manual_seed(42)
@@ -577,7 +578,7 @@ initial_model = make_model()
 <details>
 <summary><strong>STEP 2. 후보별 학습</strong></summary>
 
-후보별로 모델과 Optimizer를 새로 생성합니다. Epoch마다 같은 샘플 순서가 사용되도록 난수 생성 규칙을 고정합니다.
+각 후보에 사용할 모델과 Optimizer를 별도로 생성합니다. Epoch마다 두 후보가 동일한 순서로 샘플을 학습하도록 Shuffle 조건을 맞춥니다.
 
 ```python
 # TODO: 후보별 초기 상태 복원
@@ -589,14 +590,14 @@ initial_model = make_model()
 <details>
 <summary><strong>STEP 3. 검증 결과 비교</strong></summary>
 
-각 Epoch의 검증 RMSE를 비교해 후보별 최적 Weight를 보관합니다. 이때 Optimizer 종류뿐 아니라 학습률도 다른 설정이라는 점을 고려합니다.
+Epoch마다 검증 RMSE를 계산하고, 각 후보에서 가장 낮은 RMSE를 기록한 시점의 Weight를 보관합니다. 결과를 비교할 때는 Optimizer 종류뿐 아니라 학습률 등의 설정 차이도 고려합니다.
 
 </details>
 
 <details>
 <summary><strong>STEP 4. 최종 모델 평가</strong></summary>
 
-검증 데이터에서 확정한 후보의 최적 Weight만 테스트 데이터에 적용합니다. 결과 파일의 지표와 예측 행 순서를 검사합니다.
+검증 RMSE를 기준으로 선정한 후보의 최적 Weight를 복원하고, 테스트 데이터에서 최종 성능을 평가합니다. 결과 파일에 평가 지표가 올바르게 기록되었는지, 예측 결과가 원본 데이터 순서대로 저장되었는지 확인합니다.
 
 </details>
 
@@ -644,27 +645,29 @@ N02,280,44,6.2
 
 #### 출력 파일 규격
 
-- `model_weights.pt`, `preprocessing.json`
+- `model_weights.pt`: 검증 Loss를 기준으로 선택한 모델의 Weight
+- `preprocessing.json`: 특성 순서, Scaling 기준, Target, 예측 Threshold
 - `test_predictions.csv`: `record_id,actual,probability,predicted`
 - `incoming_predictions.csv`: `record_id,probability,predicted`
-- `rejected_rows.csv`: `record_id,error_code` (`INVALID_VALUE`, `DUPLICATE_ID`)
+- `rejected_rows.csv`: `record_id,error_code` (오류 코드는 `INVALID_VALUE`, `DUPLICATE_ID`)
 - `handoff_report.json`: `feature_order`, `test_accuracy`, `reload_max_abs_diff`
 
-확률은 소수점 여섯째 자리까지 파일에 기록하되, 복원 결과의 일치 여부는 **반올림 전** 값으로 확인합니다. `torch.load()`는 프로젝트가 직접 생성한 신뢰 가능한 파일에 한해 `weights_only=True`를 사용합니다.
+예측 확률은 소수점 여섯째 자리까지 기록합니다. 원본 모델과 복원한 모델의 예측 결과를 비교할 때는 **반올림 전** 확률을 사용합니다.
+`torch.load()`는 프로젝트에서 생성한 신뢰할 수 있는 파일에 한해 사용하며, `weights_only=True` 옵션을 적용합니다.
 
 #### 검증 기준
 
-- `incoming.csv`의 열 순서가 달라도 예측이 일치하는지 확인
-- `eval()`과 `no_grad()`를 적용했는지 확인
-- 잘못된 `Dtype`·`Shape`, 누락 특성, 복원되지 않은 Scaling 기준을 정확하게 감지하는지 확인
-- 저장한 Best Weight가 마지막 Epoch의 Weight와 다를 수 있음을 반영했는지 확인
+- `incoming.csv`의 특성 열 순서가 달라도 동일한 예측 결과가 나오는지 확인
+- 추론 과정에서 `eval()`과 `torch.no_grad()`를 올바르게 적용했는지 확인
+- 잘못된 Dtype·Shape, 필수 특성 누락, Scaling 기준 불일치를 감지하는지 확인
+- 마지막 Epoch가 아닌 최저 검증 Loss를 기준으로 선택한 Weight가 저장·복원되는지 확인
 
 #### HELP
 
 <details>
 <summary><strong>STEP 1. 학습 결과 정리</strong></summary>
 
-모델 Weight 외에 입력 특성 순서, 전처리 기준, 모델 구조, 자료형과 임계값을 보관할 방법을 정합니다.
+모델의 Weight뿐 아니라 입력 특성의 순서, Scaling 기준, 모델 구조, 자료형, 예측 Threshold도 함께 보관합니다. 별도의 프로세스에서도 동일한 모델과 전처리 과정을 재현할 수 있도록 저장 방식을 설계합니다.
 
 ```python
 feature_order = ["temperature_c", "vibration", "hours_active"]
@@ -676,14 +679,14 @@ feature_order = ["temperature_c", "vibration", "hours_active"]
 <details>
 <summary><strong>STEP 2. 독립 추론 실행</strong></summary>
 
-학습 프로세스의 메모리 객체를 재사용하지 않고, 저장된 파일만으로 별도의 프로세스에서 모델을 구성합니다. 필요한 파일이 없거나 구조가 맞지 않으면 정상 결과를 출력하지 않습니다.
+학습에 사용한 메모리 객체에 의존하지 않고, 저장된 파일을 불러와 별도의 프로세스에서 모델을 복원합니다. 필요한 파일이 없거나 저장된 정보가 모델 구조와 일치하지 않으면 추론을 중단합니다.
 
 </details>
 
 <details>
 <summary><strong>STEP 3. 입력 특성 정렬</strong></summary>
 
-CSV 열의 위치가 아닌 이름을 기준으로 입력 순서를 맞춥니다. 학습 당시와 동일한 Scaling을 적용한 후 추론합니다.
+CSV의 열 위치와 관계없이 특성 이름을 기준으로 입력 순서를 맞춥니다. 저장된 Scaling 기준을 적용한 뒤 복원한 모델로 예측을 수행합니다.
 
 ```python
 # TODO: 저장된 정보에 따라 입력 열 정렬
@@ -696,7 +699,7 @@ CSV 열의 위치가 아닌 이름을 기준으로 입력 순서를 맞춥니다
 <details>
 <summary><strong>STEP 4. 정합성 검증</strong></summary>
 
-원래 모델과 새로 복원한 모델에 동일한 입력을 주고 예측 확률을 비교합니다. 반올림 전 값으로 오차를 계산합니다.
+학습 당시의 모델과 새 프로세스에서 복원한 모델에 동일한 입력을 적용합니다. 두 모델의 예측 확률을 반올림 전 값으로 비교하고, 최대 절댓값 차이가 허용 범위 이내인지 확인합니다.
 
 </details>
 
@@ -883,7 +886,7 @@ G01,2026-01-02,127,7,4,0,0,122
 학습률 변경과 Early Stopping의 기준 지표를 일관되게 관리합니다. Epoch별 검증 결과와 선택된 Weight를 보관할 구조를 직접 설계합니다.
 
 ```python
-# TODO: Validation RMSE를 기준으로 Scheduler 갱신
+# TODO: 검증 RMSE를 기준으로 Scheduler 실행
 # TODO: Best Weight·Patience 관리
 ```
 
@@ -927,7 +930,7 @@ Q004,test,0.1,9,1.5,6,0
 1. **모델 후보:** 구조 S는 `Linear(4,8) → ReLU → Linear(8,1)`, 구조 L은 `Linear(4,32) → ReLU → Linear(32,16) → ReLU → Linear(16,1)`이다. 각각의 학습 가능한 Parameter(파라미터) 수를 기록한다.
 2. **실험 조건:** `torch.manual_seed(42)`, CPU, `num_workers=0`을 기준으로 한다. `BCEWithLogitsLoss`와 `AdamW(lr=0.005)`를 사용한다. Train의 전처리 기준과 분할은 모든 후보가 공유한다.
 3. **업데이트 예산:** 각 후보가 최대 **120회 Optimizer Update**까지만 수행하도록 한다. Epoch 수는 데이터셋 크기에 따라 달라질 수 있으며 Update 횟수로 예산을 비교한다. 같은 후보를 비교할 때는 동일한 초기 Weight와 샘플 순서를 사용한다.
-4. **Effective Batch Size 64:** 방법 A는 가능한 경우 한 번에 최대 64개 샘플을 처리한다. 방법 B는 최대 32개 샘플로 구성된 Micro-Batch를 순차적으로 처리하며, **64개 샘플에 해당하는 Gradient를 누적한 뒤 한 번 업데이트**한다. 마지막 Batch에 남은 샘플이 64개보다 적어도 버리지 않는다. 이때는 실제 샘플 수를 기준으로 평균 Loss를 계산한다.
+4. **Effective Batch Size 64:** 방법 A는 가능한 경우 한 번에 최대 64개 샘플을 처리한다. 방법 B는 최대 32개 샘플로 구성된 Micro-Batch를 순차적으로 처리하며, **64개 샘플에 해당하는 Gradient를 누적한 뒤 Optimizer Update를 한 번 수행**한다. 마지막 Batch에 남은 샘플이 64개보다 적어도 버리지 않는다. 이때는 실제 샘플 수를 기준으로 평균 Loss를 계산한다.
 5. **Gradient Clipping:** 각 Optimizer Update 직전, 누적된 Gradient에 `clip_grad_norm_(..., max_norm=1.0)`을 한 번 적용한다. Micro-Batch마다 개별 Clipping을 수행하지 않는다.
 6. **비교 결과:** 각 구성에서 Validation(검증) Accuracy와 Loss, Update 수, 파라미터 수, 실제 학습 시간을 기록한다. 단일 실행 시간만으로 판단하지 않도록 **각 설정 3회 측정값의 중앙값**을 기록한다. 시간은 전처리·검증·파일 저장을 제외한 학습 Update 구간에서 측정한다. 측정용 실행에서는 매번 초기 상태를 복원한다.
 7. **모델 선택:** 세 번 실행한 검증 Accuracy의 평균이 가장 높은 설정을 선택하고, 동점이면 중앙 실행 시간이 더 짧은 구성을 선택한다. 중앙값까지 동일하면 구조 S, 그다음 방법 A를 우선한다. 확정 후 테스트 Accuracy·F1을 한 번 계산한다.
