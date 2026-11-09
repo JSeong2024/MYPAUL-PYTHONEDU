@@ -14,21 +14,21 @@ Chapter 05~07 · **Basic 5 · Advanced 4 · Professional 3 · Challenge 2 · Rad
 
 #### 문제 설명
 
-센서 장비에서 수집한 수치 데이터가 행렬 형태로 주어집니다. 이를 Tensor(텐서)로 변환하고, 채널별 합계와 Sample(샘플)별 평균을 계산하십시오. 텐서의 Shape와 자료형도 함께 출력하십시오.
+센서에서 수집한 측정값이 행렬 형태로 주어집니다. 데이터를 Tensor(텐서)로 변환하여 채널별 합계와 Sample(샘플)별 평균을 계산하십시오. 텐서의 Shape와 자료형도 함께 출력하십시오.
 
 #### 요구사항
 
 1. 입력에서 샘플 수 `N`과 채널 수 `D`를 읽고 Shape `(N, D)`의 텐서를 생성한다.
 2. 채널별 합계는 `dim=0`, 샘플별 평균은 `dim=1`로 계산한다.
 3. 수치는 소수점 둘째 자리까지 표시한다.
-4. 행·열 개수 또는 숫자 형식이 잘못되었거나, 유한하지 않은 값이 있으면 `INVALID`만 출력한다.
+4. 행·열 개수나 숫자 형식이 잘못되었거나 유한하지 않은 값이 있으면 `INVALID`만 출력한다.
 
 #### 입력
 
-첫 줄에 `N D`가, 다음 `N`개 줄에 각각 `D`개의 실수가 공백으로 구분되어 주어집니다.
+첫 줄에는 `N D`가 주어집니다. 이후 `N`개 줄에는 각각 `D`개의 실수가 공백으로 구분되어 주어집니다.
 
 - `1 ≤ N ≤ 200`, `1 ≤ D ≤ 20`
-- 정수처럼 표기된 값도 실수로 읽습니다.
+- `3`처럼 소수점 없이 표기된 값도 실수형으로 처리합니다.
 - `NaN`, 무한대 및 추가 데이터 행은 허용하지 않습니다. 입력값은 `float32`에서 유한하게 표현할 수 있는 범위에 속합니다.
 
 #### 출력
@@ -72,15 +72,15 @@ ROW_MEAN 2.00 5.00
 
 #### 문제 설명
 
-여러 센서 채널에서 측정한 값이 행렬로 주어집니다. 채널마다 보정값과 배율이 다릅니다. Tensor(텐서)의 Broadcasting을 이용하여 아래 식에 따라 측정값을 보정하고, 채널별 평균을 출력하십시오.
+여러 센서 채널에서 수집한 측정값이 행렬로 주어집니다. 채널마다 보정값과 배율이 다르므로 Tensor(텐서)의 Broadcasting을 이용해야 합니다. 아래 식에 따라 측정값을 보정하고 채널별 평균을 출력하십시오.
 
 ```math
 z_{ij}=(x_{ij}+o_j)s_j
 ```
 
-- `x_ij`: `i`번째 Sample(샘플)의 `j`번째 채널 측정값
-- `o_j`: 채널 `j`의 Offset
-- `s_j`: 채널 `j`의 Scale
+- $x_{ij}$: $i$번째 Sample(샘플)의 $j$번째 채널 측정값
+- $o_{j}$: 채널 $j$의 Offset
+- $s_{j}$: 채널 $j$의 Scale
 
 #### 요구사항
 
@@ -98,7 +98,7 @@ z_{ij}=(x_{ij}+o_j)s_j
 
 #### 출력
 
-보정된 행은 `SAMPLE_i`로, 채널별 평균은 `CHANNEL_MEAN`으로 시작합니다. 모든 수치는 소수점 둘째 자리까지 표시합니다.
+각 보정 결과 행은 `SAMPLE_i`로, 채널별 평균 행은 `CHANNEL_MEAN`으로 시작합니다. 모든 수치는 소수점 둘째 자리까지 표시합니다.
 
 **예제 입력**
 
@@ -122,7 +122,7 @@ CHANNEL_MEAN 24.00 11.50
 
 - Offset과 Scale을 샘플 축이 아닌 채널 축에 적용했는지 확인
 - 단일 샘플 또는 단일 채널에서도 Broadcasting이 올바르게 동작하는지 확인
-- Shape 불일치, 음수 Scale, 무한대 입력 처리
+- Shape 불일치, 0 이하의 Scale, 무한대 입력을 올바르게 처리하는지 확인
 
 
 ---
@@ -133,7 +133,7 @@ CHANNEL_MEAN 24.00 11.50
 
 #### 문제 설명
 
-입력 `x`와 정답 `y`에 대해 선형 Model(모델) `wx+b`의 예측 오차를 계산합니다. Autograd로 Gradient를 구하고 Parameter(파라미터)를 한 번 갱신한 뒤, 초기 예측값과 Loss, Gradient, 갱신 결과를 지정된 형식으로 출력하십시오. 여러 Epoch에 걸친 학습은 수행하지 않습니다.
+선형 Model(모델) `wx+b`로 입력 `x`의 예측값을 구하고, 정답 `y`와의 오차를 계산합니다. Autograd로 Gradient를 계산해 Parameter(파라미터)를 한 번 갱신하고, 갱신 전의 예측값·Loss·Gradient와 갱신 후의 결과를 지정된 형식으로 출력하십시오. 여러 Epoch에 걸친 학습은 수행하지 않습니다.
 
 ```math
 \hat y=wx+b,\quad L=(\hat y-y)^2
@@ -150,7 +150,7 @@ b_{\mathrm{new}}=b-\eta\frac{\partial L}{\partial b}
 2. 예측값과 Loss를 계산한 뒤 `backward()`를 한 번 호출한다.
 3. `w.grad`와 `b.grad`를 출력한다.
 4. `torch.no_grad()` 문맥에서 파라미터를 한 번 갱신한 뒤 새 예측값을 출력한다.
-5. 계산 순서가 달라지지 않도록 Gradient와 원래 Loss는 갱신 전에 기록한다.
+5. 갱신 전의 Gradient와 Loss를 별도로 보관하여 처음 계산한 값을 출력한다.
 
 #### 입력
 
@@ -193,13 +193,13 @@ UPDATED_PREDICTION 5.0000
 
 #### 문제 설명
 
-입력 Feature(특성) 수와 은닉 뉴런 수, 출력 수가 주어집니다. 이를 이용해 `Linear → ReLU → Linear` 구조의 MLP를 구성하십시오. 학습은 수행하지 않으며, Forward 결과의 Shape와 학습 가능한 Parameter(파라미터) 수를 출력하십시오.
+입력 Feature(특성) 수, 은닉 뉴런 수, 출력 뉴런 수가 주어집니다. 이를 이용해 `Linear → ReLU → Linear` 구조의 MLP를 구성하십시오. 학습은 수행하지 않으며, Forward 결과의 Shape와 학습 가능한 Parameter(파라미터) 수를 출력하십시오.
 
 #### 요구사항
 
 1. `nn.Sequential(nn.Linear(D, H), nn.ReLU(), nn.Linear(H, O))`를 구성한다. 두 Linear Layer 모두 Bias를 사용한다.
 2. 첫 Layer와 두 번째 Layer의 파라미터 수를 구한다.
-3. Batch Size `N`의 영(0) Tensor(텐서)를 입력하여 Forward 결과의 Shape를 확인한다.
+3. Batch Size가 `N`인 영(0) Tensor(텐서)를 입력하여 Forward 결과의 Shape를 확인한다.
 4. 입력 범위가 잘못되면 `INVALID`를 출력한다.
 
 #### 입력
@@ -245,7 +245,7 @@ OUTPUT_SHAPE 5 2
 
 #### 문제 설명
 
-Sample(샘플) ID 목록과 배치 크기가 주어집니다. `DataLoader`를 이용해 ID를 순서대로 묶고, 마지막 배치의 처리 결과를 출력하십시오.
+Sample(샘플) ID 목록과 배치 크기가 주어집니다. `DataLoader`를 이용해 ID를 입력 순서대로 배치에 나누어 담고, 각 배치의 구성과 제외된 샘플 수를 출력하십시오.
 
 #### 요구사항
 
@@ -263,7 +263,7 @@ Sample(샘플) ID 목록과 배치 크기가 주어집니다. `DataLoader`를 �
 
 #### 출력
 
-`drop_last=1`일 경우 불완전한 마지막 Batch는 생성하지 않습니다.
+`drop_last=1`이면 크기가 `B`보다 작은 마지막 Batch를 제외합니다.
 
 **예제 입력**
 
@@ -299,9 +299,9 @@ DROPPED 0
 
 #### 문제 설명
 
-시설 운영 시스템은 각 공간의 온도·습도·전력 사용량을 수집합니다. 센서마다 보정값이 다르고 일부 기록에는 누락값과 범위 오류가 있습니다. 잘못된 기록이 통계에 포함되면 보고서의 평균값도 달라지므로, 먼저 데이터를 검증한 뒤 보정과 집계를 수행해야 합니다.
+시설 운영 시스템은 공간별 온도·습도·전력 사용량을 수집합니다. 센서마다 보정값이 다르고, 일부 기록에는 누락값이나 허용 범위를 벗어난 값이 포함되어 있습니다. 이런 기록까지 집계하면 평균이 왜곡될 수 있으므로 데이터 검증이 먼저 필요합니다.
 
-주어진 두 CSV를 읽어 정상 기록만 Tensor(텐서)로 구성하고, 채널별 보정과 집계 결과를 생성하는 프로그램을 작성하십시오.
+두 CSV를 읽어 유효한 기록만 Tensor(텐서)로 구성한 뒤, 채널별 보정과 집계 결과를 파일로 저장하는 프로그램을 작성하십시오.
 
 #### 요구사항
 
@@ -310,7 +310,7 @@ DROPPED 0
 3. 오류 우선순위는 **필수값 누락 → 잘못된 숫자 또는 범위 → 유효한 ID 중복** 순서로 정한다. 무효 행은 ID를 점유하지 않는다.
 4. `calibration.csv`에서 세 Feature(특성)의 Offset과 Scale을 읽는다. 특성은 `temperature`, `humidity`, `power_kw`가 정확히 한 번씩 있어야 하며 Scale은 양수이다. 보정식은 `z=(x+offset)*scale`이다.
 5. 정상 측정값을 Shape `(N, 3)`의 `float32` 텐서로 변환하고 Broadcasting으로 보정한다.
-6. `calibrated.csv`, `rejected_rows.csv`, `quality_report.json`을 생성한다. 정상 Sample(샘플)이 5개 미만이면 `calibrated.csv`를 생성하지 않고 부족한 샘플 수를 `quality_report.json`에 기록한 뒤 실패 상태로 종료한다. 오류 행 기록과 품질 보고서는 남긴다.
+6. `calibrated.csv`, `rejected_rows.csv`, `quality_report.json`을 생성한다. 정상 Sample(샘플)이 5개 미만이면 `calibrated.csv`를 생성하지 않고 부족한 샘플 수를 `quality_report.json`에 기록한 뒤 실패 상태로 종료한다. `rejected_rows.csv`와 `quality_report.json`은 그대로 생성한다.
 
 #### 입력 파일 규격
 
@@ -338,11 +338,11 @@ power_kw,0,2
 
 - `calibrated.csv`: `record_id,room_id,temperature,humidity,power_kw` 순서. 정상 행은 원본 순서 유지, 실수는 소수점 넷째 자리까지 기록
 - `rejected_rows.csv`: `source_line,record_id,error_code` 순서. 헤더를 1행으로 세어 입력 행 번호를 기록. 코드는 `MISSING_VALUE`, `INVALID_NUMBER`, `DUPLICATE_ID`
-- `quality_report.json`: `status`, `valid_count`, `rejected_count`, `shape`, `channel_mean`의 다섯 항목. 정상 처리 시 `status`는 `OK`, 샘플 부족 시 `INSUFFICIENT_DATA`로 기록합니다. `shape`는 `[N,3]`이며 정상 샘플이 0개인 경우 `channel_mean`은 `null`, 그렇지 않으면 세 특성의 보정 평균을 기록
+- `quality_report.json`: `status`, `valid_count`, `rejected_count`, `shape`, `channel_mean`의 다섯 항목. 정상 처리 시 `status`는 `OK`, 샘플이 부족하면 `INSUFFICIENT_DATA`로 기록. `shape`는 `[N,3]`. 정상 샘플이 없으면 `channel_mean`은 `null`, 그 외에는 세 특성의 보정 평균을 기록
 
 **예제 처리 결과**
 
-`R01`의 보정값은 `[21,45,6]`, `R02`는 `[23,50,8]`입니다. `R03`은 온도 누락으로 거부됩니다. 제시된 세 행은 전체 프로젝트의 정상 샘플 최소 수를 충족하지 못하므로 완성 프로그램에서는 최소 수 조건을 기록해야 합니다.
+`R01`의 보정값은 `[21,45,6]`, `R02`는 `[23,50,8]`입니다. `R03`은 온도 누락으로 거부됩니다. 이 예시에는 정상 기록이 2개뿐이므로 `calibrated.csv`를 생성하지 않고, `quality_report.json`에 샘플 부족 상태를 기록해야 합니다.
 
 #### 검증 기준
 
@@ -408,7 +408,7 @@ values = torch.tensor(valid_df[features].to_numpy(dtype="float32"))
 
 #### 문제 설명
 
-시설의 혼잡 여부를 두 가지 이용 지표로 예측하려고 합니다. 데이터에는 하나의 직선으로 구분하기 어려운 패턴이 포함되어 있습니다. 학습·검증·테스트 데이터를 구분하고, 학습한 모델을 간단한 Baseline과 비교해야 합니다.
+시설의 혼잡 여부를 두 가지 이용 지표로 예측하려고 합니다. 데이터에는 직선 하나로 구분하기 어려운 패턴이 포함되어 있습니다. 학습·검증·테스트 데이터를 구분한 뒤, 학습한 모델을 간단한 Baseline과 비교해야 합니다.
 
 PyTorch로 간단한 MLP를 학습한 뒤, 지정된 테스트 데이터에 대한 예측 결과를 기록하는 프로그램을 작성하십시오.
 
@@ -419,7 +419,7 @@ PyTorch로 간단한 MLP를 학습한 뒤, 지정된 테스트 데이터에 대�
 3. Training(학습) 데이터만 사용해 특성별 평균과 표준편차를 계산하고, 세 분할에 같은 기준을 적용한다. 표준편차는 모집단 기준(`ddof=0`)으로 계산한다. 표준편차가 0인 특성은 Scale을 1로 처리한다.
 4. `nn.Linear(2,12) → nn.ReLU() → nn.Linear(12,1)` 구조를 구현한다.
 5. `BCEWithLogitsLoss`, `AdamW(lr=0.01)`, Batch Size 16, 최대 100 Epoch, `torch.manual_seed(42)`를 사용한다. Epoch마다 DataLoader를 사용하고 마지막 Batch를 버리지 않는다.
-6. 매 Epoch의 학습 평균 Loss와 검증 Accuracy를 기록한다. **최종 선택 기준은 검증 Accuracy 최대, 동점이면 더 이른 Epoch** 로 정한다.
+6. 매 Epoch의 학습 평균 Loss와 검증 Accuracy를 기록한다. **최종 선택 기준은 검증 Accuracy 최대, 동점이면 더 이른 Epoch**로 정한다.
 7. 학습 데이터에서 가장 빈번한 클래스를 항상 예측하는 Majority Baseline도 계산한다. 빈도가 같다면 `0`을 선택한다.
 8. 테스트 결과에 대한 Accuracy·F1·Confusion Matrix를 계산하고, `test_predictions.csv`를 생성한다. 예측 Label은 `torch.sigmoid(logit) ≥ 0.5`로 결정한다. 테스트 결과를 보고 모델을 다시 선택하지 않는다.
 
@@ -435,14 +435,14 @@ U003,validation,1.1,-0.9,1
 U004,test,-0.2,-0.3,0
 ```
 
-실습 데이터에는 학습·검증·테스트 데이터가 각각 30개 이상의 샘플로 구성되어 있습니다. 각 데이터 행에는 서로 다른 `record_id`가 부여됩니다. `x1`, `x2`는 실수형으로 처리하며, 결측값이나 `NaN`, `Infinity`는 포함되지 않습니다.
+실습 파일에는 학습·검증·테스트 분할마다 30개 이상의 샘플이 포함되어 있습니다. 각 데이터 행에는 서로 다른 `record_id`가 부여됩니다. `x1`, `x2`는 실수형으로 처리하며, 결측값이나 `NaN`, `Infinity`는 포함되지 않습니다.
 
 #### 출력 파일 규격
 
 - `training_history.csv`: `epoch,train_loss,validation_accuracy`
 - `model_selection.json`: `best_epoch,best_validation_accuracy,train_majority_class,test_baseline_accuracy`
 - `test_predictions.csv`: `record_id,actual,probability,predicted` (테스트 데이터의 원본 순서 유지, 확률은 소수점 넷째 자리까지 기록)
-- `test_metrics.json`: `accuracy,f1,tp,fp,fn,tn` (반올림 전 확률을 기준으로 계산하며, F1의 분모가 0이면 0으로 기록)
+- `test_metrics.json`: `accuracy,f1,tp,fp,fn,tn` (반올림 전 확률로 예측 Label을 결정한 뒤 지표를 계산하며, F1의 분모가 0이면 0으로 기록)
 
 <!-- 예시 결과 이미지 추가 예정 (정답 코드 실행 후 생성)
 삽입 파일: ./assets/problems/a-02-training-history.png
@@ -462,7 +462,7 @@ U004,test,-0.2,-0.3,0
 <details>
 <summary><strong>STEP 1. 데이터 구성</strong></summary>
 
-기존의 데이터 분할을 유지하면서 학습 데이터만으로 전처리 기준을 계산합니다. 입력 텐서는 `(N, 2)`, 정답 텐서는 `(N, 1)` 형태로 구성합니다.
+`split`에 지정된 분할을 유지하고, 학습 데이터만으로 전처리 기준을 계산합니다. 입력 텐서는 `(N, 2)`, 정답 텐서는 `(N, 1)` 형태로 구성합니다.
 
 ```python
 # TODO: 데이터 분할 및 전처리 기준 계산
@@ -514,7 +514,7 @@ for x_batch, y_batch in train_loader:
 
 #### 문제 설명
 
-데이터센터의 전력 사용량을 예측할 MLP를 학습합니다. 학습 효율을 높이기 위해 서로 다른 Optimizer 설정을 비교하려고 합니다. 이때 초기 Weight나 데이터 순서까지 달라지면 성능 차이의 원인을 판단하기 어렵습니다.
+데이터센터의 전력 사용량을 예측하기 위해 MLP를 학습합니다. 서로 다른 Optimizer 설정에 따른 성능 차이를 비교하되, 초기 Weight나 데이터 순서가 달라지지 않도록 조건을 통제해야 합니다.
 
 **초기 Parameter(파라미터), 데이터 분할, Epoch 수, Batch 순서**를 동일하게 유지하며 두 학습 설정을 비교하는 실험 프로그램을 작성하십시오.
 
@@ -525,7 +525,7 @@ for x_batch, y_batch in train_loader:
 3. 같은 Seed 42로 생성한 초기 `state_dict`를 두 후보에 각각 복사한다. Epoch별 Shuffle 순서도 두 후보에 동일하게 적용한다.
 4. 후보 A는 `SGD(lr=0.02, momentum=0.9)`, 후보 B는 `AdamW(lr=0.01, weight_decay=0.01)`이다. 이 비교는 **Optimizer와 학습률을 포함한 두 설정의 비교** 이지, Optimizer 종류만 바꾸는 통제 실험은 아니다.
 5. Batch Size 16, 최대 30 Epoch, MSELoss로 학습한다. Epoch 평균 Loss는 Sample(샘플) 수를 반영한다.
-6. 매 Epoch의 Validation(검증) RMSE를 기록하고 후보별 최고 Weight를 별도로 보관한다.
+6. 매 Epoch의 Validation(검증) RMSE를 기록하고, 각 후보의 최저 검증 RMSE에 해당하는 Weight를 별도로 보관한다.
 7. 후보별 최저 검증 RMSE를 비교하여 가장 낮은 값을 기록한 설정을 선택한다. 동점이면 후보 A를 선택한다. 선정된 설정의 Best Weight로 테스트 데이터를 한 번만 평가한다.
 
 #### 입력 파일 규격
@@ -556,7 +556,7 @@ E004,test,53,19,0,120
 
 - 첫 Epoch 전에 두 후보의 파라미터가 실제로 동일한지 확인
 - 동일한 샘플 순서를 사용했는지, Optimizer 상태가 후보 간 공유되지 않는지 확인
-- 학습·검증 Loss와 RMSE를 혼동하지 않고 집계했는지 확인
+- 학습 Loss와 검증 RMSE를 구분하여 계산했는지 확인
 - Best Epoch가 마지막 Epoch가 아닐 때도 해당 Weight로 테스트를 수행하는지 확인
 
 #### HELP
@@ -589,7 +589,7 @@ initial_model = make_model()
 <details>
 <summary><strong>STEP 3. 검증 결과 비교</strong></summary>
 
-Epoch별 검증 RMSE와 최적 Weight를 기록합니다. 비교 대상은 Optimizer 종류만이 아니라 학습률까지 포함한 설정이라는 점에 주의합니다.
+각 Epoch의 검증 RMSE를 비교해 후보별 최적 Weight를 보관합니다. 이때 Optimizer 종류뿐 아니라 학습률도 다른 설정이라는 점을 고려합니다.
 
 </details>
 
@@ -608,7 +608,7 @@ Epoch별 검증 RMSE와 최적 Weight를 기록합니다. 비교 대상은 Optim
 
 #### 문제 설명
 
-실험 환경에서 학습한 모델을 다른 담당자가 추론에 사용하려고 합니다. Weight 파일만 전달하면 학습에 사용한 Feature(특성) 순서나 Scaling 기준을 재현하지 못해 예측 결과가 달라질 수 있습니다.
+실험 환경에서 학습한 모델을 다른 담당자가 추론에 사용하려고 합니다. Weight 파일만 전달해서는 학습 당시의 Feature(특성) 순서나 Scaling 기준을 정확히 재현하기 어려우며, 예측 결과도 달라질 수 있습니다.
 
 학습과 추론을 **서로 다른 프로세스로 실행** 하고, 저장·복원 후에도 같은 입력에 대해 일관된 예측을 얻도록 프로그램을 작성하십시오.
 
@@ -676,12 +676,12 @@ feature_order = ["temperature_c", "vibration", "hours_active"]
 <details>
 <summary><strong>STEP 2. 독립 추론 실행</strong></summary>
 
-학습에 사용한 메모리 객체를 재사용하지 않고, 저장된 파일만으로 새 실행에서 모델을 구성합니다. 필요한 파일이 없거나 구조가 맞지 않으면 정상 결과를 출력하지 않습니다.
+학습 프로세스의 메모리 객체를 재사용하지 않고, 저장된 파일만으로 별도의 프로세스에서 모델을 구성합니다. 필요한 파일이 없거나 구조가 맞지 않으면 정상 결과를 출력하지 않습니다.
 
 </details>
 
 <details>
-<summary><strong>STEP 3. 입력 복원</strong></summary>
+<summary><strong>STEP 3. 입력 특성 정렬</strong></summary>
 
 CSV 열의 위치가 아닌 이름을 기준으로 입력 순서를 맞춥니다. 학습 당시와 동일한 Scaling을 적용한 후 추론합니다.
 
@@ -709,9 +709,9 @@ CSV 열의 위치가 아닌 이름을 기준으로 입력 순서를 맞춥니다
 
 #### 문제 설명
 
-여러 사업장에서 설비의 온도, 진동, 경보 횟수를 수집합니다. 정비팀은 향후 7일 이내에 고장 날 위험이 높은 설비를 미리 파악하려고 합니다. 고장 사례는 드물고, 같은 사업장의 장비들은 사용 환경을 공유합니다. 따라서 데이터를 무작위로 분할하면 새로운 사업장에서의 모델 성능을 과대평가할 수 있습니다.
+여러 사업장에서 설비의 온도, 진동, 경보 횟수를 수집합니다. 정비팀은 앞으로 7일 안에 고장이 발생할 가능성이 높은 설비를 파악하려고 합니다. 고장 사례는 드물고, 같은 사업장의 장비들은 사용 환경을 공유합니다. 따라서 데이터를 무작위로 분할하면 새로운 사업장에서의 모델 성능을 과대평가할 수 있습니다.
 
-이번 과제에서는 **PyTorch 학습 파이프라인**을 구축합니다. 클래스 불균형에 대응하는 Loss와 Early Stopping, 사업장 단위 평가, 정비 인력에 맞춘 경보 정책을 하나의 학습·운영 과정으로 연결하십시오.
+**PyTorch 학습 파이프라인**을 구축하고, 클래스 불균형에 대응하는 Loss와 Early Stopping을 적용하십시오. 사업장 단위로 성능을 평가한 뒤, 제한된 정비 인력을 고려한 경보 정책까지 구현해야 합니다.
 
 #### 제공 데이터
 
@@ -732,7 +732,7 @@ CSV 열의 위치가 아닌 이름을 기준으로 입력 순서를 맞춥니다
 | `failure_next_7d` | 관측 뒤 7일 이내 고장 여부(0·1) | Target 전용 |
 | `final_repair_cost` | 고장 이후 확정 수리비 | **특성 사용 금지** |
 
-**`incoming_maintenance.csv`**는 `failure_next_7d`, `final_repair_cost`가 없는 신규 관측 기록입니다. 신규 입력에는 과거 학습 데이터에 없던 `site_id`가 포함될 수 있습니다. `site_id`와 `asset_id`는 모델 입력 특성으로 사용하지 않습니다.
+**`incoming_maintenance.csv`** 는 `failure_next_7d`, `final_repair_cost`가 없는 신규 관측 기록입니다. 신규 입력에는 과거 학습 데이터에 없던 `site_id`가 포함될 수 있습니다. `site_id`와 `asset_id`는 모델 입력 특성으로 사용하지 않습니다.
 
 #### 요구사항
 
@@ -765,7 +765,7 @@ M002,S02,A14,2026-03-01,51,8.2,7,1130,1,230000
 - `incoming_priorities.csv`: `record_id,site_id,asset_id,recorded_date,probability,selected,status` (`SELECTED`, `BELOW_THRESHOLD`, `CAPACITY_LIMIT`, `DUPLICATE_ASSET`)
 - `model_weights.pt`, `preprocessing.json`
 
-평가에서는 특정 수준 이상의 성능 점수를 요구하지 않습니다. 평가 절차의 독립성과 운영 정책의 정확성을 우선합니다.
+평가 점수에 일률적인 하한을 두지는 않습니다. 데이터 분할의 독립성과 운영 정책을 정확히 구현했는지를 함께 확인합니다.
 
 #### 검증 기준
 
@@ -773,7 +773,7 @@ M002,S02,A14,2026-03-01,51,8.2,7,1130,1,230000
 - `pos_weight`와 Scaling에 테스트 또는 Incoming 정보가 섞이지 않았는지 확인
 - Best 검증 Loss가 발생한 Epoch의 Weight를 선택했는지 확인
 - 테스트 성능과 Incoming 우선 검토 목록을 별도 결과로 보관했는지 확인
-- 사업장·날짜별 선정 한도, 동점 규칙, 유효하지 않은 운영 기록의 처리 결과 확인
+- 사업장·날짜별 선정 한도와 동점 규칙, 유효하지 않은 운영 기록의 처리 결과를 확인
 
 #### HELP
 
@@ -811,13 +811,13 @@ M002,S02,A14,2026-03-01,51,8.2,7,1130,1,230000
 
 #### 문제 설명
 
-소형 전력망 운영자는 지역별 다음 날 전력 수요를 예측하여 공급 계획을 조정합니다. 예측 시점 이후에 확정된 수요를 Feature(특성)로 사용하거나 과거와 미래의 기록을 무작위로 섞으면 실제 운영 성능을 반영하지 못하는 평가 결과가 나올 수 있습니다.
+소형 전력망 운영자는 각 지역의 다음 날 전력 수요를 예측해 공급 계획을 조정합니다. 예측 시점 이후에 확정된 수요를 Feature(특성)로 사용하거나 과거와 미래의 기록을 무작위로 섞으면, 평가 결과가 실제 운영 성능을 제대로 반영하지 못할 수 있습니다.
 
-이 과제에서는 미래 정보가 섞이지 않도록 데이터를 날짜별로 분할하고, 전력 수요 예측 MLP의 학습과 Learning Rate Scheduler, 예측 오차 분석, 모델 저장 과정을 하나의 프로그램으로 구현하십시오.
+미래 정보가 섞이지 않도록 데이터를 날짜별로 분할하십시오. 이어서 전력 수요 예측 MLP의 학습, Learning Rate Scheduler 적용, 예측 오차 분석과 모델 저장 기능을 구현하십시오.
 
 #### 제공 데이터
 
-**`microgrid_daily.csv`**에는 다음 열이 포함됩니다.
+**`microgrid_daily.csv`** 에는 다음 열이 포함됩니다.
 
 ```csv
 grid_id,date,energy_kwh,temperature_c,weekday,holiday,alarm_count,next_day_energy_kwh
@@ -829,7 +829,7 @@ G01,2026-01-02,127,7,4,0,0,122
 - 관측 종료 시점에 이용 가능한 특성: `energy_kwh`, `temperature_c`, `weekday`, `holiday`, `alarm_count`
 - Target: `next_day_energy_kwh` (다음 날 확정되는 값)
 - `weekday`는 `0`(월요일)부터 `6`(일요일)까지, `holiday`는 0 또는 1
-- `grid_id,date` 조합은 고유해야 합니다. 실제 파일에는 날짜별로 5개 이상 구역의 기록이 포함됩니다.
+- 같은 `grid_id`와 `date`의 조합이 반복되어서는 안 됩니다. 실제 파일에는 날짜마다 5개 이상 구역의 기록이 포함됩니다.
 
 #### 요구사항
 
@@ -852,7 +852,7 @@ G01,2026-01-02,127,7,4,0,0,122
 - `underprediction_top5.csv`: `grid_id,date,actual,model_prediction,residual`
 - `model_weights.pt`, `preprocessing.json`
 
-예측값·오차는 CSV에서 소수점 넷째 자리로 기록하고, 지표 계산은 반올림 이전 값으로 수행합니다.
+예측값과 오차는 CSV에 소수점 넷째 자리까지 기록합니다. 평가 지표는 반올림 전 값으로 계산합니다.
 
 <!-- 예시 결과 이미지 추가 예정 (정답 코드 실행 후 생성)
 삽입 파일: ./assets/problems/p-02-demand-forecast.png
@@ -904,9 +904,9 @@ Baseline과 모델을 같은 테스트 구간에서 평가합니다. 전체 오�
 
 #### 문제 설명
 
-학생용 CPU 환경에서 모델을 학습해야 하는 팀은 모델 크기와 학습 예산을 신중하게 선택해야 합니다. 큰 모델을 만드는 것 자체가 목적은 아닙니다. 동일한 학습 예산으로 실행 시간을 측정하고, Batch Size가 제한된 상황에서도 Gradient를 정확히 계산하여 성능과 자원 사용량을 함께 비교해야 합니다.
+제한된 CPU 환경에서 모델을 학습하는 팀은 모델 크기와 학습 예산을 신중하게 정해야 합니다. 모델이 크다고 반드시 좋은 결과를 얻는 것은 아닙니다. 같은 학습 예산에서 실행 시간을 측정하고, Batch Size가 제한된 상황에서도 Gradient를 정확히 계산해 성능과 자원 사용량을 함께 비교해야 합니다.
 
-본 문제에서는 두 모델 구조와 두 Batch 처리 전략을 비교하고, 제한된 자원에서 학습 가능한 구성을 결정하십시오.
+두 모델 구조와 두 Batch 처리 전략을 비교하여 제한된 자원에 적합한 구성을 선택하십시오.
 
 #### 제공 데이터
 
@@ -926,8 +926,8 @@ Q004,test,0.1,9,1.5,6,0
 
 1. **모델 후보:** 구조 S는 `Linear(4,8) → ReLU → Linear(8,1)`, 구조 L은 `Linear(4,32) → ReLU → Linear(32,16) → ReLU → Linear(16,1)`이다. 각각의 학습 가능한 Parameter(파라미터) 수를 기록한다.
 2. **실험 조건:** `torch.manual_seed(42)`, CPU, `num_workers=0`을 기준으로 한다. `BCEWithLogitsLoss`와 `AdamW(lr=0.005)`를 사용한다. Train의 전처리 기준과 분할은 모든 후보가 공유한다.
-3. **업데이트 예산:** 각 후보가 최대 **120회 Optimizer Update** 까지만 수행하도록 한다. Epoch 수는 데이터셋 크기에 따라 달라질 수 있으며 Update 횟수로 예산을 비교한다. 같은 후보를 비교할 때는 동일한 초기 Weight와 샘플 순서를 사용한다.
-4. **Effective Batch Size 64:** 방법 A는 가능한 경우 실제 Batch 64를 사용하고, 방법 B는 **Micro-Batch 32개씩 두 번 Gradient를 누적** 한다. 마지막 묶음이 불완전하면 실제 샘플 수를 이용해 Loss를 가중한다.
+3. **업데이트 예산:** 각 후보가 최대 **120회 Optimizer Update**까지만 수행하도록 한다. Epoch 수는 데이터셋 크기에 따라 달라질 수 있으며 Update 횟수로 예산을 비교한다. 같은 후보를 비교할 때는 동일한 초기 Weight와 샘플 순서를 사용한다.
+4. **Effective Batch Size 64:** 방법 A는 가능한 경우 한 번에 최대 64개 샘플을 처리한다. 방법 B는 최대 32개 샘플로 구성된 Micro-Batch를 순차적으로 처리하며, **64개 샘플에 해당하는 Gradient를 누적한 뒤 한 번 업데이트**한다. 마지막 Batch에 남은 샘플이 64개보다 적어도 버리지 않는다. 이때는 실제 샘플 수를 기준으로 평균 Loss를 계산한다.
 5. **Gradient Clipping:** 각 Optimizer Update 직전, 누적된 Gradient에 `clip_grad_norm_(..., max_norm=1.0)`을 한 번 적용한다. Micro-Batch마다 개별 Clipping을 수행하지 않는다.
 6. **비교 결과:** 각 구성에서 Validation(검증) Accuracy와 Loss, Update 수, 파라미터 수, 실제 학습 시간을 기록한다. 단일 실행 시간만으로 판단하지 않도록 **각 설정 3회 측정값의 중앙값**을 기록한다. 시간은 전처리·검증·파일 저장을 제외한 학습 Update 구간에서 측정한다. 측정용 실행에서는 매번 초기 상태를 복원한다.
 7. **모델 선택:** 세 번 실행한 검증 Accuracy의 평균이 가장 높은 설정을 선택하고, 동점이면 중앙 실행 시간이 더 짧은 구성을 선택한다. 중앙값까지 동일하면 구조 S, 그다음 방법 A를 우선한다. 확정 후 테스트 Accuracy·F1을 한 번 계산한다.
@@ -939,9 +939,9 @@ Q004,test,0.1,9,1.5,6,0
 - `comparison.csv`: `architecture,batch_strategy,parameter_count,median_seconds,mean_validation_accuracy`
 - `selected_model.json`: `architecture,batch_strategy,best_validation_accuracy,test_accuracy,test_f1`
 - `gradient_audit.json`: 동일한 초기 Weight·입력에서 실제 Batch와 Micro-Batch로 계산한 Gradient의 최대 절댓값 차이
-- `training_report.md`: 실험 조건, 학습 예산, 경계 Batch 처리, 실제 차이의 해석
+- `training_report.md`: 실험 조건, 학습 예산, 마지막 Batch 처리 방식, 실제 차이의 해석
 
-학습 시간은 CPU 환경에 따라 달라집니다. **특정 초 이하** 를 통과 조건으로 두지 않으며, 빠른 구현이라도 Gradient와 평가 결과가 틀리면 완성으로 간주하지 않습니다.
+학습 시간은 CPU 환경에 따라 달라질 수 있습니다. 실행 시간이 **특정 초 이하**여야 한다는 조건은 없습니다. 다만 빠르게 실행되더라도 Gradient 계산이나 평가 결과가 잘못되었다면 완성으로 인정하지 않습니다.
 
 <!-- 예시 결과 이미지 추가 예정 (정답 코드 실행 후 생성)
 삽입 파일: ./assets/problems/p-03-resource-comparison.png
@@ -952,8 +952,8 @@ Q004,test,0.1,9,1.5,6,0
 #### 검증 기준
 
 - Update 수와 Epoch 수를 혼동하지 않았는지 확인
-- Micro-Batch Loss에 `micro_batch_size / accumulated_sample_count` 계수를 적용했는지 확인
-- Dataset 크기가 64의 배수가 아니어도 손실 없이 샘플을 처리하는지 확인
+- Micro-Batch별 Loss를 실제 샘플 수에 따라 가중하여, 하나의 Effective Batch에 대한 평균 Gradient를 계산했는지 확인
+- Dataset 크기가 64의 배수가 아니어도 마지막 샘플까지 학습에 사용하는지 확인
 - 동일 후보의 반복 실험에서 초기 Weight와 난수 조건을 복원했는지 확인
 - 검증의 설정 선택과 최종 테스트 평가를 분리했는지 확인
 
@@ -969,7 +969,7 @@ Q004,test,0.1,9,1.5,6,0
 <details>
 <summary><strong>STEP 2. Batch 전략과 Gradient 관리</strong></summary>
 
-실제 Batch와 Gradient Accumulation이 같은 유효 샘플 집합을 처리하도록 구성합니다. 불완전한 마지막 묶음의 가중치와 Clipping 시점을 설계합니다.
+실제 Batch와 Gradient Accumulation이 같은 샘플을 처리하도록 구성합니다. 마지막 Batch의 샘플 수가 64개보다 적은 경우에도 해당 샘플을 모두 사용하고, 실제 샘플 수를 반영하여 Loss를 계산합니다. Gradient Clipping은 각 Optimizer Update 직전에 한 번만 적용합니다.
 
 ```python
 # TODO: Effective Batch의 실제 샘플 수를 반영한 Loss 누적
@@ -994,7 +994,7 @@ Q004,test,0.1,9,1.5,6,0
 
 #### 문제 설명
 
-설비 고장 예측 모델을 20 Epoch 동안 학습하는 과정에서 8번째 Epoch 직후 전원이 차단되었습니다. 담당자는 Weight를 저장했기 때문에 이어서 학습할 수 있다고 판단했지만, 재개한 모델의 결과가 중단 없이 학습한 결과와 달랐습니다.
+설비 고장 예측 모델을 총 20 Epoch 동안 학습하던 중, 8번째 Epoch가 끝난 직후 전원이 차단되었습니다. 담당자는 Weight를 저장해 두었으므로 학습을 이어갈 수 있다고 생각했지만, 재개 후 결과는 중단 없이 학습했을 때와 달랐습니다.
 
 기존 프로그램은 아래와 같이 Checkpoint를 저장했습니다.
 
@@ -1011,9 +1011,9 @@ torch.manual_seed(42)
 # Optimizer와 Scheduler를 새로 생성한 상태에서 이어서 학습
 ```
 
-제공된 코드와 실행 이력을 비교하여 중단 후 결과가 달라지는 원인을 파악하십시오. 저장·복원해야 할 상태와 각각의 역할은 복구 보고서에 정리하십시오.
+제공된 코드와 실행 이력을 비교하여 결과가 달라진 원인을 파악하십시오. 복구 보고서에는 저장·복원해야 할 상태와 각 상태의 역할도 정리하십시오.
 
-**목표는 높은 Accuracy가 아니라, 지정한 조건에서 중단 전후의 학습 결과가 연속 실행과 일치하도록 복구하는 것입니다.**
+**목표는 높은 Accuracy를 얻는 것이 아니라, 중단 후 재개한 학습의 결과를 지정된 조건에서 연속 실행 결과와 일치시키는 것입니다.**
 
 #### 제공 데이터와 실행 조건
 
@@ -1041,7 +1041,7 @@ torch.manual_seed(42)
 프로그램은 `train.csv`, `validation.csv`와 선택적으로 저장된 `checkpoint.pt`를 사용합니다. `continuous`, `interrupt`, `resume`, `compare` 실행 모드를 제공하도록 구성할 수 있습니다.
 
 - `continuous_history.csv`: `epoch,train_loss,validation_loss,learning_rate`
-- `resumed_history.csv`: 같은 열 구조. 1 ~ 8 Epoch의 이전 기록과 재개 후 9 ~ 20 Epoch 기록을 이어서 보존
+- `resumed_history.csv`: 같은 열 구조. 1~8 Epoch의 이전 기록과 재개 후 9~20 Epoch의 기록을 이어서 보존
 - `checkpoint.pt`: 재개에 필요한 학습 상태
 - `resume_audit.json`: `completed_epoch`, `resumed_from_epoch`, `max_parameter_diff`, `max_lr_diff`, `matched`
 - `recovery_report.md`: 원인 분석, 복구 방식, 손상된 파일 처리 결과
@@ -1058,7 +1058,7 @@ torch.manual_seed(42)
 }
 ```
 
-위 숫자는 **실행 결과가 일치하는 경우의 형식 예시**이며, 실제 실행에서 관측된 값은 아닙니다.
+위 값은 **출력 형식을 보여 주기 위한 예시**이며, 실제 측정 결과는 아닙니다.
 
 <!-- 예시 결과 이미지 추가 예정 (정답 코드 실행 후 생성)
 삽입 파일: ./assets/problems/c-01-resume-comparison.png
@@ -1105,7 +1105,7 @@ Epoch별 학습 이력과 최종 모델 상태를 비교합니다. 재현성 조
 
 #### 문제 설명
 
-공장의 품질 판정 시스템은 안정적으로 운영되었으나, 입력 CSV를 생성하는 장비가 교체된 이후 예측 점수가 급격히 달라졌습니다. 일부 측정값이 문자열 형식으로 전달되고, Feature(특성) 열의 순서도 바뀌었습니다. 추론 코드에는 평가 모드를 적용하지 않은 문제도 발견되었습니다.
+공장의 품질 판정 시스템은 안정적으로 운영되었지만, 입력 CSV를 생성하는 장비를 교체한 뒤 예측 점수가 급격히 달라졌습니다. 일부 측정값에는 숫자로 변환할 수 없는 문자열이 들어 있었고, Feature(특성) 열의 순서도 바뀌었습니다. 추론 코드가 평가 모드로 실행되지 않은 문제도 확인되었습니다.
 
 아래 코드에는 서로 다른 종류의 위험이 섞여 있습니다.
 
@@ -1118,7 +1118,7 @@ probabilities = torch.sigmoid(model(x))
 probabilities = probabilities.detach().numpy()
 ```
 
-기존 코드와 기준 예측 기록을 비교하여 결과가 달라지는 원인을 구분하십시오. 정상 입력에서 재현되는 오류와 유효하지 않은 입력으로 인한 실패는 별도로 분석합니다.
+기존 코드와 기준 예측 기록을 비교하여 결과가 달라진 원인을 구분하십시오. 정상 입력에서도 발생하는 오류와 유효하지 않은 입력 때문에 생긴 실패를 별도로 분석합니다.
 
 **목표는 예측 결과가 달라진 원인을 파악하고, 신뢰할 수 없는 예측이 자동 판정에 사용되지 않도록 복구 절차를 구현하는 것입니다.**
 
@@ -1137,9 +1137,9 @@ probabilities = probabilities.detach().numpy()
 1. **정확한 원인 분류:** 열 순서 변경, 숫자 형식 오류, Scaling 누락, `train()` 상태, 잘못된 Model(모델) Config를 각각 검증한다. 재현 로그를 남겨 어떤 문제로 예측이 달라졌는지 구분한다.
 2. **Schema 검사:** `incoming.csv`에 `record_id`와 세 특성 열이 모두 있어야 한다. 추가 열은 무시할 수 있으나 필수 열이 하나라도 없으면 전체 추론을 중단하고 `SCHEMA_ERROR`를 기록한다.
 3. **행별 유효성 검사:** `record_id`는 고유한 비어 있지 않은 문자열이어야 한다. 각 특성은 유한한 실수이고, `vibration`, `hours_active`는 0 이상이다. 무효 행은 `INVALID_VALUE`, 유효 ID 중복은 `DUPLICATE_ID`로 분리한다. 무효 행은 ID를 점유하지 않는다.
-4. **정확한 복원:** 모델 설정과 Checkpoint의 Parameter(파라미터) Shape를 확인한다. `torch.load(..., map_location="cpu", weights_only=True)`로 읽고 특성은 **이름 기준** 으로 정렬한다. 저장된 Scaling 기준을 적용하고 `eval()` + `torch.inference_mode()`에서 추론한다.
+4. **정확한 복원:** 모델 설정과 Checkpoint의 Parameter(파라미터) Shape를 확인한다. `torch.load(..., map_location="cpu", weights_only=True)`로 읽고 특성은 **이름 기준**으로 정렬한다. 저장된 Scaling 기준을 적용하고 `eval()` + `torch.inference_mode()`에서 추론한다.
 5. **기준 케이스 비교:** `reference_cases.csv`의 확률과 복원 모델의 확률을 반올림 전 값으로 비교한다. 최대 차이가 `1e-6`을 넘으면 운영 출력을 차단하고 원인을 기록한다.
-6. **분포 변화 경보:** 신규 유효 행이 30개 이상일 때, 하나 이상의 특성 값이 **학습 Range 밖에 있는 행의 비율** 을 계산한다. 비율이 20%를 초과하면 `SHIFT_ALERT`를 기록하고 해당 Batch의 자동 확정을 중단한다. 이 경보는 성능 저하의 증명이 아니라 추가 점검이 필요한 신호이다.
+6. **분포 변화 경보:** 신규 유효 행이 30개 이상일 때, 하나 이상의 특성 값이 **학습 Range 밖에 있는 행의 비율**을 계산한다. 비율이 20%를 초과하면 `SHIFT_ALERT`를 기록하고 해당 Batch의 자동 확정을 중단한다. 이 경보는 성능 저하의 증명이 아니라 추가 점검이 필요한 신호이다.
 7. **안전한 출력:** Schema·모델 복원 오류나 기준 케이스 불일치가 발생하면 이전 정상 `predictions.csv`를 덮어쓰지 않는다. 유효한 추론 결과라도 `SHIFT_ALERT`가 발생하면 점수는 기록하되 상태를 `REVIEW_REQUIRED`로 지정하고 자동 확정은 하지 않는다.
 8. **재현 및 복구:** 정상 입력, 열 순서가 바뀐 입력, 수치 오류, 분포 변화, 잘못된 모델 설정을 테스트하고 복구 전·후 차이를 기록한다.
 
@@ -1168,7 +1168,7 @@ source_line,record_id,error_code
 - `incident_report.json`: `model_version`, `schema_valid`, `reference_max_abs_diff`, `valid_count`, `invalid_count`, `out_of_range_ratio`, `shift_alert`, `automatic_decisions_enabled`
 - `incident_notes.md`: 원인별 재현 과정, 차단·복구 절차, 기준 모델과 결과 비교
 
-입력이 유효하지 않을 때 임의로 0이나 예측 Label을 생성하여 정상 결과처럼 기록해서는 안 됩니다.
+유효하지 않은 행에 임의로 0이나 예측 Label을 채워 정상 결과처럼 기록해서는 안 됩니다.
 
 #### 검증 기준
 
@@ -1183,7 +1183,7 @@ source_line,record_id,error_code
 <details>
 <summary><strong>STEP 1. 장애 상황 재현과 원인 분리</strong></summary>
 
-기준 추론과 장애 입력의 차이를 재현합니다. 입력 형식, 모델 상태, 전처리 조건과 실행 환경에서 발생할 수 있는 오류를 서로 구분합니다.
+기준 입력과 장애가 발생한 입력으로 추론을 반복하여 차이를 확인합니다. 입력 형식, 모델 상태, 전처리 방식, 실행 환경 가운데 어디에서 문제가 발생했는지 구분합니다.
 
 </details>
 
@@ -1347,7 +1347,7 @@ Classification과 Regression을 서로 독립적인 모델로 구성한다. 공�
 | Classification | `Linear(5,16) → ReLU → Linear(16,1)` | `BCEWithLogitsLoss` | Recall, F2, Precision |
 | Regression | `Linear(5,16) → ReLU → Linear(16,1)` | `MSELoss` | MAE, RMSE |
 
-- 두 모델 모두 Dataset·DataLoader를 사용하고 CPU 실행을 기본으로 한다.
+- 두 모델 모두 Dataset·DataLoader를 사용하며 CPU에서 실행하는 것을 기본으로 한다.
 - 1개 Batch는 최대 32개 Sample(샘플)을 포함하고 마지막 Batch를 버리지 않는다.
 - 학습 Loss는 Batch별 단순 평균이 아니라 샘플 수를 반영해 집계한다.
 - Gradient 초기화는 매 Optimizer Update 전에 수행한다.
@@ -1360,7 +1360,7 @@ Classification과 Regression을 서로 독립적인 모델로 구성한다. 공�
 - **v1:** `SGD(lr=0.02, momentum=0.9)`, 최대 24 Epoch
 - **v2:** `AdamW(lr=0.005, weight_decay=0.01)`, 최대 24 Epoch
 
-두 버전은 같은 모델 구조, 초기 Seed 42, DataLoader 순서, 학습·검증 데이터로 시작한다. 단, Optimizer 설정이 다르므로 같은 학습 궤적이나 같은 성능을 기대하는 것은 아니다.
+두 버전은 모델 구조와 초기 Seed 42, DataLoader의 샘플 순서, 학습·검증 데이터를 동일하게 맞춘다. 단, Optimizer 설정이 다르므로 같은 학습 궤적이나 같은 성능을 기대하는 것은 아니다.
 
 v2 학습에는 `StepLR(step_size=8,gamma=0.5)`를 적용한다. 검증 Metric이 개선된 Best Weight를 보관하고 Early Stopping Patience 6을 적용하되, **최소 8 Epoch를 완료한 뒤부터** 중단 조건을 허용한다. v1·v2의 최고 검증 기준은 Classification에서는 F2, Regression에서는 RMSE이다. Classification은 각 Epoch에서 검증의 `[0.30,0.50,0.70]`을 모두 평가하여 F2가 가장 높은 Weight·Threshold 조합을 Best로 보관한다. F2 동점이면 높은 Threshold, 그래도 같으면 이른 Epoch를 선택한다.
 
@@ -1382,14 +1382,14 @@ v1과 v2를 **검증에서만** 비교한다. 배포 승격 규칙을 다음과 
 3. 두 조건을 충족하며 적어도 하나의 지표가 엄격하게 개선되어야 v2를 승격한다.
 4. 이 조건을 만족하지 않으면 v1을 유지한다.
 
-비교는 반올림 전 값으로 수행한다. 선정이 끝나면 **확정한 버전의 두 모델** 로만 평가 A·B의 테스트 점수를 계산한다. 테스트 성능을 기준으로 승격 결정을 바꾸지 않는다.
+비교는 반올림 전 값으로 수행한다. 선정이 끝나면 **확정한 버전의 두 모델**로만 평가 A·B의 테스트 점수를 계산한다. 테스트 성능을 기준으로 승격 결정을 바꾸지 않는다.
 
 **STEP 06 — 운영 추론과 경보 처리**
 
 - `incoming.csv`의 특성을 저장된 이름·순서와 Scaling 기준으로 변환한다.
 - `eval()`과 `torch.inference_mode()`에서 Classification 확률과 Regression 예측값을 계산한다.
 - Classification의 확률이 선정된 Threshold 이상인 기록을 점검 후보로 정한다.
-- **지역(`zone`)·날짜별 최대 3개 시설** 을 확률 내림차순, 동점 시 시설 ID 오름차순으로 선정한다. 나머지는 `BELOW_THRESHOLD` 또는 `CAPACITY_LIMIT`로 표시한다.
+- **지역(`zone`)·날짜별 최대 3개 시설**을 확률 내림차순으로 선정한다. 확률이 같으면 시설 ID 오름차순을 적용한다. 나머지는 `BELOW_THRESHOLD` 또는 `CAPACITY_LIMIT`로 표시한다.
 - 신규 입력에서 한 행이라도 누락값이나 범위 오류가 있으면 해당 행을 거부하며, 유효한 나머지 기록은 별도로 처리한다.
 
 **STEP 07 — 분포 변화 경보와 안전한 배포**
@@ -1399,7 +1399,7 @@ v1과 v2를 **검증에서만** 비교한다. 배포 승격 규칙을 다음과 
 - 해당 비율이 20%를 초과하면 `SHIFT_ALERT`를 기록하고 자동 점검 대상 확정을 중단한다. 예측 점수는 확인용으로 남길 수 있지만 `REVIEW_REQUIRED`로 구분한다.
 - 새 모델의 학습·검증과 Incoming 추론을 모두 통과한 뒤에만 배포 버전 정보를 갱신한다. 배포 정보 파일은 마지막에 교체한다.
 - 모델 파일 손상, Loader 예외, 기준 예측값 불일치 또는 결과 저장 실패가 발생하면 이전 정상 버전의 Weight·전처리 기준·결과를 유지해야 한다.
-- 배포 이후 문제가 확인되면 보존된 이전 정상 버전으로 Rollback할 수 있어야 한다. 이전 버전이 없는 최초 배포에서는 오류 코드 `NO_ROLLBACK_TARGET`을 기록하고, 배포 버전의 변경 이력도 관리한다.
+- 배포 이후 문제가 확인되면 보존된 이전 정상 버전으로 Rollback할 수 있어야 한다. 이전 정상 버전이 없는 상태에서 Rollback을 요청하면 `NO_ROLLBACK_TARGET`을 기록한다. 배포 버전의 변경 이력은 별도로 관리한다.
 
 **STEP 08 — 추론 최적화 및 결과 일치 검증**
 
@@ -1410,13 +1410,13 @@ v1과 v2를 **검증에서만** 비교한다. 배포 승격 규칙을 다음과 
 
 #### 입력 및 출력 규격
 
-프로젝트는 `validate`, `train`, `resume`, `evaluate`, `predict`, `promote`, `rollback`, `benchmark` 등 단계별 명령으로 나누어 실행할 수 있습니다. 내부 코드 구조는 자유롭지만 각 단계는 이전 단계의 산출물에 의존하는 조건을 명확히 검사해야 합니다.
+프로젝트는 `validate`, `train`, `resume`, `evaluate`, `predict`, `promote`, `rollback`, `benchmark` 등 단계별 명령으로 실행할 수 있습니다. 코드 구조는 자유롭게 설계하되, 각 단계에서 필요한 이전 단계의 산출물이 준비되었는지 확인해야 합니다.
 
 **필수 결과물**
 
 | 파일 | 내용 |
 |---|---|
-| `clean_history.csv` | 정상 과거 기록, 날짜·시설 ID 정렬 |
+| `clean_history.csv` | 정상 과거 기록, 날짜·시설 ID 순으로 정렬 |
 | `rejected_rows.csv` | `source_file,source_line,error_code` |
 | `data_audit.json` | 유효·무효 행 수, 오류 코드, 분할 날짜, Holdout Site 목록 |
 | `training_history.csv` | `version,task,epoch,train_loss,validation_metric,learning_rate` |
@@ -1430,7 +1430,7 @@ v1과 v2를 **검증에서만** 비교한다. 배포 승격 규칙을 다음과 
 | `benchmark.json` | 행별·Batch 추론 시간 중앙값, 결과 최대 차이 |
 | `final_report.md` | 실험 설계, 복구·배포 이력, 테스트 평가, 오류 분석 및 성능 비교 |
 
-Classification 평가에는 Accuracy만 제시하지 말고 Precision·Recall·F2·Confusion Matrix를 포함해야 합니다. Regression에는 MAE와 RMSE를 함께 기록하며, 테스트 예측값의 오차가 큰 사례도 분석합니다. 수치 파일에는 소수점 넷째 자리까지 기록할 수 있지만, 모든 비교와 경보 판정은 반올림 전 값으로 수행합니다.
+Classification 평가에는 Accuracy뿐 아니라 Precision·Recall·F2·Confusion Matrix도 포함해야 합니다. Regression에는 MAE와 RMSE를 함께 기록하며, 테스트 예측값의 오차가 큰 사례도 분석합니다. 수치 파일에는 소수점 넷째 자리까지 기록할 수 있지만, 모든 비교와 경보 판정은 반올림 전 값으로 수행합니다.
 
 <!-- 예시 결과 이미지 추가 예정 (정답 코드 실행 후 생성)
 삽입 파일: ./assets/problems/r-01-deployment-evaluation.png
