@@ -3,6 +3,7 @@
 </p>
 
 <div align="center">
+  
 **From Fundamentals to Real-World Applications**
 
 Python의 기본 문법부터 프로그램 설계와 실전 응용까지 단계적으로 학습하는 가이드북입니다.</br>
