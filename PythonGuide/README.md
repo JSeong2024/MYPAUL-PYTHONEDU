@@ -1,9 +1,8 @@
-<div align="center">
-
 <p align="center">
   <img src="banner_PythonGuide.png" width="100%" alt="Python Guide Banner">
 </p>
 
+<div align="center">
 **From Fundamentals to Real-World Applications**
 
 Python의 기본 문법부터 프로그램 설계와 실전 응용까지 단계적으로 학습하는 가이드북입니다.</br>
@@ -159,6 +158,10 @@ Hello, Python!
 - [PEP 8 — Style Guide for Python Code](https://peps.python.org/pep-0008/)
 
 ---
+
+<p align="center">
+  <img src="banner_ONEUL.png" width="50%" alt="ONEUL">
+</p>
 
 <div align="center">
 
