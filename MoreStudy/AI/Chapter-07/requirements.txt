@@ -1,0 +1,6 @@
+# CPU/GPU 환경별 PyTorch 설치는 공식 페이지의 명령을 우선 확인합니다.
+torch>=2.4
+numpy>=1.26
+pandas>=2.0
+scikit-learn>=1.4
+matplotlib>=3.8
