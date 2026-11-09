@@ -1,7 +1,7 @@
 <div align="center">
 
 <p align="center">
-  <img src="banner_PythonGuide.png" width="60%" alt="Python Guide Banner">
+  <img src="banner_PythonGuide.png" width="100%" alt="Python Guide Banner">
 </p>
 
 **From Fundamentals to Real-World Applications**
