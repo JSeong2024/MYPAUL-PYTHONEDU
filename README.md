@@ -90,5 +90,5 @@ Copyright © 2025–2026 Choi Jae-Seong.
 
 
 <p align="center">
-  <img src="/PythonGuide/banner_ONEUL.png" width="10%" alt="ONEUL">
+  <img src="/.github/assets/logo_ONEUL_01.png" width="10%" alt="ONEUL">
 </p>
