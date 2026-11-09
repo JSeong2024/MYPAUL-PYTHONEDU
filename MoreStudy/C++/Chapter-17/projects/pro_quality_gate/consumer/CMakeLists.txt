@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.21)
+project(quality_gate_consumer LANGUAGES CXX)
+find_package(QualityGate 1 CONFIG REQUIRED)
+add_executable(quality_consumer main.cpp)
+target_link_libraries(quality_consumer PRIVATE QualityGate::quality_gate)
