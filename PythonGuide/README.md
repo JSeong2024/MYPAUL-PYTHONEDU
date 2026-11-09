@@ -160,11 +160,5 @@ Hello, Python!
 ---
 
 <p align="center">
-  <img src="banner_ONEUL.png" width="50%" alt="ONEUL">
+  <img src="banner_ONEUL.png" width="10%" alt="ONEUL">
 </p>
-
-<div align="center">
-
-[← MoreStudy](../README.md)
-
-</div>
