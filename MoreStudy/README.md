@@ -22,7 +22,7 @@
 
 | 분야 | 학습 주제 | 주요 내용 | 상태 |
 |:---|:---|:---|:---|
-| 프로그래밍 | [Python 기초 정리](./PythonGuide) | Python&nbsp;문법&nbsp;및&nbsp;핵심&nbsp;개념 | 🔵&nbsp;진행&nbsp;중 |
+| 프로그래밍 | [Python 기초 정리](../PythonGuide) | Python&nbsp;문법&nbsp;및&nbsp;핵심&nbsp;개념 | 🔵&nbsp;진행&nbsp;중 |
 | 프로그래밍 | [C++](./C++) | C++&nbsp;프로그래밍&nbsp;및&nbsp;주요&nbsp;개념 | 🔵&nbsp;진행&nbsp;중 |
 | 정보보안 | [Cybersecurity](./Cybersecurity) | 웹·네트워크&nbsp;보안&nbsp;및&nbsp;CTF&nbsp;실습 | 🔵&nbsp;진행&nbsp;중 |
 | 로봇 공학 | [Robotics](./Robotics) | 로봇&nbsp;공학&nbsp;기초&nbsp;및&nbsp;응용 | 🔵&nbsp;진행&nbsp;중 |
