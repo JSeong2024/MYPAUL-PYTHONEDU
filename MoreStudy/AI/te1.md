@@ -299,18 +299,18 @@ DROPPED 0
 
 #### 문제 설명
 
-시설 운영 시스템은 공간별 온도·습도·전력 사용량을 수집합니다. 센서마다 보정값이 다르고, 일부 기록에는 누락값이나 허용 범위를 벗어난 값이 포함되어 있습니다. 이런 기록까지 집계하면 평균이 왜곡될 수 있으므로 데이터 검증이 먼저 필요합니다.
+시설 운영 시스템은 공간별 온도·습도·전력 사용량을 수집합니다. 측정 항목마다 보정 계수가 다르고, 일부 기록에는 누락값이나 허용 범위를 벗어난 값이 포함되어 있습니다. 이러한 기록까지 집계하면 평균이 왜곡될 수 있으므로 데이터를 먼저 검증해야 합니다.
 
-두 CSV를 읽어 유효한 기록만 Tensor(텐서)로 구성한 뒤, 채널별 보정과 집계 결과를 파일로 저장하는 프로그램을 작성하십시오.
+두 CSV 파일을 읽어 유효한 측정값을 Tensor(텐서)로 구성하고, 특성별 보정과 집계를 수행한 뒤 결과를 파일로 저장하는 프로그램을 작성하십시오.
 
 #### 요구사항
 
-1. `sensor_readings.csv`의 필수 열과 값의 유효성을 검사한다. `record_id`는 공백이 없는 고유 문자열이어야 하며, `room_id`는 비어 있으면 안 된다.
-2. 측정값의 허용 범위는 `-40 ≤ temperature ≤ 100`, `0 ≤ humidity ≤ 100`, `power_kw ≥ 0`이다. 값은 모두 유한한 실수여야 한다.
-3. 오류 우선순위는 **필수값 누락 → 잘못된 숫자 또는 범위 → 유효한 ID 중복** 순서로 정한다. 무효 행은 ID를 점유하지 않는다.
-4. `calibration.csv`에서 세 Feature(특성)의 Offset과 Scale을 읽는다. 특성은 `temperature`, `humidity`, `power_kw`가 정확히 한 번씩 있어야 하며 Scale은 양수이다. 보정식은 `z=(x+offset)*scale`이다.
-5. 정상 측정값을 Shape `(N, 3)`의 `float32` 텐서로 변환하고 Broadcasting으로 보정한다.
-6. `calibrated.csv`, `rejected_rows.csv`, `quality_report.json`을 생성한다. 정상 Sample(샘플)이 5개 미만이면 `calibrated.csv`를 생성하지 않고 부족한 샘플 수를 `quality_report.json`에 기록한 뒤 실패 상태로 종료한다. `rejected_rows.csv`와 `quality_report.json`은 그대로 생성한다.
+1. `sensor_readings.csv`의 필수 열과 각 행의 값을 검사한다. `record_id`는 공백이 포함되지 않은 고유 문자열이어야 하며, `room_id`는 비어 있으면 안 된다. 필수 열이 누락된 파일은 입력 오류로 처리한다.
+2. 측정값의 허용 범위는 `-40 ≤ temperature ≤ 100`, `0 ≤ humidity ≤ 100`, `power_kw ≥ 0`이다. 모든 측정값은 유한한 실수여야 하며 `NaN`, `Infinity`는 허용하지 않는다.
+3. 행별 오류 우선순위는 **필수값 누락 → ID 형식 오류 → 잘못된 숫자 또는 범위 → 유효한 ID 중복** 순서로 정한다. 무효 행의 `record_id`는 중복 검사 대상에 등록하지 않는다.
+4. `calibration.csv`에서 세 Feature(특성)의 Offset과 Scale을 읽는다. `temperature`, `humidity`, `power_kw`가 각각 정확히 한 번씩 있어야 하며, Offset과 Scale은 유한한 실수이고 Scale은 양수여야 한다. 보정식은 `z=(x+offset)*scale`이다. 보정 파일의 조건을 만족하지 않으면 보정을 진행하지 않고 실패 상태로 종료한다.
+5. 정상 측정값을 Shape `(N, 3)`의 `float32` 텐서로 변환하고 Broadcasting으로 보정한다. `N`은 정상 행의 수이며, 특성 순서는 `temperature`, `humidity`, `power_kw`로 고정한다.
+6. `calibrated.csv`, `rejected_rows.csv`, `quality_report.json`을 생성한다. 정상 Sample(샘플)이 5개 미만이면 `calibrated.csv`를 생성하지 않고, 부족한 샘플 수를 `quality_report.json`에 기록한 뒤 실패 상태로 종료한다. 이때도 `rejected_rows.csv`와 `quality_report.json`은 생성한다.
 
 #### 입력 파일 규격
 
@@ -336,31 +336,54 @@ power_kw,0,2
 
 #### 출력 파일 규격
 
-- `calibrated.csv`: `record_id,room_id,temperature,humidity,power_kw` 순서. 정상 행은 원본 순서 유지, 실수는 소수점 넷째 자리까지 기록
-- `rejected_rows.csv`: `source_line,record_id,error_code` 순서. 헤더를 1행으로 세어 입력 행 번호를 기록. 코드는 `MISSING_VALUE`, `INVALID_NUMBER`, `DUPLICATE_ID`
-- `quality_report.json`: `status`, `valid_count`, `rejected_count`, `shape`, `channel_mean`의 다섯 항목. 정상 처리 시 `status`는 `OK`, 샘플이 부족하면 `INSUFFICIENT_DATA`로 기록. `shape`는 `[N,3]`. 정상 샘플이 없으면 `channel_mean`은 `null`, 그 외에는 세 특성의 보정 평균을 기록
+- `calibrated.csv`: `record_id,room_id,temperature,humidity,power_kw` 순서로 기록합니다. 정상 행은 원본 순서를 유지하고, 보정값은 소수점 이하 넷째 자리까지 기록합니다. 정상 샘플이 5개 미만이면 파일을 생성하지 않습니다.
+- `rejected_rows.csv`: `source_line,record_id,error_code` 순서로 기록합니다. `source_line`에는 헤더를 1행으로 계산한 원본 CSV의 행 번호를 기록합니다. 오류 코드는 `MISSING_VALUE`(필수값 누락), `INVALID_ID`(ID 형식 오류), `INVALID_NUMBER`(숫자 변환 실패·비유한 값·범위 위반), `DUPLICATE_ID`(유효한 ID 중복) 중 하나입니다.
+- `quality_report.json`: `status`, `valid_count`, `rejected_count`, `shape`, `channel_mean`, `missing_count`의 여섯 항목을 기록합니다. 정상 샘플이 5개 이상이면 `status`는 `OK`, 5개 미만이면 `INSUFFICIENT_DATA`로 기록합니다. `shape`는 `[N, 3]`이며, `channel_mean`에는 `temperature`, `humidity`, `power_kw` 순서로 보정값의 평균을 기록합니다. 정상 샘플이 없으면 `channel_mean`은 `null`입니다. `missing_count`는 `max(0, 5 - N)`으로 계산합니다.
 
 **예제 처리 결과**
 
-`R01`의 보정값은 `[21,45,6]`, `R02`는 `[23,50,8]`입니다. `R03`은 온도 누락으로 거부됩니다. 이 예시에는 정상 기록이 2개뿐이므로 `calibrated.csv`를 생성하지 않고, `quality_report.json`에 샘플 부족 상태를 기록해야 합니다.
+`R01`의 보정값은 `[21,45,6]`, `R02`는 `[23,50,8]`입니다. `R03`은 온도값이 누락되어 거부됩니다. 정상 샘플이 2개뿐이므로 `calibrated.csv`는 생성하지 않습니다.
+
+`rejected_rows.csv`에는 다음 행이 기록됩니다.
+
+```csv
+source_line,record_id,error_code
+4,R03,MISSING_VALUE
+```
+
+`quality_report.json`에는 샘플 부족 상태와 집계 결과가 기록됩니다.
+
+```json
+{
+  "status": "INSUFFICIENT_DATA",
+  "valid_count": 2,
+  "rejected_count": 1,
+  "shape": [2, 3],
+  "channel_mean": [22.0, 47.5, 7.0],
+  "missing_count": 3
+}
+```
 
 #### 검증 기준
 
-- 정상 행 이전에 등장한 무효 ID가 이후 정상 행을 잘못 차단하지 않는지 확인
-- `NaN`, `Infinity`, 누락 열, 중복 Calibration 특성을 거부하는지 확인
-- 특성 순서를 고정하고 텐서의 행·열 차원을 올바르게 유지하는지 확인
-- 통계는 유효한 보정 데이터만 이용해 계산하는지 확인
+- 무효 행의 `record_id`가 이후 정상 행의 중복 검사에 영향을 주지 않는지 확인
+- 필수 열 누락과 `record_id` 형식 오류, `NaN`, `Infinity`, 측정 범위 위반을 올바르게 처리하는지 확인
+- Calibration 특성의 중복·누락 및 잘못된 Offset·Scale을 거부하는지 확인
+- 특성 순서와 텐서의 Shape `(N, 3)`을 정확하게 유지하는지 확인
+- 유효한 측정값에만 보정을 적용하고, 보정된 데이터로 통계를 계산하는지 확인
+- 정상 샘플이 5개 미만일 때 출력 파일 생성 조건과 실패 상태를 올바르게 처리하는지 확인
 
 #### HELP
 
 <details>
 <summary><strong>STEP 1. 입력 형식 확인</strong></summary>
 
-두 CSV의 필수 열과 자료형을 확인합니다. 숫자 변환 전에 원본 문자열을 보존하면 오류 행을 기록하기 쉽습니다.
+두 CSV 파일의 필수 열과 자료형을 확인합니다. 숫자로 변환하기 전에 원본 문자열을 보존하면 오류 행을 기록하기 쉽습니다. 보정 파일의 특성 목록과 계수도 함께 검사합니다.
 
 ```python
 # TODO: 각 파일의 필수 열 검사
-# TODO: 행별 누락값·숫자·범위 검증
+# TODO: 행별 누락값·ID·숫자·범위 검증
+# TODO: 보정 파일의 특성 및 계수 검사
 ```
 
 </details>
@@ -368,7 +391,7 @@ power_kw,0,2
 <details>
 <summary><strong>STEP 2. 정상·오류 기록 분리</strong></summary>
 
-유효성 검사에서 통과한 행과 거부한 행을 분리합니다. 거부된 행의 ID 때문에 이후의 정상 기록이 중복으로 처리되지 않도록 검사 순서를 설계합니다.
+검사를 통과한 행과 거부된 행을 분리합니다. 거부된 행의 ID 때문에 이후 정상 기록이 중복으로 처리되지 않도록 검사 순서를 설계합니다.
 
 ```python
 # TODO: 유효한 record_id만 중복 검사에 등록
@@ -380,7 +403,7 @@ power_kw,0,2
 <details>
 <summary><strong>STEP 3. 텐서 변환과 보정</strong></summary>
 
-특성 순서를 고정한 후 값과 채널별 보정 계수를 텐서로 구성합니다. 보정 연산과 채널별 평균 계산은 직접 구현합니다.
+특성 순서를 고정한 후 측정값과 특성별 보정 계수를 텐서로 구성합니다. Broadcasting을 이용한 보정과 채널별 평균 계산을 직접 구현합니다.
 
 ```python
 features = ["temperature", "humidity", "power_kw"]
@@ -396,7 +419,7 @@ values = torch.tensor(valid_df[features].to_numpy(dtype="float32"))
 <details>
 <summary><strong>STEP 4. 출력 및 일관성 확인</strong></summary>
 
-정상 행의 원래 순서, 결과 CSV의 행 수, 오류 코드별 건수, 보고서의 집계값을 확인합니다. 정상 샘플이 부족한 경우의 종료 규칙도 함께 적용합니다.
+정상 행의 원본 순서, 결과 CSV의 행 수, 거부된 행의 수, 보고서의 집계값을 확인합니다. 정상 샘플이 5개 미만이면 부족한 수를 기록하고 지정된 출력 파일만 생성한 뒤 실패 상태로 종료합니다.
 
 </details>
 
