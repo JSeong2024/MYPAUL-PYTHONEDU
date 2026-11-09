@@ -85,7 +85,7 @@ Specialized Topics
 
 | 분야 | 자료 | 주요 내용 |
 |---|---|---|
-| 데이터 처리 | [Data Processing](../Data_Processing/) | 데이터 수집·정제·변환 및 처리 자동화 |
+| 데이터 처리 | [Data Processing](./MoreStudy/Data_Processing/) | 데이터 수집·정제·변환 및 처리 자동화 |
 | 데이터 시각화 | [Data Visualization](../Data_Visualization/) | Matplotlib, Seaborn, Plotly, 대시보드 |
 | 인공지능 | [Artificial Intelligence](../AI/) | 머신러닝, 딥러닝, PyTorch 및 AI 응용 |
 | 컴퓨터 비전 | [Computer Vision](../Computer_Vision/) | 이미지·영상 처리 및 객체 인식 |
