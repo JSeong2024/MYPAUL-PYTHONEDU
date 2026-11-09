@@ -4,8 +4,8 @@
 
 **From Fundamentals to Real-World Applications**
 
-Python의 기본 문법부터 프로그램 설계와 실전 활용까지 단계적으로 다루는 학습 자료입니다.  
-개념 설명과 실행 예제를 바탕으로 직접 코드를 작성하고, 연습문제와 프로젝트를 통해 배운 내용을 확인할 수 있습니다.
+Python의 기본 문법부터 프로그램 설계와 실전 응용까지 단계적으로 학습하는 가이드북입니다.
+개념 설명과 예제를 통해 학습한 내용을 이해하고, 연습문제와 프로젝트를 통해 직접 활용해 볼 수 있습니다.
 
 <p>
   <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python">
