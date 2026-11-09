@@ -1,0 +1,32 @@
+cmake_minimum_required(VERSION 3.23)
+project(AdvancedPipeline VERSION 1.0.0 LANGUAGES CXX)
+
+option(PIPELINE_BUILD_TESTS "Build pipeline tests" ON)
+option(PIPELINE_VERBOSE "Enable optional diagnostics" OFF)
+
+add_library(pipeline_core STATIC src/pipeline.cpp)
+add_library(Pipeline::Core ALIAS pipeline_core)
+target_compile_features(pipeline_core PUBLIC cxx_std_20)
+target_include_directories(pipeline_core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_compile_definitions(pipeline_core PRIVATE $<$<BOOL:${PIPELINE_VERBOSE}>:PIPELINE_VERBOSE>)
+set_target_properties(pipeline_core PROPERTIES CXX_EXTENSIONS OFF)
+
+add_executable(pipeline_cli src/main.cpp)
+target_link_libraries(pipeline_cli PRIVATE Pipeline::Core)
+
+if(PIPELINE_BUILD_TESTS)
+    enable_testing()
+    add_executable(pipeline_tests tests/test_pipeline.cpp)
+    target_link_libraries(pipeline_tests PRIVATE Pipeline::Core)
+    add_test(NAME pipeline_logic COMMAND pipeline_tests)
+    add_test(NAME pipeline_sample COMMAND pipeline_cli ${CMAKE_CURRENT_SOURCE_DIR}/data/measurements.csv)
+    set_tests_properties(pipeline_sample PROPERTIES PASS_REGULAR_EXPRESSION "accepted=4 rejected=1")
+endif()
+
+foreach(target pipeline_core pipeline_cli)
+    if(MSVC)
+        target_compile_options(${target} PRIVATE /W4 /EHsc /permissive- /utf-8)
+    else()
+        target_compile_options(${target} PRIVATE -Wall -Wextra -Wpedantic)
+    endif()
+endforeach()

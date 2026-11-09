@@ -1,0 +1,6 @@
+A,20,ok
+B,91,ok
+A,40,bad
+A,70,ok
+BROKEN,abc,ok
+B,8,ok

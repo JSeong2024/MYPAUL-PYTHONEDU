@@ -1,0 +1,28 @@
+cmake_minimum_required(VERSION 3.23)
+project(device_report VERSION 1.0.0 LANGUAGES CXX)
+
+add_library(device_core STATIC src/report.cpp)
+add_library(Device::Core ALIAS device_core)
+target_compile_features(device_core PUBLIC cxx_std_20)
+target_include_directories(device_core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+set_target_properties(device_core PROPERTIES CXX_EXTENSIONS OFF)
+
+add_executable(device_report app/main.cpp)
+target_link_libraries(device_report PRIVATE Device::Core)
+
+include(CTest)
+if(BUILD_TESTING)
+    add_executable(device_report_tests tests/report_tests.cpp)
+    target_link_libraries(device_report_tests PRIVATE Device::Core)
+    add_test(NAME device_report_logic COMMAND device_report_tests)
+    add_test(NAME device_report_output COMMAND device_report)
+    set_tests_properties(device_report_output PROPERTIES PASS_REGULAR_EXPRESSION "Records: 3, Alerts: 1, Total: 185")
+endif()
+
+foreach(target device_core device_report)
+    if(MSVC)
+        target_compile_options(${target} PRIVATE /W4 /EHsc /permissive- /utf-8)
+    else()
+        target_compile_options(${target} PRIVATE -Wall -Wextra -Wpedantic)
+    endif()
+endforeach()

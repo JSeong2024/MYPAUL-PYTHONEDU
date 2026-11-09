@@ -1,0 +1,11 @@
+build/
+out/
+CMakeUserPresets.json
+*.exe
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dll
+*.dylib
