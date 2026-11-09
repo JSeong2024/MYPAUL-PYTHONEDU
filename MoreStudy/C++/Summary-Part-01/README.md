@@ -10,7 +10,7 @@ Chapter 01부터 11까지 학습한 핵심 내용을 유기적으로 연결해 �
 |:---|:---|
 | [Quiz](./quiz.md) | 객관식 12문항, 주관식·서술형 8문항과 정답 및 해설 |
 | [Problems](./problem.md) | Basic 6, Advanced 5, Challenge 3, Radiant 1문제 |
-| [HTML 문제집]([./Summary-Part-01.html](https://jseong2024.github.io/MYPAUL-PYTHONEDU/MoreStudy/C%2B%2B/Summary-Part-01/Summary-Part-01.html)) | 문제별 이동, 객관식 선택, 해설 및 구현 가이드 |
+| [HTML 문제집](https://jseong2024.github.io/MYPAUL-PYTHONEDU/MoreStudy/C%2B%2B/Summary-Part-01/Summary-Part-01.html) | 문제별 이동, 객관식 선택, 해설 및 구현 가이드 |
 | [학생용 코드](./exercises/) | 각 문제의 미완성 코드 |
 | [모범답안](./solutions/) | 독립적으로 실행 가능한 정답 코드 |
 | [자동 검증](./tests/check.py) | 컴파일·입출력·파일 결과 테스트 |
