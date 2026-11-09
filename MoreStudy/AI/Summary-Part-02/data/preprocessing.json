@@ -1,0 +1,28 @@
+{
+  "feature_order": [
+    "temperature_c",
+    "vibration",
+    "hours_active"
+  ],
+  "mean": [
+    34.0,
+    4.0,
+    300.0
+  ],
+  "scale": [
+    8.0,
+    2.5,
+    130.0
+  ],
+  "threshold": 0.5,
+  "training_min": [
+    18.0,
+    0.0,
+    80.0
+  ],
+  "training_max": [
+    55.0,
+    11.0,
+    750.0
+  ]
+}

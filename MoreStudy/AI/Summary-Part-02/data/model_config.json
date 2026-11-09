@@ -1,0 +1,7 @@
+{
+  "input_dim": 3,
+  "hidden_dim": 8,
+  "output_dim": 1,
+  "model_version": "v1",
+  "activation": "relu"
+}

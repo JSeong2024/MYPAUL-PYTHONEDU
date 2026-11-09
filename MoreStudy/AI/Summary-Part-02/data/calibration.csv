@@ -1,0 +1,4 @@
+feature,offset,scale
+temperature,1,1
+humidity,-5,1
+power_kw,0,2
