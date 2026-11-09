@@ -229,12 +229,13 @@ prob_urgent = model.predict_proba(X_test)[:, 1]
 
 모델의 확률 추정치를 Label로 변환하려면 **분류 임계값(Decision Threshold)** 이 필요합니다. Binary Classification의 일반적인 기본값은 $0.5$입니다.
 
-$$
-\hat{y}=\begin{cases}
-1 & \text{if } \hat{p}\ge t\\
-0 & \text{if } \hat{p}<t
+```math
+\hat{y} =
+\begin{cases}
+1 & \text{if } \hat{p} \ge t \\
+0 & \text{if } \hat{p} < t
 \end{cases}
-$$
+```
 
 - $t$: Decision Threshold
 - $\hat{p}$: 클래스 1의 확률 추정치
