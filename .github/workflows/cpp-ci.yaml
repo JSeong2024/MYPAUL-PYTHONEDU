@@ -105,6 +105,16 @@ jobs:
             "$CPP_ROOT/Chapter-12/examples/17_device_session"
             "$CPP_ROOT/Chapter-13/examples/17_telemetry_pipeline"
             "$CPP_ROOT/Chapter-14/examples/17_sensor_dispatcher"
+            "$CPP_ROOT/Chapter-15/examples/17_sensor_batch_analyzer"
+            "$CPP_ROOT/Chapter-16/examples/17_device_report"
+            "$CPP_ROOT/Chapter-16/solutions/advanced_pipeline"
+            "$CPP_ROOT/Chapter-16/solutions/pro_sensor_sdk"
+            "$CPP_ROOT/Chapter-17/examples/17_device_validator"
+            "$CPP_ROOT/Chapter-17/solutions/advanced_event_audit"
+            "$CPP_ROOT/Chapter-17/solutions/pro_quality_gate"
+            "$CPP_ROOT/Chapter-18/examples/17_loopback_echo"
+            "$CPP_ROOT/Chapter-18/solutions/advanced_telemetry_server"
+            "$CPP_ROOT/Chapter-18/solutions/pro_loopback_sdk"
           )
           build_root="$(mktemp -d)"
           trap 'rm -rf "$build_root"' EXIT
@@ -127,11 +137,11 @@ jobs:
             echo '::endgroup::'
           done
 
-      - name: Run Chapter 01-14 behavior tests
+      - name: Run Chapter 01-18 behavior tests
         shell: bash
         run: |
           set -euo pipefail
-          for number in {1..14}; do
+          for number in {1..18}; do
             printf -v chapter '%s/Chapter-%02d' "$CPP_ROOT" "$number"
             check="$chapter/tests/check.py"
             if [[ ! -f "$check" ]]; then
@@ -140,7 +150,7 @@ jobs:
             fi
             echo "::group::$chapter"
             case "$number" in
-              1|2|3|10|11|12|13|14)
+              1|2|3|10|11|12|13|14|15|16|17|18)
                 python3 "$check" --compiler "$CXX"
                 ;;
               *)
