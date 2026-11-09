@@ -85,12 +85,12 @@ Specialized Topics
 
 | 분야 | 자료 | 주요 내용 |
 |---|---|---|
-| 데이터 처리 | [Data Processing](./MoreStudy/Data_Processing/) | 데이터 수집·정제·변환 및 처리 자동화 |
-| 데이터 시각화 | [Data Visualization](../Data_Visualization/) | Matplotlib, Seaborn, Plotly, 대시보드 |
-| 인공지능 | [Artificial Intelligence](../AI/) | 머신러닝, 딥러닝, PyTorch 및 AI 응용 |
-| 컴퓨터 비전 | [Computer Vision](../Computer_Vision/) | 이미지·영상 처리 및 객체 인식 |
-| 로봇 공학 | [Robotics](../Robotics/) | 센서, 제어 및 로봇 프로그래밍 |
-| 자율주행 | [Autonomous Driving](../Autonomous_Driving/) | 경로 계획, 인지 및 시뮬레이션 |
+| 데이터 처리 | [Data Processing](../MoreStudy/Data_Processing/) | 데이터 수집·정제·변환 및 처리 자동화 |
+| 데이터 시각화 | [Data Visualization](../MoreStudy/Data_Visualization/) | Matplotlib, Seaborn, Plotly, 대시보드 |
+| 인공지능 | [Artificial Intelligence](../MoreStudy/AI/) | 머신러닝, 딥러닝, PyTorch 및 AI 응용 |
+| 컴퓨터 비전 | [Computer Vision](../MoreStudy/Computer_Vision/) | 이미지·영상 처리 및 객체 인식 |
+| 로봇 공학 | [Robotics](../MoreStudy/Robotics/) | 센서, 제어 및 로봇 프로그래밍 |
+| 자율주행 | [Autonomous Driving](../MoreStudy/Autonomous_Driving/) | 경로 계획, 인지 및 시뮬레이션 |
 
 ## Learning Materials
 
