@@ -1,0 +1,12 @@
+# Build outputs and local profiling artifacts
+build/
+cmake-build-*/
+*.o
+*.obj
+*.exe
+*.out
+*.profraw
+*.profdata
+*.gcda
+*.gcno
+perf.data*
