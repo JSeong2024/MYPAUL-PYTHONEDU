@@ -161,5 +161,5 @@ Hello, Python!
 ---
 
 <p align="center">
-  <img src="banner_ONEUL.png" width="10%" alt="ONEUL">
+  <img src="../.github/assets/logo_ONEUL_01.png" width="10%" alt="ONEUL">
 </p>
