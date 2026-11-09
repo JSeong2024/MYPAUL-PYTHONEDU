@@ -93,3 +93,70 @@ jobs:
             "$CPP_ROOT/Chapter-08/examples/13_device_registry.cpp" \
             -o "$build_dir/device_registry"
           "$build_dir/device_registry"
+
+      - name: Build CMake projects and run CTest
+        shell: bash
+        run: |
+          set -euo pipefail
+          projects=(
+            "$CPP_ROOT/Chapter-09/examples/16_robot_monitor"
+            "$CPP_ROOT/Chapter-10/examples/17_event_summary"
+            "$CPP_ROOT/Chapter-11/examples/17_sensor_report"
+            "$CPP_ROOT/Chapter-12/examples/17_device_session"
+            "$CPP_ROOT/Chapter-13/examples/17_telemetry_pipeline"
+            "$CPP_ROOT/Chapter-14/examples/17_sensor_dispatcher"
+          )
+          build_root="$(mktemp -d)"
+          trap 'rm -rf "$build_root"' EXIT
+
+          for project in "${projects[@]}"; do
+            echo "::group::$project"
+            if [[ ! -f "$project/CMakeLists.txt" ]]; then
+              echo "Missing CMake project: $project" >&2
+              exit 1
+            fi
+            build_dir="$build_root/$(basename "$project")"
+            cmake -S "$project" -B "$build_dir" \
+              -DCMAKE_CXX_COMPILER="$CXX" \
+              -DCMAKE_CXX_STANDARD=20 \
+              -DCMAKE_CXX_STANDARD_REQUIRED=ON \
+              -DCMAKE_CXX_EXTENSIONS=OFF \
+              -DCMAKE_BUILD_TYPE=Release
+            cmake --build "$build_dir" --parallel 2
+            ctest --test-dir "$build_dir" --output-on-failure --no-tests=error
+            echo '::endgroup::'
+          done
+
+      - name: Run Chapter 01-14 behavior tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          for number in {1..14}; do
+            printf -v chapter '%s/Chapter-%02d' "$CPP_ROOT" "$number"
+            check="$chapter/tests/check.py"
+            if [[ ! -f "$check" ]]; then
+              echo "Missing chapter test script: $check" >&2
+              exit 1
+            fi
+            echo "::group::$chapter"
+            case "$number" in
+              1|2|3|10|11|12|13|14)
+                python3 "$check" --compiler "$CXX"
+                ;;
+              *)
+                python3 "$check"
+                ;;
+            esac
+            echo '::endgroup::'
+          done
+
+      - name: Run Summary Part 01 problem tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          check="$CPP_ROOT/Summary-Part-01/tests/check.py"
+          if [[ ! -f "$check" ]]; then
+            echo "Missing summary test script: $check" >&2
+            exit 1
+          fi
+          python3 "$check" --compiler "$CXX"
