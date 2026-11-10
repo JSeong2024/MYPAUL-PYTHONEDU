@@ -161,5 +161,15 @@ Hello, Python!
 ---
 
 <p align="center">
-  <img src="../.github/assets/logo_ONEUL_01.png" width="10%" alt="ONEUL">
+  <sub>© 2026 Choi Jae-Seong · ONEUL</sub>
+  <br>
+  <sub>
+    Educational Content ·
+    <a href="../../LICENSE-CONTENT.md">CC BY-NC 4.0</a>
+  </sub>
+</p>
+
+<p align="center">
+  <img src="../../.github/assets/logo_ONEUL_01.png"
+       width="90" alt="ONEUL">
 </p>
