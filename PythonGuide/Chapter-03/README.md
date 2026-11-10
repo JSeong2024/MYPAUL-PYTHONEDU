@@ -538,7 +538,7 @@ print("안녕하세요, {name}님!")
 ## References
 
 - [Python Documentation — Built-in Functions](https://docs.python.org/3/library/functions.html)
-- [Python Tutorial — Input and Output](https://docs.python.org/3/tutorial/inputoutput.html)
+- [Python Tutorial — Input and Output](https://docs.python.org/ko/3.15/tutorial/inputoutput.html)
 - [Python Language Reference — Formatted String Literals](https://docs.python.org/3/reference/lexical_analysis.html#f-strings)
 - [Python Documentation — Format Specification Mini-Language](https://docs.python.org/3/library/string.html#format-specification-mini-language)
 
