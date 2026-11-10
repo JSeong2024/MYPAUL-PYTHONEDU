@@ -653,7 +653,23 @@ print(total)
 ---
 
 <p align="center">
-  <img src="https://github.com/JSeong2024/MYPAUL-PYTHONEDU/blob/main/.github/assets/logo_ONEUL_01.png" width="10%" alt="ONEUL">
+  <a href="../Chapter-01/">← Chapter 01</a>
+  &nbsp;·&nbsp;
+  <a href="../README.md">Python Guide</a>
+  &nbsp;·&nbsp;
+  <a href="../Chapter-03/">Chapter 03 →</a>
 </p>
 
-[← Python Guide](../README.md)
+<p align="center">
+  <sub>© 2026 Choi Jae-Seong · ONEUL</sub>
+  <br>
+  <sub>
+    Educational Content ·
+    <a href="../../LICENSE-CONTENT.md">CC BY-NC 4.0</a>
+  </sub>
+</p>
+
+<p align="center">
+  <img src="../../.github/assets/logo_ONEUL_01.png"
+       width="90" alt="ONEUL">
+</p>
