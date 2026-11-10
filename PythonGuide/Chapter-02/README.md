@@ -653,7 +653,7 @@ print(total)
 ---
 
 <p align="center">
-  <img src="../.github/assets/logo_ONEUL_01.png" width="10%" alt="ONEUL">
+  <img src="https://github.com/JSeong2024/MYPAUL-PYTHONEDU/blob/main/.github/assets/logo_ONEUL_01.png" width="10%" alt="ONEUL">
 </p>
 
 [← Python Guide](../README.md)
