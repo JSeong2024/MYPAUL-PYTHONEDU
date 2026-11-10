@@ -29,8 +29,8 @@ Python의 기본 문법부터 프로그램 설계와 실전 응용까지 단계�
 | Chapter | Topic | 주요 내용 |
 |:---:|---|---|
 | 01 | **Introduction to Python** | Python 소개, 개발 환경, 첫 프로그램 실행 |
-| 02 | **Variables, Data Types & Operators** | 변수, 자료형, 산술·비교·논리 연산자 |
-| 03 | **Input, Output & String Formatting** | `print()`, `input()`, 형 변환, f-string |
+| [02](./Chapter-02) | **Variables, Data Types & Operators** | 변수, 자료형, 산술·비교·논리 연산자 |
+| [03](./Chapter-03) | **Input, Output & String Formatting** | `print()`, `input()`, 형 변환, f-string |
 | 04 | **Python Data Structures** | List, Tuple, Dictionary, Set, 데이터 접근과 수정 |
 | 05 | **Conditional Statements** | `if`, `elif`, `else`, 조건식과 중첩 조건문 |
 | 06 | **Loops & Iteration** | `for`, `while`, `range()`, 반복 제어 |
