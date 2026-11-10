@@ -170,6 +170,6 @@ Hello, Python!
 </p>
 
 <p align="center">
-  <img src="../../.github/assets/logo_ONEUL_01.png"
+  <img src="../.github/assets/logo_ONEUL_01.png"
        width="90" alt="ONEUL">
 </p>
