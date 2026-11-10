@@ -652,4 +652,8 @@ print(total)
 
 ---
 
+<p align="center">
+  <img src="../.github/assets/logo_ONEUL_01.png" width="10%" alt="ONEUL">
+</p>
+
 [← Python Guide](../README.md)
