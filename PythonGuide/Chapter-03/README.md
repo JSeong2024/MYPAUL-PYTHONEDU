@@ -565,12 +565,3 @@ print("안녕하세요, {name}님!")
   <img src="../../.github/assets/logo_ONEUL_01.png"
        width="90" alt="ONEUL">
 </p>
-
-<p align="center">
-  <sub>© 2026 Choi Jae-Seong · ONEUL</sub>
-  <br>
-  <sub>
-    Educational Content ·
-    <a href="../../LICENSE-CONTENT.md">CC BY-NC 4.0</a>
-  </sub>
-</p>
