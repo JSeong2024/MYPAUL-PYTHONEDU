@@ -28,10 +28,10 @@ AI와 머신러닝의 차이를 이해하고, 데이터에서 규칙을 학습�
 
 | Chapter | Topic |
 |:---:|---|
-| 01 | **Introduction to Artificial Intelligence** — AI의 개념과 범위, 머신러닝·딥러닝의 관계, 활용 사례와 한계 |
-| 02 | **Machine Learning Fundamentals** — 데이터와 특징(Feature), 학습·예측 흐름, 기본 모델과 손실 함수 |
-| 03 | **Supervised & Unsupervised Learning** — 회귀·분류, 군집화, 데이터 분할과 학습 방식의 차이 |
-| 04 | **Model Evaluation & Optimization** — 평가 지표, 과적합, 교차 검증, 하이퍼파라미터와 모델 개선 |
+| [01](./Chapter-01/README.md) | **Introduction to Artificial Intelligence** — AI의 개념과 범위, 머신러닝·딥러닝의 관계, 활용 사례와 한계 |
+| [02](./Chapter-02/README.md) | **Machine Learning Fundamentals** — 데이터와 특징(Feature), 학습·예측 흐름, 기본 모델과 손실 함수 |
+| [03](./Chapter-03/README.md) | **Supervised & Unsupervised Learning** — 회귀·분류, 군집화, 데이터 분할과 학습 방식의 차이 |
+| [04](./Chapter-04/README.md) | **Model Evaluation & Optimization** — 평가 지표, 과적합, 교차 검증, 하이퍼파라미터와 모델 개선 |
 
 ### Part 2 — Deep Learning with PyTorch
 
@@ -39,9 +39,9 @@ AI와 머신러닝의 차이를 이해하고, 데이터에서 규칙을 학습�
 
 | Chapter | Topic |
 |:---:|---|
-| 05 | **PyTorch Fundamentals** — Tensor, 연산, Autograd, Dataset과 DataLoader |
-| 06 | **Neural Networks & Deep Learning** — 퍼셉트론, 활성화 함수, 다층 신경망, 순전파·역전파 |
-| 07 | **Model Training & Optimization** — Loss Function, Gradient Descent, Optimizer, 학습률과 학습 안정성 |
+| [05](./Chapter-05/README.md) | **PyTorch Fundamentals** — Tensor, 연산, Autograd, Dataset과 DataLoader |
+| [06](./Chapter-06/README.md) | **Neural Networks & Deep Learning** — 퍼셉트론, 활성화 함수, 다층 신경망, 순전파·역전파 |
+| [07](./Chapter-07/README.md) | **Model Training & Optimization** — Loss Function, Gradient Descent, Optimizer, 학습률과 학습 안정성 |
 
 ### Part 3 — Modern AI Architectures
 
@@ -49,9 +49,9 @@ AI와 머신러닝의 차이를 이해하고, 데이터에서 규칙을 학습�
 
 | Chapter | Topic |
 |:---:|---|
-| 08 | **Computer Vision & CNN** — 이미지 데이터, 합성곱 신경망, 이미지 분류와 특징 추출 |
-| 09 | **Natural Language Processing** — 텍스트 전처리, 토큰화, 임베딩과 언어 데이터의 표현 |
-| 10 | **Transformers & Large Language Models** — Attention, Transformer 구조, 사전 학습과 텍스트 생성 |
+| [08](./Chapter-08/README.md) | **Computer Vision & CNN** — 이미지 데이터, 합성곱 신경망, 이미지 분류와 특징 추출 |
+| [09](./Chapter-09/README.md) | **Natural Language Processing** — 텍스트 전처리, 토큰화, 임베딩과 언어 데이터의 표현 |
+| [10](./Chapter-10/README.md) | **Transformers & Large Language Models** — Attention, Transformer 구조, 사전 학습과 텍스트 생성 |
 
 ### Part 4 — AI Applications & Engineering
 
@@ -59,9 +59,9 @@ AI와 머신러닝의 차이를 이해하고, 데이터에서 규칙을 학습�
 
 | Chapter | Topic |
 |:---:|---|
-| 11 | **Pretrained Models & Fine-Tuning** — 사전 학습 모델 활용, 전이 학습, Fine-Tuning과 경량화 기법 |
-| 12 | **Retrieval-Augmented Generation (RAG)** — 문서 분할, 임베딩, 검색, 검색 결과를 활용한 응답 생성 |
-| 13 | **Model Inference, Evaluation & Deployment** — 추론 흐름, 품질·성능 평가, 모델 제공과 운영 시 고려사항 |
+| [11](./Chapter-11/README.md) | **Pretrained Models & Fine-Tuning** — 사전 학습 모델 활용, 전이 학습, Fine-Tuning과 경량화 기법 |
+| [12](./Chapter-12/README.md) | **Retrieval-Augmented Generation (RAG)** — 문서 분할, 임베딩, 검색, 검색 결과를 활용한 응답 생성 |
+| [13](./Chapter-13/README.md) | **Model Inference, Evaluation & Deployment** — 추론 흐름, 품질·성능 평가, 모델 제공과 운영 시 고려사항 |
 
 ### Part 5 — Artificial Intelligence Project
 
@@ -69,7 +69,7 @@ AI와 머신러닝의 차이를 이해하고, 데이터에서 규칙을 학습�
 
 | Chapter | Topic |
 |:---:|---|
-| 14 | **AI Projects & Challenges** — 종합 프로젝트, 성능 개선, 모델 평가, 복합 문제 해결 |
+| [14](./Chapter-14/README.md) | **AI Projects & Challenges** — 종합 프로젝트, 성능 개선, 모델 평가, 복합 문제 해결 |
 
 ## Learning Path
 
