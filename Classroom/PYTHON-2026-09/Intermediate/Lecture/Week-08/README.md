@@ -547,72 +547,78 @@ print("Generated Text:\n", answer)
 
 ## Quiz
 
-**Q1.** 딥러닝은 머신러닝의 한 분야인가요? 그 이유를 한 문장으로 작성해 보세요.
+**Q1.** Deep Learning(딥러닝)은 Machine Learning(머신러닝)의 한 분야인가요? 그 이유를 한 문장으로 작성하시오.
 
-**Q2.** 인공신경망의 입력층, 은닉층, 출력층이 맡는 역할을 각각 설명해 보세요.
+**Q2.** 인공신경망(Neural Network)에서 **입력층(Input Layer), 은닉층(Hidden Layer), 출력층(Output Layer)**이 맡는 역할을 각각 설명하시오.
 
-**Q3.** 다음 코드에서 `nn.Linear(64, 10)`의 `64`와 `10`이 뜻하는 바를 설명해 보세요.
-
+**Q3.** PyTorch 코드에서 `nn.Linear(64, 10)`의 `64`와 `10`이 뜻하는 바를 각각 설명하시오.
 ```python
 nn.Linear(64, 10)
 ```
 
-**Q4.** `loss.backward()`와 `optimizer.step()`은 각각 어떤 역할을 수행하는지 설명해 보세요.
+**Q4.** 딥러닝 학습 과정에서 `loss.backward()`와 `optimizer.step()`은 각각 어떤 역할을 수행하는지 설명하시오.
 
-**Q5.** 학습 Loss가 감소하면 테스트 정확도도 반드시 증가하나요? 이유를 설명해 보세요.
+**Q5.** 학습 손실(`Train Loss`)이 계속 감소하면 평가 정확도(`Test Accuracy`)도 반드시 증가하나요? 그 이유를 함께 설명하시오.
 
-**Q6.** `model.eval()`을 사용해야 하는 상황을 선택하세요.
+**Q6.** 다음 중 `model.eval()`을 사용해야 하는 상황으로 가장 적절한 것을 고르시오.
+- ① 모델의 가중치(Weight)를 처음 생성할 때
+- ② 학습이 끝나고 새로운 이미지에 대해 예측할 때
+- ③ 새로운 데이터셋을 인터넷에서 다운로드할 때
 
-- A. 모델의 가중치를 처음 생성할 때
-- B. 학습이 끝나고 새로운 이미지에 대해 예측할 때
-- C. 새로운 데이터셋을 다운로드할 때
+**Q7.** 사전 학습 모델(Pre-trained Model)을 사용했을 때의 장점을 한 가지 작성하시오.
 
-**Q7.** 사전 학습 모델(Pretrained Model)을 사용했을 때의 이점을 한 가지 작성해 보세요.
+**Q8.** 생성형 AI 설정에서 `max_new_tokens=70`은 새로 생성하는 문장을 70글자(알파벳/한글 70자)로 제한한다는 의미인가요? 이유와 함께 설명하시오.
 
-**Q8.** `max_new_tokens=70`은 새 문장을 70글자로 제한한다는 의미인가요?
+**Q9.** 이미지 분류 모델(Image Classification)의 출력 결과와 언어 생성 모델(LLM)의 출력 결과는 형태가 어떻게 다른지 비교하여 설명하시오.
 
-**Q9.** 이미지 분류 모델의 출력과 언어 생성 모델의 출력은 어떻게 다른가요?
+**Q10.** 생성형 AI가 작성한 문장을 별도의 사실 확인(Fact-check) 없이 그대로 사용하면 안 되는 이유를 설명하시오.
 
-**Q10.** 생성형 AI가 작성한 문장을 사실 확인 없이 사용하면 안 되는 이유를 설명해 보세요.
+---
 
 ## Exercise
 
-### Exercise 01 — 손글씨 숫자 모델 실험
+### Exercise 01 — 손글씨 숫자 모델 실험 (Neural Network Training)
 
-실습 파일: [`practice/exercise_01_digits.py`](practice/exercise_01_digits.py)
+실습 파일: [`practice/exercise_01_digits.py`](practice/exercise_01_digits.py) *(원본 코드 참고: `practice/7_2_digits_training.py`)*
 
-1. `practice/7_2_digits_training.py`에서 `EPOCHS`를 `5`, `15`, `30`으로 바꾸어 학습해 보세요.
-2. 각 조건의 마지막 학습 Loss와 테스트 정확도를 기록하세요.
-3. `HIDDEN_UNITS`를 `16`과 `128`로 바꾸어 같은 과정을 반복해 보세요.
-4. Epoch와 은닉 노드 수가 증가할 때 정확도가 반드시 높아지는지 관찰한 결과를 작성하세요.
+1. 코드에서 `EPOCHS` 값을 `5`, `15`, `30`으로 각각 바꾸어 학습을 실행합니다.
+2. 각 조건의 마지막 학습 손실(`Train Loss`)과 테스트 정확도(`Test Accuracy`)를 아래 표에 기록합니다.
+3. 은닉층 노드 수인 `HIDDEN_UNITS`를 `16`과 `128`로 바꾸어 같은 과정을 반복해 봅니다.
+4. `EPOCHS`와 `HIDDEN_UNITS`가 증가할 때 `Test Accuracy`가 항상 비례해서 높아지는지 관찰한 결과를 작성합니다.
 
-| 조건 | Train Loss | Test Accuracy |
+| 실험 조건 | Train Loss | Test Accuracy |
 |:---|:---:|:---:|
-| EPOCHS = 5 | 직접 기록 | 직접 기록 |
-| EPOCHS = 15 | 직접 기록 | 직접 기록 |
-| EPOCHS = 30 | 직접 기록 | 직접 기록 |
+| `EPOCHS = 5` | 직접 기록 | 직접 기록 |
+| `EPOCHS = 15` | 직접 기록 | 직접 기록 |
+| `EPOCHS = 30` | 직접 기록 | 직접 기록 |
+| `HIDDEN_UNITS = 16` | 직접 기록 | 직접 기록 |
+| `HIDDEN_UNITS = 128` | 직접 기록 | 직접 기록 |
 
-**point:** 학습 중 손실이 감소하는 것과 처음 보는 데이터에 대한 정확도가 높아지는 것은 구별해야 합니다.
+> **Point:** 학습 중 오차(`Train Loss`)가 줄어드는 것과 처음 보는 데이터에 대한 실제 실력(`Test Accuracy`)이 높아지는 것은 구별해서 확인해야 합니다.
 
-### Exercise 02 — 사진 분류 결과 비교
+---
+
+### Exercise 02 — 사전 학습 모델로 사진 분류 결과 비교 (Image Classification)
 
 실습 파일: [`practice/7_3_image_recognition.py`](practice/7_3_image_recognition.py)
 
-1. 기본 예제 사진으로 분류 결과 상위 5개를 확인하세요.
-2. `UPLOAD_OWN_IMAGE = True`로 변경하고, 수업에 사용해도 되는 다른 사물 사진을 업로드하세요.
-3. 두 사진의 상위 5개 예측 종류와 점수를 비교해 보세요.
-4. 결과가 실제 사물과 다르다면 어떤 요인이 영향을 주었을지 분석해 보세요.
+1. 기본 예제 사진으로 모델을 실행하여 예측 결과 상위 5개(Top-5)와 확률 점수를 확인합니다.
+2. `UPLOAD_OWN_IMAGE = True`로 변경하고, 수업에 사용해도 되는 다른 사물 사진을 업로드하여 실행합니다.
+3. 두 사진의 상위 5개 예측 이름(Label)과 확률 점수를 비교해 봅니다.
+4. 모델의 예측 결과가 실제 사물과 다르다면, 어떤 요인(예: 배경, 각도, 학습 데이터에 없는 물건 등)이 영향을 주었을지 분석해 봅니다.
 
-**point:** 모델이 학습한 범주와 입력 이미지의 조건은 예측에 영향을 줄 수 있습니다.
+> **Point:** 사전 학습 모델(MobileNetV3)이 미리 배운 정답 목록(범주)과 입력 사진의 촬영 조건은 예측 결과에 큰 영향을 줍니다.
 
-### Exercise 03 — Prompt 설계와 생성 결과 비교
+---
+
+### Exercise 03 — Prompt 설계와 텍스트 생성 결과 비교 (LLM)
 
 실습 파일: [`practice/exercise_02_prompt.py`](practice/exercise_02_prompt.py)
 
-1. 7.4의 `PROMPT`를 다음 세 문장으로 각각 변경해 보세요.
-2. 생성한 텍스트의 길이·형식·설명 수준을 비교하세요.
-3. `MAX_NEW_TOKENS`를 `30`과 `70`으로 바꾸어 생성 길이의 차이를 관찰해 보세요.
-4. 모델이 프롬프트의 조건을 놓친 사례가 있는지 기록하세요.
+1. 7.4 실습 코드의 `PROMPT`를 아래 세 문장으로 각각 변경해 실행합니다.
+2. 생성된 텍스트의 **길이, 형식, 설명 수준**이 어떻게 달라지는지 비교합니다.
+3. `MAX_NEW_TOKENS` 값을 `30`과 `70`으로 바꾸어 생성되는 문장 길이의 차이를 관찰합니다.
+4. 모델이 프롬프트에서 요구한 조건(예: 문장 수, 글머리 기호 사용 등)을 지키지 못한 사례가 있는지 기록합니다.
 
 ```text
 Explain recycling in one short sentence.
@@ -620,4 +626,6 @@ Explain recycling to an eight-year-old child in two short sentences.
 Give three examples of recycling at school. Use bullet points.
 ```
 
-**point:** 입력 지시와 출력 사이의 관계를 비교하세요. 문장이 자연스럽더라도 내용이 정확하다고 단정해서는 안 됩니다.
+> **Point:** 입력 지시(`Prompt`)와 출력 결과 사이의 관계를 비교해 보세요. AI가 만든 문장이 매끄럽고 자연스럽더라도 내용이 100% 정확하다고 단정해서는 안 됩니다.
+
+---
