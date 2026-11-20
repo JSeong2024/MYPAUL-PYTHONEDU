@@ -8,13 +8,13 @@ Week-07에서 배운 머신러닝을 인공신경망으로 확장하고, 딥러�
 
 | 구분 | 주제 | 세부내용 |
 |:---|:---|:---|
-| [7.1](#71-introduction-to-deep-learning) | Introduction to Deep Learning | Neural Network 구조, Neuron·Weight·Activation Function |
-| [7.2](#72-neural-networks--model-training) | Neural Networks & Model Training | PyTorch 손글씨 숫자 인식(Digits Dataset), Epoch·Loss·Accuracy |
+| [7.1](#71-introduction-to-deep-learning) | Introduction to Deep Learning | Neural Network 구조, Neuron·Weight·Sigmoid·ReLU·Softmax·GELU |
+| [7.2](#72-neural-networks--model-training) | Neural Networks & Model Training | MSE·BCE·Cross-Entropy, PyTorch 손글씨 숫자 인식, Epoch·Accuracy |
 | [7.3](#73-computer-vision--image-recognition) | Computer Vision & Image Recognition | CNN, Pre-trained MobileNetV3로 Image Classification |
 | [7.4](#74-generative-ai--large-language-models) | Generative AI & Large Language Models | Token·Transformer·Prompt, SLM(Small Language Model) 텍스트 생성 |
-| [Summary](#summary) | 요약 | Custom-trained Model과 Pre-trained Model 비교 |
-| [Quiz](#quiz) | 퀴즈 | 주요 개념 및 코드 분석 |
-| [Exercise](#exercise) | 연습 문제 | Hyperparameter·실험 조건 변경 및 결과 해석 |
+| [Summary](#summary) | 요약 | 활성화 함수·손실 함수·학습과 추론 비교 |
+| [Quiz](#quiz) | 퀴즈 | 활성화 함수·손실 함수·코드 분석 |
+| [Exercise](#exercise) | 연습 문제 | Loss·Hyperparameter·Prompt 실험과 결과 해석 |
 
 ## Getting Started — Google Colab
 
@@ -92,16 +92,24 @@ GitHub에 자료를 올린 뒤에는 다음 명령으로 Week-08만 내려받아
 ```text
 Week-08/
 ├── README.md
-├── Week08_Chapter07.ipynb        # Colab 업로드용 통합 Notebook
+├── Week08_Chapter07.ipynb        # Google Colab 통합 Notebook
 ├── practice/
+│   ├── 7_1_activation_functions.py
 │   ├── 7_1_neural_network.py
+│   ├── 7_2_loss_functions.py
 │   ├── 7_2_digits_training.py
 │   ├── 7_3_image_recognition.py
 │   ├── 7_4_text_generation.py
 │   ├── exercise_01_digits.py
-│   └── exercise_02_prompt.py
+│   ├── exercise_02_losses.py
+│   └── exercise_04_prompt.py
 └── assets/
     ├── 7_1_neural_network.png
+    ├── 7_1_activation_curves.png
+    ├── 7_1_softmax_example.png
+    ├── 7_1_relu_comparison.png
+    ├── 7_2_digit_pixels.png
+    ├── 7_2_loss_comparison.png
     ├── 7_2_training_curve.png
     ├── 7_2_digits_predictions.png
     ├── 7_3_inference_flow.png
@@ -129,7 +137,7 @@ Week-07에서는 선형 회귀(Linear Regression)와 KNN을 이용해 점수를 
 
 ![입력층·은닉층·출력층이 연결된 인공신경망](assets/7_1_neural_network.png)
 
-*그림 7-1. 두 개 입력을 세 개 은닉 뉴런으로 처리한 뒤 하나의 결과를 출력하는 신경망 구조.*
+*그림 7-1. 두 개 입력을 세 개 은닉 뉴런으로 처리한 뒤 하나의 결과를 출력하는 신경망 구조. 이해를 위한 개념도입니다.*
 
 | 구성 | 의미 | 예시 |
 |:---|:---|:---|
@@ -146,28 +154,177 @@ z = w_1x_1 + w_2x_2 + b
 ```
 
 ```math
-a = \mathrm{ReLU}(z) = \max(0,z)
+a = f(z)
 ```
 
-- `z`: 가중합으로 계산한 값
-- `ReLU`: 음수 입력을 0으로 바꾸고 양수 입력은 유지하는 대표적인 활성화 함수(Activation Function)
-- `a`: 다음 층에 전달하는 출력
+- `z`: 입력값에 가중치와 편향을 적용한 가중합
+- `f`: 계산 결과를 변환하는 활성화 함수(예: ReLU, GELU)
+- `a`: 활성화 함수 적용 후 다음 층에 전달하는 값
 
-모든 뉴런이 ReLU를 사용하는 것은 아니며, 출력층에서는 문제에 맞는 다른 계산을 사용할 수 있습니다. **가중치(Weight)의 값을 데이터로 조정하는 것이 학습의 핵심**입니다.
+어떤 활성화 함수를 선택하느냐에 따라 출력 형태가 달라집니다. 이어서 대표적인 네 가지 함수를 비교합니다. **가중치와 편향을 데이터로 조정하는 과정은 7.2에서 학습합니다.**
 
-### 7.1.3. Coding Practice — 신경망의 순전파
+### 7.1.3. Activation Functions — 활성화 함수
 
-**순전파(Forward Pass)** 는 데이터가 입력층(Input Layer)에서 은닉층(Hidden Layer)을 거쳐 출력층(Output Layer)으로 전달되는 계산 과정입니다. 아래 코드는 학습 전, 정해진 가중치로 계산만 수행하는 실습입니다.
+**활성화 함수(Activation Function)**는 뉴런에서 계산한 값을 다음 층으로 전달하기 전에 변환하는 함수입니다. 대표적인 목적은 신경망에 **비선형성(Nonlinearity)**을 추가하는 것입니다. 가중합만 계산하는 층을 여러 개 연결하면 전체가 하나의 선형 변환으로 정리되므로, 복잡한 패턴을 표현하는 데 한계가 있습니다. 활성화 함수는 이 한계를 줄여 줍니다.
+
+모든 활성화 함수가 같은 역할을 하는 것은 아닙니다. **은닉층에서는 ReLU나 GELU**, **분류 결과를 해석하는 출력 단계에서는 Sigmoid나 Softmax**를 사용하는 경우가 많습니다. 어떤 함수를 사용할지는 모델 구조와 학습 목적에 따라 달라집니다.
+
+> **핵심 구분:** 이진 분류에서는 Sigmoid로 하나의 출력 점수를 해석할 수 있고, 서로 배타적인 여러 클래스 중 하나를 고르는 분류에서는 Softmax로 클래스별 점수를 비교할 수 있습니다. 반면 ReLU와 GELU는 주로 은닉층의 비선형 변환에 사용됩니다.
+
+| 함수 | 핵심 역할 | 주요 활용 | 출력의 특징 |
+|:---|:---|:---|:---|
+| **Sigmoid** | 하나의 입력값을 0~1 사이로 변환 | 이진 분류의 출력 해석 | 0과 1에 가까워지지만 정확히 도달하지 않음 |
+| **ReLU** | 음수를 0으로, 양수를 그대로 전달 | 신경망 은닉층 | 계산이 단순하고 양수 영역에서 기울기가 유지됨 |
+| **Softmax** | 여러 점수를 합이 1인 분포로 변환 | 다중 분류의 출력 해석 | 모든 출력이 0~1 사이, 전체 합은 1 |
+| **GELU** | 입력값을 부드럽고 연속적으로 변환 | 일부 현대적인 신경망·Transformer | 음수도 작은 값으로 남을 수 있음 |
+
+#### ① Sigmoid — 이진 분류의 출력
+
+Sigmoid는 하나의 숫자를 **0과 1 사이의 값**으로 변환합니다. 입력이 0이면 0.5이며, 입력이 커질수록 1에, 작아질수록 0에 가까워집니다.
+
+```math
+\sigma(x)=\frac{1}{1+e^{-x}}
+```
+
+예를 들어 `x = -2, 0, 2`일 때 출력은 각각 약 `0.119, 0.500, 0.881`입니다. 이진 분류에서는 모델의 원시 출력(Logit)을 확률 형태로 해석할 때 사용할 수 있습니다. 다만 숫자가 0~1 사이라는 이유만으로 실제 정답일 확률이 정확하게 보정되었다고 단정할 수는 없습니다.
+
+**주의:** 입력의 절댓값이 매우 크면 출력이 0이나 1에 가까워지고, 기울기도 작아질 수 있습니다. 이 때문에 깊은 은닉층에서 무조건 Sigmoid를 사용하지는 않습니다.
+
+#### ② ReLU — 은닉층에서 자주 사용하는 함수
+
+ReLU(Rectified Linear Unit)는 음수를 0으로 변경하고, **0보다 큰 값은 그대로 출력**합니다.
+
+```math
+\mathrm{ReLU}(x)=\max(0,x)
+```
+
+예: `ReLU(-2) = 0`, `ReLU(0) = 0`, `ReLU(2) = 2`.
+
+계산이 간단하고 양수 영역에서 입력값이 커져도 출력이 눌리지 않아 널리 사용됩니다. 단, 어떤 뉴런이 계속 음수 값만 받으면 출력이 0으로 유지되어 학습이 어려워질 수 있습니다. 이를 흔히 *Dying ReLU* 문제라고 부릅니다.
+
+**7.1.4 순전파 실습에서는 ReLU로 은닉 뉴런의 `-0.06`이 `0`으로 바뀌는 과정을 확인합니다.**
+
+#### ③ Softmax — 여러 클래스의 점수를 비교
+
+Softmax는 **여러 개의 점수(Logits)**를 한꺼번에 입력받아, 합이 1이 되도록 변환합니다. Sigmoid처럼 숫자 하나를 독립적으로 변환하는 방식과는 다릅니다.
+
+```math
+\mathrm{Softmax}(z)_i=\frac{e^{z_i}}{\sum_{j=1}^{K}e^{z_j}}
+```
+
+- `z_i`: `i`번째 클래스의 원시 점수(Logit)
+- `K`: 클래스의 총개수
+- `e`: 자연상수. 각 점수를 양수로 변환하는 지수 함수에 사용
+
+예를 들어 세 클래스의 원시 점수가 `[1, 2, 3]`이라면 Softmax 결과는 약 `[0.090, 0.245, 0.665]`이며, **세 값을 더하면 1**입니다. 가장 큰 점수를 얻은 세 번째 클래스가 예측 결과가 됩니다.
+
+7.2의 손글씨 숫자 분류에서는 출력층이 **숫자 0~9에 대한 원시 점수 10개**를 만듭니다. `nn.CrossEntropyLoss()`는 학습에 필요한 Softmax 관련 계산을 내부적으로 처리하므로, **손실 함수에 전달하기 전에 Softmax를 별도로 적용하지 않습니다.** 예측 결과를 사람에게 분포로 보여줄 때는 Softmax를 사용할 수 있습니다.
+
+#### ④ GELU — 부드러운 비선형 변환
+
+GELU(Gaussian Error Linear Unit)는 ReLU처럼 비선형성을 추가하지만, 입력값을 갑자기 0으로 자르지 않고 **부드럽게 변환**합니다. 일부 음수 입력도 작은 음수 값으로 남습니다.
+
+```math
+\mathrm{GELU}(x)=x\,\Phi(x)
+```
+
+여기서 `Φ(x)`는 **표준정규분포의 누적분포함수**로, 입력 `x` 이하의 값이 나타날 확률을 뜻합니다. 해당 확률의 자세한 계산 과정까지 외울 필요는 없습니다. 핵심은 **입력값에 따라 통과하는 정도가 부드럽게 달라진다는 점**입니다.
+
+예: `GELU(-1) ≈ -0.159`, `GELU(0) = 0`, `GELU(1) ≈ 0.841`.
+
+GELU는 2016년에 제안된 함수이며, **최근에 새로 등장한 함수라기보다는 현대적인 Transformer 모델에서도 널리 활용되는 함수**라고 이해하는 것이 정확합니다. 모든 Transformer가 GELU를 사용하는 것은 아닙니다.
+
+#### Coding Practice — 네 가지 함수 비교
+
+아래 코드는 **Sigmoid·ReLU·GELU를 같은 입력값에 적용**하고, **Softmax는 세 클래스의 점수를 함께 변환**합니다. Colab에서 그대로 실행할 수 있으며 별도의 학습 과정은 없습니다.
+
+```python
+import torch
+import torch.nn.functional as F
+
+values = torch.tensor([-1.0, 0.0, 1.0])
+print("Sigmoid:", torch.sigmoid(values).round(decimals=3))
+print("ReLU:   ", F.relu(values).round(decimals=3))
+print("GELU:   ", F.gelu(values).round(decimals=3))
+
+logits = torch.tensor([1.0, 2.0, 3.0])
+probs = F.softmax(logits, dim=0)
+print("Softmax:", probs.round(decimals=3))
+print("합계:   ", probs.sum().item())
+```
+
+**실행 결과** (반올림한 값)
+
+```text
+Sigmoid: tensor([0.2690, 0.5000, 0.7310])
+ReLU:    tensor([0., 0., 1.])
+GELU:    tensor([-0.1590, 0.0000, 0.8410])
+Softmax: tensor([0.0900, 0.2450, 0.6650])
+합계:    1.0
+```
+
+**함수별 출력 곡선**
+
+![Sigmoid, ReLU, GELU의 입력값에 따른 출력 비교](assets/7_1_activation_curves.png)
+
+*그림 7-2. 같은 입력값에 세 활성화 함수를 적용한 결과입니다. Sigmoid는 0~1 사이의 S자 곡선, ReLU는 음수 구간에서 0, GELU는 음수 구간에서도 부드럽게 변하는 형태입니다.*
+
+**Softmax 출력 분포**
+
+![원시 점수 1, 2, 3의 Softmax 변환 결과](assets/7_1_softmax_example.png)
+
+*그림 7-3. 세 클래스의 원시 점수 `[1, 2, 3]`을 합이 1인 값으로 변환한 결과입니다. 출력은 모델이 계산한 분포이며, 실제 정답일 가능성을 보장하는 수치는 아닙니다.*
+
+그래프 생성 및 전체 코드: [`practice/7_1_activation_functions.py`](practice/7_1_activation_functions.py)
+
+**확인 활동:** 위 코드의 `logits`를 `[3, 2, 1]`로 변경하고 가장 높은 Softmax 값을 가진 클래스가 어떻게 바뀌는지 확인해 보세요. 또 `values`의 `-1.0`을 `-3.0`으로 바꾼 뒤 ReLU와 GELU의 차이를 비교해 보세요.
+
+---
+
+### 7.1.4. Coding Practice — 신경망의 순전파
+
+**순전파(Forward Pass)**는 입력값이 가중치와 편향을 거쳐 최종 출력으로 계산되는 과정입니다. 이번에는 **입력 2개 → 은닉 뉴런 3개 → 출력 1개**인 작은 신경망을 NumPy로 구현합니다. 아직 데이터를 학습하지 않고, 미리 지정한 숫자로 계산 과정만 확인합니다.
+
+**코드에서 사용할 값**
+
+| 변수 | 역할 | 크기 | 의미 |
+|:---|:---|:---:|:---|
+| `x` | 입력 데이터 | 2개 | 첫 번째 입력 0.6, 두 번째 입력 0.8 |
+| `W1` | 첫 번째 가중치 | 2×3 | 입력 2개와 은닉 뉴런 3개를 연결하는 숫자 |
+| `b1` | 첫 번째 편향 | 3개 | 각 은닉 뉴런에 하나씩 더하는 숫자 |
+| `z` | 은닉층 가중합 | 3개 | ReLU 적용 전 계산 결과 |
+| `hidden` | 은닉층 출력 | 3개 | `z`에 ReLU를 적용한 결과 |
+| `W2`·`b2` | 출력층 가중치·편향 | 3×1·1개 | 은닉층의 값 3개로 최종 출력 1개 계산 |
+| `output` | 최종 결과 | 1개 | 출력층에서 계산한 숫자. 실제 예측값이나 확률은 아님 |
+
+**첫 번째 은닉 뉴런 계산 예시**
+
+첫 번째 은닉 뉴런에는 입력값 `0.6`, `0.8`이 전달됩니다. 각 입력에 가중치 `0.4`, `0.2`를 곱하고 편향 `0.1`을 더합니다.
+
+```math
+z_1 = 0.6 \times 0.4 + 0.8 \times 0.2 + 0.1 = 0.5
+```
+
+두 번째 은닉 뉴런은 같은 계산으로 `-0.06`을 얻습니다. ReLU는 음수를 0으로 변경하므로, **적용 전후에 값이 달라지는 부분**을 확인할 수 있습니다.
+
+**실행 코드**
 
 ```python
 import numpy as np
 
+# 입력값 두 개
 x = np.array([0.6, 0.8])
-W1 = np.array([[0.4, -0.3, 0.7], [0.2, 0.6, -0.1]])
+
+# 입력 2개 → 은닉 뉴런 3개
+W1 = np.array([[0.4, -0.9, 0.7],
+               [0.2,  0.6, -0.1]])
 b1 = np.array([0.1, 0.0, 0.2])
+
+# 은닉 뉴런 3개 → 출력 1개
 W2 = np.array([[0.5], [-0.4], [0.8]])
 b2 = np.array([0.1])
 
+# 순전파: 가중합 → ReLU → 최종 출력
 z = x @ W1 + b1
 hidden = np.maximum(z, 0)  # ReLU
 output = hidden @ W2 + b2
@@ -182,14 +339,30 @@ print("최종 출력:", np.round(output, 3))
 
 ```text
 입력: [0.6 0.8]
-은닉층 가중합: [0.5  0.3  0.54]
-은닉층 ReLU 출력: [0.5  0.3  0.54]
-최종 출력: [0.662]
+은닉층 가중합: [ 0.5  -0.06  0.54]
+은닉층 ReLU 출력: [0.5  0.   0.54]
+최종 출력: [0.782]
 ```
 
-`@`는 NumPy의 행렬 곱셈 연산자입니다. 고등학교 수학에서 배우는 '행렬' 개념을 아직 몰라도 괜찮으며, 여기서는 **여러 입력값에 각각의 가중치를 한꺼번에 곱해서 더해주는 편리한 계산 기호**라고 이해하면 충분합니다. 이 예제의 가중치는 임의로 정했으므로 출력값 `0.662`에는 실제 성적이나 확률이라는 의미가 없습니다. 다음 Chapter에서는 신경망이 가중치를 조정하며 학습하는 과정을 살펴봅니다.
+![ReLU 적용 전후의 은닉 뉴런 값 비교](assets/7_1_relu_comparison.png)
 
-전체 코드: [`practice/7_1_neural_network.py`](practice/7_1_neural_network.py)
+*그림 7-4. 실제 코드에서 계산한 은닉 뉴런 3개의 값. 두 번째 값이 ReLU에 의해 -0.06에서 0으로 바뀝니다.*
+
+**주요 연산자와 함수**
+
+| 코드 | 설명 |
+|:---|:---|
+| `np.array([...])` | 여러 숫자를 NumPy 배열로 묶어 연산에 사용합니다. |
+| `x @ W1` | `@`는 행렬 곱셈입니다. 두 입력값에 각 뉴런의 가중치를 곱해 합산합니다. |
+| `+ b1` | 은닉 뉴런마다 편향을 더합니다. |
+| `np.maximum(z, 0)` | 배열의 각 원소와 0을 비교해 큰 값을 남깁니다. ReLU 계산입니다. |
+| `np.round(z, 3)` | 출력값을 소수점 셋째 자리까지 반올림해 표시합니다. 학습 값 자체는 바꾸지 않습니다. |
+
+**계산 흐름:** `x` → `x @ W1 + b1` → `ReLU` → `hidden @ W2 + b2` → `output`. 출력층에는 ReLU를 적용하지 않았으므로 마지막 결과는 가중합 그대로입니다. 이 예제의 가중치와 편향은 사람이 지정한 값이며, **학습을 통해 결정한 값이 아닙니다.** 다음 Chapter에서는 모델이 데이터를 보고 가중치를 조정하는 방법을 살펴봅니다.
+
+**확인 활동:** `W1`의 `-0.9`를 `-0.3`으로 바꾼 뒤 두 번째 은닉 뉴런의 `z`와 `hidden`이 어떻게 달라지는지 확인해 보세요.
+
+전체 실행 코드: [`practice/7_1_neural_network.py`](practice/7_1_neural_network.py)
 
 ---
 
@@ -216,9 +389,109 @@ graph LR
 | **Optimizer**(최적화 알고리즘) | Loss가 감소하도록 가중치를 갱신하는 방법 | `Adam(...)` |
 | **Learning Rate**(학습률) | 가중치를 조정할 때의 이동 크기 | `lr=0.01` |
 
-손실(Loss)은 모델이 학습 방향을 결정하는 기준입니다. **학습 손실(`Train Loss`)이 감소했다고 해서 처음 보는 데이터에 대한 평가 정확도(`Test Accuracy`)도 반드시 높아지는 것은 아닙니다.** 따라서 Week-07과 마찬가지로 학습용(`Train`)과 평가용(`Test`) 데이터를 분리해 확인합니다.
+손실(Loss)은 예측과 정답의 차이를 수치로 계산한 값입니다. 모델은 각 Batch에 대해 **예측 → 손실 계산 → 기울기 계산 → 가중치 수정**을 수행합니다. 이를 모든 Batch에서 반복하면 한 Epoch가 완료됩니다.
 
-### 7.2.2. 실습 데이터 — 손글씨 숫자
+학습 손실(`Train Loss`)이 감소하더라도 처음 보는 데이터에 대한 정확도(`Test Accuracy`)가 반드시 높아지지는 않습니다. 따라서 Week-07과 마찬가지로 학습 데이터와 평가 데이터를 구분합니다. 기울기는 가중치를 어느 방향으로 얼마나 바꿀지 판단할 때 쓰는 값이며, 계산 방법을 직접 유도하지는 않습니다.
+
+### 7.2.2. Loss Functions — 손실 함수
+
+**손실 함수(Loss Function)**는 모델의 예측 결과와 실제 정답의 차이를 숫자로 계산합니다. 학습에서는 손실을 줄이는 방향으로 Weight와 Bias를 갱신합니다. **출력층의 형태와 손실 함수는 문제의 유형에 따라 선택**하며, 특정 활성화 함수와 반드시 1:1로 대응하는 것은 아닙니다.
+
+| 문제 유형 | 출력의 의미 | 대표 손실 함수 | PyTorch에서 사용하는 함수 |
+|:---|:---|:---|:---|
+| **회귀(Regression)** | 시험 점수·가격처럼 연속된 숫자 | **MSE**(평균 제곱 오차) | `nn.MSELoss()` |
+| **이진 분류(Binary Classification)** | 0 또는 1에 해당하는 두 결과 | **BCE**(이진 교차 엔트로피) | `nn.BCEWithLogitsLoss()` |
+| **다중 클래스 분류(Multiclass Classification)** | 여러 클래스 가운데 하나 | **Cross-Entropy**(교차 엔트로피) | `nn.CrossEntropyLoss()` |
+
+회귀에서는 출력층을 주로 **Linear(별도 활성화 없음)**로 사용합니다. 이진 분류는 Sigmoid를 이용해 출력 점수(Logit)를 0~1 사이 값으로 해석할 수 있습니다. 다중 클래스 분류는 Softmax로 클래스별 점수를 합이 1인 분포로 나타낼 수 있습니다. 이 관계는 대표적인 구성 방식이며, 문제의 조건에 따라 다른 선택도 가능합니다.
+
+#### ① MSE — Mean Squared Error
+
+MSE는 **실제값과 예측값의 차이를 제곱하여 평균**한 값입니다. 차이가 커질수록 제곱 오차가 빠르게 증가하므로 큰 예측 오류에 민감합니다.
+
+```math
+\mathrm{MSE}=\frac{1}{N}\sum_{i=1}^{N}(y_i-\hat{y}_i)^2
+```
+
+- `N`: 평가하는 데이터의 개수
+- `y_i`: 실제 정답, `ŷ_i`: 모델의 예측값
+
+**계산 예시:** 실제 점수가 `[80, 90]`, 예측 점수가 `[78, 91]`이면 제곱 오차는 `[4, 1]`이므로 **MSE는 2.5**입니다. 예측이 `[65, 98]`로 바뀌면 **MSE는 144.5**로 증가합니다. 손실의 단위는 원래 값의 단위를 제곱한 형태이며, Accuracy처럼 정답률(%)을 나타내지는 않습니다.
+
+#### ② Binary Cross-Entropy — BCE
+
+BCE는 **두 가지 결과 중 정답에 부여한 확률**이 얼마나 적절한지 측정합니다. 정답이 `1`인데 모델이 `1`의 가능성을 매우 낮게 예측하면 손실이 커집니다.
+
+```math
+\mathrm{BCE}=-[y\log(p)+(1-y)\log(1-p)]
+```
+
+- `y`: 실제 정답(0 또는 1)
+- `p`: 정답 `1`에 대한 모델의 예측 확률(Sigmoid 출력)
+- `log`: 자연로그
+
+**계산 예시:** 정답이 `1`일 때 Sigmoid 출력이 약 `0.881`이면 BCE는 약 **0.127**, 출력이 약 `0.119`이면 BCE는 약 **2.127**입니다. 모델이 정답에 낮은 확률을 부여할수록 손실이 커집니다.
+
+> **PyTorch 사용 시 주의:** `nn.BCEWithLogitsLoss()`는 **Sigmoid 변환과 BCE 계산을 결합**한 함수입니다. 손실을 계산할 때는 Sigmoid 전의 **Logit**을 바로 전달합니다. Sigmoid를 먼저 적용한 값을 다시 이 함수에 넣지 않습니다. 정답은 입력 Logit과 같은 형태의 실수형 `0` 또는 `1`을 사용합니다.
+
+#### ③ Cross-Entropy — 다중 클래스 분류 손실
+
+Cross-Entropy는 여러 클래스 중 **실제 정답 클래스에 부여한 확률**을 기준으로 손실을 계산합니다. 정답 클래스의 예측 확률이 높아질수록 손실은 0에 가까워집니다. 하나의 데이터에서 정답 클래스가 하나인 경우 다음과 같이 표현할 수 있습니다.
+
+```math
+L=-\log(p_{\mathrm{correct}})
+```
+
+- `p_correct`: Softmax 출력 중 실제 정답 클래스에 해당하는 값
+
+**계산 예시:** 정답 클래스가 세 번째(인덱스 `2`)일 때 Logit `[1, 2, 3]`을 Softmax로 변환하면 정답 클래스 확률이 약 `0.665`이고 손실은 약 **0.408**입니다. Logit이 `[3, 2, 1]`이면 정답 클래스 확률이 약 `0.090`으로 낮아지고 손실은 약 **2.408**입니다.
+
+> **PyTorch 사용 시 주의:** `nn.CrossEntropyLoss()`는 **원시 출력 점수(Logits)**와 실제 정답의 **클래스 인덱스**를 입력받아 계산합니다. 내부적으로 LogSoftmax에 해당하는 연산을 처리하므로 학습 코드에서 **Softmax를 먼저 적용하지 않습니다.** 7.2.4의 숫자 분류 모델이 이 방식입니다. 일반적인 다음 토큰 예측 언어 모델의 학습에도 Cross-Entropy가 사용되지만, 7.4의 예제는 사전 학습 모델의 **추론**이므로 Loss를 직접 계산하지 않습니다.
+
+#### Coding Practice — 손실 함수별 계산 결과 비교
+
+같은 문제에서 정답에 가까운 예측과 잘못된 예측을 입력하고 손실값이 어떻게 달라지는지 확인합니다. **서로 다른 손실 함수의 수치 크기를 직접 비교하는 활동은 아닙니다.**
+
+```python
+import torch
+from torch import nn
+
+# 회귀: 실제 점수 [80, 90]
+actual = torch.tensor([80.0, 90.0])
+mse = nn.MSELoss()
+print("MSE:", round(mse(torch.tensor([78.0, 91.0]), actual).item(), 3))
+
+# 이진 분류: 정답 1, Logit 2.0 → Sigmoid 약 0.881
+bce = nn.BCEWithLogitsLoss()
+print("BCE:", round(bce(torch.tensor([2.0]), torch.tensor([1.0])).item(), 3))
+
+# 다중 클래스: 정답 클래스 인덱스 2, Logit 세 개
+ce = nn.CrossEntropyLoss()
+logits = torch.tensor([[1.0, 2.0, 3.0]])
+print("CE:", round(ce(logits, torch.tensor([2])).item(), 3))
+```
+
+**실행 결과**
+
+```text
+MSE: 2.5
+BCE: 0.127
+CE: 0.408
+```
+
+**정답에 가까운 예측과 잘못된 예측의 손실 비교**
+
+![MSE·BCE·Cross-Entropy의 예측 조건에 따른 손실값 비교](assets/7_2_loss_comparison.png)
+
+*그림 7-5. 세 손실 함수의 동일 문제 내 비교 결과. 각 그래프는 서로 다른 데이터와 축 범위를 사용하므로, 함수 사이의 막대 높이를 직접 비교해서는 안 됩니다.*
+
+전체 실행 코드 및 그래프 생성: [`practice/7_2_loss_functions.py`](practice/7_2_loss_functions.py)
+
+**확인 활동:** MSE에서는 예측값을 바꾸고, BCE에서는 Logit의 부호를 바꾸고, Cross-Entropy에서는 클래스 점수의 순서를 바꾸어 손실을 비교해 보세요.
+
+---
+
+### 7.2.3. 실습 데이터 — 손글씨 숫자
 
 `scikit-learn`에 포함된 `load_digits()` 데이터셋을 활용합니다. 데이터는 **8×8 픽셀로 이루어진 손글씨 숫자 이미지 1,797개**이며, 정답은 0~9의 숫자입니다.
 
@@ -231,9 +504,15 @@ graph LR
 | 데이터 분할 | Train 80% / Test 20% |
 | 모델 구조 | 64 → 64 → 10 |
 
-이미지는 2차원이지만 간단한 신경망에 입력하기 위해 픽셀값 64개를 한 줄로 펼쳐 사용합니다. 이 방식은 **다층 퍼셉트론(MLP)** 실습이며, 7.3에서 소개할 CNN과는 다른 구조입니다.
+이미지는 8행×8열이지만, 이번 신경망에서는 픽셀 64개를 한 줄로 펼쳐 입력합니다. 따라서 첫 번째 층은 `nn.Linear(64, ...)`로 시작합니다. 이 구조는 **다층 퍼셉트론(MLP)**이며, 이미지의 공간적 배치를 활용하는 CNN과 구별됩니다.
 
-### 7.2.3. Coding Practice — PyTorch 숫자 분류 모델
+또한 원본 픽셀값은 `0~16` 범위입니다. `digits.data / 16.0`은 각 값을 **0~1 범위로 정규화**하여 신경망에 입력하기 쉽게 조정합니다. `.astype(np.float32)`는 계산에 사용할 실수 자료형으로 변환하는 작업입니다.
+
+![8×8 손글씨 숫자를 64개 특징으로 변환하는 과정](assets/7_2_digit_pixels.png)
+
+*그림 7-6. 실제 Digits 데이터셋의 숫자 한 장(8×8)과 이를 펼친 64개 픽셀값의 관계.*
+
+### 7.2.4. Coding Practice — PyTorch 숫자 분류 모델
 
 아래 코드는 학습과 정확도 확인을 위한 핵심 구현입니다. 학습 곡선과 실제 숫자 이미지의 시각화 코드는 전체 실습 파일에 포함되어 있습니다.
 
@@ -287,39 +566,51 @@ accuracy = (predictions == y_test).mean()
 print(f"Test Accuracy: {accuracy:.1%}")
 ```
 
-**주요 코드 분석**
+**코드 흐름 분석**
 
-| 코드 | 역할 |
+| 단계 | 코드 | 역할 |
+|:---:|:---|:---|
+| 1 | `TensorDataset(...)` | 입력 특징과 정답을 서로 대응하는 데이터 묶음으로 만듭니다. |
+| 2 | `DataLoader(..., batch_size=64)` | 64개씩 Batch를 꺼내고 매 Epoch마다 순서를 섞습니다. |
+| 3 | `nn.Linear(64, HIDDEN_UNITS)` | 한 이미지의 64개 픽셀값을 은닉층으로 전달합니다. |
+| 4 | `nn.ReLU()` | 은닉층 출력에 비선형 변환을 적용합니다. |
+| 5 | `nn.Linear(HIDDEN_UNITS, 10)` | 각 숫자 0~9에 대한 점수 10개를 계산합니다. |
+| 6 | `nn.CrossEntropyLoss()` | 점수 10개와 실제 숫자 정답을 비교하여 Loss를 계산합니다. |
+| 7 | `torch.optim.Adam(..., lr=0.01)` | 계산된 기울기를 활용해 가중치를 갱신하는 알고리즘을 설정합니다. |
+
+**한 Batch에서 반복하는 다섯 줄**
+
+| 코드 | 동작 |
 |:---|:---|
-| `nn.Linear(64, HIDDEN_UNITS)` | 64개 픽셀 입력을 설정한 개수의 은닉 노드로 변환 |
-| `nn.ReLU()` | 신경망에 비선형 변환 적용 |
-| `nn.Linear(64, 10)` | 숫자 0~9에 대한 출력 점수 10개 계산 |
-| `loss.backward()` | 손실(Loss)을 기준으로 가중치에 대한 기울기(수정 방향) 계산 |
-| `optimizer.step()` | 계산된 기울기를 활용해 가중치 갱신 |
-| `model.eval()` | 평가 모드로 전환 |
-| `torch.no_grad()` | 평가 중 불필요한 기울기 계산 비활성화 |
+| `optimizer.zero_grad()` | 이전 Batch에서 누적된 기울기를 초기화합니다. |
+| `outputs = model(features)` | 현재 Batch의 숫자 이미지를 예측합니다. |
+| `loss = loss_fn(outputs, labels)` | 예측 점수와 정답의 차이를 계산합니다. |
+| `loss.backward()` | Loss를 줄이는 데 필요한 기울기를 계산합니다. |
+| `optimizer.step()` | 계산된 기울기를 사용하여 모델의 가중치를 갱신합니다. |
 
-출력층의 10개 값은 **각 숫자에 대한 원시 점수(날것의 점수, `logit`)** 이며, 가장 큰 값을 가진 숫자를 예측 결과로 선택합니다. 아직 확률(0~100%)로 변환하기 전의 값이므로 이 점수들을 바로 확률이라고 해석하면 안 됩니다.
+출력층의 값 10개는 숫자별 **원시 점수(Logit)**입니다. 가장 큰 점수의 위치를 `argmax(dim=1)`로 선택하면 예측 숫자가 됩니다. `CrossEntropyLoss()`는 Logit을 직접 받으므로 **손실 계산 전에 Softmax를 별도로 적용하지 않습니다.**
 
-### 7.2.4. 학습 결과 시각화
+학습이 끝나면 `model.eval()`로 평가 모드로 전환하고, `torch.no_grad()`로 평가 시 기울기 계산을 생략합니다. `stratify=y`는 숫자 0~9의 비율이 학습용·테스트용에 비슷하게 유지되도록 데이터를 분리합니다.
+
+### 7.2.5. 학습 결과 시각화
 
 **실제 Python 실행 결과 — Epoch와 Loss**
 
 ![15 Epoch 동안의 실제 학습 Loss 변화](assets/7_2_training_curve.png)
 
-*그림 7-2. 제공한 `7_2_digits_training.py`를 CPU에서 실행하여 기록한 학습 Loss. 그림의 값은 실행환경에 따라 달라질 수 있습니다.*
+*그림 7-7. 제공한 `7_2_digits_training.py`를 CPU에서 실행하여 기록한 학습 Loss입니다. 그림의 값은 이번 실행 환경에서 얻은 결과이며, 환경에 따라 달라질 수 있습니다.*
 
 **실제 Python 실행 결과 — 숫자 인식**
 
 ![테스트 손글씨 숫자 이미지와 모델의 예측 결과](assets/7_2_digits_predictions.png)
 
-*그림 7-3. 테스트용 손글씨 숫자의 실제 정답(`True`)과 모델의 예측(`Pred`)을 비교한 결과. 서로 다르면 `*`로 표시.*
+*그림 7-8. 테스트용 손글씨 숫자의 실제 정답(`True`)과 모델의 예측(`Pred`)을 비교한 결과입니다. 서로 다르면 `*`로 표시합니다.*
 
 실습 파일을 지정된 설정으로 실행한 결과, **테스트 360개 중 349개를 맞혀 96.9%의 정확도(Test Accuracy)** 를 기록했습니다. 데이터 분할, 난수 설정, 실행 환경 또는 학습 코드가 바뀌면 결과도 달라질 수 있습니다. 여기서 중요한 것은 높은 정확도 수치 자체보다 **학습되지 않은 테스트 이미지로 성능을 확인했다는 사실**입니다.
 
 전체 코드 및 이미지 출력: [`practice/7_2_digits_training.py`](practice/7_2_digits_training.py)
 
-**확인 활동:** `EPOCHS=5`와 `EPOCHS=15`를 비교하고, 학습 횟수가 달라졌을 때 Loss와 테스트 정확도가 어떻게 바뀌는지 기록해 보세요. README의 핵심 코드는 최종 정확도만 출력하며, 매 Epoch의 Loss 그래프는 전체 실습 파일에서 확인할 수 있습니다.
+**확인 활동:** 학습 과정을 이해하기 위해 `EPOCHS=5`와 `EPOCHS=15`의 Loss·정확도를 관찰해 보세요. **모델 설정을 비교하여 최적안을 고르는 활동**은 아래 Exercise 01에서 Validation 데이터로 진행합니다. README의 핵심 코드는 최종 정확도만 출력하며, 매 Epoch의 Loss 그래프는 전체 실습 파일에서 확인할 수 있습니다.
 
 ---
 
@@ -348,9 +639,11 @@ print(f"Test Accuracy: {accuracy:.1%}")
 
 ![이미지 분류 과정: 이미지 → 전처리 → CNN → 예측 결과](assets/7_3_inference_flow.png)
 
-*그림 7-4. 사전 학습(Pre-trained) 이미지 모델의 추론 과정(개념도).* 
+*그림 7-9. 사전 학습(Pre-trained) 이미지 모델의 추론 과정(개념도).* 
 
-이미지는 모델이 기대하는 크기와 값의 범위로 전처리한 다음 입력해야 합니다. `weights.transforms()`는 해당 가중치에 맞는 이미지 변환을 제공합니다. 또한 `model.eval()`을 적용하여 추론 상태로 전환하고, `torch.inference_mode()`로 기울기 계산을 생략합니다.
+이미지는 모델이 요구하는 형태로 변환한 뒤 입력해야 합니다. `weights.transforms()`는 이미지 크기 조정, 중앙 영역 자르기, 텐서 변환 및 정규화를 해당 가중치의 설정에 맞게 수행합니다. **색상 채널 3개×높이 224×너비 224** 형태의 이미지 텐서에 `unsqueeze(0)`으로 Batch 차원 1개를 추가하면 입력 형태는 `(1, 3, 224, 224)`가 됩니다.
+
+이후 `model.eval()`로 추론 모드를 설정하고, `torch.inference_mode()`로 기울기 계산을 생략합니다. 7.2와 달리 가중치를 갱신하지 않으므로 `backward()`나 `optimizer.step()`은 사용하지 않습니다.
 
 ### 7.3.3. Coding Practice — 사진 속 사물 분류
 
@@ -386,6 +679,8 @@ for index, score in zip(top_ids.tolist(), top_scores.tolist()):
     print(f"{classes[index]}: {score:.1%}")
 ```
 
+**학습과 추론의 차이:** 이 실습은 이미 학습된 모델에서 분류 결과를 출력하기 위한 추론 과정이므로 Softmax로 분포를 표시합니다. Cross-Entropy 손실과 가중치 갱신은 수행하지 않습니다.
+
 **주요 코드 분석**
 
 | 코드 | 의미 |
@@ -397,13 +692,13 @@ for index, score in zip(top_ids.tolist(), top_scores.tolist()):
 | `softmax(dim=1)` | 출력 점수를 클래스별 확률 분포로 변환 |
 | `torch.topk(..., 5)` | 가장 큰 점수 다섯 개 추출 |
 
-실행 결과에는 **영어 클래스 이름과 점수**가 출력됩니다. 점수는 해당 모델의 출력 분포이며, 현실에서 무조건 정답일 확률이라고 단정할 수 없습니다. 모델이 구분할 수 있는 범주는 사전 학습 시 사용된 클래스에 한정됩니다.
+실행 결과에는 **영어 클래스 이름과 Softmax 점수**가 출력됩니다. `softmax(dim=1)`는 모델의 출력값을 합이 1인 점수 분포로 바꾸며, `torch.topk(..., 5)`는 이 중 높은 점수 5개를 선택합니다. 다만 점수가 90%라고 해서 **실제로 정답일 확률이 90%라고 보장되는 것은 아닙니다.** 또한 이번 모델은 사전 학습된 ImageNet 분류 범주 안에서만 이름을 선택합니다.
 
 **학생 사진으로 실습하기**
 
-전체 실습 파일 [`practice/7_3_image_recognition.py`](practice/7_3_image_recognition.py)에서 `UPLOAD_OWN_IMAGE = True`로 변경하면 Colab의 파일 업로드 기능으로 다른 사진을 입력할 수 있습니다. 실행하면 입력 사진과 상위 5개 예측 결과를 나란히 그린 **`assets/7_3_image_prediction.png`를 생성**합니다.
+전체 실습 파일 [`practice/7_3_image_recognition.py`](practice/7_3_image_recognition.py)에서 `UPLOAD_OWN_IMAGE = True`로 변경하면 Colab의 파일 업로드 기능으로 다른 사진을 입력할 수 있습니다. 실행하면 입력 사진과 상위 5개 예측 결과를 나란히 그린 **`assets/7_3_image_prediction.png`**를 생성합니다.
 
-**실행 결과 확인:** 모델이 출력한 Top-5 클래스 이름과 Softmax 점수를 실제 사진과 비교해 보세요. README에 표시한 그림 7-4는 개념도이며 **실제 모델 추론 결과는 아닙니다.** 모델 가중치를 내려받아 실행할 수 있는 Colab에서 결과 이미지를 직접 생성하도록 구성했습니다.
+**실행 결과 확인:** 모델이 출력한 Top-5 클래스 이름과 Softmax 점수를 실제 사진과 비교해 보세요. README에 표시한 그림 7-9는 개념도이며 **실제 모델 추론 결과는 아닙니다.** 모델 가중치를 내려받아 실행할 수 있는 Colab에서 결과 이미지를 직접 생성하도록 구성했습니다.
 
 > 개인정보가 포함된 얼굴 사진, 타인의 비공개 사진, 저작권이나 공유 문제가 있는 이미지 등은 수업 실습에 사용하지 마세요. 이미지 품질, 피사체, 배경에 따라 예측 결과가 달라질 수 있습니다.
 
@@ -448,7 +743,7 @@ flowchart LR
 
 ![Prompt에서 텍스트 생성까지의 과정](assets/7_4_prompt_flow.png)
 
-*그림 7-5. 입력 문장을 Tokenizer로 변환한 뒤 사전 학습 언어 모델에서 생성 결과를 얻는 과정*
+*그림 7-10. 입력 문장을 Tokenizer로 변환한 뒤 사전 학습 언어 모델에서 생성 결과를 얻는 과정입니다. 개념을 설명하기 위한 도식입니다.*
 
 ### 7.4.3. Coding Practice — 소형 언어 모델 사용하기
 
@@ -499,7 +794,14 @@ print("Generated Text:\n", answer)
 | `do_sample=False` | 가장 점수가 높은 후보를 우선 선택하는 결정적 생성 방식 사용 |
 | `tokenizer.decode()` | 생성된 토큰 ID를 사람이 읽는 문자로 변환 |
 
-`max_new_tokens`는 **단어 수나 글자 수가 아니라 토큰(Token) 개수**를 지정합니다. 또한 모델이 생성한 문장의 길이와 내용은 입력, 생성 설정, 모델 버전에 따라 달라질 수 있으므로, README에 특정 문장을 정답처럼 고정하지 않습니다.
+`input_ids`는 프롬프트를 숫자 토큰 ID로 변환한 결과입니다. `generated_ids`에는 **입력 토큰과 새로 생성된 토큰**이 함께 담깁니다. 아래 두 줄은 입력 부분을 제외하고 새로 생성한 결과만 문자로 복원합니다.
+
+```python
+new_ids = generated_ids[0][input_ids.shape[-1]:]  # 입력 길이만큼 앞부분 제외
+answer = tokenizer.decode(new_ids, skip_special_tokens=True)  # ID → 텍스트
+```
+
+`max_new_tokens`는 **글자 수나 단어 수가 아니라 새 토큰의 최대 개수**입니다. `do_sample=False`는 매 단계에서 가장 높은 점수의 후보를 선택하는 방식입니다. 자연스러운 출력이더라도 사실 검증은 별도로 필요하며, README에는 특정 생성 문장을 정답으로 고정하지 않습니다.
 
 전체 코드: [`practice/7_4_text_generation.py`](practice/7_4_text_generation.py)
 
@@ -522,7 +824,7 @@ print("Generated Text:\n", answer)
 | 출력 형식 | 글머리 기호 등 요청한 형식을 사용하는가? |
 | 사실성 | 틀린 설명이나 어색한 표현이 있는가? |
 
-반복 실험용 파일 [`practice/exercise_02_prompt.py`](practice/exercise_02_prompt.py)는 모델을 한 번 로드한 뒤 세 가지 프롬프트를 `30`토큰과 `70`토큰 제한에서 각각 실행합니다.
+반복 실험용 파일 [`practice/exercise_04_prompt.py`](practice/exercise_04_prompt.py)는 모델을 한 번 로드한 뒤 세 가지 프롬프트를 `30`토큰과 `70`토큰 제한에서 각각 실행합니다.
 
 **생성형 AI 활용 시 점검할 사항**
 
@@ -533,10 +835,15 @@ print("Generated Text:\n", answer)
 
 ### References
 
+- [PyTorch — Activation Functions (Sigmoid, ReLU, Softmax, GELU)](https://docs.pytorch.org/docs/stable/nn.html#non-linear-activations-weighted-sum-nonlinearity)
+- [GELU 원 논문 (Hendrycks & Gimpel, 2016)](https://arxiv.org/abs/1606.08415)
+
+- [PyTorch — MSELoss](https://docs.pytorch.org/docs/stable/generated/torch.nn.MSELoss.html)
+- [PyTorch — BCEWithLogitsLoss](https://docs.pytorch.org/docs/stable/generated/torch.nn.BCEWithLogitsLoss.html)
+- [PyTorch — CrossEntropyLoss](https://docs.pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html)
 - [PyTorch — 공식 문서](https://pytorch.org/docs/stable/index.html)
 - [scikit-learn — Digits Dataset](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_digits.html)
 - [TorchVision — MobileNet V3](https://docs.pytorch.org/vision/stable/models/mobilenetv3.html)
-- [TorchVision — MobileNetV3 모델 가중치 및 전처리](https://docs.pytorch.org/vision/stable/models/mobilenetv3.html)
 - [Hugging Face — SmolLM2-135M-Instruct 모델 카드](https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct)
 - [Hugging Face — Transformers 문서](https://huggingface.co/docs/transformers/index)
 - [Google Colab — FAQ](https://research.google.com/colaboratory/faq.html)
@@ -550,7 +857,10 @@ print("Generated Text:\n", answer)
 | **Deep Learning** | 여러 층의 신경망(Neural Network)을 이용하여 데이터의 패턴을 학습하는 머신러닝 분야 |
 | **Neural Network** | Input Layer(입력층)·Hidden Layer(은닉층)·Output Layer(출력층) 등으로 이루어진 계산 구조 |
 | **Weight / Bias** | 신경망이 학습 과정에서 조정하는 가중치(Weight)와 편향(Bias) |
-| **Epoch / Loss** | 학습 반복 단위(Epoch) / 예측 오류(Loss)를 나타내는 학습 기준 |
+| **Activation Functions** | Sigmoid·ReLU·Softmax·GELU로 중간 표현이나 출력 점수를 변환하는 함수 |
+| **Epoch / Loss** | 전체 학습 데이터를 한 번 사용하는 단위(Epoch) / 예측과 정답의 차이를 수치로 나타낸 값(Loss) |
+| **MSE / BCE / Cross-Entropy** | 회귀 / 이진 분류 / 다중 클래스 분류에 주로 사용하는 손실 함수 |
+| **Logit** | Sigmoid·Softmax로 변환하기 전의 모델 원시 출력 점수 |
 | **PyTorch** | 신경망의 구성, 학습, 예측을 위한 Python 라이브러리 |
 | **CNN** | 이미지의 공간적 특징을 활용하는 합성곱 신경망 |
 | **Pre-trained Model** | 대규모 데이터로 미리 학습된 가중치를 활용하는 모델 |
@@ -581,20 +891,29 @@ nn.Linear(64, 10)
 
 **Q4.** 딥러닝 학습 과정에서 `loss.backward()`와 `optimizer.step()`은 각각 어떤 역할을 수행하는지 설명하시오.
 
-**Q5.** 학습 손실(`Train Loss`)이 계속 감소하면 평가 정확도(`Test Accuracy`)도 반드시 증가하는지 판단하고, 그 이유를 설명하시오.
+**Q5.** 회귀·이진 분류·다중 클래스 분류에서 주로 사용하는 손실 함수의 이름을 각각 작성하시오.
 
-**Q6.** 다음 중 `model.eval()`을 사용해야 하는 상황으로 가장 적절한 것을 고르시오.
+**Q6.** 다음 PyTorch 코드에서 `nn.CrossEntropyLoss()`를 사용하기 전에 `Softmax`를 적용하지 않는 이유를 설명하시오.
+
+```python
+logits = model(features)
+loss = nn.CrossEntropyLoss()(logits, labels)
+```
+
+**Q7.** 학습 손실(`Train Loss`)이 계속 감소하면 평가 정확도(`Test Accuracy`)도 반드시 증가하는지 판단하고, 그 이유를 설명하시오.
+
+**Q8.** 다음 중 `model.eval()`을 사용해야 하는 상황으로 가장 적절한 것을 고르시오.
 - ① 모델의 가중치(Weight)를 처음 생성할 때
 - ② 학습이 끝나고 새로운 이미지에 대해 예측할 때
 - ③ 새로운 데이터셋을 인터넷에서 다운로드할 때
 
-**Q7.** 사전 학습 모델(Pre-trained Model)을 사용했을 때의 장점을 한 가지 작성하시오.
+**Q9.** 사전 학습 모델(Pre-trained Model)을 사용했을 때의 장점을 한 가지 작성하시오.
 
-**Q8.** 생성형 AI의 `max_new_tokens=70`이 새 문장을 70글자로 제한한다는 설명의 옳고 그름을 판단하고, 그 이유를 설명하시오.
+**Q10.** 생성형 AI의 `max_new_tokens=70`이 새 문장을 70글자로 제한한다는 설명의 옳고 그름을 판단하고, 그 이유를 설명하시오.
 
-**Q9.** 이미지 분류 모델(Image Classification)의 출력 결과와 언어 생성 모델(LLM)의 출력 결과는 형태가 어떻게 다른지 비교하여 설명하시오.
+**Q11.** 이미지 분류 모델(Image Classification)의 출력 결과와 언어 생성 모델(LLM)의 출력 결과는 형태가 어떻게 다른지 비교하여 설명하시오.
 
-**Q10.** 생성형 AI가 작성한 문장을 별도의 사실 확인(Fact-check) 없이 그대로 사용하면 안 되는 이유를 설명하시오.
+**Q12.** 생성형 AI가 작성한 문장을 별도의 사실 확인(Fact-check) 없이 그대로 사용하면 안 되는 이유를 설명하시오.
 
 ---
 
@@ -602,16 +921,16 @@ nn.Linear(64, 10)
 
 ### Exercise 01 — 손글씨 숫자 모델 실험 (Neural Network Training)
 
-실습 파일: [`practice/exercise_01_digits.py`](practice/exercise_01_digits.py) *(원본 코드: `practice/7_2_digits_training.py`)*
+실습 파일: [`practice/exercise_01_digits.py`](practice/exercise_01_digits.py) *(기본 학습 코드: `practice/7_2_digits_training.py`)*
 
-실습 파일에는 다섯 가지 비교 조건이 준비되어 있습니다. 파일을 실행하면 각 조건에서 모델을 새로 학습하고 결과를 표 형식으로 출력합니다. `experiments` 목록을 수정하면 추가 실험도 가능합니다.
+이번에는 Week-07에서 배운 모델 평가 원칙을 적용합니다. 데이터는 **Train 60% / Validation 20% / Test 20%**로 나눕니다. 다섯 가지 후보 설정을 **Validation Accuracy**로 비교하고 가장 높은 설정을 선택합니다. 선택이 끝나면 Train+Validation 데이터로 다시 학습한 뒤 **Test 데이터를 한 번만 사용**하여 최종 정확도를 구합니다.
 
-1. `exercise_01_digits.py`를 실행하여 `EPOCHS = 5, 15, 30` 조건의 결과를 확인합니다. *(은닉층 노드 수는 64로 고정)*
-2. 각 조건의 마지막 학습 손실(`Train Loss`)과 테스트 정확도(`Test Accuracy`)를 아래 표에 기록합니다.
-3. `EPOCHS = 15`에서 은닉층 노드 수(`HIDDEN_UNITS`)를 `16`, `128`로 변경한 결과를 비교합니다.
-4. 학습 횟수와 노드 수가 늘어나면 평가 정확도도 항상 높아지는지 분석하고, 두 지표가 다른 방향으로 움직일 수 있는 이유를 설명해 보세요.
+1. `exercise_01_digits.py`를 실행하여 `EPOCHS = 5, 15, 30`을 비교하세요. 은닉층 노드 수는 64로 고정합니다.
+2. 각 조건의 마지막 학습 손실(`Train Loss`)과 검증 정확도(`Validation Accuracy`)를 아래 표에 기록하세요.
+3. `EPOCHS = 15`인 상태에서 `HIDDEN_UNITS = 16, 128`의 결과도 비교하세요.
+4. 선택된 설정과 마지막에 출력되는 **최종 Test Accuracy**를 확인하고, 학습 조건을 늘린다고 정확도가 항상 높아지지 않는 이유를 설명해 보세요.
 
-| 실험 조건 (고정 조건) | Train Loss | Test Accuracy |
+| 실험 조건 (고정 조건) | Train Loss | Validation Accuracy |
 |:---|:---:|:---:|
 | `EPOCHS = 5` (`HIDDEN_UNITS = 64`) | 직접 기록 | 직접 기록 |
 | `EPOCHS = 15` (`HIDDEN_UNITS = 64`) | 직접 기록 | 직접 기록 |
@@ -619,11 +938,30 @@ nn.Linear(64, 10)
 | `HIDDEN_UNITS = 16` (`EPOCHS = 15`) | 직접 기록 | 직접 기록 |
 | `HIDDEN_UNITS = 128` (`EPOCHS = 15`) | 직접 기록 | 직접 기록 |
 
-> **Point:** 학습 중 오차(`Train Loss`)가 줄어드는 것과 처음 보는 데이터에 대한 실제 실력(`Test Accuracy`)이 높아지는 것은 구별해서 확인해야 합니다.
+> **Point:** Validation 데이터는 설정을 **선택**하는 데, Test 데이터는 선택이 끝난 모델을 **최종 평가**하는 데 사용합니다. 여러 후보의 Test Accuracy를 보고 설정을 고르면 평가가 지나치게 낙관적일 수 있습니다.
 
 ---
 
-### Exercise 02 — 사전 학습 모델로 사진 분류 결과 비교 (Image Classification)
+### Exercise 02 — 손실 함수의 출력 비교 (Loss Functions)
+
+실습 파일: [`practice/exercise_02_losses.py`](practice/exercise_02_losses.py)
+
+1. 회귀 문제에서 정답 `[80, 90]`에 대한 예측값을 바꾸고 MSE의 변화를 확인하세요.
+2. 이진 분류에서 정답이 `1`일 때 Logit을 `2.0`과 `-2.0`으로 바꾸어 Sigmoid 출력과 BCE 손실을 기록하세요.
+3. 다중 클래스 분류에서 정답 인덱스 `2`에 대해 Logit `[1, 2, 3]`과 `[3, 2, 1]`을 비교하세요.
+4. 세 실습 각각에서 정답에 가까운 예측이 손실에 어떤 영향을 주는지 설명하세요.
+
+| 문제 유형 | 변경할 입력 | 관찰할 값 |
+|:---|:---|:---|
+| 회귀 | `predicted_scores` | `MSE` |
+| 이진 분류 | `logit_binary` | `Sigmoid 출력`, `BCE` |
+| 다중 클래스 분류 | `logits` | `Softmax 출력`, `Cross-Entropy` |
+
+> **Point:** 손실은 **같은 문제에서 서로 다른 예측의 결과**를 비교하는 데 사용합니다. MSE·BCE·Cross-Entropy의 수치는 각각 다른 기준에서 계산되므로 서로 절댓값을 비교하지 않습니다.
+
+---
+
+### Exercise 03 — 사전 학습 모델로 사진 분류 결과 비교 (Image Classification)
 
 실습 파일: [`practice/7_3_image_recognition.py`](practice/7_3_image_recognition.py)
 
@@ -636,11 +974,11 @@ nn.Linear(64, 10)
 
 ---
 
-### Exercise 03 — Prompt 설계와 텍스트 생성 결과 비교 (LLM)
+### Exercise 04 — Prompt 설계와 텍스트 생성 결과 비교 (LLM)
 
-실습 파일: [`practice/exercise_02_prompt.py`](practice/exercise_02_prompt.py) — 모델을 한 번 로드한 뒤 프롬프트와 토큰 상한을 바꿔 출력합니다.
+실습 파일: [`practice/exercise_04_prompt.py`](practice/exercise_04_prompt.py) — 모델을 한 번 로드한 뒤 프롬프트와 토큰 상한을 바꿔 출력합니다.
 
-1. `exercise_02_prompt.py`를 실행하여 아래 세 프롬프트에 대한 응답을 생성합니다.
+1. `exercise_04_prompt.py`를 실행하여 아래 세 프롬프트에 대한 응답을 생성합니다.
 2. 생성된 텍스트의 **길이, 형식, 설명 수준**을 비교합니다.
 3. `MAX_NEW_TOKENS`를 `30`과 `70`으로 바꾸었을 때 결과가 어떻게 달라지는지 확인합니다.
 4. 모델이 지시한 조건(문장 수, 글머리 기호 등)을 지키지 못한 사례를 기록합니다.
