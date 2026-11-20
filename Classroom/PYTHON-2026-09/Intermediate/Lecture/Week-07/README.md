@@ -1,6 +1,6 @@
 # Chapter 06. Artificial Intelligence & Machine Learning
 
-**Week 07 · Python Intermediate · 80분 · Google Colab**
+**Week 07 · Python Intermediate · Google Colab**
 
 인공지능의 기본 개념부터 데이터 학습, 회귀·분류 모델 구현, 평가까지 다루는 입문 수업. 복잡한 수학적 증명보다 **입력 데이터 → 학습 → 예측 → 평가**가 실제 코드에서 어떻게 연결되는지 확인하는 데 초점을 둠.
 
