@@ -144,7 +144,7 @@ z = w_1x_1 + w_2x_2 + b
 ```
 
 ```math
-a = \operatorname{ReLU}(z) = \max(0,z)
+a = \mathrm{ReLU}(z) = \max(0,z)
 ```
 
 - `z`: 가중합으로 계산한 값
