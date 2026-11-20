@@ -40,6 +40,8 @@ train_loader = DataLoader(
     batch_size=BATCH_SIZE, shuffle=True
 )
 
+# nn.Linear(입력 특징 수, 출력 뉴런 수): 64픽셀 → 은닉층 → 10개 숫자 점수
+# nn.Sequential은 Linear → ReLU → Linear 순서대로 층을 연결합니다.
 model = nn.Sequential(
     nn.Linear(64, HIDDEN_UNITS),
     nn.ReLU(),
@@ -63,6 +65,7 @@ for epoch in range(EPOCHS):
     loss_history.append(train_loss)
     print(f"Epoch {epoch+1:02d}/{EPOCHS} | Train Loss: {train_loss:.4f}")
 
+# 평가 시에는 학습용 동작을 멈추고, 기울기 계산도 별도로 생략합니다.
 model.eval()
 with torch.inference_mode():
     predictions = model(torch.from_numpy(X_test)).argmax(dim=1).numpy()

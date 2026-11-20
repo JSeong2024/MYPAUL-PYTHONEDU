@@ -20,6 +20,7 @@ if TEST_SIZE is None:
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=TEST_SIZE, random_state=42, stratify=y
 )
+# KNN과 다른 분류 모델이지만 사용 순서는 동일: 생성 → fit() → predict() → 평가
 model = DecisionTreeClassifier(random_state=42)
 
 # TODO 2: 학습용 입력과 정답을 각각 지정하세요.
