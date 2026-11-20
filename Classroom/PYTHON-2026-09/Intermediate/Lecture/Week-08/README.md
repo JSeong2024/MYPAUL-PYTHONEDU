@@ -549,7 +549,7 @@ print("Generated Text:\n", answer)
 
 **Q1.** Deep Learning(딥러닝)은 Machine Learning(머신러닝)의 한 분야인가요? 그 이유를 한 문장으로 작성하시오.
 
-**Q2.** 인공신경망(Neural Network)에서 **입력층(Input Layer), 은닉층(Hidden Layer), 출력층(Output Layer)**이 맡는 역할을 각각 설명하시오.
+**Q2.** 인공신경망(Neural Network)에서 **입력층(Input Layer), 은닉층(Hidden Layer), 출력층(Output Layer)** 이 맡는 역할을 각각 설명하시오.
 
 **Q3.** PyTorch 코드에서 `nn.Linear(64, 10)`의 `64`와 `10`이 뜻하는 바를 각각 설명하시오.
 ```python
