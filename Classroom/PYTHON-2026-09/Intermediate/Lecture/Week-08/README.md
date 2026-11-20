@@ -129,7 +129,7 @@ Week-07에서는 선형 회귀(Linear Regression)와 KNN을 이용해 점수를 
 
 ![입력층·은닉층·출력층이 연결된 인공신경망](assets/7_1_neural_network.png)
 
-*그림 7-1. 두 개 입력을 세 개 은닉 뉴런으로 처리한 뒤 하나의 결과를 출력하는 신경망 구조. 이해를 위한 개념도입니다.*
+*그림 7-1. 두 개 입력을 세 개 은닉 뉴런으로 처리한 뒤 하나의 결과를 출력하는 신경망 구조.*
 
 | 구성 | 의미 | 예시 |
 |:---|:---|:---|
@@ -307,13 +307,13 @@ print(f"Test Accuracy: {accuracy:.1%}")
 
 ![15 Epoch 동안의 실제 학습 Loss 변화](assets/7_2_training_curve.png)
 
-*그림 7-2. 제공한 `7_2_digits_training.py`를 CPU에서 실행하여 기록한 학습 Loss입니다. 그림의 값은 이번 실행 환경에서 얻은 결과이며, 환경에 따라 달라질 수 있습니다.*
+*그림 7-2. 제공한 `7_2_digits_training.py`를 CPU에서 실행하여 기록한 학습 Loss. 그림의 값은 실행환경에 따라 달라질 수 있습니다.*
 
 **실제 Python 실행 결과 — 숫자 인식**
 
 ![테스트 손글씨 숫자 이미지와 모델의 예측 결과](assets/7_2_digits_predictions.png)
 
-*그림 7-3. 테스트용 손글씨 숫자의 실제 정답(`True`)과 모델의 예측(`Pred`)을 비교한 결과입니다. 서로 다르면 `*`로 표시합니다.*
+*그림 7-3. 테스트용 손글씨 숫자의 실제 정답(`True`)과 모델의 예측(`Pred`)을 비교한 결과. 서로 다르면 `*`로 표시.*
 
 실습 파일을 지정된 설정으로 실행한 결과, **테스트 360개 중 349개를 맞혀 96.9%의 정확도(Test Accuracy)** 를 기록했습니다. 데이터 분할, 난수 설정, 실행 환경 또는 학습 코드가 바뀌면 결과도 달라질 수 있습니다. 여기서 중요한 것은 높은 정확도 수치 자체보다 **학습되지 않은 테스트 이미지로 성능을 확인했다는 사실**입니다.
 
@@ -401,7 +401,7 @@ for index, score in zip(top_ids.tolist(), top_scores.tolist()):
 
 **학생 사진으로 실습하기**
 
-전체 실습 파일 [`practice/7_3_image_recognition.py`](practice/7_3_image_recognition.py)에서 `UPLOAD_OWN_IMAGE = True`로 변경하면 Colab의 파일 업로드 기능으로 다른 사진을 입력할 수 있습니다. 실행하면 입력 사진과 상위 5개 예측 결과를 나란히 그린 **`assets/7_3_image_prediction.png`**를 생성합니다.
+전체 실습 파일 [`practice/7_3_image_recognition.py`](practice/7_3_image_recognition.py)에서 `UPLOAD_OWN_IMAGE = True`로 변경하면 Colab의 파일 업로드 기능으로 다른 사진을 입력할 수 있습니다. 실행하면 입력 사진과 상위 5개 예측 결과를 나란히 그린 **`assets/7_3_image_prediction.png`를 생성**합니다.
 
 **실행 결과 확인:** 모델이 출력한 Top-5 클래스 이름과 Softmax 점수를 실제 사진과 비교해 보세요. README에 표시한 그림 7-4는 개념도이며 **실제 모델 추론 결과는 아닙니다.** 모델 가중치를 내려받아 실행할 수 있는 Colab에서 결과 이미지를 직접 생성하도록 구성했습니다.
 
@@ -448,7 +448,7 @@ flowchart LR
 
 ![Prompt에서 텍스트 생성까지의 과정](assets/7_4_prompt_flow.png)
 
-*그림 7-5. 입력 문장을 Tokenizer로 변환한 뒤 사전 학습 언어 모델에서 생성 결과를 얻는 과정입니다. 개념을 설명하기 위한 도식입니다.*
+*그림 7-5. 입력 문장을 Tokenizer로 변환한 뒤 사전 학습 언어 모델에서 생성 결과를 얻는 과정*
 
 ### 7.4.3. Coding Practice — 소형 언어 모델 사용하기
 
