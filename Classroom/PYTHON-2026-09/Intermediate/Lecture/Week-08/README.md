@@ -2,27 +2,21 @@
 
 **Week 08 · Python Intermediate · Google Colab**
 
-Week-07에서 배운 머신러닝을 인공신경망으로 확장하고, 딥러닝 모델이 이미지와 텍스트를 처리하는 과정을 실습합니다. 이번 Chapter는 **신경망 구조 → 직접 모델 학습 → 사전 학습 모델 활용 → 생성형 AI**의 순서로 구성했습니다.
-
-복잡한 미분 계산이나 모델 구조의 세부 구현보다는 모델의 입력·출력과 학습 과정을 코드로 확인하는 데 초점을 맞춥니다.
-
-> 7.1~7.2는 제공한 데이터와 코드만으로 실행 가능합니다. 7.3~7.4는 처음 실행할 때 **공개 사전 학습 모델을 인터넷에서 다운로드**해야 합니다. 이 두 실습의 실행 결과는 모델 버전, 입력, 실행 환경에 따라 달라질 수 있습니다.
+Week-07에서 배운 머신러닝을 인공신경망으로 확장하고, 딥러닝 모델이 이미지와 텍스트를 처리하는 과정을 실습합니다.
 
 ## Contents
 
 | 구분 | 주제 | 세부내용 |
 |:---|:---|:---|
-| [7.1](#71-introduction-to-deep-learning) | Introduction to Deep Learning | 신경망 구조, 뉴런·가중치·활성화 함수 |
-| [7.2](#72-neural-networks--model-training) | Neural Networks & Model Training | PyTorch 손글씨 숫자 인식, Epoch·Loss·Accuracy |
-| [7.3](#73-computer-vision--image-recognition) | Computer Vision & Image Recognition | CNN, 사전 학습 MobileNetV3로 사진 분류 |
-| [7.4](#74-generative-ai--large-language-models) | Generative AI & Large Language Models | Token·Transformer·Prompt, 소형 언어 모델 텍스트 생성 |
-| [Summary](#summary) | 요약 | 직접 학습한 모델과 사전 학습 모델 비교 |
+| [7.1](#71-introduction-to-deep-learning) | Introduction to Deep Learning | Neural Network 구조, Neuron·Weight·Activation Function |
+| [7.2](#72-neural-networks--model-training) | Neural Networks & Model Training | PyTorch 손글씨 숫자 인식(MNIST), Epoch·Loss·Accuracy |
+| [7.3](#73-computer-vision--image-recognition) | Computer Vision & Image Recognition | CNN, Pre-trained MobileNetV3로 Image Classification |
+| [7.4](#74-generative-ai--large-language-models) | Generative AI & Large Language Models | Token·Transformer·Prompt, SLM(Small Language Model) 텍스트 생성 |
+| [Summary](#summary) | 요약 | Custom-trained Model과 Pre-trained Model 비교 |
 | [Quiz](#quiz) | 퀴즈 | 주요 개념 및 코드 분석 |
-| [Exercise](#exercise) | 연습 문제 | 실험 조건 변경 및 결과 해석 |
+| [Exercise](#exercise) | 연습 문제 | Hyperparameter·실험 조건 변경 및 결과 해석 |
 
 ## Getting Started — Google Colab
-
-Google Colab에서는 Python을 브라우저에서 실행할 수 있으며, GPU를 사용할 수 있는 환경도 제공합니다. 이번 수업의 작은 숫자 분류 모델은 **CPU만으로도 실습할 수 있으며**, 7.3~7.4 역시 CPU에서 실행할 수 있도록 구성했습니다. 다만 모델 가중치 다운로드와 텍스트 생성은 환경 및 네트워크 상태에 영향을 받습니다.
 
 ### 1. 실행 환경과 라이브러리 설치
 
@@ -62,7 +56,7 @@ print("GPU 사용 가능:", torch.cuda.is_available())
 
 ### 2. 실습 실행 방법
 
-**방법 A — Notebook 파일 실행 (권장)**
+**방법 A — Notebook 파일 실행 (권장)** 
 
 ZIP을 해제한 뒤 `Week08_Chapter07.ipynb`를 Colab의 **파일 → 노트 업로드**에서 열고, 위에서부터 셀을 순서대로 실행하세요. 실습 코드는 Notebook에 포함되어 있어 `practice/` 파일을 별도로 업로드할 필요가 없습니다.
 
@@ -118,7 +112,7 @@ Week-08/
 
 ### 7.1.1. 머신러닝과 딥러닝의 차이
 
-Week-07에서는 선형 회귀와 KNN을 이용해 점수를 예측하고 붓꽃 품종을 분류했습니다. **딥러닝(Deep Learning)** 역시 데이터를 학습하는 머신러닝의 한 분야이지만, 여러 층의 **인공신경망(Artificial Neural Network)**을 이용한다는 점에서 특징적입니다.
+Week-07에서는 선형 회귀와 KNN을 이용해 점수를 예측하고 붓꽃 품종을 분류했습니다. **딥러닝(Deep Learning)**  역시 데이터를 학습하는 머신러닝의 한 분야이지만, 여러 층의 **인공신경망(Artificial Neural Network)** 을 이용한다는 점에서 특징적입니다.
 
 | 항목 | 전통적인 머신러닝 실습(Week-07) | 딥러닝 실습(Week-08) |
 |:---|:---|:---|
@@ -161,7 +155,7 @@ $$
 
 ### 7.1.3. Coding Practice — 신경망의 순전파
 
-**순전파(Forward Pass)**는 데이터가 입력층에서 은닉층을 거쳐 출력층으로 전달되는 계산 과정입니다. 아래 코드는 학습 전, 정해진 가중치로 계산만 수행하는 실습입니다.
+**순전파(Forward Pass)** 는 데이터가 입력층에서 은닉층을 거쳐 출력층으로 전달되는 계산 과정입니다. 아래 코드는 학습 전, 정해진 가중치로 계산만 수행하는 실습입니다.
 
 ```python
 import numpy as np
@@ -232,7 +226,7 @@ graph LR
 | 데이터 분할 | Train 80% / Test 20% |
 | 모델 구조 | 64 → 64 → 10 |
 
-이미지는 2차원이지만 간단한 신경망에 입력하기 위해 픽셀값 64개를 한 줄로 펼쳐 사용합니다. 이 방식은 **다층 퍼셉트론(MLP)** 실습이며, 7.3에서 소개할 CNN과는 다른 구조입니다.
+이미지는 2차원이지만 간단한 신경망에 입력하기 위해 픽셀값 64개를 한 줄로 펼쳐 사용합니다. 이 방식은 **다층 퍼셉트론(MLP)**  실습이며, 7.3에서 소개할 CNN과는 다른 구조입니다.
 
 ### 7.2.3. Coding Practice — PyTorch 숫자 분류 모델
 
@@ -297,7 +291,7 @@ print(f"Test Accuracy: {accuracy:.1%}")
 | `model.eval()` | 평가 모드로 전환 |
 | `torch.no_grad()` | 평가 중 불필요한 기울기 계산 비활성화 |
 
-출력층의 10개 값은 **각 숫자에 대한 점수(logit)**이며, 가장 큰 값을 가진 숫자를 예측 결과로 선택합니다. 이 점수들을 바로 확률이라고 해석하면 안 됩니다.
+출력층의 10개 값은 **각 숫자에 대한 점수(logit)** 이며, 가장 큰 값을 가진 숫자를 예측 결과로 선택합니다. 이 점수들을 바로 확률이라고 해석하면 안 됩니다.
 
 ### 7.2.4. 학습 결과 시각화
 
@@ -325,7 +319,7 @@ print(f"Test Accuracy: {accuracy:.1%}")
 
 ### 7.3.1. 컴퓨터는 이미지를 어떻게 처리할까?
 
-**컴퓨터 비전(Computer Vision)**은 사진과 영상에서 필요한 정보를 추출하고 이해하도록 만드는 인공지능 분야입니다. 사물 분류, 제품 불량 검출, 의료 영상 분석 등 다양한 작업에 활용됩니다.
+**컴퓨터 비전(Computer Vision)** 은 사진과 영상에서 필요한 정보를 추출하고 이해하도록 만드는 인공지능 분야입니다. 사물 분류, 제품 불량 검출, 의료 영상 분석 등 다양한 작업에 활용됩니다.
 
 디지털 이미지는 픽셀(Pixel)의 배열로 표현됩니다. 컬러 이미지는 일반적으로 빨강(R), 초록(G), 파랑(B) 채널을 포함합니다.
 
@@ -409,7 +403,7 @@ for index, score in zip(top_ids.tolist(), top_scores.tolist()):
 
 ### 7.4.1. 분류 AI와 생성형 AI
 
-앞선 이미지 분류 모델은 입력에 대해 **정해진 종류 중 하나를 고르는 작업**을 수행합니다. 반면 **생성형 AI(Generative AI)**는 학습한 데이터의 패턴을 바탕으로 새로운 텍스트·이미지·음성 등을 만들어 내는 데 사용됩니다.
+앞선 이미지 분류 모델은 입력에 대해 **정해진 종류 중 하나를 고르는 작업**을 수행합니다. 반면 **생성형 AI(Generative AI)** 는 학습한 데이터의 패턴을 바탕으로 새로운 텍스트·이미지·음성 등을 만들어 내는 데 사용됩니다.
 
 | 구분 | 이미지 분류 AI | 텍스트 생성형 AI |
 |:---|:---|:---|
@@ -418,7 +412,7 @@ for index, score in zip(top_ids.tolist(), top_scores.tolist()):
 | 주요 역할 | 주어진 대상을 구분 | 문맥에 이어질 내용을 생성 |
 | 모델 예 | MobileNetV3 | Transformer 기반 언어 모델 |
 
-**대규모 언어 모델(Large Language Model, LLM)**은 많은 텍스트를 학습하여 문맥에 맞는 다음 토큰을 예측하는 방식 등으로 언어를 처리합니다. 현대 언어 모델의 핵심 구조로 널리 쓰이는 것이 **Transformer**입니다.
+**대규모 언어 모델(Large Language Model, LLM)** 은 많은 텍스트를 학습하여 문맥에 맞는 다음 토큰을 예측하는 방식 등으로 언어를 처리합니다. 현대 언어 모델의 핵심 구조로 널리 쓰이는 것이 **Transformer**입니다.
 
 ### 7.4.2. Token, Prompt, Transformer
 
