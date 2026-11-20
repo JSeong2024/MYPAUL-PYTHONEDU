@@ -8,25 +8,23 @@
 
 ## Contents
 
-| 구분 | 주제 | 시간 | 주요 활동 |
-|:---|:---|---:|:---|
-| [6.1](#61-introduction-to-artificial-intelligence) | Introduction to Artificial Intelligence | 15분 | AI·ML·DL 비교, 규칙 기반 분류 |
-| [6.2](#62-how-machine-learning-works) | How Machine Learning Works | 15분 | 선형 회귀로 시험 점수 예측 |
-| [6.3](#63-classification--prediction) | Classification & Prediction | 25분 | KNN으로 붓꽃 품종 분류 |
-| [6.4](#64-model-evaluation--applications) | Model Evaluation & Applications | 25분 | 검증 데이터, 정확도, 혼동행렬 |
-| [Summary](#summary) | 핵심 개념 정리 | — | 회귀·분류·평가 비교 |
-| [Quiz](#quiz) | 이해도 확인 | — | 개념·코드 분석 |
-| [Exercise](#exercise) | 개별 연습 | — | 제공된 Python 파일 활용 |
-
-80분에는 각 Chapter의 설명과 실행 시간이 포함됨. Quiz와 Exercise는 해당 구간의 확인 문제로 활용하거나 수업 후 과제로 진행 가능.
+| 구분 | 주제 | 세부내용 |
+|:---|:---|:---|
+| [6.1](#61-introduction-to-artificial-intelligence) | Introduction to Artificial Intelligence | AI·ML·DL 비교, 규칙 기반 분류 |
+| [6.2](#62-how-machine-learning-works) | How Machine Learning Works | 선형 회귀로 시험 점수 예측 |
+| [6.3](#63-classification--prediction) | Classification & Prediction | KNN으로 붓꽃 품종 분류 |
+| [6.4](#64-model-evaluation--applications) | Model Evaluation & Applications | Validation data, Accuracy, Confusion matrix |
+| [Summary](#summary) | 요약 | 회귀·분류·평가 비교 |
+| [Quiz](#quiz) | 퀴즈 | 개념·코드 분석 |
+| [Exercise](#exercise) | 연습 문제 | - |
 
 ## Getting Started — Google Colab
 
-AI 실습은 [Google Colab](https://colab.research.google.com/)의 Python Notebook에서 진행함. 이번 Chapter는 소규모 데이터만 사용하므로 **GPU 없이 CPU 런타임으로 실행 가능**함.
+실습은 [Google Colab](https://colab.research.google.com/)의 Python Notebook에서 진행.
 
 ### 1. 실행 환경 및 라이브러리
 
-Colab에서 **새 노트**를 연 뒤 첫 번째 코드 셀에 다음 명령을 입력함.
+Colab에서 **새 노트**를 연 뒤 첫 번째 코드 셀에 다음 명령을 입력. (생략 가능)
 
 ```python
 %pip install -q numpy matplotlib scikit-learn
@@ -54,9 +52,9 @@ print("scikit-learn:", sklearn.__version__)
 
 **방법 A — 배포된 ZIP으로 실행**
 
-1. `Week-07.zip` 파일을 다운로드함.
-2. Colab의 코드 셀에서 아래 명령을 실행하고 ZIP 파일을 업로드함.
-3. 압축 해제 후 `practice/`에 있는 Python 파일을 실행함.
+1. `Week-07.zip` 파일을 다운로드.
+2. Colab의 코드 셀에서 아래 명령을 실행하고 ZIP 파일을 업로드.
+3. 압축 해제 후 `practice/`에 있는 Python 파일을 실행.
 
 ```python
 from google.colab import files
@@ -65,7 +63,7 @@ files.upload()  # Week-07.zip 선택
 !unzip -oq Week-07.zip -d /content
 %cd /content/Week-07
 
-# 원하는 Chapter의 실습 파일을 실행
+# 원하는 Chapter의 실습 파일 실행
 %run practice/6_2_linear_regression.py
 ```
 
@@ -107,8 +105,6 @@ Week-07/
 ---
 
 ## 6.1. Introduction to Artificial Intelligence
-
-**인공지능 소개 · 15분**
 
 ### 6.1.1. 인공지능이란?
 
@@ -193,7 +189,7 @@ for message in messages:
 
 ## 6.2. How Machine Learning Works
 
-**머신러닝의 학습과 예측 · 15분**
+**머신러닝의 학습과 예측**
 
 ### 6.2.1. 데이터에서 관계 학습하기
 
@@ -353,7 +349,7 @@ plt.show()
 
 ## 6.3. Classification & Prediction
 
-**회귀와 분류의 차이 · KNN 실습 · 25분**
+**회귀와 분류의 차이 · KNN 실습**
 
 ### 6.3.1. Regression vs. Classification
 
@@ -446,7 +442,7 @@ print("새로운 꽃의 예상 품종:", iris.target_names[predicted_class])
 
 ## 6.4. Model Evaluation & Applications
 
-**모델 평가·개선·실제 활용 · 25분**
+**모델 평가·개선·실제 활용**
 
 ### 6.4.1. 정확한 예측이란 무엇인가?
 
@@ -602,7 +598,7 @@ print(confusion_matrix(y[test_idx], final_predictions))
 
 ### 6.4.5. 실제 응용에서 확인할 사항
 
-| 확인 항목 | 질문 | 실무에서의 의미 |
+| 확인 항목 | 질문 | 의미 |
 |:---|:---|:---|
 | 데이터 품질 | 입력값에 오류·누락·편향이 있는가? | 잘못된 데이터는 예측 오류로 연결될 수 있음 |
 | 학습 범위 | 새로운 입력이 학습 데이터와 비슷한가? | 생소한 상황에서는 성능이 떨어질 수 있음 |
