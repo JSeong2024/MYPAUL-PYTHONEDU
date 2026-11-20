@@ -6,13 +6,13 @@
 
 | 구분 | 주제 | 세부내용 |
 |:---|:---|:---|
-| [6.1](#61-introduction-to-artificial-intelligence) | Introduction to Artificial Intelligence | AI·ML·DL 비교, 규칙 기반 분류 |
-| [6.2](#62-how-machine-learning-works) | How Machine Learning Works | 선형 회귀로 시험 점수 예측 |
-| [6.3](#63-classification--prediction) | Classification & Prediction | KNN으로 붓꽃 품종 분류 |
-| [6.4](#64-model-evaluation--applications) | Model Evaluation & Applications | Validation data, Accuracy, Confusion matrix |
-| [Summary](#summary) | 요약 | 회귀·분류·평가 비교 |
+| [6.1](#61-introduction-to-artificial-intelligence) | Introduction to Artificial Intelligence | AI·ML·DL 비교, Rule-based Classification |
+| [6.2](#62-how-machine-learning-works) | How Machine Learning Works | Feature·Target, Train/Test Split, Linear Regression |
+| [6.3](#63-classification--prediction) | Classification & Prediction | KNN으로 붓꽃(Iris) 품종 Classification |
+| [6.4](#64-model-evaluation--applications) | Model Evaluation & Applications | Accuracy·Confusion Matrix, Validation Data, Cross-Validation, Data Leakage |
+| [Summary](#summary) | 요약 | Regression·Classification·Evaluation 비교 |
 | [Quiz](#quiz) | 퀴즈 | 개념·코드 분석 |
-| [Exercise](#exercise) | 연습 문제 | - |
+| [Exercise](#exercise) | 연습 문제 | Regression·Classification·Model Evaluation 실습 |
 
 ## Getting Started — Google Colab
 
@@ -64,7 +64,7 @@ files.upload()  # Week-07.zip 선택
 
 **방법 B — README에서 실행**
 
-각 Chapter의 Python 코드 블록을 순서대로 Colab 코드 셀에 복사하여 실행합니다. 배포된 실습 파일은 같은 코드를 독립적으로 실행할 수 있도록 구성되어 있습니다.
+각 Chapter의 Python 코드 블록을 순서대로 Colab 코드 셀에 복사하여 실행합니다. 실습 파일은 각 Chapter의 기본 코드를 독립적으로 실행할 수 있도록 구성되어 있습니다. **추가 설명 및 Exercise 05의 예제는 README에 수록되어 있으며**, 빈칸 채우기 코드는 `...` 부분을 완성한 뒤 실행합니다.
 
 **GitHub에 Week-07을 업로드한 이후**에는 아래 명령으로 해당 폴더만 내려받을 수도 있습니다.
 
@@ -203,27 +203,29 @@ for message in messages:
 
 공부 시간이 늘수록 시험 점수도 대체로 높아지는 경향을 관찰할 수 있습니다. 모델은 이 관계를 학습한 뒤, **6.5시간**과 같은 새로운 입력에 대한 점수를 예측합니다.
 
-### 6.2.2. Feature, Label, Model
+### 6.2.2. Feature, Target, Model
 
 | 용어 | 코드 표기 | 이번 예제에서의 의미 |
 |:---|:---:|:---|
-| **Feature**(특징) | `X` | 입력 데이터인 공부 시간 |
-| **Label / Target**(정답) | `y` | 실제 시험 점수 |
-| **Model**(모델) | `model` | 입력과 점수 사이의 관계를 학습하는 프로그램 |
-| **Prediction**(예측) | `ŷ` | 모델이 계산한 예상 점수 |
+| **Feature**(특징) | `X` | 모델에 입력하는 공부 시간 |
+| **Target**(정답) | `y` | 학습 데이터에 기록된 실제 시험 점수 |
+| **Model**(모델) | `model` | 공부 시간과 점수 사이의 패턴을 학습하고 예측하는 프로그램 |
+| **Prediction**(예측값) | `ŷ` | 모델이 계산한 예상 시험 점수 |
 
-정답(`y`)과 입력(`X`)을 함께 제공하는 학습 방식을 **지도 학습(Supervised Learning)**  이라고 합니다. 지도 학습에는 점수처럼 연속된 수치를 예측하는 **회귀(Regression)**  와 종류를 구분하는 **분류(Classification)**  가 있습니다.
+`X`는 **문제**, `y`는 그 문제의 **정답**에 비유할 수 있습니다. 예를 들어 공부 시간이 6시간인 학생의 실제 점수가 70점이라면 `X = 6`, `y = 70`입니다. 모델이 68점을 예측했다면 `ŷ = 68`이며, 실제 정답인 `y`와 구분해야 합니다.
+
+입력(`X`)과 정답(`y`)을 함께 제공하는 학습 방식을 **지도 학습(Supervised Learning)**이라고 합니다. 지도 학습에는 시험 점수처럼 연속적인 수치를 예측하는 **회귀(Regression)**와 붓꽃의 품종처럼 종류를 구분하는 **분류(Classification)**가 있습니다. `Target`은 정답을 가리키는 일반적인 용어이며, 분류 문제에서는 `Label`이라는 표현도 자주 사용합니다.
 
 ```mermaid
 flowchart LR
     A[Feature X<br/>공부 시간] --> B[학습된 모델]
-    B --> C[Prediction<br/>예상 점수]
-    D[Label y<br/>실제 점수] -. "학습할 때 함께 제공" .-> B
+    B --> C[Prediction ŷ<br/>예상 점수]
+    D[Target y<br/>실제 점수] -. "학습할 때 함께 제공" .-> B
 ```
 
 ### 6.2.3. 왜 `X_train`, `X_test`, `y_train`, `y_test` 네 개가 필요할까?
 
-학습에 사용한 데이터에서만 좋은 결과가 나오는지, 처음 보는 데이터에서도 적절히 예측하는지 구분하여 확인해야 합니다. 이를 위해 입력 `X`와 정답 `y`를 **각각 학습용(Train)·테스트용(Test)** 으로 분리합니다.
+모델이 학습한 문제만 잘 푼다고 해서 처음 보는 문제까지 잘 푸는 것은 아닙니다. **모델의 학습과 성능 평가를 구분하기 위해** 입력 `X`와 정답 `y`를 각각 학습용(Train)과 테스트용(Test)으로 나눕니다. 데이터 묶음은 두 종류지만, 입력과 정답을 따로 저장하므로 변수는 네 개가 됩니다.
 
 ```mermaid
 flowchart TB
@@ -235,14 +237,16 @@ flowchart TB
     C --> G[y_test<br/>비교할 실제 정답]
 ```
 
-| 변수 | 무엇을 저장하나? | 사용 시점 |
-|:---|:---|:---|
-| `X_train` | 학습용 공부 시간 | `fit()`의 입력 |
-| `y_train` | 그 공부 시간에 대응하는 실제 점수 | `fit()`의 정답 |
-| `X_test` | 학습에 사용하지 않은 공부 시간 | `predict()`의 입력 |
-| `y_test` | 해당 공부 시간의 실제 점수 | 예측값과 정답 비교 |
+| 변수 | 역할 | 시험에 비유하면 | 실제 사용 |
+|:---|:---|:---|:---|
+| `X_train` | 학습용 입력 | 기출문제집의 문제 | `fit()`에 제공 |
+| `y_train` | 학습용 정답 | 기출문제집의 정답지 | `fit()`에 제공 |
+| `X_test` | 평가용 입력 | 처음 보는 시험 문제 | `predict()`에 제공 |
+| `y_test` | 평가용 정답 | 채점용 정답지 | 예측값과 비교 |
 
-**중요:** 공부 시간과 점수는 한 학생의 데이터 한 쌍으로 유지해야 합니다. `train_test_split(X, y, ...)`은 서로 대응하는 데이터의 순서를 함께 바꾸고 같은 기준으로 분할합니다.
+모델은 `X_train`과 `y_train`을 함께 사용해 패턴을 학습합니다. 이후 `X_test`만 입력받아 예측값을 출력하면, 이를 별도로 보관한 `y_test`와 비교하여 성능을 평가합니다. **`predict()`에는 `y_test`를 전달하지 않습니다.**
+
+**중요:** 공부 시간과 시험 점수는 같은 학생의 입력·정답 한 쌍으로 유지해야 합니다. `train_test_split(X, y, ...)`은 이 대응 관계를 유지하면서 두 배열을 함께 분리합니다. 학습용과 테스트용을 나누는 비율은 문제와 데이터 규모에 따라 조정할 수 있습니다.
 
 ```python
 from sklearn.model_selection import train_test_split
@@ -359,7 +363,7 @@ plt.show()
 
 ### 6.3.2. KNN — 가까운 데이터 참고하기
 
-**K-최근접 이웃(K-Nearest Neighbors, KNN)** 은 새로운 데이터와 가까이 있는 기존 데이터 **K개**의 정답을 참고하여 분류하는 방법입니다. 이번 실습에서는 가장 가까운 **5개 이웃**을 사용한다(`n_neighbors=5`).
+**K-최근접 이웃(K-Nearest Neighbors, KNN)** 은 새로운 데이터와 가까이 있는 기존 데이터 **K개**의 정답을 참고하여 분류하는 방법입니다. 이번 실습에서는 가장 가까운 **5개 이웃**을 사용합니다(`n_neighbors=5`).
 
 예를 들어 새로운 꽃의 꽃받침 길이·너비가 주어지면, 비슷한 측정값을 가진 꽃 다섯 개의 품종을 살펴보고 다수에 해당하는 품종을 선택합니다. KNN은 앞서 배운 선형 회귀와 달리, 학습 과정에서 하나의 예측 직선을 구하지 않습니다. 기존 데이터와의 거리를 예측 시점에 활용하는 방식입니다.
 
@@ -452,7 +456,7 @@ $$
 \text{Accuracy} = \frac{\text{정답을 맞힌 개수}}{\text{전체 평가 데이터 개수}}
 $$
 
-6.3의 결과는 `23 / 30 ≈ 0.767`이므로 **정확도 76.7%** 입니다. 모델이 학습에 사용하지 않은 30개 데이터에서 얻은 수치이며, 모든 붓꽃을 항상 76.7% 정확도로 구분한다는 보장은 없습니다.
+6.3의 결과는 `23 / 30 ≈ 0.767`이므로 **정확도 76.7%**입니다. 모델이 학습에 사용하지 않은 30개 데이터에서 얻은 수치이며, 모든 붓꽃을 항상 76.7% 정확도로 구분한다는 보장은 없습니다.
 
 6.2의 시험 점수처럼 숫자를 예측할 때는 평균 절대 오차(MAE) 등을 사용합니다.
 
@@ -483,7 +487,75 @@ print("MAE:", mean_absolute_error(y_test, test_predictions))
 
 대각선의 숫자는 맞힌 개수이고, 대각선 밖의 숫자는 다른 품종으로 잘못 분류한 개수입니다. 정확도가 같아도 오류가 특정 품종에 집중되어 있을 수 있습니다.
 
-### 6.4.3. Feature 선택으로 성능 개선하기
+### 6.4.3. Train, Validation, Test — 데이터를 세 부분으로 나누는 이유
+
+6.2에서는 학습용과 테스트용을 나누어 네 개의 변수를 사용했습니다. 그러나 여러 모델을 비교하거나 KNN의 `n_neighbors`처럼 **모델의 설정값(하이퍼파라미터)**을 조정할 때는 별도의 **검증 데이터(Validation Data)**가 필요합니다.
+
+테스트 결과를 보면서 모델을 반복해서 바꾸면, 모델 선택 과정이 테스트 데이터에 맞춰져 성능을 실제보다 좋게 판단할 위험이 있습니다. 따라서 모델 개발 단계에서는 검증 데이터로 후보를 비교하고, **모델 선택을 마친 뒤 테스트 데이터로 최종 성능을 평가**합니다.
+
+| 구분 | 역할 | 시험에 비유하면 |
+|:---|:---|:---|
+| **Train (학습)** | 모델이 데이터에서 패턴을 익힙니다. | 기출문제와 해설 |
+| **Validation (검증)** | 모델이나 설정값을 비교하여 선택합니다. | 중간 모의고사 |
+| **Test (최종 평가)** | 선택을 마친 모델이 처음 보는 데이터를 얼마나 잘 예측하는지 확인합니다. | 마지막 실전 시험 |
+
+이 경우 입력과 정답을 따로 보관하여 **`X_train`, `y_train`, `X_val`, `y_val`, `X_test`, `y_test`의 여섯 변수**를 사용합니다. 예를 들어 전체 데이터를 학습 60%, 검증 20%, 테스트 20%로 나눌 수 있습니다.
+
+**코드 예시 — `train_test_split()` 두 번으로 6개 변수 만들기**
+
+```python
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+
+iris = load_iris()
+X, y = iris.data, iris.target
+
+# 첫 분할: 개발용 80% / 최종 테스트용 20%
+X_dev, X_test, y_dev, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
+
+# 둘째 분할: 개발용 80% 안에서 학습 75% / 검증 25%
+# 전체 기준으로 Train 60%, Validation 20%, Test 20%
+X_train, X_val, y_train, y_val = train_test_split(
+    X_dev, y_dev, test_size=0.25, random_state=42, stratify=y_dev
+)
+
+print("Train:", len(X_train), "개")
+print("Validation:", len(X_val), "개")
+print("Test:", len(X_test), "개")
+```
+
+붓꽃 150개를 기준으로 학습 90개, 검증 30개, 테스트 30개로 나뉩니다. 여기서 `0.25`는 **전체의 25%가 아니라 첫 번째 분할 후 남은 80%의 25%**를 의미합니다.
+
+**항상 4개 또는 6개의 변수가 필요한 것은 아닙니다.** 다음과 같이 데이터가 사용되는 목적에 따라 구성은 달라집니다.
+
+| 변수 구성 | 사용 상황 | 주의할 점 |
+|:---|:---|:---|
+| `X_train`, `y_train`, `X_test`, `y_test` | 기본적인 지도 학습과 평가 | 모델 선택에 테스트 데이터를 반복 사용하지 않습니다. |
+| 위 네 변수 + `X_val`, `y_val` | 모델 및 하이퍼파라미터 선택 | 검증 결과를 이용해 선택하고 테스트는 최종 평가에 남겨 둡니다. |
+| `X`, `y` | 교차 검증 또는 최종 모델의 재학습 | 별도 테스트 세트의 필요성은 평가 목적에 따라 판단합니다. |
+| `X_train`, `X_test` | 정답이 없는 데이터의 변환·비지도 학습 예시 | 두 데이터에 같은 전처리 기준을 적용합니다. |
+
+**교차 검증(Cross-Validation)**에서는 하나의 `X`, `y`를 여러 부분으로 나누어, 학습에 쓰는 부분과 검증에 쓰는 부분을 번갈아 바꾸며 성능을 측정할 수 있습니다. 아래 예시의 `cv=5`는 데이터를 다섯 부분으로 나누어 다섯 번 평가한다는 뜻입니다.
+
+```python
+from sklearn.datasets import load_iris
+from sklearn.model_selection import cross_val_score
+from sklearn.neighbors import KNeighborsClassifier
+
+iris = load_iris()
+X, y = iris.data, iris.target
+model = KNeighborsClassifier(n_neighbors=5)
+
+scores = cross_val_score(model, X, y, cv=5, scoring="accuracy")
+print("각 검증 정확도:", scores)
+print("평균 검증 정확도:", round(scores.mean(), 3))
+```
+
+교차 검증은 데이터를 효율적으로 활용하는 방법이지만, 이 점수를 반복적으로 참고하여 모델을 선택한다면 **최종 성능 확인용 테스트 데이터는 별도로 보관**하는 편이 적절합니다. 또한 `cross_val_score()`는 평가를 위해 모델의 복사본을 학습하므로, 원래 `model` 변수가 자동으로 학습 완료 상태가 되지는 않습니다.
+
+### 6.4.4. Feature 선택으로 성능 개선하기
 
 6.3에서는 꽃받침의 길이·너비만 사용했습니다. 이번에는 **꽃받침 특징과 꽃잎 특징 중 무엇이 품종 구분에 더 유용한지** 비교합니다. 사용하는 모델은 두 경우 모두 `KNN(n_neighbors=5)`로 동일합니다.
 
@@ -557,7 +629,7 @@ Petal 검증 정확도: 0.933
 
 이번 데이터에서는 꽃잎의 길이·너비가 품종을 구분하는 데 더 유용했습니다. 이는 단순히 알고리즘을 복잡하게 만드는 것보다 **적절한 입력 특징을 선택하는 것**이 중요하다는 사례입니다. 이 결과는 해당 데이터와 분할 설정에서 얻은 것이며, 모든 데이터에 그대로 적용되는 규칙은 아닙니다.
 
-### 6.4.4. 최종 모델 평가
+### 6.4.5. 최종 모델 평가
 
 검증 과정에서 꽃잎 특징을 선택했으므로, 최종 모델을 학습용+검증용 데이터(총 120개)로 다시 학습한 뒤 **보관해 둔 테스트 30개**로 평가합니다.
 
@@ -587,9 +659,47 @@ print(confusion_matrix(y[test_idx], final_predictions))
 
 *그림 6-4. 꽃잎 특징을 사용한 최종 모델의 혼동행렬. 테스트 30개 중 29개를 맞혔으며, `versicolor` 한 개를 `virginica`로 예측했습니다.*
 
-최종 테스트 정확도는 **96.7%** 입니다. 다만 6.3의 76.7%와 6.4의 96.7%는 **입력 특징과 모델 개발 절차가 다른 실험 결과**입니다. 이번 예시에서 더 높은 정확도를 얻었다고 해서 모델이 모든 환경에서 더 우수하다고 단정할 수는 없습니다.
+최종 테스트 정확도는 **96.7%**입니다. 다만 6.3의 76.7%와 6.4의 96.7%는 **입력 특징과 모델 개발 절차가 다른 실험 결과**입니다. 이번 예시에서 더 높은 정확도를 얻었다고 해서 모델이 모든 환경에서 더 우수하다고 단정할 수는 없습니다.
 
-### 6.4.5. 실제 응용에서 확인할 사항
+### 6.4.6. 데이터 누수(Data Leakage)와 전처리 기준
+
+모델을 평가할 때는 학습에 사용하지 않은 데이터의 정보가 학습 과정에 미리 들어가지 않도록 주의해야 합니다. 이를 **데이터 누수(Data Leakage)**라고 합니다.
+
+평균이나 분산을 계산하는 스케일링, 결측치 대체 기준 설정, 주성분을 찾는 PCA 등 일부 전처리 작업도 데이터에서 기준을 **학습(`fit`)**합니다. 그러므로 학습 데이터로 먼저 기준을 정하고, 검증 데이터와 테스트 데이터에는 그 기준을 그대로 적용해야 합니다.
+
+| 메서드 | 역할 |
+|:---|:---|
+| `fit(X_train)` | 학습 데이터에서 변환 기준을 구합니다. |
+| `transform(X)` | 미리 구한 기준으로 데이터를 변환합니다. |
+| `fit_transform(X_train)` | 학습 데이터에서 기준을 구한 뒤 바로 변환합니다. |
+
+예를 들어 학습 데이터의 평균이 50점이고 테스트 데이터의 평균이 70점이라고 가정하겠습니다. 학습 데이터의 평균을 기준으로 값을 변환한 뒤 테스트 데이터에서 기준을 새로 계산한다면, **두 데이터에 서로 다른 기준**이 적용됩니다. 테스트 데이터의 통계를 모델 개발에 미리 반영할 위험도 생깁니다.
+
+**코드 예시 — 정답 없이 두 입력 묶음을 사용하는 PCA**
+
+```python
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.decomposition import PCA
+
+X = load_iris().data  # PCA는 여기서 정답 y를 사용하지 않습니다.
+X_train, X_test = train_test_split(X, test_size=0.2, random_state=42)
+
+pca = PCA(n_components=2)
+X_train_reduced = pca.fit_transform(X_train)  # 기준 학습 + 변환
+X_test_reduced = pca.transform(X_test)        # 같은 기준으로 변환만 수행
+
+print("학습 데이터 변환 크기:", X_train_reduced.shape)
+print("테스트 데이터 변환 크기:", X_test_reduced.shape)
+```
+
+PCA는 여러 입력 특징을 소수의 새로운 축으로 표현하는 **차원 축소 방법**입니다. 이 예제에서는 입력 데이터만 사용하므로 변수도 `X_train`, `X_test` 두 개로 충분합니다. 단, 이를 실제 분류·회귀 모델에 연결한다면 정답 `y`가 추가로 필요할 수 있습니다.
+
+`X_test`에 다시 `fit_transform()`을 실행하면 테스트 데이터에서 주성분을 새로 계산하므로 학습 데이터와 **좌표축이 다른 변환 결과**가 만들어집니다. 이는 학습한 모델에 일관된 입력을 제공하지 못하게 하며, 평가 과정에서 테스트 데이터의 정보를 활용하는 문제도 발생시킵니다.
+
+> **기본 원칙:** 전처리의 학습(`fit`)은 학습 데이터에 대해서만 수행하고, 검증·테스트 데이터에는 `transform()`을 사용합니다. 교차 검증을 적용할 때는 **각 교차 검증의 학습 부분에서만** 전처리 기준을 학습하도록 `Pipeline` 등을 사용할 수 있습니다.
+
+### 6.4.7. 실제 응용에서 확인할 사항
 
 | 확인 항목 | 질문 | 의미 |
 |:---|:---|:---|
@@ -597,6 +707,7 @@ print(confusion_matrix(y[test_idx], final_predictions))
 | 학습 범위 | 새로운 입력이 학습 데이터와 비슷한가? | 생소한 상황에서는 성능이 떨어질 수 있습니다 |
 | 평가 기준 | 정확도 하나로 충분한가? | 스팸·불량품 탐지 등은 놓친 사례도 중요합니다 |
 | 데이터 분리 | 테스트 데이터로 모델을 반복 선택했는가? | 성능을 실제보다 좋게 평가할 위험이 있습니다 |
+| 데이터 누수 | 전처리 기준을 전체 데이터에서 먼저 계산했는가? | 테스트 데이터 정보가 학습에 반영될 수 있습니다 |
 | 개인정보 | 민감한 데이터가 포함되어 있는가? | 수집·활용 목적과 보호 조치가 필요합니다 |
 
 **예시:** 스팸이 전체 메일의 1%인 데이터에서 모든 메일을 '정상'이라고 예측하는 모델도 정확도 99%를 얻을 수 있습니다. 이 때문에 분류에서는 **어떤 사례를 잘못 예측했는지** 함께 확인해야 합니다.
@@ -616,6 +727,8 @@ print(confusion_matrix(y[test_idx], final_predictions))
 - [scikit-learn — train_test_split](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html)
 - [scikit-learn — Iris Dataset](https://scikit-learn.org/stable/datasets/toy_dataset.html#iris-dataset)
 - [scikit-learn — Confusion Matrix](https://scikit-learn.org/stable/modules/model_evaluation.html#confusion-matrix)
+- [scikit-learn — Cross-Validation](https://scikit-learn.org/stable/modules/cross_validation.html)
+- [scikit-learn — PCA](https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html)
 - [Matplotlib](https://matplotlib.org/stable/)
 
 ---
@@ -628,9 +741,13 @@ print(confusion_matrix(y[test_idx], final_predictions))
 | Machine Learning | 데이터의 패턴을 학습해 예측에 활용하는 AI 분야 |
 | Deep Learning | 다층 인공신경망을 활용하는 머신러닝 분야 |
 | Feature (`X`) | 모델에 제공하는 입력 특징 |
-| Label (`y`) | 학습에 사용할 실제 정답 |
+| Target (`y`) | 학습에 사용하는 실제 정답(분류에서는 Label이라고도 부른다) |
 | Training / Prediction | 데이터로 관계를 학습하는 과정 / 새로운 입력을 예측하는 과정 |
-| Train / Validation / Test | 모델 학습 / 후보 비교·선택 / 최종 평가 |
+| Train / Validation / Test | 패턴 학습 / 설정값·모델 선택 / 최종 성능 평가 |
+| `X_train`, `y_train` / `X_test`, `y_test` | 학습용 입력·정답 / 평가용 입력·정답 |
+| Cross-Validation | 데이터를 여러 번 나누어 번갈아 학습·검증하는 방법 |
+| `fit()` / `transform()` | 데이터에서 전처리 기준 학습 / 학습한 기준 적용 |
+| Data Leakage | 검증·테스트 정보가 모델 개발에 부적절하게 반영되는 문제 |
 | Regression | 연속적인 숫자 예측 — 시험 점수 예제 |
 | Classification | 정해진 종류 구분 — 붓꽃 분류 예제 |
 | Linear Regression | 데이터의 관계를 직선으로 표현하는 회귀 모델 |
@@ -643,19 +760,16 @@ print(confusion_matrix(y[test_idx], final_predictions))
 ```mermaid
 flowchart LR
     A[문제 정의] --> B[데이터 준비]
-    B --> C[Train / Test 분리]
-    C --> D[모델 학습 fit]
-    D --> E[예측 predict]
-    E --> F[성능 평가]
-    F --> G[오류 분석과 개선]
+    B --> C[Train / Validation / Test 분리]
+    C --> D[학습 fit]
+    D --> E[검증 및 모델 선택]
+    E --> F[최종 테스트 평가]
+    F --> G[새로운 입력 예측 predict]
 ```
 
 머신러닝에서는 코드를 실행하는 것만큼 **어떤 데이터를 학습에 사용했고, 무엇으로 평가했으며, 잘못 예측한 사례가 무엇인지** 확인하는 과정이 중요합니다.
 
 ## Quiz
-
-다음 문제는 실습 내용을 이해했는지 확인하기 위한 것입니다. 정답은 README에 제공하지 않으며, 수업에서 토의하거나 제출 과제로 활용할 수 있습니다.
-
 **객관식**
 
 1. 머신러닝에 대한 설명으로 가장 적절한 것은? ① 모든 규칙을 사람이 작성합니다 ② 데이터의 패턴을 학습해 예측합니다 ③ 항상 정답을 보장합니다 ④ GPU가 없으면 실행할 수 없습니다
@@ -678,10 +792,14 @@ flowchart LR
 9. 테스트 데이터를 여러 번 확인하면서 가장 높은 점수를 만든 뒤, 그 점수를 최종 성능이라고 발표하면 어떤 문제가 생길 수 있는가?
 10. 스팸 비율이 낮은 데이터에서 정확도만으로 성능을 판단하기 어려운 이유를 설명합니다.
 
+**OX 퀴즈**
+
+11. 모델을 평가할 때 학습에 사용했던 `X_train`, `y_train`만으로 점수를 계산하면, 처음 보는 데이터에 대한 성능을 공정하게 확인할 수 있습니다. (O / X)
+12. `model.predict(X_test)`에는 `y_test`를 함께 전달해야 합니다. (O / X)
+13. 혼동행렬에서 실제 정답과 예측값이 일치한 데이터는 대각선에 표시됩니다. (O / X)
+14. 테스트 데이터의 평균을 새로 계산해 전처리 기준을 만들면, 학습 데이터의 기준과 일치하지 않을 수 있습니다. (O / X)
+
 ## Exercise
-
-기본 실습 코드를 변형하는 연습 문제입니다. 코드를 처음부터 모두 작성하기보다 **모델 생성·학습·예측·결과 해석**에 해당하는 부분을 직접 완성합니다.
-
 ### Exercise 01 — 이동 시간 예측 (회귀)
 
 실습 파일: [`practice/exercise_01_regression.py`](practice/exercise_01_regression.py)
@@ -731,3 +849,51 @@ flowchart LR
 아래 형식에 맞춰 1분 이내로 실습 결과를 설명해 봅니다.
 
 > 사용한 모델은 **(모델 이름)** 이며, 입력 데이터는 **(특징)** 입니다. 모델은 **(결과)** 를 예측했으며, **(평가 기준)** 으로 확인한 성능은 **(수치)** 입니다. 다만 **(한계)**  때문에 결과를 그대로 일반화하기는 어렵습니다.
+
+
+### Exercise 05 — 모델 학습과 평가 완성하기 (빈칸 채우기)
+
+6.3에서 배운 붓꽃 데이터를 사용하여 **데이터 분할 → 모델 학습 → 예측 → 정확도와 혼동행렬 확인** 순서를 직접 구현합니다. 아래 코드에서 `...`로 표시된 부분을 적절한 값으로 바꾼 뒤 실행합니다.
+
+```python
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score, confusion_matrix
+
+iris = load_iris()
+X = iris.data[:, 2:4]  # 꽃잎 길이와 너비
+# 실제 품종: 0=setosa, 1=versicolor, 2=virginica
+y = iris.target
+
+# TODO 1: 전체의 20%를 테스트 데이터로 분리합니다.
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=..., random_state=42, stratify=y
+)
+
+model = DecisionTreeClassifier(random_state=42)
+
+# TODO 2~3: 학습용 입력과 정답을 넣어 모델을 학습합니다.
+model.fit(..., ...)
+
+# TODO 4: 학습에 사용하지 않은 입력으로 예측합니다.
+test_prediction = model.predict(...)
+
+# TODO 5: 실제 정답과 예측값의 정확도를 계산합니다.
+accuracy = accuracy_score(..., test_prediction)
+print("테스트 정확도:", round(accuracy, 3))
+
+# TODO 6~7: 실제 정답과 예측값으로 혼동행렬을 계산합니다.
+cm = confusion_matrix(..., ...)
+print("혼동행렬:")
+print(cm)
+```
+
+**확인할 내용**
+
+1. 왜 `model.fit()`에는 `X_train`, `y_train`을 함께 전달해야 하는지 설명해 봅니다.
+2. `model.predict()`에 `y_test`를 전달하지 않는 이유를 설명해 봅니다.
+3. 테스트 데이터가 몇 개인지 확인하고, 정확도와 혼동행렬의 대각선 합계가 어떻게 연결되는지 비교합니다.
+4. 같은 모델이라도 학습 데이터나 설정값이 달라지면 결과가 달라질 수 있는 이유를 생각해 봅니다.
+
+*실습에서는 6.3의 KNN과 다른 분류 알고리즘인 의사결정나무(Decision Tree)를 간단히 체험합니다. `...`는 Python 문법상 사용할 수 있는 표현이지만 여기서는 학습자가 채워야 할 자리이므로 반드시 알맞은 값으로 바꿔야 합니다.*
