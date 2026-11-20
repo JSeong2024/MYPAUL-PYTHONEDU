@@ -43,9 +43,6 @@ print("scikit-learn:", sklearn.__version__)
 ```
 
 ### 2. 실습 파일 실행하기
-
-실습에는 두 가지 실행 방법이 있다. 배포된 파일 전체를 실행하거나 README의 코드 블록을 Colab 셀에 붙여 넣어 실행할 수 있다.
-
 **방법 A — 배포된 ZIP으로 실행**
 
 1. `Week-07.zip` 파일을 다운로드한다.
@@ -63,7 +60,7 @@ files.upload()  # Week-07.zip 선택
 %run practice/6_2_linear_regression.py
 ```
 
-이미 코드가 들어 있는 셀에 `!python practice/파일명.py`를 입력해도 실행할 수 있다. `%run`은 Notebook 환경에서 Python 파일을 실행하므로 그래프를 바로 확인하기 편리하다. 생성된 이미지 파일은 `assets/`에도 저장된다.
+이미 코드가 들어 있는 셀에 `!python practice/파일명.py`를 입력해도 실행 가능. `%run`은 Notebook 환경에서 Python 파일을 실행하므로 그래프를 바로 확인하기 편리하다. 생성된 이미지 파일은 `assets/`에도 저장됨.
 
 **방법 B — README에서 실행**
 
@@ -215,7 +212,7 @@ for message in messages:
 | **Model**(모델) | `model` | 입력과 점수 사이의 관계를 학습하는 프로그램 |
 | **Prediction**(예측) | `ŷ` | 모델이 계산한 예상 점수 |
 
-정답(`y`)과 입력(`X`)을 함께 제공하는 학습 방식을 **지도 학습(Supervised Learning)**이라고 한다. 지도 학습에는 점수처럼 연속된 수치를 예측하는 **회귀(Regression)**와 종류를 구분하는 **분류(Classification)**가 있다.
+정답(`y`)과 입력(`X`)을 함께 제공하는 학습 방식을 **지도 학습(Supervised Learning)** 이라고 한다. 지도 학습에는 점수처럼 연속된 수치를 예측하는 **회귀(Regression)** 와 종류를 구분하는 **분류(Classification)** 가 있다.
 
 ```mermaid
 flowchart LR
