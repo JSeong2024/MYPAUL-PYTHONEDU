@@ -1,6 +1,5 @@
-"""6.3 | 붓꽃 품종 분류: 2개 특징, KNN, 학습/테스트, 결정 영역."""
+"""6.3 | KNN 붓꽃 분류. 길이·너비 특징, Train/Test, 새 꽃 예측, 결정 영역."""
 from pathlib import Path
-
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.colors import ListedColormap
@@ -9,59 +8,50 @@ from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 
+# 1. 데이터 준비: 꽃받침 길이·너비(cm)만 사용
 iris = load_iris()
-X = iris.data[:, :2]  # 꽃받침 길이, 꽃받침 너비(cm)
-y = iris.target       # 품종을 나타내는 0, 1, 2
+X = iris.data[:, :2]
+y = iris.target
 
+# 2. 데이터 분리: 품종 비율 유지
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42, stratify=y
 )
 
+# 3. 모델 생성 (가까운 꽃 다섯 개 참조)
 model = KNeighborsClassifier(n_neighbors=5)
+
+# 4. 학습 (KNN은 학습 사례를 저장하고 거리를 예측 시점에 활용)
 model.fit(X_train, y_train)
+
+# 5. 테스트 데이터 예측 및 정확도 평가
 predictions = model.predict(X_test)
 accuracy = accuracy_score(y_test, predictions)
+print(f"Train {len(X_train)}개 / Test {len(X_test)}개")
+print(f"Test Accuracy: {accuracy:.3f} ({(predictions == y_test).sum()}/{len(y_test)})")
 
-print("입력 특징:", iris.feature_names[:2])
-print("분류할 품종:", list(iris.target_names))
-print(f"학습 {len(X_train)}개 / 테스트 {len(X_test)}개")
-print(f"테스트 정확도: {accuracy:.3f} ({sum(predictions == y_test)}/{len(y_test)})")
+# 6. 새로운 꽃 예측
+new_flower = [[5.7, 2.8]]  # 꽃받침 길이, 너비
+species = iris.target_names[model.predict(new_flower)[0]]
+print(f"꽃받침 {new_flower[0]} cm → {species}")
 
-new_flower = [[5.7, 2.8]]  # 새로운 꽃의 꽃받침 길이/너비 (cm)
-predicted_class = model.predict(new_flower)[0]
-print("새 꽃 [5.7, 2.8] →", iris.target_names[predicted_class])
-
-# 서로 다른 입력값에서 모델이 어떤 품종을 선택하는지 배경색으로 표시
+# 시각화: 모델이 구분하는 2차원 결정 영역
 x_min, x_max = X[:, 0].min() - 0.35, X[:, 0].max() + 0.35
-y_min, y_max = X[:, 1].min() - 0.3, X[:, 1].max() + 0.3
-xx, yy = np.meshgrid(
-    np.linspace(x_min, x_max, 350),
-    np.linspace(y_min, y_max, 300),
-)
-mesh = np.c_[xx.ravel(), yy.ravel()]
-regions = model.predict(mesh).reshape(xx.shape)
-
-colors = plt.rcParams["axes.prop_cycle"].by_key()["color"][:3]
-fig, ax = plt.subplots(figsize=(9.6, 6.1))
-ax.contourf(xx, yy, regions, alpha=0.14,
-            cmap=ListedColormap(colors), levels=[-0.5, 0.5, 1.5, 2.5])
-for class_idx, class_name in enumerate(iris.target_names):
-    train_mask = y_train == class_idx
-    ax.scatter(X_train[train_mask, 0], X_train[train_mask, 1],
-               s=48, color=colors[class_idx], label=class_name,
-               edgecolors="white", linewidths=0.5, alpha=0.92)
-# 검정 테두리가 있는 큰 원은 모델 학습에 사용하지 않은 데이터
-ax.scatter(X_test[:, 0], X_test[:, 1], s=112,
-           facecolors="none", edgecolors="black", linewidths=1.25,
-           label="Test Sample", zorder=5)
-ax.set(xlabel="Sepal Length (cm)", ylabel="Sepal Width (cm)",
-       title="KNN Classification: Iris (2 Features)")
-ax.legend(loc="upper right", framealpha=0.94)
-ax.grid(alpha=0.16)
+y_min, y_max = X[:, 1].min() - 0.35, X[:, 1].max() + 0.35
+xx, yy = np.meshgrid(np.linspace(x_min, x_max, 230), np.linspace(y_min, y_max, 180))
+region = model.predict(np.c_[xx.ravel(), yy.ravel()]).reshape(xx.shape)
+fig, ax = plt.subplots(figsize=(9.4, 5.8), dpi=160)
+ax.contourf(xx, yy, region, levels=[-0.5, 0.5, 1.5, 2.5], cmap=ListedColormap(["#d7e9f5", "#e8dff8", "#f8e7cb"]), alpha=0.9)
+for i, name in enumerate(iris.target_names):
+    mask = y_train == i
+    ax.scatter(X_train[mask, 0], X_train[mask, 1], s=35, label=f"Train: {name}")
+ax.scatter(X_test[:, 0], X_test[:, 1], facecolors="none", edgecolors="black", linewidths=1.2, s=75, label="Test (outlined)")
+ax.scatter(new_flower[0][0], new_flower[0][1], marker="*", s=185, c="black", label="New flower")
+ax.set(xlabel="Sepal length (cm)", ylabel="Sepal width (cm)", title="6.3  |  KNN (k=5): Iris Classification")
+ax.legend(loc="upper right", fontsize=9)
+ax.grid(alpha=0.15)
 fig.tight_layout()
-out = Path(__file__).resolve().parent.parent / "assets" / "6_3_iris_knn.png"
-out.parent.mkdir(parents=True, exist_ok=True)
-fig.savefig(out, dpi=180, facecolor="white", bbox_inches="tight")
-print(f"그래프 저장: {out}")
-if "agg" not in plt.get_backend().lower():
-    plt.show()
+out = Path("assets")
+out.mkdir(exist_ok=True)
+fig.savefig(out / "6_3_iris_knn.png", bbox_inches="tight", facecolor="white")
+plt.show()

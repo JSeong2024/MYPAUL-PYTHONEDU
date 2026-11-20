@@ -1,14 +1,15 @@
-"""Exercise 01 | 선형 회귀 모델 실습 — TODO에 맞추어 코드를 완성할 것."""
+"""Exercise 01 | 이동 거리→소요 시간 회귀 모델 실험. 값과 예측을 바꿔 보세요."""
 from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_absolute_error
+from sklearn.model_selection import train_test_split
 
-# 가상의 이동 거리(km)와 소요 시간(분) — 정체 상황 등은 고려하지 않음
-X = [[1], [2], [3], [4], [5], [6]]
-y = [8, 13, 17, 23, 26, 32]
+X = [[1], [2], [3], [4], [5], [6], [7], [8]]
+y = [8, 13, 17, 23, 26, 32, 35, 41]
 
-# TODO 1: LinearRegression 모델 생성
-model = None
-# TODO 2: model.fit(X, y)로 학습
-# TODO 3: 7km 이동 시 예상 시간을 예측하여 소수 첫째 자리까지 출력
-
-if model is None:
-    print("TODO: 모델을 생성하고 학습한 뒤 7km를 예측해 보세요.")
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
+model = LinearRegression()
+model.fit(X_train, y_train)
+pred_test = model.predict(X_test)
+print(f"Test MAE: {mean_absolute_error(y_test, pred_test):.2f}분")
+print(f"7km 예상 소요 시간: {model.predict([[7]])[0]:.1f}분")
+# TODO: 9km를 입력한 예측값을 출력하고, 학습 범위 밖 예측의 한계를 설명하세요.
