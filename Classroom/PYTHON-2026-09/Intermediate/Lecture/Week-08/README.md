@@ -52,12 +52,12 @@ print("GPU 사용 가능:", torch.cuda.is_available())
 - `%pip`: 현재 Notebook 환경에 Python 패키지를 설치하는 명령입니다. `!pip install`도 사용 가능하지만 Notebook에서는 `%pip`을 권장합니다.
 - 패키지 설치 중 런타임 재시작 안내가 나타나면 런타임을 재시작한 뒤 처음부터 셀을 다시 실행하세요.
 - 7.1~7.2는 CPU로 실습할 수 있습니다. 7.3의 이미지 모델과 7.4의 언어 모델은 처음 실행할 때 가중치를 내려받아야 합니다. 다운로드 속도와 메모리 사용량에 유의하세요.
-- 7.4에서 텍스트 생성이 느리다면 **런타임 → 런타임 유형 변경 → 하드웨어 가속기(GPU)** 사용을 검토하세요. 무료 Colab에서 GPU 할당은 보장되지 않습니다. `torch.cuda.is_available()`이 `False`여도 CPU 실습은 가능합니다.
+- 7.4에서 텍스트 생성이 느리다면 **런타임 → 런타임 유형 변경 → 하드웨어 가속기(GPU)**  사용을 검토하세요. 무료 Colab에서 GPU 할당은 보장되지 않습니다. `torch.cuda.is_available()`이 `False`여도 CPU 실습은 가능합니다.
 - Colab에서 다운로드한 파일은 런타임이 초기화되면 사라질 수 있습니다. 필요한 결과는 Google Drive나 로컬 PC에 따로 보관하세요.
 
 ### 2. 실습 실행 방법
 
-**방법 A — Notebook 파일 실행 (권장)**
+**방법 A — Notebook 파일 실행 (권장)** 
 
 ZIP을 해제한 뒤 `Week08_Chapter07.ipynb`를 Colab의 **파일 → 노트 업로드**에서 열고, 위에서부터 셀을 순서대로 실행하세요. 실습 코드는 Notebook에 포함되어 있어 `practice/` 파일을 별도로 업로드할 필요가 없습니다.
 
@@ -122,7 +122,7 @@ Week-08/
 
 ### 7.1.1. 머신러닝과 딥러닝의 차이
 
-Week-07에서는 선형 회귀(Linear Regression)와 KNN을 이용해 점수를 예측하고 붓꽃 품종을 분류했습니다. **딥러닝(Deep Learning)** 역시 데이터를 학습하는 머신러닝(Machine Learning)의 한 분야이지만, 여러 층의 **인공신경망(Artificial Neural Network)** 을 이용한다는 점에서 특징적입니다.
+Week-07에서는 선형 회귀(Linear Regression)와 KNN을 이용해 점수를 예측하고 붓꽃 품종을 분류했습니다. **딥러닝(Deep Learning)**  역시 데이터를 학습하는 머신러닝(Machine Learning)의 한 분야이지만, 여러 층의 **인공신경망(Artificial Neural Network)**  을 이용한다는 점에서 특징적입니다.
 
 | 항목 | 전통적인 머신러닝 실습(Week-07) | 딥러닝 실습(Week-08) |
 |:---|:---|:---|
@@ -165,7 +165,7 @@ a = f(z)
 
 ### 7.1.3. Activation Functions — 활성화 함수
 
-**활성화 함수(Activation Function)**는 뉴런에서 계산한 값을 다음 층으로 전달하기 전에 변환하는 함수입니다. 대표적인 목적은 신경망에 **비선형성(Nonlinearity)**을 추가하는 것입니다. 가중합만 계산하는 층을 여러 개 연결하면 전체가 하나의 선형 변환으로 정리되므로, 복잡한 패턴을 표현하는 데 한계가 있습니다. 활성화 함수는 이 한계를 줄여 줍니다.
+**활성화 함수(Activation Function)** 는 뉴런에서 계산한 값을 다음 층으로 전달하기 전에 변환하는 함수입니다. 대표적인 목적은 신경망에 **비선형성(Nonlinearity)** 을 추가하는 것입니다. 가중합만 계산하는 층을 여러 개 연결하면 전체가 하나의 선형 변환으로 정리되므로, 복잡한 패턴을 표현하는 데 한계가 있습니다. 활성화 함수는 이 한계를 줄여 줍니다.
 
 모든 활성화 함수가 같은 역할을 하는 것은 아닙니다. **은닉층에서는 ReLU나 GELU**, **분류 결과를 해석하는 출력 단계에서는 Sigmoid나 Softmax**를 사용하는 경우가 많습니다. 어떤 함수를 사용할지는 모델 구조와 학습 목적에 따라 달라집니다.
 
@@ -206,7 +206,7 @@ ReLU(Rectified Linear Unit)는 음수를 0으로 변경하고, **0보다 큰 값
 
 #### ③ Softmax — 여러 클래스의 점수를 비교
 
-Softmax는 **여러 개의 점수(Logits)**를 한꺼번에 입력받아, 합이 1이 되도록 변환합니다. Sigmoid처럼 숫자 하나를 독립적으로 변환하는 방식과는 다릅니다.
+Softmax는 **여러 개의 점수(Logits)** 를 한꺼번에 입력받아, 합이 1이 되도록 변환합니다. Sigmoid처럼 숫자 하나를 독립적으로 변환하는 방식과는 다릅니다.
 
 ```math
 \mathrm{Softmax}(z)_i=\frac{e^{z_i}}{\sum_{j=1}^{K}e^{z_j}}
@@ -283,7 +283,7 @@ Softmax: tensor([0.0900, 0.2450, 0.6650])
 
 ### 7.1.4. Coding Practice — 신경망의 순전파
 
-**순전파(Forward Pass)**는 입력값이 가중치와 편향을 거쳐 최종 출력으로 계산되는 과정입니다. 이번에는 **입력 2개 → 은닉 뉴런 3개 → 출력 1개**인 작은 신경망을 NumPy로 구현합니다. 아직 데이터를 학습하지 않고, 미리 지정한 숫자로 계산 과정만 확인합니다.
+**순전파(Forward Pass)** 는 입력값이 가중치와 편향을 거쳐 최종 출력으로 계산되는 과정입니다. 이번에는 **입력 2개 → 은닉 뉴런 3개 → 출력 1개**인 작은 신경망을 NumPy로 구현합니다. 아직 데이터를 학습하지 않고, 미리 지정한 숫자로 계산 과정만 확인합니다.
 
 **코드에서 사용할 값**
 
@@ -395,15 +395,15 @@ graph LR
 
 ### 7.2.2. Loss Functions — 손실 함수
 
-**손실 함수(Loss Function)**는 모델의 예측 결과와 실제 정답의 차이를 숫자로 계산합니다. 학습에서는 손실을 줄이는 방향으로 Weight와 Bias를 갱신합니다. **출력층의 형태와 손실 함수는 문제의 유형에 따라 선택**하며, 특정 활성화 함수와 반드시 1:1로 대응하는 것은 아닙니다.
+**손실 함수(Loss Function)** 는 모델의 예측 결과와 실제 정답의 차이를 숫자로 계산합니다. 학습에서는 손실을 줄이는 방향으로 Weight와 Bias를 갱신합니다. **출력층의 형태와 손실 함수는 문제의 유형에 따라 선택**하며, 특정 활성화 함수와 반드시 1:1로 대응하는 것은 아닙니다.
 
 | 문제 유형 | 출력의 의미 | 대표 손실 함수 | PyTorch에서 사용하는 함수 |
 |:---|:---|:---|:---|
-| **회귀(Regression)** | 시험 점수·가격처럼 연속된 숫자 | **MSE**(평균 제곱 오차) | `nn.MSELoss()` |
-| **이진 분류(Binary Classification)** | 0 또는 1에 해당하는 두 결과 | **BCE**(이진 교차 엔트로피) | `nn.BCEWithLogitsLoss()` |
-| **다중 클래스 분류(Multiclass Classification)** | 여러 클래스 가운데 하나 | **Cross-Entropy**(교차 엔트로피) | `nn.CrossEntropyLoss()` |
+| **회귀(Regression)**  | 시험 점수·가격처럼 연속된 숫자 | **MSE**(평균 제곱 오차) | `nn.MSELoss()` |
+| **이진 분류(Binary Classification)**  | 0 또는 1에 해당하는 두 결과 | **BCE**(이진 교차 엔트로피) | `nn.BCEWithLogitsLoss()` |
+| **다중 클래스 분류(Multiclass Classification)**  | 여러 클래스 가운데 하나 | **Cross-Entropy**(교차 엔트로피) | `nn.CrossEntropyLoss()` |
 
-회귀에서는 출력층을 주로 **Linear(별도 활성화 없음)**로 사용합니다. 이진 분류는 Sigmoid를 이용해 출력 점수(Logit)를 0~1 사이 값으로 해석할 수 있습니다. 다중 클래스 분류는 Softmax로 클래스별 점수를 합이 1인 분포로 나타낼 수 있습니다. 이 관계는 대표적인 구성 방식이며, 문제의 조건에 따라 다른 선택도 가능합니다.
+회귀에서는 출력층을 주로 **Linear(별도 활성화 없음)** 로 사용합니다. 이진 분류는 Sigmoid를 이용해 출력 점수(Logit)를 0~1 사이 값으로 해석할 수 있습니다. 다중 클래스 분류는 Softmax로 클래스별 점수를 합이 1인 분포로 나타낼 수 있습니다. 이 관계는 대표적인 구성 방식이며, 문제의 조건에 따라 다른 선택도 가능합니다.
 
 #### ① MSE — Mean Squared Error
 
@@ -446,7 +446,7 @@ L=-\log(p_{\mathrm{correct}})
 
 **계산 예시:** 정답 클래스가 세 번째(인덱스 `2`)일 때 Logit `[1, 2, 3]`을 Softmax로 변환하면 정답 클래스 확률이 약 `0.665`이고 손실은 약 **0.408**입니다. Logit이 `[3, 2, 1]`이면 정답 클래스 확률이 약 `0.090`으로 낮아지고 손실은 약 **2.408**입니다.
 
-> **PyTorch 사용 시 주의:** `nn.CrossEntropyLoss()`는 **원시 출력 점수(Logits)**와 실제 정답의 **클래스 인덱스**를 입력받아 계산합니다. 내부적으로 LogSoftmax에 해당하는 연산을 처리하므로 학습 코드에서 **Softmax를 먼저 적용하지 않습니다.** 7.2.4의 숫자 분류 모델이 이 방식입니다. 일반적인 다음 토큰 예측 언어 모델의 학습에도 Cross-Entropy가 사용되지만, 7.4의 예제는 사전 학습 모델의 **추론**이므로 Loss를 직접 계산하지 않습니다.
+> **PyTorch 사용 시 주의:** `nn.CrossEntropyLoss()`는 **원시 출력 점수(Logits)** 와 실제 정답의 **클래스 인덱스**를 입력받아 계산합니다. 내부적으로 LogSoftmax에 해당하는 연산을 처리하므로 학습 코드에서 **Softmax를 먼저 적용하지 않습니다.** 7.2.4의 숫자 분류 모델이 이 방식입니다. 일반적인 다음 토큰 예측 언어 모델의 학습에도 Cross-Entropy가 사용되지만, 7.4의 예제는 사전 학습 모델의 **추론**이므로 Loss를 직접 계산하지 않습니다.
 
 #### Coding Practice — 손실 함수별 계산 결과 비교
 
@@ -504,7 +504,7 @@ CE: 0.408
 | 데이터 분할 | Train 80% / Test 20% |
 | 모델 구조 | 64 → 64 → 10 |
 
-이미지는 8행×8열이지만, 이번 신경망에서는 픽셀 64개를 한 줄로 펼쳐 입력합니다. 따라서 첫 번째 층은 `nn.Linear(64, ...)`로 시작합니다. 이 구조는 **다층 퍼셉트론(MLP)**이며, 이미지의 공간적 배치를 활용하는 CNN과 구별됩니다.
+이미지는 8행×8열이지만, 이번 신경망에서는 픽셀 64개를 한 줄로 펼쳐 입력합니다. 따라서 첫 번째 층은 `nn.Linear(64, ...)`로 시작합니다. 이 구조는 **다층 퍼셉트론(MLP)** 이며, 이미지의 공간적 배치를 활용하는 CNN과 구별됩니다.
 
 또한 원본 픽셀값은 `0~16` 범위입니다. `digits.data / 16.0`은 각 값을 **0~1 범위로 정규화**하여 신경망에 입력하기 쉽게 조정합니다. `.astype(np.float32)`는 계산에 사용할 실수 자료형으로 변환하는 작업입니다.
 
@@ -588,7 +588,7 @@ print(f"Test Accuracy: {accuracy:.1%}")
 | `loss.backward()` | Loss를 줄이는 데 필요한 기울기를 계산합니다. |
 | `optimizer.step()` | 계산된 기울기를 사용하여 모델의 가중치를 갱신합니다. |
 
-출력층의 값 10개는 숫자별 **원시 점수(Logit)**입니다. 가장 큰 점수의 위치를 `argmax(dim=1)`로 선택하면 예측 숫자가 됩니다. `CrossEntropyLoss()`는 Logit을 직접 받으므로 **손실 계산 전에 Softmax를 별도로 적용하지 않습니다.**
+출력층의 값 10개는 숫자별 **원시 점수(Logit)** 입니다. 가장 큰 점수의 위치를 `argmax(dim=1)`로 선택하면 예측 숫자가 됩니다. `CrossEntropyLoss()`는 Logit을 직접 받으므로 **손실 계산 전에 Softmax를 별도로 적용하지 않습니다.**
 
 학습이 끝나면 `model.eval()`로 평가 모드로 전환하고, `torch.no_grad()`로 평가 시 기울기 계산을 생략합니다. `stratify=y`는 숫자 0~9의 비율이 학습용·테스트용에 비슷하게 유지되도록 데이터를 분리합니다.
 
@@ -606,7 +606,7 @@ print(f"Test Accuracy: {accuracy:.1%}")
 
 *그림 7-8. 테스트용 손글씨 숫자의 실제 정답(`True`)과 모델의 예측(`Pred`)을 비교한 결과입니다. 서로 다르면 `*`로 표시합니다.*
 
-실습 파일을 지정된 설정으로 실행한 결과, **테스트 360개 중 349개를 맞혀 96.9%의 정확도(Test Accuracy)** 를 기록했습니다. 데이터 분할, 난수 설정, 실행 환경 또는 학습 코드가 바뀌면 결과도 달라질 수 있습니다. 여기서 중요한 것은 높은 정확도 수치 자체보다 **학습되지 않은 테스트 이미지로 성능을 확인했다는 사실**입니다.
+실습 파일을 지정된 설정으로 실행한 결과, **테스트 360개 중 349개를 맞혀 96.9%의 정확도(Test Accuracy)**  를 기록했습니다. 데이터 분할, 난수 설정, 실행 환경 또는 학습 코드가 바뀌면 결과도 달라질 수 있습니다. 여기서 중요한 것은 높은 정확도 수치 자체보다 **학습되지 않은 테스트 이미지로 성능을 확인했다는 사실**입니다.
 
 전체 코드 및 이미지 출력: [`practice/7_2_digits_training.py`](practice/7_2_digits_training.py)
 
@@ -618,7 +618,7 @@ print(f"Test Accuracy: {accuracy:.1%}")
 
 ### 7.3.1. 컴퓨터는 이미지를 어떻게 처리할까?
 
-**컴퓨터 비전(Computer Vision)** 은 사진과 영상에서 필요한 정보를 추출하고 이해하도록 만드는 인공지능 분야입니다. 사물 분류, 제품 불량 검출, 의료 영상 분석 등 다양한 작업에 활용됩니다.
+**컴퓨터 비전(Computer Vision)**  은 사진과 영상에서 필요한 정보를 추출하고 이해하도록 만드는 인공지능 분야입니다. 사물 분류, 제품 불량 검출, 의료 영상 분석 등 다양한 작업에 활용됩니다.
 
 디지털 이미지는 픽셀(Pixel)의 배열로 표현됩니다. 컬러 이미지는 일반적으로 빨강(R), 초록(G), 파랑(B) 채널을 포함합니다.
 
@@ -696,7 +696,7 @@ for index, score in zip(top_ids.tolist(), top_scores.tolist()):
 
 **학생 사진으로 실습하기**
 
-전체 실습 파일 [`practice/7_3_image_recognition.py`](practice/7_3_image_recognition.py)에서 `UPLOAD_OWN_IMAGE = True`로 변경하면 Colab의 파일 업로드 기능으로 다른 사진을 입력할 수 있습니다. 실행하면 입력 사진과 상위 5개 예측 결과를 나란히 그린 **`assets/7_3_image_prediction.png`**를 생성합니다.
+전체 실습 파일 [`practice/7_3_image_recognition.py`](practice/7_3_image_recognition.py)에서 `UPLOAD_OWN_IMAGE = True`로 변경하면 Colab의 파일 업로드 기능으로 다른 사진을 입력할 수 있습니다. 실행하면 입력 사진과 상위 5개 예측 결과를 나란히 그린 **`assets/7_3_image_prediction.png`를 생성**합니다.
 
 **실행 결과 확인:** 모델이 출력한 Top-5 클래스 이름과 Softmax 점수를 실제 사진과 비교해 보세요. README에 표시한 그림 7-9는 개념도이며 **실제 모델 추론 결과는 아닙니다.** 모델 가중치를 내려받아 실행할 수 있는 Colab에서 결과 이미지를 직접 생성하도록 구성했습니다.
 
@@ -708,7 +708,7 @@ for index, score in zip(top_ids.tolist(), top_scores.tolist()):
 
 ### 7.4.1. 분류 AI와 생성형 AI
 
-앞선 이미지 분류 모델은 입력에 대해 **정해진 종류 중 하나를 고르는 작업**을 수행합니다. 반면 **생성형 AI(Generative AI)** 는 학습한 데이터의 패턴을 바탕으로 새로운 텍스트·이미지·음성 등을 만들어 내는 데 사용됩니다.
+앞선 이미지 분류 모델은 입력에 대해 **정해진 종류 중 하나를 고르는 작업**을 수행합니다. 반면 **생성형 AI(Generative AI)**  는 학습한 데이터의 패턴을 바탕으로 새로운 텍스트·이미지·음성 등을 만들어 내는 데 사용됩니다.
 
 | 구분 | 이미지 분류 AI (Classification) | 텍스트 생성형 AI (Generative AI) |
 |:---|:---|:---|
@@ -717,7 +717,7 @@ for index, score in zip(top_ids.tolist(), top_scores.tolist()):
 | 주요 역할 | 주어진 대상을 구분 | 문맥에 이어질 내용을 생성 |
 | 모델 예 | MobileNetV3 | Transformer 기반 언어 모델 |
 
-**대규모 언어 모델(Large Language Model, LLM)** 은 많은 텍스트를 학습하여 문맥에 맞는 다음 토큰을 예측하는 방식 등으로 언어를 처리합니다. 현대 언어 모델의 핵심 구조로 널리 쓰이는 것이 **Transformer**입니다.
+**대규모 언어 모델(Large Language Model, LLM)**  은 많은 텍스트를 학습하여 문맥에 맞는 다음 토큰을 예측하는 방식 등으로 언어를 처리합니다. 현대 언어 모델의 핵심 구조로 널리 쓰이는 것이 **Transformer**입니다.
 
 ### 7.4.2. Token, Prompt, Transformer
 
@@ -882,7 +882,7 @@ answer = tokenizer.decode(new_ids, skip_special_tokens=True)  # ID → 텍스트
 
 **Q1.** Deep Learning(딥러닝)이 Machine Learning(머신러닝)에 포함되는 이유를 한 문장으로 설명하시오.
 
-**Q2.** 인공신경망(Neural Network)에서 **입력층(Input Layer), 은닉층(Hidden Layer), 출력층(Output Layer)** 이 맡는 역할을 각각 설명하시오.
+**Q2.** 인공신경망(Neural Network)에서 **입력층(Input Layer), 은닉층(Hidden Layer), 출력층(Output Layer)**  이 맡는 역할을 각각 설명하시오.
 
 **Q3.** PyTorch 코드에서 `nn.Linear(64, 10)`의 `64`와 `10`이 뜻하는 바를 각각 설명하시오.
 ```python
@@ -923,7 +923,7 @@ loss = nn.CrossEntropyLoss()(logits, labels)
 
 실습 파일: [`practice/exercise_01_digits.py`](practice/exercise_01_digits.py) *(기본 학습 코드: `practice/7_2_digits_training.py`)*
 
-이번에는 Week-07에서 배운 모델 평가 원칙을 적용합니다. 데이터는 **Train 60% / Validation 20% / Test 20%**로 나눕니다. 다섯 가지 후보 설정을 **Validation Accuracy**로 비교하고 가장 높은 설정을 선택합니다. 선택이 끝나면 Train+Validation 데이터로 다시 학습한 뒤 **Test 데이터를 한 번만 사용**하여 최종 정확도를 구합니다.
+이번에는 Week-07에서 배운 모델 평가 원칙을 적용합니다. 데이터는 **Train 60% / Validation 20% / Test 20%** 로 나눕니다. 다섯 가지 후보 설정을 **Validation Accuracy**로 비교하고 가장 높은 설정을 선택합니다. 선택이 끝나면 Train+Validation 데이터로 다시 학습한 뒤 **Test 데이터를 한 번만 사용**하여 최종 정확도를 구합니다.
 
 1. `exercise_01_digits.py`를 실행하여 `EPOCHS = 5, 15, 30`을 비교하세요. 은닉층 노드 수는 64로 고정합니다.
 2. 각 조건의 마지막 학습 손실(`Train Loss`)과 검증 정확도(`Validation Accuracy`)를 아래 표에 기록하세요.
