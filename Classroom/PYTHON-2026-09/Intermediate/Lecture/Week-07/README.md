@@ -2,10 +2,6 @@
 
 **Week 07 · Python Intermediate · Google Colab**
 
-인공지능의 기본 개념부터 데이터 학습, 회귀·분류 모델 구현, 평가까지 다루는 입문 수업이다. 복잡한 수학적 증명보다는 **입력 데이터 → 학습 → 예측 → 평가**가 실제 코드에서 어떻게 연결되는지 확인하는 데 초점을 둔다.
-
-> 이 자료의 점수·메시지 예시는 실습을 위해 만든 가상 데이터이다. 붓꽃 분류에는 `scikit-learn`에 포함된 Iris 데이터셋을 사용한다.
-
 ## Contents
 
 | 구분 | 주제 | 세부내용 |
@@ -20,7 +16,7 @@
 
 ## Getting Started — Google Colab
 
-실습은 [Google Colab](https://colab.research.google.com/)의 Python Notebook에서 진행한다.
+실습은 [Google Colab](https://colab.research.google.com/)의 Python Notebook에서 진행.
 
 ### 1. 실행 환경 및 라이브러리
 
