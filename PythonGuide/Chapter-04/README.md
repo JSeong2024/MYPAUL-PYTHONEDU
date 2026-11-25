@@ -25,8 +25,8 @@
 
 ## Practice
 
-- [Exercise & Mini Project](./Practice.md) — 자료구조별 연습문제와 카페 주문 요약표 만들기
-- [Solutions](./solutions/README.md) — 연습문제와 미니 프로젝트 풀이
+- [Exercise & Mini Project](./Practice.md)
+- [Solutions](./solutions/README.md)
 
 ---
 
