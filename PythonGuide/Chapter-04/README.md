@@ -172,38 +172,6 @@ True
 3. `{"커피": 4800, "쿠키": 2500}`에서 쿠키 가격을 2,800원으로 바꾸고, 차를 3,000원으로 추가한 뒤 두 가격을 출력해 보세요.
 4. `["커피", "차", "커피", "차", "쿠키"]`에서 전체 주문 건수와 주문한 메뉴 종류 수를 각각 구해 보세요.
 
-<details>
-<summary>연습문제 확인</summary>
-
-<table align="center">
-  <thead>
-    <tr>
-      <th>문제</th>
-      <th>확인할 결과</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td><code>['차', '쿠키', '커피']</code></td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td><code>샌드위치: 6,000원</code></td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>쿠키 2,800원, 차 3,000원</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>전체 5건, 메뉴 3종류</td>
-    </tr>
-  </tbody>
-</table>
-
-</details>
-
 ## Mini Project
 
 ### 카페 주문 요약표 만들기
@@ -241,29 +209,7 @@ orders = ["커피", "쿠키"]
 
 주문은 가격표에 등록된 메뉴 두 건으로 가정합니다. 등록 여부에 따라 출력을 바꾸는 기능은 Chapter 05의 조건문으로, 주문 건수에 관계없이 합계를 구하는 기능은 Chapter 06의 반복문으로 확장할 수 있습니다.
 
-<details>
-<summary>미니 프로젝트 해설</summary>
-
-~~~python
-menu = {"커피": 4800, "쿠키": 2500, "샌드위치": 6000}
-orders = ["커피", "쿠키"]
-
-first_item = orders[0]
-second_item = orders[1]
-first_price = menu[first_item]
-second_price = menu[second_item]
-total_price = first_price + second_price
-
-print(f"첫 번째 주문: {first_item} {first_price:,}원")
-print(f"두 번째 주문: {second_item} {second_price:,}원")
-print(f"합계: {total_price:,}원")
-print(f"전체 주문: {len(orders)}건")
-print(f"메뉴 종류: {len(set(orders))}종")
-~~~
-
-합계는 주문별 가격으로 계산합니다. 집합은 메뉴의 종류를 셀 때 사용합니다.
-
-</details>
+연습문제와 미니 프로젝트의 풀이는 [Solutions](./solutions/README.md)에서 확인할 수 있습니다.
 
 ---
 
