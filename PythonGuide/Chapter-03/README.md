@@ -490,11 +490,28 @@ print("안녕하세요, {name}님!")
 
 **주어진 정보**
 
-| 항목 | 값 |
-|---|---:|
-| 커피 단가 | 4,800원 |
-| 쿠키 단가 | 2,500원 |
-| 할인 금액 | 1,000원 |
+<table align="center">
+  <thead>
+    <tr>
+      <th align="center">항목</th>
+      <th align="center">값</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center">커피 단가</td>
+      <td align="center">4,800원</td>
+    </tr>
+    <tr>
+      <td align="center">쿠키 단가</td>
+      <td align="center">2,500원</td>
+    </tr>
+    <tr>
+      <td align="center">할인 금액</td>
+      <td align="center">1,000원</td>
+    </tr>
+  </tbody>
+</table>
 
 **요구사항**
 
