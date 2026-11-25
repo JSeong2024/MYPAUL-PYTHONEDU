@@ -36,7 +36,7 @@ Python의 기본 문법부터 프로그램 설계와 실전 응용까지 단계�
   </thead>
   <tbody>
     <tr>
-      <td align="center">01</td>
+      <td align="center"><a href="./Chapter-01">01</a></td>
       <td align="center"><strong>Introduction to Python</strong></td>
       <td align="center">Python 소개, 개발 환경, 첫 프로그램 실행</td>
     </tr>

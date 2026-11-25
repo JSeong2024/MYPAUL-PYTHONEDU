@@ -95,7 +95,7 @@ Chapter 06에서 배운 반복문과 조건문을 활용하여 다양한 문제�
 </p>
 
 <p align="center">
-  <sub>© 2025–2026 Choi Jae-Seong · ONEUL</sub>
+  <sub>© 2026 Choi Jae-Seong · ONEUL</sub>
   <br>
   <sub>
     Educational Content ·

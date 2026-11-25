@@ -42,7 +42,7 @@
 </p>
 
 <p align="center">
-  <sub>© 2025–2026 Choi Jae-Seong · ONEUL</sub>
+  <sub>© 2026 Choi Jae-Seong · ONEUL</sub>
   <br>
   <sub>
     Educational Content ·
