@@ -31,7 +31,7 @@ flowchart TD
     E --> B
 ```
 
-*그림 1. 이벤트 기반 GUI 프로그램의 실행 흐름.*
+<p align="center"><em>그림 1. 이벤트 기반 GUI 프로그램의 실행 흐름.</em></p>
 
 Tkinter의 `mainloop()`는 이벤트를 기다리고 처리하는 반복 과정(Event Loop)을 시작합니다. 콜백 함수가 종료되면 이벤트 루프가 다음 입력을 처리합니다. 콜백에서 시간이 오래 걸리는 작업을 실행하면 그동안 화면 갱신과 입력 처리가 지연될 수 있습니다.
 
@@ -59,7 +59,7 @@ python window_example.py
 
 창이 표시되면 성공적으로 실행된 것입니다. GUI 프로그램은 창을 닫을 때까지 터미널이 실행 상태로 남아 있는 것이 정상입니다. 창의 닫기 버튼을 눌러 종료한 뒤 코드를 수정하고 다시 실행할 수 있습니다.
 
-이 자료의 실행 화면은 Python 3.13 및 Tk 8.6의 Linux 가상 데스크톱에서 실제 코드를 실행해 캡처했습니다. Windows에서는 제목 표시줄, 버튼 모양, 글꼴 등이 다를 수 있습니다. 위젯의 배치와 동작을 중심으로 확인하세요.
+Tkinter의 실행 화면은 운영체제, 화면 배율 및 시스템 테마에 따라 다르게 표시될 수 있습니다. 위젯의 배치와 동작을 중심으로 확인하세요.
 
 ## 2. 기본 위젯 (Widgets)
 
@@ -80,9 +80,10 @@ root.minsize(280, 160)
 root.mainloop()
 ```
 
-![기본 창 생성 결과 (360 × 200)](images/fig_01.png)
-
-*그림 2. 기본 창 생성 결과 (360 × 200).*
+<p align="center">
+  <img src="images/fig_01.png" alt="기본 창 생성 결과 (360 × 200)"><br>
+  <em>그림 2. 기본 창 생성 결과 (360 × 200).</em>
+</p>
 
 | 코드 | 역할 |
 |---|---|
@@ -124,13 +125,18 @@ button.pack()
 root.mainloop()
 ```
 
-![버튼을 누르기 전](images/fig_02_initial.png)
-
-*그림 3. 버튼을 누르기 전.*
-
-![확인 버튼을 누른 뒤](images/fig_02.png)
-
-*그림 4. 확인 버튼을 누른 뒤.*
+<table align="center">
+  <tr>
+    <td align="center" valign="top">
+      <img src="images/fig_02_initial.png" alt="버튼을 누르기 전"><br>
+      <em>그림 3. 버튼을 누르기 전.</em>
+    </td>
+    <td align="center" valign="top">
+      <img src="images/fig_02.png" alt="확인 버튼을 누른 뒤"><br>
+      <em>그림 4. 확인 버튼을 누른 뒤.</em>
+    </td>
+  </tr>
+</table>
 
 `ttk.Label(root, ...)`에서 `root`는 위젯이 배치될 부모(Parent)입니다. `pack()`은 위젯을 화면에 배치하며, `pady`는 위젯 위아래의 여백을 지정합니다.
 
@@ -183,9 +189,10 @@ ttk.Button(root, text="문자 수 확인", command=show_input).pack(pady=8)
 root.mainloop()
 ```
 
-![본문에 파이썬 GUI 실습을 입력한 뒤 문자 수 확인](images/fig_03.png)
-
-*그림 5. 본문에 파이썬 GUI 실습을 입력한 뒤 문자 수 확인.*
+<p align="center">
+  <img src="images/fig_03.png" alt="본문에 파이썬 GUI 실습을 입력한 뒤 문자 수 확인"><br>
+  <em>그림 5. 본문에 파이썬 GUI 실습을 입력한 뒤 문자 수 확인.</em>
+</p>
 
 | 동작 | Entry | Text |
 |---|---|---|
@@ -227,9 +234,10 @@ result.pack(padx=12, pady=8)
 root.mainloop()
 ```
 
-![A3 용지와 양면 인쇄 선택 결과](images/fig_04.png)
-
-*그림 6. A3 용지와 양면 인쇄 선택 결과.*
+<p align="center">
+  <img src="images/fig_04.png" alt="A3 용지와 양면 인쇄 선택 결과"><br>
+  <em>그림 6. A3 용지와 양면 인쇄 선택 결과.</em>
+</p>
 
 `variable`에 연결된 값은 위젯의 선택 상태와 함께 변경됩니다. 같은 변수를 공유하는 `Radiobutton`은 각 버튼의 `value`가 서로 다르면 한 번에 하나만 선택됩니다. 이때 `BooleanVar`와 `StringVar`의 자세한 사용법은 4.3에서 다룹니다.
 
@@ -262,9 +270,10 @@ result.pack(padx=12, pady=8)
 root.mainloop()
 ```
 
-![정보 과목 선택 후 확인](images/fig_05.png)
-
-*그림 7. 정보 과목 선택 후 확인.*
+<p align="center">
+  <img src="images/fig_05.png" alt="정보 과목 선택 후 확인"><br>
+  <em>그림 7. 정보 과목 선택 후 확인.</em>
+</p>
 
 `current(0)`은 첫 번째 항목을 선택합니다. `get()`으로 현재 값을 읽으며, `subject["values"]`를 변경하면 선택 가능한 목록을 갱신할 수 있습니다. 목록을 변경한 뒤 기존 선택값이 여전히 유효한지도 확인해야 합니다.
 
@@ -306,9 +315,10 @@ ttk.Button(root, text="닫기", command=root.destroy).pack(side="bottom", pady=8
 root.mainloop()
 ```
 
-![pack()으로 배치한 제목, 내용 영역, 닫기 버튼](images/fig_06.png)
-
-*그림 8. pack()으로 배치한 제목, 내용 영역, 닫기 버튼.*
+<p align="center">
+  <img src="images/fig_06.png" alt="pack()으로 배치한 제목, 내용 영역, 닫기 버튼"><br>
+  <em>그림 8. pack()으로 배치한 제목, 내용 영역, 닫기 버튼.</em>
+</p>
 
 | 옵션 | 설명 |
 |---|---|
@@ -358,9 +368,10 @@ root.columnconfigure(1, weight=1)
 root.mainloop()
 ```
 
-![grid()로 배치한 이름과 학번 입력 폼](images/fig_07.png)
-
-*그림 9. grid()로 배치한 이름과 학번 입력 폼.*
+<p align="center">
+  <img src="images/fig_07.png" alt="grid()로 배치한 이름과 학번 입력 폼"><br>
+  <em>그림 9. grid()로 배치한 이름과 학번 입력 폼.</em>
+</p>
 
 | 옵션 | 설명 |
 |---|---|
@@ -389,9 +400,10 @@ ttk.Label(root, text="중앙").place(relx=0.5, rely=0.5, anchor="center")
 root.mainloop()
 ```
 
-![place()의 절대 위치와 상대 위치](images/fig_08.png)
-
-*그림 10. place()의 절대 위치와 상대 위치.*
+<p align="center">
+  <img src="images/fig_08.png" alt="place()의 절대 위치와 상대 위치"><br>
+  <em>그림 10. place()의 절대 위치와 상대 위치.</em>
+</p>
 
 `x`, `y`는 픽셀 단위의 위치이며, `relx`, `rely`는 부모 영역에 대한 상대 위치입니다. `anchor="center"`는 위젯의 중심을 지정한 위치에 맞춥니다. 고정 좌표만 사용하면 창 크기나 글꼴이 달라졌을 때 위젯이 겹치거나 잘릴 수 있습니다. 일반적인 입력 폼과 목록은 `pack()`이나 `grid()`로 구성하는 편이 관리하기 쉽습니다.
 
@@ -421,9 +433,10 @@ ttk.Button(footer, text="닫기", command=root.destroy).pack(side="right")
 root.mainloop()
 ```
 
-![Frame으로 나눈 입력 영역과 버튼 영역](images/fig_09.png)
-
-*그림 11. Frame으로 나눈 입력 영역과 버튼 영역.*
+<p align="center">
+  <img src="images/fig_09.png" alt="Frame으로 나눈 입력 영역과 버튼 영역"><br>
+  <em>그림 11. Frame으로 나눈 입력 영역과 버튼 영역.</em>
+</p>
 
 **같은 부모 안에서 `pack()`과 `grid()`를 혼용하지 않습니다.** 위 예제에서는 `root`의 직접적인 자식인 `form`, `footer`를 `pack()`으로 배치합니다. `form` 내부에서는 `grid()`, `footer` 내부에서는 `pack()`을 사용하므로 충돌하지 않습니다.
 
@@ -453,9 +466,10 @@ ttk.Button(root, text="인사", command=lambda: greet("민지")).pack(pady=8)
 root.mainloop()
 ```
 
-![인사 버튼 클릭 후 레이블 변경](images/fig_10.png)
-
-*그림 12. 인사 버튼 클릭 후 레이블 변경.*
+<p align="center">
+  <img src="images/fig_10.png" alt="인사 버튼 클릭 후 레이블 변경"><br>
+  <em>그림 12. 인사 버튼 클릭 후 레이블 변경.</em>
+</p>
 
 | 작성 방법 | 동작 |
 |---|---|
@@ -491,9 +505,10 @@ result.pack(padx=12, pady=8)
 root.mainloop()
 ```
 
-![Python 입력 후 Enter 키를 누른 결과](images/fig_11.png)
-
-*그림 13. Python 입력 후 Enter 키를 누른 결과.*
+<p align="center">
+  <img src="images/fig_11.png" alt="Python 입력 후 Enter 키를 누른 결과"><br>
+  <em>그림 13. Python 입력 후 Enter 키를 누른 결과.</em>
+</p>
 
 `bind()`로 연결한 함수에는 이벤트 객체가 전달됩니다. 이벤트 객체에서 발생한 키, 마우스 좌표, 이벤트가 발생한 위젯 등의 정보를 확인할 수 있습니다.
 
@@ -527,13 +542,18 @@ ttk.Button(root, text="초기화", command=lambda: message.set("")).pack(pady=8)
 root.mainloop()
 ```
 
-![StringVar의 초기값](images/fig_12_initial.png)
-
-*그림 14. StringVar의 초기값.*
-
-![입력창 변경 시 레이블에 반영된 값](images/fig_12.png)
-
-*그림 15. 입력창 변경 시 레이블에 반영된 값.*
+<table align="center">
+  <tr>
+    <td align="center" valign="top">
+      <img src="images/fig_12_initial.png" alt="StringVar의 초기값"><br>
+      <em>그림 14. StringVar의 초기값.</em>
+    </td>
+    <td align="center" valign="top">
+      <img src="images/fig_12.png" alt="입력창 변경 시 레이블에 반영된 값"><br>
+      <em>그림 15. 입력창 변경 시 레이블에 반영된 값.</em>
+    </td>
+  </tr>
+</table>
 
 입력창과 레이블이 같은 `StringVar`를 참조하므로 입력창의 내용이 바뀌면 레이블도 갱신됩니다. Tkinter 변수는 `get()`과 `set()`으로 값을 읽거나 변경합니다. 숫자 입력창에서도 `StringVar`를 사용한 뒤 `int()` 또는 `float()`로 변환하면 빈 입력이나 잘못된 문자열을 직접 검사할 수 있습니다.
 
@@ -586,9 +606,10 @@ result.pack(pady=8)
 root.mainloop()
 ```
 
-![가격 1500원, 수량 3개 입력 후 계산 결과](images/fig_13.png)
-
-*그림 16. 가격 1500원, 수량 3개 입력 후 계산 결과.*
+<p align="center">
+  <img src="images/fig_13.png" alt="가격 1500원, 수량 3개 입력 후 계산 결과"><br>
+  <em>그림 16. 가격 1500원, 수량 3개 입력 후 계산 결과.</em>
+</p>
 
 위 예제에서 `show_total()`은 GUI 입력 조회, 유효성 검사, 결과 표시를 담당합니다. `calculate_total()`은 계산만 담당하므로 터미널 프로그램이나 다른 GUI에서도 사용할 수 있습니다. 계산 결과는 입력값을 검증한 뒤 갱신합니다. 입력 오류가 발생하면 이전 계산 결과를 지워 현재 입력의 결과로 오인하지 않도록 합니다.
 
@@ -621,13 +642,18 @@ if __name__ == "__main__":
     main()
 ```
 
-![초기 클릭 횟수](images/fig_14_initial.png)
-
-*그림 17. 초기 클릭 횟수.*
-
-![증가 버튼을 세 번 누른 결과](images/fig_14.png)
-
-*그림 18. 증가 버튼을 세 번 누른 결과.*
+<table align="center">
+  <tr>
+    <td align="center" valign="top">
+      <img src="images/fig_14_initial.png" alt="초기 클릭 횟수"><br>
+      <em>그림 17. 초기 클릭 횟수.</em>
+    </td>
+    <td align="center" valign="top">
+      <img src="images/fig_14.png" alt="증가 버튼을 세 번 누른 결과"><br>
+      <em>그림 18. 증가 버튼을 세 번 누른 결과.</em>
+    </td>
+  </tr>
+</table>
 
 이 예제에서는 버튼을 누를 때마다 `count`가 1씩 증가합니다. 바깥 함수의 리스트에 `append()`를 호출하거나 딕셔너리의 항목을 수정하는 것은 변수 자체에 새 객체를 대입하는 작업이 아니므로 `nonlocal`이 필요하지 않습니다.
 
@@ -665,9 +691,10 @@ result.pack(padx=12, pady=8)
 root.mainloop()
 ```
 
-![Listbox에서 정보 과목을 선택한 결과](images/fig_15.png)
-
-*그림 19. Listbox에서 정보 과목을 선택한 결과.*
+<p align="center">
+  <img src="images/fig_15.png" alt="Listbox에서 정보 과목을 선택한 결과"><br>
+  <em>그림 19. Listbox에서 정보 과목을 선택한 결과.</em>
+</p>
 
 `curselection()`은 선택된 항목의 인덱스를 튜플로 반환합니다. 선택된 항목이 없으면 빈 튜플을 반환하므로 인덱스에 접근하기 전에 선택 여부를 확인합니다.
 
@@ -706,9 +733,10 @@ for hour in range(9, 19):
 root.mainloop()
 ```
 
-![Treeview와 세로 스크롤바](images/fig_16.png)
-
-*그림 20. Treeview와 세로 스크롤바.*
+<p align="center">
+  <img src="images/fig_16.png" alt="Treeview와 세로 스크롤바"><br>
+  <em>그림 20. Treeview와 세로 스크롤바.</em>
+</p>
 
 | 메서드 | 역할 |
 |---|---|
@@ -750,13 +778,18 @@ ttk.Button(root, text="초기화", command=confirm_reset).pack(pady=8)
 root.mainloop()
 ```
 
-![Messagebox 예제의 기본 창](images/fig_17_main.png)
-
-*그림 21. Messagebox 예제의 기본 창.*
-
-![초기화 버튼을 누르면 표시되는 확인 대화상자](images/fig_17.png)
-
-*그림 22. 초기화 버튼을 누르면 표시되는 확인 대화상자.*
+<table align="center">
+  <tr>
+    <td align="center" valign="top">
+      <img src="images/fig_17_main.png" alt="Messagebox 예제의 기본 창"><br>
+      <em>그림 21. Messagebox 예제의 기본 창.</em>
+    </td>
+    <td align="center" valign="top">
+      <img src="images/fig_17.png" alt="초기화 버튼을 누르면 표시되는 확인 대화상자"><br>
+      <em>그림 22. 초기화 버튼을 누르면 표시되는 확인 대화상자.</em>
+    </td>
+  </tr>
+</table>
 
 | 함수 | 역할 |
 |---|---|
@@ -793,13 +826,15 @@ ttk.Entry(root, textvariable=result, state="readonly", width=45).pack(padx=12, p
 root.mainloop()
 ```
 
-![파일 선택 예제의 기본 창](images/fig_18_main.png)
+<p align="center">
+  <img src="images/fig_18_main.png" alt="파일 선택 예제의 기본 창"><br>
+  <em>그림 23. 파일 선택 예제의 기본 창.</em>
+</p>
 
-*그림 23. 파일 선택 예제의 기본 창.*
-
-![파일 선택 버튼을 눌렀을 때의 대화상자](images/fig_18.png)
-
-*그림 24. 파일 선택 버튼을 눌렀을 때의 대화상자.*
+<p align="center">
+  <img src="images/fig_18.png" alt="파일 선택 버튼을 눌렀을 때의 대화상자"><br>
+  <em>그림 24. 파일 선택 버튼을 눌렀을 때의 대화상자.</em>
+</p>
 
 | 함수 | 선택 대상 |
 |---|---|
@@ -977,9 +1012,10 @@ python grade_viewer.py
 
 Windows에서 필요한 경우 `py grade_viewer.py`를 사용합니다. 창이 표시되면 민지의 행을 선택하고 평균 조회 버튼을 눌러 보세요.
 
-![민지 학생 선택 후 평균 조회 실행 화면](images/fig_19.png)
-
-*그림 25. 민지 학생 선택 후 평균 조회 실행 화면.*
+<p align="center">
+  <img src="images/fig_19.png" alt="민지 학생 선택 후 평균 조회 실행 화면"><br>
+  <em>그림 25. 민지 학생 선택 후 평균 조회 실행 화면.</em>
+</p>
 
 다음은 결과 영역의 예상 표시값입니다.
 
@@ -1029,9 +1065,10 @@ python -c "from grade_viewer import calculate_average; print(calculate_average(9
 | km → m | 입력값 × 1,000 |
 | m → km | 입력값 ÷ 1,000 |
 
-![단위 변환 프로그램의 완성 화면 예시](images/practice01_result.png)
-
-*그림 26. 단위 변환 프로그램의 완성 화면 예시.*
+<p align="center">
+  <img src="images/practice01_result.png" alt="단위 변환 프로그램의 완성 화면 예시"><br>
+  <em>그림 26. 단위 변환 프로그램의 완성 화면 예시.</em>
+</p>
 
 위 이미지는 구현 예시입니다. 요구 기능을 충족한다면 위젯의 배치와 크기는 달라도 됩니다.
 
@@ -1135,13 +1172,15 @@ initial_stock = {"자": 3, "가위": 4}
 
 저장 버튼을 누르기 전의 변경 사항은 메모리에만 존재합니다. 종료 후 유지하려는 변경 사항은 저장해야 합니다. 파일을 저장하는 데 실패하면 성공 메시지를 표시하지 않습니다. `w` 모드로 저장하던 중 오류가 발생하면 기존 파일이 손상될 수 있습니다. 이번 실습에서는 백업이나 임시 파일을 이용한 저장까지 요구하지 않습니다. 품목 추가·삭제나 여러 건의 일괄 처리 기능은 이번 실습의 필수 범위에 포함하지 않습니다.
 
-![실습실 교구 관리 프로그램의 초기 화면 예시](images/practice02_initial.png)
+<p align="center">
+  <img src="images/practice02_initial.png" alt="실습실 교구 관리 프로그램의 초기 화면 예시"><br>
+  <em>그림 27. 실습실 교구 관리 프로그램의 초기 화면 예시.</em>
+</p>
 
-*그림 27. 실습실 교구 관리 프로그램의 초기 화면 예시.*
-
-![가위 2개 대여 후 재고가 갱신된 화면 예시](images/practice02_rent.png)
-
-*그림 28. 가위 2개 대여 후 재고가 갱신된 화면 예시.*
+<p align="center">
+  <img src="images/practice02_rent.png" alt="가위 2개 대여 후 재고가 갱신된 화면 예시"><br>
+  <em>그림 28. 가위 2개 대여 후 재고가 갱신된 화면 예시.</em>
+</p>
 
 위 화면은 기능 확인을 위한 예시이며 동일한 디자인을 요구하지 않습니다.
 
