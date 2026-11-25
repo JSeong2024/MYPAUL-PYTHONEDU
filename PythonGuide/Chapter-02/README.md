@@ -92,14 +92,47 @@ print(count)
 
 Python에서는 변수 이름을 비교적 자유롭게 정할 수 있지만 몇 가지 규칙이 있습니다.
 
-| 이름 | 사용 가능 | 이유 |
-|---|:---:|---|
-| `price` | O | 영문자로 시작 |
-| `item_count` | O | 단어 사이에 밑줄(`_`) 사용 |
-| `score2` | O | 첫 글자 뒤에 숫자 사용 |
-| `2score` | X | 숫자로 시작 |
-| `item-price` | X | `-`는 뺄셈 연산자로 해석 |
-| `class` | X | Python에서 정해 둔 키워드 |
+<table align="center">
+  <thead>
+    <tr>
+      <th align="center">이름</th>
+      <th align="center">사용 가능</th>
+      <th align="center">이유</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center"><code>price</code></td>
+      <td align="center">O</td>
+      <td align="center">영문자로 시작</td>
+    </tr>
+    <tr>
+      <td align="center"><code>item_count</code></td>
+      <td align="center">O</td>
+      <td align="center">단어 사이에 밑줄(<code>_</code>) 사용</td>
+    </tr>
+    <tr>
+      <td align="center"><code>score2</code></td>
+      <td align="center">O</td>
+      <td align="center">첫 글자 뒤에 숫자 사용</td>
+    </tr>
+    <tr>
+      <td align="center"><code>2score</code></td>
+      <td align="center">X</td>
+      <td align="center">숫자로 시작</td>
+    </tr>
+    <tr>
+      <td align="center"><code>item-price</code></td>
+      <td align="center">X</td>
+      <td align="center"><code>-</code>는 뺄셈 연산자로 해석</td>
+    </tr>
+    <tr>
+      <td align="center"><code>class</code></td>
+      <td align="center">X</td>
+      <td align="center">Python에서 정해 둔 키워드</td>
+    </tr>
+  </tbody>
+</table>
 
 이름에는 영문자, 숫자, 밑줄 등을 사용할 수 있습니다. 다만 숫자로 시작할 수 없고, `class`나 `if`처럼 Python 문법에서 사용하는 **키워드(Keyword)** 는 변수 이름으로 쓸 수 없습니다.
 
@@ -136,12 +169,42 @@ print("가격:", price)
 
 값이 어떤 종류인지 구분하는 것을 **자료형(Data Type)** 이라고 합니다. 지금은 다음 네 가지를 알아두면 됩니다.
 
-| 자료형 | 이름 | 예시 | 의미 |
-|---|---|---|---|
-| `int` | 정수(Integer) | `10`, `-3`, `0` | 소수점이 없는 정수 |
-| `float` | 실수(Float) | `3.14`, `-0.5` | 소수점이 있는 수를 표현 |
-| `str` | 문자열(String) | `"Python"`, `"20"` | 글자와 문장 |
-| `bool` | 불리언(Boolean) | `True`, `False` | 참 또는 거짓 |
+<table align="center">
+  <thead>
+    <tr>
+      <th align="center">자료형</th>
+      <th align="center">이름</th>
+      <th align="center">예시</th>
+      <th align="center">의미</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center"><code>int</code></td>
+      <td align="center">정수(Integer)</td>
+      <td align="center"><code>10</code>, <code>-3</code>, <code>0</code></td>
+      <td align="center">소수점이 없는 정수</td>
+    </tr>
+    <tr>
+      <td align="center"><code>float</code></td>
+      <td align="center">실수(Float)</td>
+      <td align="center"><code>3.14</code>, <code>-0.5</code></td>
+      <td align="center">소수점이 있는 수를 표현</td>
+    </tr>
+    <tr>
+      <td align="center"><code>str</code></td>
+      <td align="center">문자열(String)</td>
+      <td align="center"><code>"Python"</code>, <code>"20"</code></td>
+      <td align="center">글자와 문장</td>
+    </tr>
+    <tr>
+      <td align="center"><code>bool</code></td>
+      <td align="center">불리언(Boolean)</td>
+      <td align="center"><code>True</code>, <code>False</code></td>
+      <td align="center">참 또는 거짓</td>
+    </tr>
+  </tbody>
+</table>
 
 정수와 실수는 계산에 사용할 수 있지만, 문자열은 글자를 나타내기 위해 사용합니다. 문자열은 큰따옴표(`" "`)나 작은따옴표(`' '`)로 감쌉니다.
 
@@ -225,15 +288,60 @@ print("20" + 5)
 
 ### 2.3.1. 기본 산술 연산
 
-| 연산자 | 의미 | 예시 | 결과 |
-|:---:|---|---|---|
-| `+` | 덧셈 | `7 + 3` | `10` |
-| `-` | 뺄셈 | `7 - 3` | `4` |
-| `*` | 곱셈 | `7 * 3` | `21` |
-| `/` | 나눗셈 | `7 / 2` | `3.5` |
-| `//` | 몫을 내림하여 구하기 | `7 // 2` | `3` |
-| `%` | 나머지 | `7 % 2` | `1` |
-| `**` | 거듭제곱 | `2 ** 3` | `8` |
+<table align="center">
+  <thead>
+    <tr>
+      <th align="center">연산자</th>
+      <th align="center">의미</th>
+      <th align="center">예시</th>
+      <th align="center">결과</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center"><code>+</code></td>
+      <td align="center">덧셈</td>
+      <td align="center"><code>7 + 3</code></td>
+      <td align="center"><code>10</code></td>
+    </tr>
+    <tr>
+      <td align="center"><code>-</code></td>
+      <td align="center">뺄셈</td>
+      <td align="center"><code>7 - 3</code></td>
+      <td align="center"><code>4</code></td>
+    </tr>
+    <tr>
+      <td align="center"><code>*</code></td>
+      <td align="center">곱셈</td>
+      <td align="center"><code>7 * 3</code></td>
+      <td align="center"><code>21</code></td>
+    </tr>
+    <tr>
+      <td align="center"><code>/</code></td>
+      <td align="center">나눗셈</td>
+      <td align="center"><code>7 / 2</code></td>
+      <td align="center"><code>3.5</code></td>
+    </tr>
+    <tr>
+      <td align="center"><code>//</code></td>
+      <td align="center">몫을 내림하여 구하기</td>
+      <td align="center"><code>7 // 2</code></td>
+      <td align="center"><code>3</code></td>
+    </tr>
+    <tr>
+      <td align="center"><code>%</code></td>
+      <td align="center">나머지</td>
+      <td align="center"><code>7 % 2</code></td>
+      <td align="center"><code>1</code></td>
+    </tr>
+    <tr>
+      <td align="center"><code>**</code></td>
+      <td align="center">거듭제곱</td>
+      <td align="center"><code>2 ** 3</code></td>
+      <td align="center"><code>8</code></td>
+    </tr>
+  </tbody>
+</table>
 
 곱셈에는 `×`가 아닌 `*`를 사용합니다. 거듭제곱에는 `**`를 사용하며, `^`는 거듭제곱 연산자가 아닙니다.
 
@@ -304,14 +412,54 @@ print((10 + 2) * 3)
 
 **비교 연산자(Comparison Operator)** 는 두 값을 비교합니다. 결과는 참을 나타내는 `True` 또는 거짓을 나타내는 `False`입니다.
 
-| 연산자 | 의미 | 예시 | 결과 |
-|:---:|---|---|---|
-| `==` | 같다 | `5 == 5` | `True` |
-| `!=` | 다르다 | `5 != 3` | `True` |
-| `>` | 크다 | `5 > 3` | `True` |
-| `<` | 작다 | `5 < 3` | `False` |
-| `>=` | 크거나 같다 | `5 >= 5` | `True` |
-| `<=` | 작거나 같다 | `5 <= 3` | `False` |
+<table align="center">
+  <thead>
+    <tr>
+      <th align="center">연산자</th>
+      <th align="center">의미</th>
+      <th align="center">예시</th>
+      <th align="center">결과</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center"><code>==</code></td>
+      <td align="center">같다</td>
+      <td align="center"><code>5 == 5</code></td>
+      <td align="center"><code>True</code></td>
+    </tr>
+    <tr>
+      <td align="center"><code>!=</code></td>
+      <td align="center">다르다</td>
+      <td align="center"><code>5 != 3</code></td>
+      <td align="center"><code>True</code></td>
+    </tr>
+    <tr>
+      <td align="center"><code>&gt;</code></td>
+      <td align="center">크다</td>
+      <td align="center"><code>5 &gt; 3</code></td>
+      <td align="center"><code>True</code></td>
+    </tr>
+    <tr>
+      <td align="center"><code>&lt;</code></td>
+      <td align="center">작다</td>
+      <td align="center"><code>5 &lt; 3</code></td>
+      <td align="center"><code>False</code></td>
+    </tr>
+    <tr>
+      <td align="center"><code>&gt;=</code></td>
+      <td align="center">크거나 같다</td>
+      <td align="center"><code>5 &gt;= 5</code></td>
+      <td align="center"><code>True</code></td>
+    </tr>
+    <tr>
+      <td align="center"><code>&lt;=</code></td>
+      <td align="center">작거나 같다</td>
+      <td align="center"><code>5 &lt;= 3</code></td>
+      <td align="center"><code>False</code></td>
+    </tr>
+  </tbody>
+</table>
 
 예를 들어 시험 점수가 60점 이상인지 확인할 수 있습니다.
 
@@ -342,11 +490,32 @@ print(score == 75)  # 두 값이 같은지 비교
 
 **논리 연산자(Logical Operator)** 는 여러 조건을 함께 판단할 때 사용합니다.
 
-| 연산자 | 의미 | 조건 판단 예시 |
-|:---:|---|---|
-| `and` | 두 조건이 모두 참이어야 참 | 나이가 충분하고, 동의도 한 경우 |
-| `or` | 두 조건 중 하나 이상이 참이면 참 | 쿠폰이 있거나, 회원인 경우 |
-| `not` | 참과 거짓을 반대로 바꿈 | 로그인 상태가 아닌 경우 |
+<table align="center">
+  <thead>
+    <tr>
+      <th align="center">연산자</th>
+      <th align="center">의미</th>
+      <th align="center">조건 판단 예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center"><code>and</code></td>
+      <td align="center">두 조건이 모두 참이어야 참</td>
+      <td align="center">나이가 충분하고, 동의도 한 경우</td>
+    </tr>
+    <tr>
+      <td align="center"><code>or</code></td>
+      <td align="center">두 조건 중 하나 이상이 참이면 참</td>
+      <td align="center">쿠폰이 있거나, 회원인 경우</td>
+    </tr>
+    <tr>
+      <td align="center"><code>not</code></td>
+      <td align="center">참과 거짓을 반대로 바꿈</td>
+      <td align="center">로그인 상태가 아닌 경우</td>
+    </tr>
+  </tbody>
+</table>
 
 다음은 물건을 살 수 있는지 확인하는 예제입니다.
 
@@ -410,14 +579,47 @@ print(count)
 
 `+=`처럼 계산과 대입을 함께 수행하는 기호를 **복합 대입 연산자(Augmented Assignment Operator)** 라고 합니다.
 
-| 연산자 | 예시 | 의미 |
-|:---:|---|---|
-| `+=` | `x += 3` | `x`에 3을 더한 결과를 다시 대입 |
-| `-=` | `x -= 3` | `x`에서 3을 뺀 결과를 다시 대입 |
-| `*=` | `x *= 3` | `x`에 3을 곱한 결과를 다시 대입 |
-| `/=` | `x /= 3` | `x`를 3으로 나눈 결과를 다시 대입 |
-| `//=` | `x //= 3` | `x`를 3으로 나눈 몫을 내림하여 다시 대입 |
-| `%=` | `x %= 3` | `x`를 3으로 나눈 나머지를 다시 대입 |
+<table align="center">
+  <thead>
+    <tr>
+      <th align="center">연산자</th>
+      <th align="center">예시</th>
+      <th align="center">의미</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center"><code>+=</code></td>
+      <td align="center"><code>x += 3</code></td>
+      <td align="center"><code>x</code>에 3을 더한 결과를 다시 대입</td>
+    </tr>
+    <tr>
+      <td align="center"><code>-=</code></td>
+      <td align="center"><code>x -= 3</code></td>
+      <td align="center"><code>x</code>에서 3을 뺀 결과를 다시 대입</td>
+    </tr>
+    <tr>
+      <td align="center"><code>*=</code></td>
+      <td align="center"><code>x *= 3</code></td>
+      <td align="center"><code>x</code>에 3을 곱한 결과를 다시 대입</td>
+    </tr>
+    <tr>
+      <td align="center"><code>/=</code></td>
+      <td align="center"><code>x /= 3</code></td>
+      <td align="center"><code>x</code>를 3으로 나눈 결과를 다시 대입</td>
+    </tr>
+    <tr>
+      <td align="center"><code>//=</code></td>
+      <td align="center"><code>x //= 3</code></td>
+      <td align="center"><code>x</code>를 3으로 나눈 몫을 내림하여 다시 대입</td>
+    </tr>
+    <tr>
+      <td align="center"><code>%=</code></td>
+      <td align="center"><code>x %= 3</code></td>
+      <td align="center"><code>x</code>를 3으로 나눈 나머지를 다시 대입</td>
+    </tr>
+  </tbody>
+</table>
 
 복합 대입 연산자가 모든 상황에서 더 좋은 것은 아닙니다. 원래 값을 유지해야 한다면 새로운 변수를 사용하는 것이 적절합니다.
 
@@ -562,12 +764,32 @@ print(total)
 
 **주어진 정보**
 
-| 항목 | 값 |
-|---|---|
-| 상품명 | 사과 |
-| 단가 | 1,800원 |
-| 수량 | 4개 |
-| 할인 금액 | 1,000원 |
+<table align="center">
+  <thead>
+    <tr>
+      <th align="center">항목</th>
+      <th align="center">값</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center">상품명</td>
+      <td align="center">사과</td>
+    </tr>
+    <tr>
+      <td align="center">단가</td>
+      <td align="center">1,800원</td>
+    </tr>
+    <tr>
+      <td align="center">수량</td>
+      <td align="center">4개</td>
+    </tr>
+    <tr>
+      <td align="center">할인 금액</td>
+      <td align="center">1,000원</td>
+    </tr>
+  </tbody>
+</table>
 
 **요구사항**
 
@@ -599,16 +821,48 @@ print(total)
 
 **주어진 정보**
 
-| 항목 | 값 |
-|---|---|
-| 커피 단가 | 4,500원 |
-| 커피 수량 | 2잔 |
-| 샌드위치 단가 | 6,200원 |
-| 샌드위치 수량 | 1개 |
-| 할인 금액 | 1,000원 |
-| 보유 잔액 | 14,000원 |
-| 회원 여부 | `True` |
-| 회원 혜택 최소 주문 금액 | 15,000원 |
+<table align="center">
+  <thead>
+    <tr>
+      <th align="center">항목</th>
+      <th align="center">값</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center">커피 단가</td>
+      <td align="center">4,500원</td>
+    </tr>
+    <tr>
+      <td align="center">커피 수량</td>
+      <td align="center">2잔</td>
+    </tr>
+    <tr>
+      <td align="center">샌드위치 단가</td>
+      <td align="center">6,200원</td>
+    </tr>
+    <tr>
+      <td align="center">샌드위치 수량</td>
+      <td align="center">1개</td>
+    </tr>
+    <tr>
+      <td align="center">할인 금액</td>
+      <td align="center">1,000원</td>
+    </tr>
+    <tr>
+      <td align="center">보유 잔액</td>
+      <td align="center">14,000원</td>
+    </tr>
+    <tr>
+      <td align="center">회원 여부</td>
+      <td align="center"><code>True</code></td>
+    </tr>
+    <tr>
+      <td align="center">회원 혜택 최소 주문 금액</td>
+      <td align="center">15,000원</td>
+    </tr>
+  </tbody>
+</table>
 
 **요구사항**
 
