@@ -28,8 +28,8 @@
 
 ## Practice
 
-- [Exercise & Mini Project](./Practice.md) — 결제 가능 여부, 할인율, 회원 할인, 카페 주문 접수
-- [Solutions](./solutions/README.md) — 연습문제와 미니 프로젝트 풀이
+- [Exercise & Mini Project](./Practice.md)
+- [Solutions](./solutions/README.md)
 
 ---
 
