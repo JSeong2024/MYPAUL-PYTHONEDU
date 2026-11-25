@@ -26,6 +26,11 @@
 - `and`는 두 조건이 모두 참일 때, `or`는 둘 중 하나 이상이 참일 때 전체 조건이 참이 됩니다. `not`은 참과 거짓을 반대로 뒤집습니다.
 - `if` 블록 안에 작성한 중첩 조건문은 바깥쪽 조건이 참이어서 해당 블록에 진입했을 때만 검사합니다.
 
+## Practice
+
+- [Exercise & Mini Project](./Practice.md)
+- [Solutions](./solutions/README.md)
+
 ---
 
 <p align="center">
