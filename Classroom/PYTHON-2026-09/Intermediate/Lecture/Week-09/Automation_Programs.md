@@ -25,12 +25,32 @@ print(item)  # pencil
 
 `return`은 처리 결과를 함수를 호출한 곳으로 돌려주면서 함수의 실행을 즉시 종료합니다. 반면 `print()`는 값을 화면에 출력해 보여줄 뿐, 그 값을 호출한 곳에 반환하지는 않습니다. 만약 `return`으로 반환값을 따로 지정하지 않으면 함수는 기본적으로 `None`을 반환합니다.
 
-| 구분 | 역할 |
-| :--- | :--- |
-| `def` | 새로운 함수 정의 |
-| 매개변수 | 함수가 전달받을 입력값 지정 |
-| `return` | 처리 결과를 호출한 곳으로 반환 |
-| 함수 호출 | 정의된 함수를 실제로 실행 |
+<table align="center" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th align="center" style="text-align: center;">구분</th>
+<th align="center" style="text-align: center;">역할</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center" style="text-align: center;"><code>def</code></td>
+<td align="center" style="text-align: center;">새로운 함수 정의</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;">매개변수</td>
+<td align="center" style="text-align: center;">함수가 전달받을 입력값 지정</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><code>return</code></td>
+<td align="center" style="text-align: center;">처리 결과를 호출한 곳으로 반환</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;">함수 호출</td>
+<td align="center" style="text-align: center;">정의된 함수를 실제로 실행</td>
+</tr>
+</tbody>
+</table>
 
 데이터를 계산·처리하는 함수와 결과를 화면에 출력하는 부분을 분리하면, 같은 처리 기능을 프로그램의 여러 곳에서 손쉽게 재사용할 수 있습니다. 다음은 계산 결과를 변수에 저장한 뒤 출력하는 예제입니다.
 
@@ -49,11 +69,32 @@ print(amount)  # 4500
 
 자동화 프로그램에서는 여러 데이터를 저장하고, 검색하거나 수정하는 작업이 반복됩니다. 따라서 데이터의 형태와 처리 목적에 맞는 자료구조를 선택하는 것이 중요합니다.
 
-| 자료구조 | 특징 | 주요 활용 사례 |
-| :--- | :--- | :--- |
-| **리스트 (List)** | 순서가 있으며, 요소를 추가하거나 수정할 수 있음 | 학생 명단, 측정값 목록 |
-| **딕셔너리 (Dictionary)** | 고유한 키(Key)와 값(Value)의 쌍으로 데이터를 관리함 | 상품별 가격, 학번별 점수 |
-| **튜플 (Tuple)** | 순서가 있으며, 생성 이후 요소를 추가·삭제하거나 다른 값으로 교체할 수 없음 | 좌표, 날짜, 개별 거래 기록 |
+<table align="center" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th align="center" style="text-align: center;">자료구조</th>
+<th align="center" style="text-align: center;">특징</th>
+<th align="center" style="text-align: center;">주요 활용 사례</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center" style="text-align: center;"><strong>리스트 (List)</strong></td>
+<td align="center" style="text-align: center;">순서가 있으며, 요소를 추가하거나 수정할 수 있음</td>
+<td align="center" style="text-align: center;">학생 명단, 측정값 목록</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><strong>딕셔너리 (Dictionary)</strong></td>
+<td align="center" style="text-align: center;">고유한 키(Key)와 값(Value)의 쌍으로 데이터를 관리함</td>
+<td align="center" style="text-align: center;">상품별 가격, 학번별 점수</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><strong>튜플 (Tuple)</strong></td>
+<td align="center" style="text-align: center;">순서가 있으며, 생성 이후 요소를 추가·삭제하거나 다른 값으로 교체할 수 없음</td>
+<td align="center" style="text-align: center;">좌표, 날짜, 개별 거래 기록</td>
+</tr>
+</tbody>
+</table>
 
 #### 리스트 (List)
 
@@ -179,10 +220,27 @@ print(sorted(stock))  # ['가위', '자', '풀']
 
 파일 시스템은 운영체제가 파일과 폴더(디렉터리)를 저장하고 관리하는 체계입니다. 파일이나 폴더가 저장된 위치는 **경로(Path)** 로 나타냅니다.
 
-| 구분 | 설명 | 예시 (Windows) |
-| :--- | :--- | :--- |
-| **절대 경로 (Absolute Path)** | 파일 시스템의 최상위 기준점(루트)부터 전체 위치를 나타낸 경로 | `D:\수업\자료\안내.TXT` |
-| **상대 경로 (Relative Path)** | 현재 작업 디렉터리 등 특정 기준 위치를 출발점으로 삼은 경로 | `자료/안내.TXT` |
+<table align="center" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th align="center" style="text-align: center;">구분</th>
+<th align="center" style="text-align: center;">설명</th>
+<th align="center" style="text-align: center;">예시 (Windows)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center" style="text-align: center;"><strong>절대 경로 (Absolute Path)</strong></td>
+<td align="center" style="text-align: center;">파일 시스템의 최상위 기준점(루트)부터 전체 위치를 나타낸 경로</td>
+<td align="center" style="text-align: center;"><code>D:\수업\자료\안내.TXT</code></td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><strong>상대 경로 (Relative Path)</strong></td>
+<td align="center" style="text-align: center;">현재 작업 디렉터리 등 특정 기준 위치를 출발점으로 삼은 경로</td>
+<td align="center" style="text-align: center;"><code>자료/안내.TXT</code></td>
+</tr>
+</tbody>
+</table>
 
 Python 표준 라이브러리인 `pathlib` 모듈을 사용하면 경로 문자열을 객체로 다루면서 파일명이나 확장자 등을 손쉽게 추출할 수 있습니다.
 
@@ -198,14 +256,40 @@ print(path.parent)  # 자료
 
 경로의 이름이나 확장자 같은 구성 요소를 확인하는 작업은 실제 파일이 컴퓨터에 존재하지 않아도 동작합니다. 파일이나 폴더가 실제로 있는지 확인하려면 별도의 메서드를 사용해야 합니다.
 
-| 속성 및 메서드 | 역할 |
-| :--- | :--- |
-| `name`, `stem`, `suffix` | 전체 파일명, 확장자를 제외한 파일명, 마지막 확장자 확인 |
-| `parent` | 현재 경로의 바로 위 상위 폴더 경로 반환 |
-| `exists()` | 해당 경로에 실제 파일이나 폴더가 존재하는지 확인 |
-| `is_file()` | 해당 경로가 일반 파일인지 확인 |
-| `is_dir()` | 해당 경로가 폴더(디렉터리)인지 확인 |
-| `Path.cwd()` | 현재 작업 디렉터리(Current Working Directory) 경로 반환 |
+<table align="center" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th align="center" style="text-align: center;">속성 및 메서드</th>
+<th align="center" style="text-align: center;">역할</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center" style="text-align: center;"><code>name</code>, <code>stem</code>, <code>suffix</code></td>
+<td align="center" style="text-align: center;">전체 파일명, 확장자를 제외한 파일명, 마지막 확장자 확인</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><code>parent</code></td>
+<td align="center" style="text-align: center;">현재 경로의 바로 위 상위 폴더 경로 반환</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><code>exists()</code></td>
+<td align="center" style="text-align: center;">해당 경로에 실제 파일이나 폴더가 존재하는지 확인</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><code>is_file()</code></td>
+<td align="center" style="text-align: center;">해당 경로가 일반 파일인지 확인</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><code>is_dir()</code></td>
+<td align="center" style="text-align: center;">해당 경로가 폴더(디렉터리)인지 확인</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><code>Path.cwd()</code></td>
+<td align="center" style="text-align: center;">현재 작업 디렉터리(Current Working Directory) 경로 반환</td>
+</tr>
+</tbody>
+</table>
 
 `Path("자료") / "안내.TXT"`처럼 슬래시(`/`) 연산자를 사용하면 운영체제에 구애받지 않고 경로를 직관적으로 결합할 수 있습니다. 상대 경로는 기본적으로 프로그램을 실행한 위치인 **현재 작업 디렉터리**를 기준으로 해석됩니다. 따라서 작성 중인 `.py` 소스 파일이 저장된 폴더와 프로그램이 실행되는 현재 작업 디렉터리가 항상 일치하는 것은 아니라는 점에 유의해야 합니다.
 
@@ -219,12 +303,32 @@ print(path.parent)  # 자료
 
 `open()` 함수는 지정한 경로의 파일을 열고, 설정한 모드에 따라 데이터를 읽거나 기록할 수 있는 파일 객체를 반환합니다.
 
-| 모드 | 동작 설명 |
-| :--- | :--- |
-| `r` | **읽기:** 기존 파일의 내용을 읽습니다. 파일이 없으면 예외(`FileNotFoundError`)가 발생합니다. |
-| `w` | **쓰기:** 새 파일을 만들어 기록합니다. 같은 이름의 파일이 이미 있으면 **기존 내용을 모두 지우고** 새로 기록합니다. |
-| `a` | **추가 쓰기:** 기존 파일 내용의 맨 끝에 새로운 내용을 이어 붙입니다. 파일이 없으면 새로 생성합니다. |
-| `x` | **새 파일 생성:** 새 파일을 만들어 기록합니다. 같은 이름의 파일이 이미 있으면 덮어쓰지 않고 예외(`FileExistsError`)가 발생합니다. |
+<table align="center" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th align="center" style="text-align: center;">모드</th>
+<th align="center" style="text-align: center;">동작 설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center" style="text-align: center;"><code>r</code></td>
+<td align="center" style="text-align: center;"><strong>읽기:</strong> 기존 파일의 내용을 읽습니다. 파일이 없으면 예외(<code>FileNotFoundError</code>)가 발생합니다.</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><code>w</code></td>
+<td align="center" style="text-align: center;"><strong>쓰기:</strong> 새 파일을 만들어 기록합니다. 같은 이름의 파일이 이미 있으면 <strong>기존 내용을 모두 지우고</strong> 새로 기록합니다.</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><code>a</code></td>
+<td align="center" style="text-align: center;"><strong>추가 쓰기:</strong> 기존 파일 내용의 맨 끝에 새로운 내용을 이어 붙입니다. 파일이 없으면 새로 생성합니다.</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><code>x</code></td>
+<td align="center" style="text-align: center;"><strong>새 파일 생성:</strong> 새 파일을 만들어 기록합니다. 같은 이름의 파일이 이미 있으면 덮어쓰지 않고 예외(<code>FileExistsError</code>)가 발생합니다.</td>
+</tr>
+</tbody>
+</table>
 
 `with` 구문을 사용하면 코드 블록의 실행이 끝날 때 파일이 자동으로 닫힙니다. 또한 텍스트 파일을 다룰 때는 `encoding="utf-8"`처럼 인코딩 방식을 명확히 지정해 두는 것이 운영체제 간 글자 깨짐 현상을 예방하는 좋은 습관입니다.
 
@@ -315,20 +419,57 @@ print(restored["font_size"])  # 14
 }
 ```
 
-| 함수 및 옵션 | 역할 |
-| :--- | :--- |
-| `json.dump(data, file)` | Python 데이터를 JSON 형식으로 변환해 파일에 기록 |
-| `json.load(file)` | JSON 파일의 내용을 읽어 Python 데이터로 복원 |
-| `ensure_ascii=False` | 한글 등을 `\uXXXX` 같은 유니코드 이스케이프 문자로 바꾸지 않고 원문 그대로 기록 |
-| `indent=4` | 사람이 읽기 쉽도록 지정한 칸수만큼 들여쓰기를 적용해 줄 바꿈 |
+<table align="center" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th align="center" style="text-align: center;">함수 및 옵션</th>
+<th align="center" style="text-align: center;">역할</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center" style="text-align: center;"><code>json.dump(data, file)</code></td>
+<td align="center" style="text-align: center;">Python 데이터를 JSON 형식으로 변환해 파일에 기록</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><code>json.load(file)</code></td>
+<td align="center" style="text-align: center;">JSON 파일의 내용을 읽어 Python 데이터로 복원</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><code>ensure_ascii=False</code></td>
+<td align="center" style="text-align: center;">한글 등을 <code>\uXXXX</code> 같은 유니코드 이스케이프 문자로 바꾸지 않고 원문 그대로 기록</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><code>indent=4</code></td>
+<td align="center" style="text-align: center;">사람이 읽기 쉽도록 지정한 칸수만큼 들여쓰기를 적용해 줄 바꿈</td>
+</tr>
+</tbody>
+</table>
 
 JSON에서 객체의 키(Key)는 항상 문자열로 저장되며, Python의 튜플(Tuple)은 JSON 배열로 저장되기 때문에 나중에 다시 읽어 오면 리스트(List)로 변환됩니다. 또한 Python의 `True`, `False`, `None`은 JSON 표준에 따라 각각 `true`, `false`, `null`로 대응됩니다.
 
-| 파일 형식 | 주요 용도 |
-| :--- | :--- |
-| **TXT** | 서식 없는 일반 텍스트, 단순 목록, 실행 로그 |
-| **CSV** | 행과 열로 구성된 통계 보고서, 표 형태의 데이터 |
-| **JSON** | 프로그램 환경 설정, 계층적·구조화된 데이터, 프로그램 상태 저장 |
+<table align="center" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th align="center" style="text-align: center;">파일 형식</th>
+<th align="center" style="text-align: center;">주요 용도</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center" style="text-align: center;"><strong>TXT</strong></td>
+<td align="center" style="text-align: center;">서식 없는 일반 텍스트, 단순 목록, 실행 로그</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><strong>CSV</strong></td>
+<td align="center" style="text-align: center;">행과 열로 구성된 통계 보고서, 표 형태의 데이터</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><strong>JSON</strong></td>
+<td align="center" style="text-align: center;">프로그램 환경 설정, 계층적·구조화된 데이터, 프로그램 상태 저장</td>
+</tr>
+</tbody>
+</table>
 
 ### 1.5 라이브러리와 API (Library & API)
 
@@ -342,11 +483,28 @@ API를 올바르게 활용하려면 호출할 함수나 메서드의 이름, 전
 
 프로그램의 처리 절차가 올바르더라도 실행 환경에 따라 예상치 못한 문제가 발생할 수 있습니다. 예를 들어 읽어야 할 입력 파일이 없거나, 결과 파일을 저장할 권한이 부족한 경우입니다. Python에서는 `try`, `except`, `else` 구문을 사용해 이러한 예외 상황에 안전하게 대응할 수 있습니다.
 
-| 구문 | 역할 |
-| :--- | :--- |
-| `try` | 실행 중 예외가 발생할 가능성이 있는 코드 블록 실행 |
-| `except` | 지정한 예외가 발생했을 때 실행할 대응 코드 작성 |
-| `else` | `try` 블록이 아무런 예외 없이 정상 종료되었을 때 실행 |
+<table align="center" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th align="center" style="text-align: center;">구문</th>
+<th align="center" style="text-align: center;">역할</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center" style="text-align: center;"><code>try</code></td>
+<td align="center" style="text-align: center;">실행 중 예외가 발생할 가능성이 있는 코드 블록 실행</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><code>except</code></td>
+<td align="center" style="text-align: center;">지정한 예외가 발생했을 때 실행할 대응 코드 작성</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><code>else</code></td>
+<td align="center" style="text-align: center;"><code>try</code> 블록이 아무런 예외 없이 정상 종료되었을 때 실행</td>
+</tr>
+</tbody>
+</table>
 
 ```python
 text = input("신청 수량을 정수로 입력하세요. ")
@@ -365,14 +523,40 @@ else:
 
 #### 파일 처리에서 발생하는 주요 예외
 
-| 예외 클래스 | 주요 발생 상황 |
-| :--- | :--- |
-| `FileNotFoundError` | 읽으려는 파일이나 지정한 경로가 존재하지 않음 |
-| `FileExistsError` | `x` 모드로 새로 생성하려는 파일이 이미 존재함 |
-| `PermissionError` | 파일에 접근하거나 내용을 기록할 권한이 없음 |
-| `UnicodeDecodeError` | 지정한 인코딩 방식으로 파일의 문자를 해석할 수 없음 |
-| `json.JSONDecodeError` | 읽어 들인 JSON 데이터의 문법 형식이 올바르지 않음 |
-| `OSError` | 파일 접근 및 입출력 등 운영체제 관련 작업 전반에서 예외 발생 |
+<table align="center" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th align="center" style="text-align: center;">예외 클래스</th>
+<th align="center" style="text-align: center;">주요 발생 상황</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center" style="text-align: center;"><code>FileNotFoundError</code></td>
+<td align="center" style="text-align: center;">읽으려는 파일이나 지정한 경로가 존재하지 않음</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><code>FileExistsError</code></td>
+<td align="center" style="text-align: center;"><code>x</code> 모드로 새로 생성하려는 파일이 이미 존재함</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><code>PermissionError</code></td>
+<td align="center" style="text-align: center;">파일에 접근하거나 내용을 기록할 권한이 없음</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><code>UnicodeDecodeError</code></td>
+<td align="center" style="text-align: center;">지정한 인코딩 방식으로 파일의 문자를 해석할 수 없음</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><code>json.JSONDecodeError</code></td>
+<td align="center" style="text-align: center;">읽어 들인 JSON 데이터의 문법 형식이 올바르지 않음</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><code>OSError</code></td>
+<td align="center" style="text-align: center;">파일 접근 및 입출력 등 운영체제 관련 작업 전반에서 예외 발생</td>
+</tr>
+</tbody>
+</table>
 
 ```python
 try:
@@ -403,24 +587,73 @@ else:
 
 ### 2.2 주요 활용 사례
 
-| 활용 사례 | 자동화 처리 내용 |
-| :--- | :--- |
-| **과제 제출 현황 확인** | 전체 학생 명단과 제출 기록을 대조하여 미제출자 명단 추출 |
-| **일일 매출 집계** | 거래 내역 데이터를 읽어 품목별·지점별 합계를 계산하고 보고서 생성 |
-| **데이터 백업** | 지정한 조건이나 주기에 따라 중요 파일 및 데이터를 자동으로 복사·보관 |
-| **파일 목록 관리** | 특정 폴더 내의 파일 정보를 스캔하여 최신 목록으로 갱신 |
+<table align="center" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th align="center" style="text-align: center;">활용 사례</th>
+<th align="center" style="text-align: center;">자동화 처리 내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center" style="text-align: center;"><strong>과제 제출 현황 확인</strong></td>
+<td align="center" style="text-align: center;">전체 학생 명단과 제출 기록을 대조하여 미제출자 명단 추출</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><strong>일일 매출 집계</strong></td>
+<td align="center" style="text-align: center;">거래 내역 데이터를 읽어 품목별·지점별 합계를 계산하고 보고서 생성</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><strong>데이터 백업</strong></td>
+<td align="center" style="text-align: center;">지정한 조건이나 주기에 따라 중요 파일 및 데이터를 자동으로 복사·보관</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><strong>파일 목록 관리</strong></td>
+<td align="center" style="text-align: center;">특정 폴더 내의 파일 정보를 스캔하여 최신 목록으로 갱신</td>
+</tr>
+</tbody>
+</table>
 
 ### 2.3 자동화 프로그램의 설계
 
 자동화할 작업을 정했다면 코드를 작성하기 전에 **시작 조건, 입력, 처리 규칙, 출력, 예외 상황**의 다섯 가지 요소를 먼저 명확히 정의해야 합니다.
 
-| 설계 항목 | 핵심 역할 | 준비물 신청 집계 예시 |
-| :--- | :--- | :--- |
-| **시작 조건 (Trigger)** | 자동화 작업을 개시하는 조건 | 사용자가 터미널에서 프로그램 실행 |
-| **입력 (Input)** | 프로그램이 읽어 들일 원본 데이터 | 한 줄에 한 건씩 작성된 신청 내역 텍스트 파일 |
-| **처리 규칙 (Process)** | 데이터에 적용할 정제 조건과 연산 로직 | 앞뒤 공백 제거, 소문자 통일, 품목별 건수 집계 |
-| **출력 (Output)** | 처리를 마친 뒤 생성되는 최종 결과물 | 품목명과 신청 건수가 정리된 CSV 보고서 파일 |
-| **예외 상황 (Exception)** | 정상적인 처리가 불가능할 때의 대응 방식 | 입력 파일 누락, 인코딩 오류, 기존 보고서 이름 충돌 시 안내 |
+<table align="center" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th align="center" style="text-align: center;">설계 항목</th>
+<th align="center" style="text-align: center;">핵심 역할</th>
+<th align="center" style="text-align: center;">준비물 신청 집계 예시</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center" style="text-align: center;"><strong>시작 조건 (Trigger)</strong></td>
+<td align="center" style="text-align: center;">자동화 작업을 개시하는 조건</td>
+<td align="center" style="text-align: center;">사용자가 터미널에서 프로그램 실행</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><strong>입력 (Input)</strong></td>
+<td align="center" style="text-align: center;">프로그램이 읽어 들일 원본 데이터</td>
+<td align="center" style="text-align: center;">한 줄에 한 건씩 작성된 신청 내역 텍스트 파일</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><strong>처리 규칙 (Process)</strong></td>
+<td align="center" style="text-align: center;">데이터에 적용할 정제 조건과 연산 로직</td>
+<td align="center" style="text-align: center;">앞뒤 공백 제거, 소문자 통일, 품목별 건수 집계</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><strong>출력 (Output)</strong></td>
+<td align="center" style="text-align: center;">처리를 마친 뒤 생성되는 최종 결과물</td>
+<td align="center" style="text-align: center;">품목명과 신청 건수가 정리된 CSV 보고서 파일</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><strong>예외 상황 (Exception)</strong></td>
+<td align="center" style="text-align: center;">정상적인 처리가 불가능할 때의 대응 방식</td>
+<td align="center" style="text-align: center;">입력 파일 누락, 인코딩 오류, 기존 보고서 이름 충돌 시 안내</td>
+</tr>
+</tbody>
+</table>
 
 프로그램을 구현한 뒤에는 올바른 정상 데이터뿐만 아니라 빈 입력, 중복 데이터, 파일 누락 같은 다양한 예외 조건에서도 요구사항대로 동작하는지 테스트해야 합니다. 예외 상황에서 사용자에게 적절한 안내 메시지가 출력되는지, 그리고 유효하지 않은 데이터가 처리 대상에서 제외되는지도 중요한 검증 대상입니다.
 
@@ -430,13 +663,36 @@ else:
 
 준비물 신청 내역 파일을 읽어 품목별 신청 건수를 계산하고, 결과를 CSV 보고서로 저장하는 프로그램입니다. 입력 파일의 한 줄을 신청 한 건으로 처리하며, 영문 대소문자나 앞뒤 공백의 차이는 구분하지 않습니다. 공백만 있는 빈 줄은 집계에서 제외하고, 최종 결과는 품목명 오름차순으로 정렬해 저장합니다. 또한 같은 이름의 보고서 파일이 이미 있다면 덮어쓰지 않고 안내 메시지를 출력합니다.
 
-| 순서 | 처리 내용 |
-| :--- | :--- |
-| **1** | 입력 파일(`requests.txt`) 열기 |
-| **2** | 각 줄의 앞뒤 공백 제거 및 영문 소문자 통일 |
-| **3** | 빈 줄을 제외하고 품목별 신청 건수 집계 |
-| **4** | 품목명을 오름차순 정렬하여 CSV 보고서에 기록 |
-| **5** | 최종 처리 결과 또는 예외 안내 메시지 출력 |
+<table align="center" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th align="center" style="text-align: center;">순서</th>
+<th align="center" style="text-align: center;">처리 내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center" style="text-align: center;"><strong>1</strong></td>
+<td align="center" style="text-align: center;">입력 파일(<code>requests.txt</code>) 열기</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><strong>2</strong></td>
+<td align="center" style="text-align: center;">각 줄의 앞뒤 공백 제거 및 영문 소문자 통일</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><strong>3</strong></td>
+<td align="center" style="text-align: center;">빈 줄을 제외하고 품목별 신청 건수 집계</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><strong>4</strong></td>
+<td align="center" style="text-align: center;">품목명을 오름차순 정렬하여 CSV 보고서에 기록</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><strong>5</strong></td>
+<td align="center" style="text-align: center;">최종 처리 결과 또는 예외 안내 메시지 출력</td>
+</tr>
+</tbody>
+</table>
 
 ### 3.2 입력 데이터
 
@@ -510,14 +766,47 @@ if __name__ == "__main__":
 counts[item] = counts.get(item, 0) + 1
 ```
 
-| 읽은 줄 | 정리된 품목 | 처리 후 `counts` 상태 |
-| :--- | :--- | :--- |
-| `Pencil` | `pencil` | `{'pencil': 1}` |
-| `ruler` | `ruler` | `{'pencil': 1, 'ruler': 1}` |
-| `PENCIL` | `pencil` | `{'pencil': 2, 'ruler': 1}` |
-| 빈 줄 | `""` (빈 문자열) | 변화 없음 (건너뜀) |
-| `eraser` | `eraser` | `{'pencil': 2, 'ruler': 1, 'eraser': 1}` |
-| `pencil` | `pencil` | `{'pencil': 3, 'ruler': 1, 'eraser': 1}` |
+<table align="center" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th align="center" style="text-align: center;">읽은 줄</th>
+<th align="center" style="text-align: center;">정리된 품목</th>
+<th align="center" style="text-align: center;">처리 후 <code>counts</code> 상태</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center" style="text-align: center;"><code>Pencil</code></td>
+<td align="center" style="text-align: center;"><code>pencil</code></td>
+<td align="center" style="text-align: center;"><code>{'pencil': 1}</code></td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><code>ruler</code></td>
+<td align="center" style="text-align: center;"><code>ruler</code></td>
+<td align="center" style="text-align: center;"><code>{'pencil': 1, 'ruler': 1}</code></td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><code>PENCIL</code></td>
+<td align="center" style="text-align: center;"><code>pencil</code></td>
+<td align="center" style="text-align: center;"><code>{'pencil': 2, 'ruler': 1}</code></td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;">빈 줄</td>
+<td align="center" style="text-align: center;"><code>""</code> (빈 문자열)</td>
+<td align="center" style="text-align: center;">변화 없음 (건너뜀)</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><code>eraser</code></td>
+<td align="center" style="text-align: center;"><code>eraser</code></td>
+<td align="center" style="text-align: center;"><code>{'pencil': 2, 'ruler': 1, 'eraser': 1}</code></td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><code>pencil</code></td>
+<td align="center" style="text-align: center;"><code>pencil</code></td>
+<td align="center" style="text-align: center;"><code>{'pencil': 3, 'ruler': 1, 'eraser': 1}</code></td>
+</tr>
+</tbody>
+</table>
 
 **보고서 저장:** 집계 함수가 반환한 딕셔너리를 `sorted(counts)`로 순회하여 품목명 오름차순으로 정렬해 기록합니다. 파일을 열 때 `"x"` 모드를 사용하므로 같은 이름의 기존 보고서는 덮어쓰지 않습니다.
 
@@ -527,11 +816,32 @@ counts[item] = counts.get(item, 0) + 1
 
 `if __name__ == "__main__":` 조건문은 해당 Python 파일을 터미널 등에서 직접 실행할 때만 내부 코드를 실행하도록 제어합니다. 다른 파일에서 이 모듈을 `import`로 불러오는 경우에는 조건이 거짓이 되므로 `main()`이 자동으로 실행되지 않습니다. 단, 모듈을 처음 불러올 때 조건문 밖의 최상위 코드는 실행됩니다.
 
-| 파일 끝의 구성 방식 | 직접 실행 시 | 다른 파일에서 처음 불러올 시 |
-| :--- | :--- | :--- |
-| `if __name__ == "__main__":` 아래 `main()` 호출 | `main()` 실행 | `main()` 자동 실행 안 됨 |
-| 조건문 없이 바로 `main()` 호출 | `main()` 실행 | 불러오는 과정에서도 `main()` 즉시 실행 |
-| 함수 정의만 작성 (`main()` 호출 없음) | 함수만 정의됨 | 함수만 정의됨 |
+<table align="center" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th align="center" style="text-align: center;">파일 끝의 구성 방식</th>
+<th align="center" style="text-align: center;">직접 실행 시</th>
+<th align="center" style="text-align: center;">다른 파일에서 처음 불러올 시</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center" style="text-align: center;"><code>if __name__ == "__main__":</code> 아래 <code>main()</code> 호출</td>
+<td align="center" style="text-align: center;"><code>main()</code> 실행</td>
+<td align="center" style="text-align: center;"><code>main()</code> 자동 실행 안 됨</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;">조건문 없이 바로 <code>main()</code> 호출</td>
+<td align="center" style="text-align: center;"><code>main()</code> 실행</td>
+<td align="center" style="text-align: center;">불러오는 과정에서도 <code>main()</code> 즉시 실행</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;">함수 정의만 작성 (<code>main()</code> 호출 없음)</td>
+<td align="center" style="text-align: center;">함수만 정의됨</td>
+<td align="center" style="text-align: center;">함수만 정의됨</td>
+</tr>
+</tbody>
+</table>
 
 실습 폴더에서 다음 명령어를 실행하면 보고서를 생성하지 않고 `count_requests()` 함수만 따로 불러와 동작을 검증할 수 있습니다.
 
@@ -568,12 +878,32 @@ ruler,1
 
 다음 네 가지 테스트 조건에서 프로그램을 각각 실행해 예상 결과와 일치하는지 검증해 보세요. 각 테스트를 진행하기 전에는 필요한 파일 상태를 먼저 맞추어야 하며, 기존 보고서 보존 테스트를 제외한 나머지 경우에는 이전 보고서의 이름을 바꾸거나 별도의 실습 폴더를 사용하는 것이 좋습니다.
 
-| 테스트 조건 | 예상 결과 |
-| :--- | :--- |
-| 기본 입력 데이터 존재, 보고서 없음 | `5건` 집계 완료 및 `summary.csv` 생성 |
-| 빈 입력 파일 또는 공백만 있는 파일 존재, 보고서 없음 | `0건` 집계 완료 및 제목 행만 있는 보고서 생성 |
-| 입력 파일(`requests.txt`)이 없을 때 | 입력 파일 누락 안내 메시지 출력 |
-| 입력 파일은 정상이나 보고서(`summary.csv`)가 이미 있을 때 | 기존 보고서 보존 및 이름 충돌 안내 출력 |
+<table align="center" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th align="center" style="text-align: center;">테스트 조건</th>
+<th align="center" style="text-align: center;">예상 결과</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center" style="text-align: center;">기본 입력 데이터 존재, 보고서 없음</td>
+<td align="center" style="text-align: center;"><code>5건</code> 집계 완료 및 <code>summary.csv</code> 생성</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;">빈 입력 파일 또는 공백만 있는 파일 존재, 보고서 없음</td>
+<td align="center" style="text-align: center;"><code>0건</code> 집계 완료 및 제목 행만 있는 보고서 생성</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;">입력 파일(<code>requests.txt</code>)이 없을 때</td>
+<td align="center" style="text-align: center;">입력 파일 누락 안내 메시지 출력</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;">입력 파일은 정상이나 보고서(<code>summary.csv</code>)가 이미 있을 때</td>
+<td align="center" style="text-align: center;">기존 보고서 보존 및 이름 충돌 안내 출력</td>
+</tr>
+</tbody>
+</table>
 
 > **참고:** `"x"` 모드는 같은 이름의 기존 파일이 덮어씌워지는 것을 방지하는 용도입니다. 파일을 기록하는 도중 저장 장치에 물리적 오류가 발생하는 등 모든 저장 실패 상황에서 결과 파일의 완전성까지 보장하는 것은 아닙니다.
 
@@ -655,12 +985,32 @@ if __name__ == "__main__":
 
 #### STEP 05. 테스트
 
-| 테스트 조건 | 예상 결과 |
-| :--- | :--- |
-| 기본 입력 데이터 사용 | 제출 2명, 미제출 3명 (`S102, S104, S105`) |
-| `records = []` | 제출 0명, 전체 학생 미제출 |
-| `records = ["S105", "S103", "S101", "S104", "S102"]` | 제출 5명, `미제출: 없음` 출력 |
-| `records = [" s102 ", "S102", "S999", " "]` | 제출 1명 (`S102`), 미제출 4명 |
+<table align="center" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th align="center" style="text-align: center;">테스트 조건</th>
+<th align="center" style="text-align: center;">예상 결과</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center" style="text-align: center;">기본 입력 데이터 사용</td>
+<td align="center" style="text-align: center;">제출 2명, 미제출 3명 (<code>S102, S104, S105</code>)</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><code>records = []</code></td>
+<td align="center" style="text-align: center;">제출 0명, 전체 학생 미제출</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><code>records = ["S105", "S103", "S101", "S104", "S102"]</code></td>
+<td align="center" style="text-align: center;">제출 5명, <code>미제출: 없음</code> 출력</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><code>records = [" s102 ", "S102", "S999", " "]</code></td>
+<td align="center" style="text-align: center;">제출 1명 (<code>S102</code>), 미제출 4명</td>
+</tr>
+</tbody>
+</table>
 
 각 테스트 케이스를 실행하면서 제출 인원과 미제출자 목록의 순서가 요구사항을 정확히 만족하는지 확인해 보세요.
 
@@ -693,13 +1043,36 @@ records = [
 5. 처리 결과는 `equipment_stock.json` 파일에 저장하며, 저장된 재고 파일을 다시 읽어 화면에 표시할 수 있어야 합니다. 기존 재고 파일이 있으면 그 수량을 이어서 사용하며, 초기 재고는 품목별 최대 보유 수량을 판단하는 기준으로 계속 유지합니다.
 6. 저장된 재고 파일이 없으면 초기 재고를 사용합니다. 반면, 기존 파일을 읽을 수 없거나 JSON 문법 또는 저장된 수량 데이터가 올바르지 않으면 오류 안내 메시지를 출력하고 처리를 중단해야 합니다. 이때 손상되거나 잘못된 저장 파일을 초기값으로 덮어쓰지 않도록 주의합니다.
 
-| 제외 사유 | 발생 조건 |
-| :--- | :--- |
-| `등록되지 않은 품목` | 문자열이 아니거나 초기 재고(`initial_stock`)에 없는 품목 |
-| `알 수 없는 동작` | `"대여"`, `"반납"` 외의 동작 |
-| `잘못된 수량` | 양의 정수가 아닌 수량 (`0`, 음수, 문자열, 불리언 등) |
-| `재고 부족` | 대여 수량이 현재 재고를 초과 |
-| `초기 재고 초과` | 반납 후 수량이 초기 재고를 초과 |
+<table align="center" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th align="center" style="text-align: center;">제외 사유</th>
+<th align="center" style="text-align: center;">발생 조건</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center" style="text-align: center;"><code>등록되지 않은 품목</code></td>
+<td align="center" style="text-align: center;">문자열이 아니거나 초기 재고(<code>initial_stock</code>)에 없는 품목</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><code>알 수 없는 동작</code></td>
+<td align="center" style="text-align: center;"><code>"대여"</code>, <code>"반납"</code> 외의 동작</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><code>잘못된 수량</code></td>
+<td align="center" style="text-align: center;">양의 정수가 아닌 수량 (<code>0</code>, 음수, 문자열, 불리언 등)</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><code>재고 부족</code></td>
+<td align="center" style="text-align: center;">대여 수량이 현재 재고를 초과</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><code>초기 재고 초과</code></td>
+<td align="center" style="text-align: center;">반납 후 수량이 초기 재고를 초과</td>
+</tr>
+</tbody>
+</table>
 
 > **가정 사항:** 이 실습에서는 초기 재고의 품목 목록과 최대 수량이 실행 도중 변경되지 않으며, 입력되는 각 기록 튜플의 길이와 구조(`(품목, 동작, 수량)`)는 올바르다고 가정합니다.
 
@@ -744,10 +1117,24 @@ def save_stock(path, stock):
 
 앞서 구현한 함수들을 조합해 전체 프로그램을 완성하세요. 사용자가 아래 두 가지 동작 중 하나를 선택해 실행할 수 있도록 구성합니다. 메뉴 형태, 함수 호출 순서, 화면 출력 방식은 자유롭게 설계할 수 있습니다.
 
-| 동작 | 요구사항 |
-| :--- | :--- |
-| **기록 처리** | 저장된 재고(없으면 초기 재고)를 불러온 뒤, 입력된 대여·반납 기록을 한 번 처리하고 결과를 저장합니다. |
-| **재고 조회** | 저장된 재고(없으면 초기 재고)를 불러와 화면에 표시합니다. 대여·반납 기록을 다시 적용하지 않습니다. |
+<table align="center" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th align="center" style="text-align: center;">동작</th>
+<th align="center" style="text-align: center;">요구사항</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center" style="text-align: center;"><strong>기록 처리</strong></td>
+<td align="center" style="text-align: center;">저장된 재고(없으면 초기 재고)를 불러온 뒤, 입력된 대여·반납 기록을 한 번 처리하고 결과를 저장합니다.</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><strong>재고 조회</strong></td>
+<td align="center" style="text-align: center;">저장된 재고(없으면 초기 재고)를 불러와 화면에 표시합니다. 대여·반납 기록을 다시 적용하지 않습니다.</td>
+</tr>
+</tbody>
+</table>
 
 ```python
 from pathlib import Path
@@ -802,17 +1189,52 @@ if __name__ == "__main__":
 
 독립적인 기능 테스트를 진행할 때는 이전 테스트에서 생성된 저장 파일을 다른 위치로 옮기거나 삭제해 초기 재고 상태에서 시작하세요. 반면, 저장 및 복원 테스트는 생성된 `equipment_stock.json` 파일을 유지한 상태에서 진행합니다.
 
-| 테스트 조건 | 예상 결과 |
-| :--- | :--- |
-| 기본 입력 데이터 실행 | 가위 3개, 자 2개, 총 5건 제외 |
-| 빈 기록 목록(`records = []`) 실행 | 현재 재고 유지, 제외된 기록 없음 |
-| 가위 4개 대여 (초기 상태 기준) | 가위 0개, 정상 처리 |
-| 가위 1개 반납 (초기 상태 기준) | `초기 재고 초과`로 제외 |
-| 미등록 품목, 잘못된 동작, 수량 `0`이 한 기록에 동시 포함 | `등록되지 않은 품목` 사유 하나만 기록 |
-| 수량이 `True`인 기록 | `잘못된 수량`으로 제외 |
-| 품목이 리스트 등 문자열이 아닌 기록 | `등록되지 않은 품목`으로 제외 |
-| 기본 기록 처리 후 프로그램 재실행 및 재고 조회 | 가위 3개, 자 2개 그대로 유지 |
-| 저장 파일에 잘못된 JSON 형식이나 범위를 벗어난 수량 포함 | 오류 안내 출력 및 기존 저장 파일 보존 |
+<table align="center" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th align="center" style="text-align: center;">테스트 조건</th>
+<th align="center" style="text-align: center;">예상 결과</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center" style="text-align: center;">기본 입력 데이터 실행</td>
+<td align="center" style="text-align: center;">가위 3개, 자 2개, 총 5건 제외</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;">빈 기록 목록(<code>records = []</code>) 실행</td>
+<td align="center" style="text-align: center;">현재 재고 유지, 제외된 기록 없음</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;">가위 4개 대여 (초기 상태 기준)</td>
+<td align="center" style="text-align: center;">가위 0개, 정상 처리</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;">가위 1개 반납 (초기 상태 기준)</td>
+<td align="center" style="text-align: center;"><code>초기 재고 초과</code>로 제외</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;">미등록 품목, 잘못된 동작, 수량 <code>0</code>이 한 기록에 동시 포함</td>
+<td align="center" style="text-align: center;"><code>등록되지 않은 품목</code> 사유 하나만 기록</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;">수량이 <code>True</code>인 기록</td>
+<td align="center" style="text-align: center;"><code>잘못된 수량</code>으로 제외</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;">품목이 리스트 등 문자열이 아닌 기록</td>
+<td align="center" style="text-align: center;"><code>등록되지 않은 품목</code>으로 제외</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;">기본 기록 처리 후 프로그램 재실행 및 재고 조회</td>
+<td align="center" style="text-align: center;">가위 3개, 자 2개 그대로 유지</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;">저장 파일에 잘못된 JSON 형식이나 범위를 벗어난 수량 포함</td>
+<td align="center" style="text-align: center;">오류 안내 출력 및 기존 저장 파일 보존</td>
+</tr>
+</tbody>
+</table>
 
 테스트를 마친 뒤에는 원본인 초기 재고(`initial_stock`)와 함수에 전달한 현재 재고(`current_stock`)가 처리 이후에도 변하지 않았는지 함께 확인해 보세요.
 
@@ -1015,13 +1437,36 @@ Quiz의 정답 및 해설입니다.
 
 **설계 예시:**
 
-| 설계 항목 | 예시 답안 |
-| :--- | :--- |
-| **시작 조건** | 사용자가 터미널에서 일일 온도 보고서 생성 프로그램을 실행함 |
-| **입력** | 해당 날짜에 시간별로 기록된 실내 온도 측정 데이터 파일 |
-| **처리 규칙** | 온도 측정값을 숫자로 변환하고, 결측값이나 유효하지 않은 측정값을 제외한 뒤 일일 평균 온도와 최고 온도를 계산함 |
-| **출력** | 날짜, 평균 온도, 최고 온도가 정리된 CSV 보고서 파일 |
-| **예외 상황** | 입력 파일이 없거나 유효한 온도 데이터가 하나도 없는 경우 계산을 중단하고 안내 메시지를 출력함 |
+<table align="center" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th align="center" style="text-align: center;">설계 항목</th>
+<th align="center" style="text-align: center;">예시 답안</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center" style="text-align: center;"><strong>시작 조건</strong></td>
+<td align="center" style="text-align: center;">사용자가 터미널에서 일일 온도 보고서 생성 프로그램을 실행함</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><strong>입력</strong></td>
+<td align="center" style="text-align: center;">해당 날짜에 시간별로 기록된 실내 온도 측정 데이터 파일</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><strong>처리 규칙</strong></td>
+<td align="center" style="text-align: center;">온도 측정값을 숫자로 변환하고, 결측값이나 유효하지 않은 측정값을 제외한 뒤 일일 평균 온도와 최고 온도를 계산함</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><strong>출력</strong></td>
+<td align="center" style="text-align: center;">날짜, 평균 온도, 최고 온도가 정리된 CSV 보고서 파일</td>
+</tr>
+<tr>
+<td align="center" style="text-align: center;"><strong>예외 상황</strong></td>
+<td align="center" style="text-align: center;">입력 파일이 없거나 유효한 온도 데이터가 하나도 없는 경우 계산을 중단하고 안내 메시지를 출력함</td>
+</tr>
+</tbody>
+</table>
 
 > **참고:** 제시한 처리 규칙과 예외 상황이 서로 모순되지 않고, 정해진 입력을 통해 요구하는 출력을 도출할 수 있는 논리적인 구조라면 다른 형태의 설계도 정답으로 인정됩니다.
 
