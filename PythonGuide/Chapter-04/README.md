@@ -126,12 +126,37 @@ True
 
 먼저 저장한 정보를 어떻게 사용할지 생각해 봅시다. 첫 번째 주문을 확인해야 한다면 접수 순서가 필요합니다. 쿠키 가격을 찾으려면 메뉴 이름이 기준이 됩니다.
 
-| 자료구조 | 선택 기준 | 카페 주문 예시 |
-|---|---|---|
-| 리스트 `list` | 순서를 유지하고 항목을 추가하거나 수정합니다. | 접수 순서대로 주문을 기록합니다. |
-| 튜플 `tuple` | 정해진 순서로 값을 묶고 각 항목을 그대로 유지합니다. | 상품명과 가격을 한 쌍으로 다룹니다. |
-| 딕셔너리 `dict` | 키를 기준으로 값을 읽거나 수정합니다. | 메뉴 이름으로 가격을 조회합니다. |
-| 집합 `set` | 중복을 제외하거나 항목의 포함 여부를 확인합니다. | 주문한 메뉴의 종류를 셉니다. |
+<table align="center">
+  <thead>
+    <tr>
+      <th>자료구조</th>
+      <th>선택 기준</th>
+      <th>카페 주문 예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>리스트 <code>list</code></td>
+      <td>순서를 유지하고 항목을 추가하거나 수정합니다.</td>
+      <td>접수 순서대로 주문을 기록합니다.</td>
+    </tr>
+    <tr>
+      <td>튜플 <code>tuple</code></td>
+      <td>정해진 순서로 값을 묶고 각 항목을 그대로 유지합니다.</td>
+      <td>상품명과 가격을 한 쌍으로 다룹니다.</td>
+    </tr>
+    <tr>
+      <td>딕셔너리 <code>dict</code></td>
+      <td>키를 기준으로 값을 읽거나 수정합니다.</td>
+      <td>메뉴 이름으로 가격을 조회합니다.</td>
+    </tr>
+    <tr>
+      <td>집합 <code>set</code></td>
+      <td>중복을 제외하거나 항목의 포함 여부를 확인합니다.</td>
+      <td>주문한 메뉴의 종류를 셉니다.</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Summary
 
@@ -150,12 +175,32 @@ True
 <details>
 <summary>연습문제 확인</summary>
 
-| 문제 | 확인할 결과 |
-|---|---|
-| 1 | `['차', '쿠키', '커피']` |
-| 2 | `샌드위치: 6,000원` |
-| 3 | 쿠키 2,800원, 차 3,000원 |
-| 4 | 전체 5건, 메뉴 3종류 |
+<table align="center">
+  <thead>
+    <tr>
+      <th>문제</th>
+      <th>확인할 결과</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td><code>['차', '쿠키', '커피']</code></td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td><code>샌드위치: 6,000원</code></td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>쿠키 2,800원, 차 3,000원</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>전체 5건, 메뉴 3종류</td>
+    </tr>
+  </tbody>
+</table>
 
 </details>
 
@@ -233,6 +278,8 @@ print(f"메뉴 종류: {len(set(orders))}종")
   <a href="../Chapter-03/">← Chapter 03</a>
   &nbsp;·&nbsp;
   <a href="../README.md">Python Guide</a>
+  &nbsp;·&nbsp;
+  <a href="../Chapter-05/">Chapter 05 →</a>
 </p>
 
 <p align="center">
