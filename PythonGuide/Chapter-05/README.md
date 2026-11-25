@@ -44,6 +44,6 @@
 </p>
 
 <p align="center">
-  <img src="https://githubusercontent.com"
+  <img src="https://raw.githubusercontent.com/JSeong2024/oneul/main/.github/assets/logo_ONEUL_01.png"
        width="90" alt="ONEUL">
 </p>
