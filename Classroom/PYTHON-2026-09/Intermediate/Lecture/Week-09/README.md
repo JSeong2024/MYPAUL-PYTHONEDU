@@ -38,12 +38,8 @@ Python을 활용한 자동화 프로그램의 개념과 GUI 프로그래밍을 �
 
 <p align="center">
   <a href="./poster_mini_project.png">
-    <img src="./poster_mini_project.png" width="85%" alt="Mini Project — File Management">
+    <img src="./poster_mini_project.png" width="65%" alt="Mini Project — File Management">
   </a>
-</p>
-
-<p align="center">
-  <a href="./Project_Guide.md"><strong>프로젝트 가이드</strong></a>
 </p>
 
 ---
