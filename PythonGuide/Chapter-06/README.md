@@ -81,8 +81,8 @@
 
 Chapter 06에서 배운 반복문과 조건문을 활용하여 다양한 문제를 해결해 보세요. 종합 실습을 통해 반복문의 기본 구조와 실행 흐름을 익히고, 미니 프로젝트를 통해 여러 개념을 하나의 프로그램에 적용해 봅시다.
 
-- [Exercise & Mini Project](./Practice.md) — 짝수의 합과 개수 구하기, 가운데 정렬 피라미드 그리기, 판매 가능한 메뉴 골라 출력하기, 카페 주문 금액 집계하기
-- [Solutions](./solutions/README.md) — 종합 실습 및 미니 프로젝트의 예제 풀이와 해설
+- [Exercise & Mini Project](./Practice.md)
+- [Solutions](./solutions/README.md)
 
 ---
 
