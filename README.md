@@ -30,11 +30,28 @@
 
 **MYPAUL Classroom**은 GitHub에 공개된 강의 자료와 수업 일정, 공지사항을 확인할 수 있는 **Windows용** 학습 런처입니다. 과정별 강의실과 주차별 자료 조회, 통합 검색 및 파일 다운로드 기능을 제공합니다.
 
-| 항목 | 내용 |
-| :--- | :--- |
-| 최신 공개 버전 | [v0.4.15](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/releases/tag/v0.4.15) |
-| 지원 환경 | Windows |
-| 배포 파일 | [`MYPAUL_Classroom.exe`](https://github.com/JSeong2024/MYPAUL-PYTHONEDU/releases/download/v0.4.15/MYPAUL_Classroom.exe) |
+<table align="center">
+  <thead>
+    <tr>
+      <th align="center">항목</th>
+      <th align="center">내용</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center">최신 공개 버전</td>
+      <td align="center"><a href="https://github.com/JSeong2024/MYPAUL-PYTHONEDU/releases/tag/v0.4.15">v0.4.15</a></td>
+    </tr>
+    <tr>
+      <td align="center">지원 환경</td>
+      <td align="center">Windows</td>
+    </tr>
+    <tr>
+      <td align="center">배포 파일</td>
+      <td align="center"><a href="https://github.com/JSeong2024/MYPAUL-PYTHONEDU/releases/download/v0.4.15/MYPAUL_Classroom.exe"><code>MYPAUL_Classroom.exe</code></a></td>
+    </tr>
+  </tbody>
+</table>
 
 **실행 방법**
 
@@ -48,10 +65,27 @@
 
 ## 🎓 진행중인 수업
 
-| 과정 | 주요 내용 | 강의실 |
-| :--- | :--- | :--- |
-| **Python Basic** | 기초 문법, 자료형, 제어 구조, 문제 해결 | [기초과정](./Classroom/PYTHON-2026-09/Basic) |
-| **Python Intermediate** | 자료구조, 알고리즘, 응용 프로그래밍 | [중급과정](./Classroom/PYTHON-2026-09/Intermediate) |
+<table align="center">
+  <thead>
+    <tr>
+      <th align="center">과정</th>
+      <th align="center">주요 내용</th>
+      <th align="center">강의실</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center"><strong>Python Basic</strong></td>
+      <td align="center">기초 문법, 자료형, 제어 구조, 문제 해결</td>
+      <td align="center"><a href="./Classroom/PYTHON-2026-09/Basic">기초과정</a></td>
+    </tr>
+    <tr>
+      <td align="center"><strong>Python Intermediate</strong></td>
+      <td align="center">자료구조, 알고리즘, 응용 프로그래밍</td>
+      <td align="center"><a href="./Classroom/PYTHON-2026-09/Intermediate">중급과정</a></td>
+    </tr>
+  </tbody>
+</table>
 
 ## 🧩 학습 방식
 
@@ -70,10 +104,24 @@ flowchart LR
 
 ### 2026년 2학기 강의 안내
 
-| Python Basic | Python Intermediate |
-| :---: | :---: |
-| <a href="./Classroom/PYTHON-2026-09/Syllabus_poster_2026_2_Basic.png"><img src="./Classroom/PYTHON-2026-09/Syllabus_poster_2026_2_Basic.png" width="300" alt="기초과정 포스터"></a> | <a href="./Classroom/PYTHON-2026-09/Syllabus_poster_2026_2_Intermediate.png"><img src="./Classroom/PYTHON-2026-09/Syllabus_poster_2026_2_Intermediate.png" width="300" alt="중급과정 포스터"></a> |
-| [강의 계획서 (PDF)](./Classroom/PYTHON-2026-09/%5B강의%20계획서%5D마이폴_파이썬%20기초과정_2026_2.pdf) | [강의 계획서 (PDF)](./Classroom/PYTHON-2026-09/%5B강의%20계획서%5D마이폴_파이썬%20중급과정_2026_2.pdf) |
+<table align="center">
+  <thead>
+    <tr>
+      <th align="center">Python Basic</th>
+      <th align="center">Python Intermediate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center"><a href="./Classroom/PYTHON-2026-09/Syllabus_poster_2026_2_Basic.png"><img src="./Classroom/PYTHON-2026-09/Syllabus_poster_2026_2_Basic.png" width="300" alt="기초과정 포스터"></a></td>
+      <td align="center"><a href="./Classroom/PYTHON-2026-09/Syllabus_poster_2026_2_Intermediate.png"><img src="./Classroom/PYTHON-2026-09/Syllabus_poster_2026_2_Intermediate.png" width="300" alt="중급과정 포스터"></a></td>
+    </tr>
+    <tr>
+      <td align="center"><a href="./Classroom/PYTHON-2026-09/%5B강의%20계획서%5D마이폴_파이썬%20기초과정_2026_2.pdf">강의 계획서 (PDF)</a></td>
+      <td align="center"><a href="./Classroom/PYTHON-2026-09/%5B강의%20계획서%5D마이폴_파이썬%20중급과정_2026_2.pdf">강의 계획서 (PDF)</a></td>
+    </tr>
+  </tbody>
+</table>
 
 
 ---
@@ -91,6 +139,6 @@ Copyright © 2025–2026 Choi Jae-Seong.
 
 <p align="center">
   <a href="https://github.com/JSeong2024/oneul">
-    <img src="/.github/assets/logo_ONEUL_01.png" width="10%" alt="ONEUL">
+    <img src="https://github.com/JSeong2024/oneul/blob/main/.github/assets/logo_ONEUL_01.png" width="10%" alt="ONEUL">
   </a>
 </p>
