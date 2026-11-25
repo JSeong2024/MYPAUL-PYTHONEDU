@@ -764,8 +764,8 @@ sample_files/
 
 ## 8. Reference
 
-- `Automation_Programs.md` — 자료구조, 파일 시스템과 경로, 파일 입출력, 예외 처리 및 자동화 프로그램의 설계
-- `Tkinter_Guide.md` — 기본 위젯, 레이아웃, 이벤트 처리, Treeview, Filedialog 및 데이터 처리 함수와 GUI 연결
+- [`Automation_Programs.md`](Automation_Programs.md) — 자료구조, 파일 시스템과 경로, 파일 입출력, 예외 처리 및 자동화 프로그램의 설계
+- [`Tkinter_Guide.md`](Tkinter_Guide.md) — 기본 위젯, 레이아웃, 이벤트 처리, Treeview, Filedialog 및 데이터 처리 함수와 GUI 연결
 - [Python 공식 문서 — pathlib](https://docs.python.org/ko/3/library/pathlib.html)
 - [Python 공식 문서 — os](https://docs.python.org/ko/3/library/os.html)
 - [Python 공식 문서 — json](https://docs.python.org/ko/3/library/json.html)
