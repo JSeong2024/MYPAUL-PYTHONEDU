@@ -51,27 +51,27 @@ Python의 기본 문법부터 프로그램 설계와 실전 응용까지 단계�
       <td align="center"><code>print()</code>, <code>input()</code>, 형 변환, f-string</td>
     </tr>
     <tr>
-      <td align="center">04</td>
+      <td align="center"><a href="./Chapter-04">04</a></td>
       <td align="center"><strong>Python Data Structures</strong></td>
       <td align="center">List, Tuple, Dictionary, Set, 데이터 접근과 수정</td>
     </tr>
     <tr>
-      <td align="center">05</td>
+      <td align="center"><a href="./Chapter-05">05</a></td>
       <td align="center"><strong>Conditional Statements</strong></td>
       <td align="center"><code>if</code>, <code>elif</code>, <code>else</code>, 조건식과 중첩 조건문</td>
     </tr>
     <tr>
-      <td align="center">06</td>
+      <td align="center"><a href="./Chapter-06">06</a></td>
       <td align="center"><strong>Loops &amp; Iteration</strong></td>
       <td align="center"><code>for</code>, <code>while</code>, <code>range()</code>, 반복 제어</td>
     </tr>
     <tr>
-      <td align="center">07</td>
+      <td align="center"><a href="./Chapter-07">07</a></td>
       <td align="center"><strong>Functions &amp; User-Defined Functions</strong></td>
       <td align="center"><code>def</code>, 매개변수, 반환값, 변수 범위, 함수 분리</td>
     </tr>
     <tr>
-      <td align="center">08</td>
+      <td align="center"><a href="./Chapter-08">08</a></td>
       <td align="center"><strong>Fundamentals Project</strong></td>
       <td align="center">자료구조·조건문·반복문·함수를 활용한 종합 프로젝트</td>
     </tr>
@@ -372,7 +372,7 @@ Hello, Python!
   <br>
   <sub>
     Educational Content ·
-    <a href="../../LICENSE-CONTENT.md">CC BY-NC 4.0</a>
+    <a href="../LICENSE-CONTENT.md">CC BY-NC 4.0</a>
   </sub>
 </p>
 
