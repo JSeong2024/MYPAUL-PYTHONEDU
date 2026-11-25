@@ -19,16 +19,18 @@
 VS Code에서 `hello.py` 파일을 만들고 아래 코드를 저장합니다. 오른쪽 위의 **Run Python File** 버튼을 눌러 실행합니다.
 
 ```python
-print("Hello, Python!")
+print(f"Hello, World!")
 ```
 
 **실행 결과**
 
 ```text
-Hello, Python!
+Hello, World!
 ```
 
-`print()`는 괄호 안의 내용을 화면에 출력합니다. 따옴표 안의 문장을 `"안녕하세요!"`로 바꾸고 다시 실행해 보세요. 결과는 VS Code 아래쪽 터미널에서 볼 수 있습니다.
+`print()`는 괄호 안의 내용을 화면에 출력합니다. 따옴표 안의 문장을 바꿔 `print(f"안녕하세요!")`를 실행해 보세요. 결과는 VS Code 아래쪽 터미널에서 볼 수 있습니다.
+
+> 따옴표 앞에 `f`를 붙인 문자열을 **f-string**이라고 합니다. 챕터 3에서는 f-string에 변수의 값을 넣어 봅니다.
 
 ## References
 
