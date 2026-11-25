@@ -772,5 +772,3 @@ sample_files/
 - [Python 공식 문서 — tkinter](https://docs.python.org/ko/3/library/tkinter.html)
 - [Python 공식 문서 — tkinter.ttk](https://docs.python.org/ko/3/library/tkinter.ttk.html)
 - [Python 공식 문서 — tkinter.filedialog](https://docs.python.org/ko/3/library/dialog.html#module-tkinter.filedialog)
-
-강사가 제공하는 FileManager_Qt는 파일 관리 프로그램의 기능과 사용 흐름을 참고하기 위한 예시입니다. 해당 프로그램의 Qt 기반 디자인, 플로팅 독, 캘린더, AI 비서 등의 전체 기능을 동일하게 구현할 필요는 없습니다. 이번 프로젝트에서는 위에 명시한 기본 사양과 필수 요구사항을 기준으로 자신만의 프로그램을 완성하세요.
