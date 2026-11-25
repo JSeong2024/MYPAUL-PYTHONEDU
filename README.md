@@ -138,7 +138,6 @@ Copyright © 2025–2026 Choi Jae-Seong.
 
 
 <p align="center">
-  <a href="https://github.com/JSeong2024/oneul">
-    <img src="https://github.com/JSeong2024/oneul/blob/main/.github/assets/logo_ONEUL_01.png" width="10%" alt="ONEUL">
-  </a>
+  <img src="https://raw.githubusercontent.com/JSeong2024/oneul/main/.github/assets/logo_ONEUL_01.png"
+       width="10%" alt="ONEUL">
 </p>
