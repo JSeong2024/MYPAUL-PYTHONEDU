@@ -53,22 +53,22 @@ Python의 기본 문법부터 프로그램 설계와 실전 응용까지 단계�
     <tr>
       <td align="center"><a href="./Chapter-04">04</a></td>
       <td align="center"><strong>Data Structures</strong></td>
-      <td align="center">List, Tuple, Dictionary, Set, 데이터 접근과 수정</td>
+      <td align="center">List, Tuple, Dictionary, Set</td>
     </tr>
     <tr>
       <td align="center"><a href="./Chapter-05">05</a></td>
       <td align="center"><strong>Conditional Statements</strong></td>
-      <td align="center"><code>if</code>, <code>elif</code>, <code>else</code>, 조건식과 중첩 조건문</td>
+      <td align="center"><code>if</code>, <code>elif</code>, <code>else</code></td>
     </tr>
     <tr>
       <td align="center"><a href="./Chapter-06">06</a></td>
       <td align="center"><strong>Loops</strong></td>
-      <td align="center"><code>for</code>, <code>while</code>, <code>range()</code>, 반복 제어</td>
+      <td align="center"><code>for</code>, <code>while</code>, <code>range()</code></td>
     </tr>
     <tr>
       <td align="center"><a href="./Chapter-07">07</a></td>
       <td align="center"><strong>User-Defined Functions</strong></td>
-      <td align="center"><code>def</code>, 매개변수, 반환값, 변수 범위, 함수 분리</td>
+      <td align="center"><code>def</code>, 매개변수, <code>return</code></td>
     </tr>
     <tr>
       <td align="center"><a href="./Chapter-08">08</a></td>
